@@ -1,6 +1,6 @@
 import { GAME_DATA } from "../data/generated/game-data.js";
 import { attackForLaborDie } from "./labor/attacks.js";
-import { getLabor, getNode } from "./labor/content.js";
+import { getLabor, getNode, getTracks } from "./labor/content.js";
 import { canPlace } from "./dice/lifecycle.js";
 import { satisfies, type Requirement } from "./requirements/evaluate.js";
 import type { EngineCommand } from "./commands/types.js";
@@ -14,7 +14,7 @@ export interface PlayView {
   game: GameState["game"];
   player: GameState["player"];
   dice: GameState["herculesDice"];
-  labor: { id: string; name: string; dice: Array<{ id: string; health: number; startingHealth: number; trackId: string; nodeId: string; nodeEffect: unknown; status: string }> } | null;
+  labor: { id: string; name: string; dice: Array<{ id: string; health: number; startingHealth: number; trackId: string; nodeId: string; nodeEffect: unknown; status: string }>; tracks: Array<{ id: string; type: string; startId: string; nodes: Array<{ id: string; effect: unknown; next: string[] }> }> } | null;
   mood: { id: string | null; name: string | null; effect: string | null };
   rewards: Array<{ id: string; name: string }>;
   pendingDecision: GameState["pendingDecision"];
@@ -108,7 +108,7 @@ export function getPlayView(state: GameState): PlayView {
     command("resolve", "Resolve assignments", { type: "RESOLVE_ASSIGNMENTS" }, "round");
   }
   if (state.undoStack.length > 0) command("undo", "Undo last deterministic action", { type: "UNDO_DETERMINISTIC" }, "utility");
-  const labor = state.currentLabor ? (() => { const source = getLabor(state.currentLabor!.laborId); return { id: state.currentLabor!.laborId, name: String(source.name ?? state.currentLabor!.laborId), dice: Object.values(state.currentLabor!.laborDice).map(die => ({ ...die, nodeEffect: getNode(state.currentLabor!.laborId, die.trackId, die.nodeId).effect })) }; })() : null;
+  const labor = state.currentLabor ? (() => { const source = getLabor(state.currentLabor!.laborId); const tracks = Object.values(getTracks(state.currentLabor!.laborId)).map(track => ({ id: track.id, type: track.type, startId: track.startId, nodes: Object.values(track.nodes).map(node => ({ id: node.id, effect: node.effect, next: node.next })) })); return { id: state.currentLabor!.laborId, name: String(source.name ?? state.currentLabor!.laborId), dice: Object.values(state.currentLabor!.laborDice).map(die => ({ ...die, nodeEffect: getNode(state.currentLabor!.laborId, die.trackId, die.nodeId).effect })), tracks }; })() : null;
   const mood = GAME_DATA.moods.find(entry => entry.id === state.mood.activeMoodId);
   return { game: state.game, player: state.player, dice: state.herculesDice, labor, mood: { id: state.mood.activeMoodId, name: mood ? String(mood.name) : null, effect: moodEffectDescription(mood as unknown as RecordValue | undefined) }, rewards: state.player.ownedRewardIds.map(id => ({ id, name: rewardName(id) })), pendingDecision: state.pendingDecision, actions, blueAbilities, transitions: state.transitions };
 }
