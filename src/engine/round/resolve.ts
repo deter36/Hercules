@@ -87,6 +87,7 @@ export function resolveRoundDamage(state: GameState): GameState {
 
 export function cleanupRound(state: GameState): GameState {
   const next = structuredClone(state);
+  (next.round as GameState["round"] & { usedBlueAbilityIds?: string[] }).usedBlueAbilityIds = [];
   next.herculesDice = resetRound(next.herculesDice);
   next.round = { rollNumber: next.round.rollNumber, rerollNumber: next.round.rerollNumber, cowsBRerollNumber: next.round.cowsBRerollNumber, effectiveDoubleDieIds: [], derivedContributions: {}, goldPlacements: [], attackAllocations: [], blockedSpirit: 0 };
   next.game.phase = "READY_TO_ROLL";

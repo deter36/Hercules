@@ -48,12 +48,13 @@ const moodEffectDescription = (mood: RecordValue | undefined): string | null => 
 
 function blueActions(state: GameState): { actions: PlayAction[]; abilities: PlayAbility[] } {
   if (state.game.phase !== "BLUE_ABILITY_WINDOW") return { actions: [], abilities: [] };
+  const used = (state.round as GameState["round"] & { usedBlueAbilityIds?: string[] }).usedBlueAbilityIds ?? [];
   const entries: Array<{ id: string; name: string; definition: RecordValue }> = [];
   if (!state.player.removedRewardOrComponentIds.includes("component.bow")) entries.push({ id: "ability.bow.blue", name: String(GAME_DATA.components.bow.name), definition: GAME_DATA.components.bow.blue_ability as unknown as RecordValue });
   if (state.mood.activeMoodId === "mood.ferocious") entries.push({ id: "ability.mood.ferocious.blue", name: "Ferocious", definition: { type: "set_any" } });
   for (const rewardId of state.player.ownedRewardIds.filter(id => activeReward(state, id))) for (const ability of records(findReward(rewardId)?.blue)) entries.push({ id: String(ability.id), name: rewardName(rewardId), definition: ability });
   const actions: PlayAction[] = [];
-  for (const entry of entries) for (const source of eligibleDice(state).filter(die => !die.blueUsed)) {
+  for (const entry of entries.filter(entry => !used.includes(entry.id))) for (const source of eligibleDice(state).filter(die => !die.blueUsed)) {
     const type = String(entry.definition.type ?? entry.definition.operation ?? "");
     if (entry.id === "ability.reward.L05.A.blue") for (const target of eligibleDice(state).filter(die => die.id !== source.id)) for (let face = 1; face <= 6; face += 1) actions.push({ id: `${entry.id}:${source.id}:${target.id}:${face}`, label: `${entry.name}: ${source.id} sets ${target.id} to ${face}`, group: "blue", command: { type: "USE_COWS_A", sourceDieId: source.id, targetDieId: target.id, face } });
     else if (entry.id === "ability.reward.L05.B.blue") for (const target of eligibleDice(state).filter(die => die.id !== source.id)) actions.push({ id: `${entry.id}:${source.id}:${target.id}`, label: `${entry.name}: reroll ${target.id}`, group: "blue", command: { type: "USE_COWS_B", sourceDieId: source.id, rerollDieIds: [target.id] } });

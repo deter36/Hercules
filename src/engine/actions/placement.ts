@@ -8,6 +8,9 @@ import type { GameState } from "../state/types.js";
 import { rerollFromRng } from "../round/resolve.js";
 
 type RecordValue = Record<string, unknown>;
+type RoundAbilityUseState = GameState["round"] & { usedBlueAbilityIds?: string[] };
+const usedBlueAbilities = (state: GameState): string[] => (state.round as RoundAbilityUseState).usedBlueAbilityIds ?? [];
+const markBlueAbilityUsed = (state: GameState, abilityId: string): void => { const round = state.round as RoundAbilityUseState; (round.usedBlueAbilityIds ??= []).push(abilityId); };
 const allRewards = (): RecordValue[] => GAME_DATA.labors.flatMap((labor) => (labor.rewards as unknown as RecordValue[] | undefined) ?? []);
 const reward = (id: string): RecordValue => { const found = allRewards().find((entry) => entry.id === id); if (!found) throw new Error(`Unknown Reward ${id}.`); return found; };
 const disabled = (state: GameState, rewardId: string): boolean => state.player.temporaryEffects.some((effect) => typeof effect === "object" && effect !== null && (effect as RecordValue).type === "disabled_reward" && (effect as RecordValue).rewardId === rewardId);
@@ -17,10 +20,12 @@ const ability = (state: GameState, id: string, color: "blue" | "gold"): RecordVa
 export function useBlueAbility(state: GameState, abilityId: string, sourceDieId: string, target?: number | string): GameState {
   if (state.game.phase !== "BLUE_ABILITY_WINDOW") throw new Error("Blue abilities are only legal in the blue window.");
   const definition = ability(state, abilityId, "blue");
+  if (usedBlueAbilities(state).includes(abilityId)) throw new Error("Blue ability is already used this roll.");
   const source = state.herculesDice[sourceDieId];
   if (!source || !canPlace(source) || source.face === null) throw new Error("Blue source die is not eligible.");
   if (source.blueUsed) throw new Error("Blue source die has already been used this roll.");
   const next = structuredClone(state);
+  markBlueAbilityUsed(next, abilityId);
   if(typeof definition.spirit_cost==="number"){if(typeof next.player.spirit!=="number"||next.player.spirit<definition.spirit_cost)throw new Error("Insufficient Spirit for blue ability.");next.player.spirit=next.player.spirit===definition.spirit_cost?"SKULL":next.player.spirit-definition.spirit_cost;if(next.player.spirit==="SKULL"){next.game.phase="DEFEAT";next.game.result="defeat";return next;}}
   if (definition.type === "temporary_derived_contribution") {
     const id = `${sourceDieId}-D${Object.values(next.round.derivedContributions).filter((entry) => entry.sourceDieId === sourceDieId).length + 1}`;
@@ -70,11 +75,13 @@ export function allocateAttack(state: GameState, targetId: string, dieIds: strin
 export function useCowsA(state: GameState, sourceDieId: string, targetDieId: string, face: number): GameState {
   if (state.game.phase !== "BLUE_ABILITY_WINDOW" || !Number.isInteger(face) || face < 1 || face > 6) throw new Error("Cows A requires a valid blue-window target face.");
   const definition = ability(state, "ability.reward.L05.A.blue", "blue");
+  if (usedBlueAbilities(state).includes(definition.id as string)) throw new Error("Blue ability is already used this roll.");
   if (definition.type !== "sacrifice_source_set_other_any") throw new Error("Cows A source data is invalid.");
   const source = state.herculesDice[sourceDieId], target = state.herculesDice[targetDieId];
   if (!source || !target || sourceDieId === targetDieId || !canPlace(source) || source.face === null || target.face === null) throw new Error("Cows A requires distinct eligible source and rolled target dice.");
   if (source.blueUsed) throw new Error("Cows A source already used a blue space.");
   const next = structuredClone(state);
+  markBlueAbilityUsed(next, definition.id as string);
   next.herculesDice[sourceDieId] = { ...source, blueUsed: true, spent: true, rollable: false, placement: { kind: "blue", abilityId: definition.id } };
   next.herculesDice[targetDieId] = { ...target, face, history: [...target.history, { type: "cows_a_set_any", sourceDieId }] };
   return next;
@@ -83,12 +90,14 @@ export function useCowsA(state: GameState, sourceDieId: string, targetDieId: str
 export function useCowsB(state: GameState, sourceDieId: string, rerollDieIds: string[]): GameState {
   if (state.game.phase !== "BLUE_ABILITY_WINDOW" || rerollDieIds.length === 0) throw new Error("Cows B requires one or more reroll targets in the blue window.");
   const definition = ability(state, "ability.reward.L05.B.blue", "blue");
+  if (usedBlueAbilities(state).includes(definition.id as string)) throw new Error("Blue ability is already used this roll.");
   if (definition.type !== "place_source_reroll_any") throw new Error("Cows B source data is invalid.");
   const source = state.herculesDice[sourceDieId];
   if (!source || !canPlace(source) || source.face === null || source.blueUsed) throw new Error("Cows B source is not eligible.");
   const marked = structuredClone(state);
+  markBlueAbilityUsed(marked, definition.id as string);
   marked.herculesDice[sourceDieId] = { ...source, blueUsed: true, placement: { kind: "blue", abilityId: definition.id } };
   return rerollFromRng(marked, rerollDieIds, "cows_b");
 }
 
-export function useRerollOne(state: GameState, abilityId: string, dieId: string): GameState {const definition=ability(state,abilityId,"blue");if(definition.type!=="reroll_one")throw new Error("This ability is not a certified reroll-one effect.");const die=state.herculesDice[dieId];if(!die||!canPlace(die)||die.face===null||die.blueUsed)throw new Error("Reroll target is not eligible.");const marked=structuredClone(state);marked.herculesDice[dieId]={...die,blueUsed:true,placement:{kind:"blue",abilityId}};return rerollFromRng(marked,[dieId]);}
+export function useRerollOne(state: GameState, abilityId: string, dieId: string): GameState {const definition=ability(state,abilityId,"blue");if(definition.type!=="reroll_one")throw new Error("This ability is not a certified reroll-one effect.");if(usedBlueAbilities(state).includes(abilityId))throw new Error("Blue ability is already used this roll.");const die=state.herculesDice[dieId];if(!die||!canPlace(die)||die.face===null||die.blueUsed)throw new Error("Reroll target is not eligible.");const marked=structuredClone(state);markBlueAbilityUsed(marked,abilityId);marked.herculesDice[dieId]={...die,blueUsed:true,placement:{kind:"blue",abilityId}};return rerollFromRng(marked,[dieId]);}
