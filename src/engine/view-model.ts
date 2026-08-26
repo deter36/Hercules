@@ -14,7 +14,7 @@ export interface PlayView {
   game: GameState["game"];
   player: GameState["player"];
   dice: GameState["herculesDice"];
-  labor: { id: string; name: string; dice: Array<{ id: string; health: number; startingHealth: number; trackId: string; nodeId: string; nodeEffect: unknown; status: string }>; tracks: Array<{ id: string; type: string; startId: string; nodes: Array<{ id: string; effect: unknown; next: string[] }> }> } | null;
+  labor: { id: string; name: string; dice: Array<{ id: string; health: number; startingHealth: number; trackId: string; nodeId: string; nodeEffect: unknown; status: string; attack: string }>; tracks: Array<{ id: string; type: string; startId: string; nodes: Array<{ id: string; effect: unknown; next: string[] }> }> } | null;
   mood: { id: string | null; name: string | null; effect: string | null };
   rewards: Array<{ id: string; name: string }>;
   pendingDecision: GameState["pendingDecision"];
@@ -30,6 +30,7 @@ const activeReward = (state: GameState, id: string): boolean => !state.player.re
 const eligibleDice = (state: GameState) => Object.values(state.herculesDice).filter(die => canPlace(die) && die.face !== null);
 const combinations = <T>(items: T[]): T[][] => items.flatMap((item, index) => [[item], ...combinations(items.slice(index + 1)).map(rest => [item, ...rest])]);
 const validPhysicalSets = (state: GameState, requirement: Requirement): string[][] => combinations(eligibleDice(state)).filter(dice => satisfies(requirement, dice.flatMap(die => state.round.effectiveDoubleDieIds.includes(die.id) ? [die.face!, die.face!] : [die.face!]))).map(dice => dice.map(die => die.id));
+const requirementLabel = (r: Requirement): string => r.type === "matching_pair" ? "2 matching dice" : r.type === "any_die" ? "any 1 die" : r.type === "exact_die" ? `one ${r.value}` : r.type === "matching_triple" ? "3 matching dice" : r.type.replaceAll("_", " ");
 const moodEffectDescription = (mood: RecordValue | undefined): string | null => {
   if (!mood) return null;
   const effect = mood.effect as RecordValue | undefined;
@@ -109,7 +110,7 @@ export function getPlayView(state: GameState): PlayView {
     command("resolve", "Resolve assignments", { type: "RESOLVE_ASSIGNMENTS" }, "round");
   }
   if (state.undoStack.length > 0) command("undo", "Undo last deterministic action", { type: "UNDO_DETERMINISTIC" }, "utility");
-  const labor = state.currentLabor ? (() => { const source = getLabor(state.currentLabor!.laborId); const tracks = Object.values(getTracks(state.currentLabor!.laborId)).map(track => ({ id: track.id, type: track.type, startId: track.startId, nodes: Object.values(track.nodes).map(node => ({ id: node.id, effect: node.effect, next: node.next })) })); return { id: state.currentLabor!.laborId, name: String(source.name ?? state.currentLabor!.laborId), dice: Object.values(state.currentLabor!.laborDice).map(die => ({ ...die, nodeEffect: getNode(state.currentLabor!.laborId, die.trackId, die.nodeId).effect })), tracks }; })() : null;
+  const labor = state.currentLabor ? (() => { const source = getLabor(state.currentLabor!.laborId); const tracks = Object.values(getTracks(state.currentLabor!.laborId)).map(track => ({ id: track.id, type: track.type, startId: track.startId, nodes: Object.values(track.nodes).map(node => ({ id: node.id, effect: node.effect, next: node.next })) })); return { id: state.currentLabor!.laborId, name: String(source.name ?? state.currentLabor!.laborId), dice: Object.values(state.currentLabor!.laborDice).map(die => ({ ...die, nodeEffect: getNode(state.currentLabor!.laborId, die.trackId, die.nodeId).effect, attack: requirementLabel(attackForLaborDie(state.currentLabor!.laborId, die.id).requirement) })), tracks }; })() : null;
   const mood = GAME_DATA.moods.find(entry => entry.id === state.mood.activeMoodId);
   return { game: state.game, player: state.player, dice: state.herculesDice, labor, mood: { id: state.mood.activeMoodId, name: mood ? String(mood.name) : null, effect: moodEffectDescription(mood as unknown as RecordValue | undefined) }, rewards: state.player.ownedRewardIds.map(id => ({ id, name: rewardName(id) })), pendingDecision: state.pendingDecision, actions, blueAbilities, transitions: state.transitions };
 }

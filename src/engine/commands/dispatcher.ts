@@ -92,7 +92,10 @@ export function submit(state: GameState, command: EngineCommand): EngineResult {
   }
   if (next.game.phase === "LABOR_TRANSITION" && !next.pendingDecision) next = completeLaborTransition(next);
   const after = hash(next);
-  const transition: TransitionRecord = { index: next.transitionIndex++, type, source: { kind: "command", id: command.type }, payload: {}, beforeHash: before, afterHash: after };
+  const payload: Record<string, unknown> = { command, spirit: { before: state.player.spirit, after: next.player.spirit }, divinity: { before: state.player.divinity, after: next.player.divinity } };
+  if (command.type === "PLACE_GOLD") payload.goldAbilityId = command.abilityId;
+  if (command.type === "ALLOCATE_ATTACK") payload.attack = { targetId: command.targetId, dieIds: command.dieIds };
+  const transition: TransitionRecord = { index: next.transitionIndex++, type, source: { kind: "command", id: command.type }, payload, beforeHash: before, afterHash: after };
   next.transitions.push(structuredClone(transition));
   assertValidState(next, type);
   return { state: next, transitions: [transition], pendingDecision: next.pendingDecision, rngEvents: next.rng.ledger, validation: validateState(next) };
