@@ -1,0 +1,30 @@
+{
+  "name": "hercules-12-labors",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.13.0"
+  },
+  "scripts": {
+    "data:generate": "tsc -p tsconfig.tools.json && node .build-tools/generate.js",
+    "data:check": "pnpm data:generate -- --check",
+    "dev": "vite",
+    "preview": "vite preview",
+    "build": "pnpm data:generate && tsc -p tsconfig.json && vite build",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "pnpm build && node --test dist/test/**/*.test.js"
+  },
+  "devDependencies": {
+    "@types/node": "22.19.19",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.5",
+    "@vitejs/plugin-react": "^6.1.0",
+    "typescript": "5.9.3",
+    "vite": "^8.2.2"
+  },
+  "dependencies": {
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8"
+  }
+}

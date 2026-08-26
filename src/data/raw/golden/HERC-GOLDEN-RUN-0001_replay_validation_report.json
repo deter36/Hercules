@@ -1,0 +1,59 @@
+{
+  "artifact_type": "HerculesGoldenRunReplayValidation",
+  "schema_version": "golden_run_replay_validation_v1",
+  "run_id": "HERC-GOLDEN-RUN-0001",
+  "result": "PASS",
+  "replay_mode": "strict_current_spec_after_historical_script_normalization",
+  "source_seed": "HERC-GOLDEN-RUN-0001",
+  "difficulty": "Human",
+  "rng": {
+    "algorithm": "SHA256_COUNTER_V1",
+    "policy": "HERC-RNG-v3",
+    "ledger_events_total": 174,
+    "committed_valid": 166,
+    "orphaned_execution_error": 8,
+    "orphaned_range": [
+      18,
+      25
+    ],
+    "rng_recompute_mismatches": 0,
+    "final_next_event": 174
+  },
+  "replay_inputs": {
+    "original_inputs": 100,
+    "normalized_inputs": 112,
+    "migration_derived_resolve_assignments": 12,
+    "player_tactical_inputs_changed": 0
+  },
+  "checkpoint_validation": {
+    "completed_labor_checkpoints_compared": 5,
+    "mismatches": 0,
+    "validated_fields": [
+      "Spirit",
+      "Divinity",
+      "owned Rewards",
+      "Hercules die availability/broken state",
+      "ordered Mood deck",
+      "next_event"
+    ]
+  },
+  "terminal_validation": {
+    "expected_result": "loss_at_Stymphalian_Birds",
+    "actual_result": "loss_at_Stymphalian_Birds",
+    "spirit": 8,
+    "divinity": "3/10",
+    "next_event": 174,
+    "failed_labor_die": "LABOR6_C17",
+    "failed_node": "L6_C17_N3",
+    "terminal_field_checks": 60,
+    "terminal_field_mismatches": 0
+  },
+  "historical_reconciliation_preserved": [
+    "Events 18-25 remain orphaned_execution_error and are never reused.",
+    "Event 153 uses computed shuffle result j=0.",
+    "Cannot Block uses v0.8 round-start snapshot semantics.",
+    "100 Immortal Cows B source die remains usable after blue use.",
+    "Terminal Spirit is canonical 8."
+  ],
+  "conclusion": "HERC-GOLDEN-RUN-0001 is deterministically reproducible from the seed and recorded player inputs, after normalization of historical implicit assignment-finalization into explicit Resolve Assignments actions."
+}

@@ -1,0 +1,2 @@
+import assert from "node:assert/strict"; import test from "node:test"; import { advance } from "../../src/engine/tracks/move.js";
+test("track movement preserves deterministic and player-choice boundaries",()=>{assert.deepEqual(advance({id:"a",effect:null,next:["b"]}),{kind:"moved",nodeId:"b"});assert.deepEqual(advance({id:"a",effect:null,next:["b","c"]}),{kind:"choose_branch",options:["b","c"]});assert.deepEqual(advance({id:"skull",effect:{failure:"skull"},next:[]}),{kind:"terminal"});assert.throws(()=>advance({id:"gap",effect:null,next:[]}),/no verified outgoing edge/);});

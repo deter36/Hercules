@@ -1,0 +1,2 @@
+import assert from"node:assert/strict";import test from"node:test";import{laborDice}from"../../src/engine/labor/content.js";import{attackForLaborDie}from"../../src/engine/labor/attacks.js";
+test("every Labor die has an executable structured attack definition",()=>{for(let n=1;n<=12;n++){const laborId=`labor.L${String(n).padStart(2,"0")}`;for(const die of laborDice(laborId)){const attack=attackForLaborDie(laborId,die.id as string);assert.ok(attack.requirement);assert.equal(attack.damage,1);}}});

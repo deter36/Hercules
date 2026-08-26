@@ -1,0 +1,3 @@
+import assert from "node:assert/strict";import test from "node:test";import{modifyInitialRoll,moodTemporaryDiceDelta,setAsideForMood}from"../../src/engine/moods/roll-modifiers.js";
+test("Melancholic and Enraged modify only initial rolls",()=>{assert.equal(modifyInitialRoll(1,{type:"initial_roll_delta",value:-1,min:1}),1);assert.equal(modifyInitialRoll(6,{type:"initial_roll_delta",value:1,max:6}),6);assert.equal(setAsideForMood(1,{type:"set_aside_roll_face",face:1,applies_to_rerolls:true},true),true);});
+test("temporary Mood dice changes are explicit",()=>{assert.equal(moodTemporaryDiceDelta({type:"temporary_dice_delta",value:1}),1);assert.equal(moodTemporaryDiceDelta({type:"temporary_dice_delta",value:-2}),-2);});

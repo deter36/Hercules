@@ -1,0 +1,3 @@
+import assert from "node:assert/strict"; import test from "node:test"; import { breakDie,canPlace,resetRound } from "../../src/engine/dice/lifecycle.js"; import { createInitialState } from "../../src/engine/state/create.js";
+test("blue-used alone does not prevent placement",()=>{const d=createInitialState("human","dice").herculesDice.H1;d.blueUsed=true;assert.equal(canPlace(d),true);});
+test("broken dice are unavailable and cleanup preserves break",()=>{const d=breakDie(createInitialState("human","dice").herculesDice.H1);assert.equal(canPlace(d),false);assert.equal(resetRound({H1:d}).H1.broken,true);});

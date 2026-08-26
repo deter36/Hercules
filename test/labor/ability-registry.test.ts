@@ -1,0 +1,2 @@
+import assert from"node:assert/strict";import test from"node:test";import{GAME_DATA}from"../../src/data/generated/game-data.js";import{resolveAbilityType}from"../../src/engine/abilities/registry.js";
+test("every verified blue ability has an explicit engine handler class",()=>{for(const labor of GAME_DATA.labors){for(const reward of labor.rewards){for(const ability of reward.blue)assert.ok(resolveAbilityType(ability as unknown as Record<string,unknown>));}}});

@@ -1,0 +1,272 @@
+{
+  "schema_version": "hercules_test_fixtures_v4",
+  "notes": "Starter machine-readable fixtures; Codex should expand each with full canonical pre/post state using engine types.",
+  "fixtures": [
+    {
+      "id": "F001",
+      "name": "labor_die_zero_becomes_inactive",
+      "expected": [
+        "LABOR_DAMAGE_APPLIED",
+        "LABOR_DIE_DEFEATED",
+        "LABOR_DEFEAT_CHECK"
+      ]
+    },
+    {
+      "id": "F002",
+      "name": "advance_all_excludes_defeated",
+      "expected": [
+        "LABOR_DIE_ADVANCED"
+      ]
+    },
+    {
+      "id": "F004",
+      "name": "cannot_block_nonretroactive",
+      "expected_round_snapshot": false
+    },
+    {
+      "id": "F005",
+      "name": "cannot_block_at_round_start",
+      "expected_round_snapshot": true
+    },
+    {
+      "id": "F009",
+      "name": "blood_amazons_a_derived",
+      "expected_derived_entity": true
+    },
+    {
+      "id": "F010",
+      "name": "cows_b_source_remains_usable",
+      "expected": {
+        "blueUsed": true,
+        "spent": false,
+        "locked": false
+      }
+    },
+    {
+      "id": "F013",
+      "name": "zeus_redraw_no_rng",
+      "expected_event_delta": 0
+    },
+    {
+      "id": "F019",
+      "name": "resolve_assignments_no_remaining_dice",
+      "expected_reason": "no_remaining_dice"
+    },
+    {
+      "id": "F021",
+      "name": "resolve_assignments_effectless_block",
+      "expected_reason": "only_effectless_placements"
+    },
+    {
+      "id": "F022",
+      "name": "resolve_assignments_meaningful_block",
+      "expected_pending": "CONFIRM_RESOLVE_WITH_UNUSED_MEANINGFUL_PLACEMENT"
+    },
+    {
+      "id": "F030",
+      "name": "apples_b3_b4_direction",
+      "legal": [
+        "B3->B4"
+      ],
+      "illegal": [
+        "B4->B3"
+      ]
+    },
+    {
+      "id": "F032",
+      "name": "cerberus_exact18_multi_die",
+      "legal_values": [
+        6,
+        5,
+        4,
+        3
+      ]
+    },
+    {
+      "id": "F036",
+      "name": "hind_defeat_when_usable_dice_below_two",
+      "preconditions": {
+        "labor": "labor.L03",
+        "hind_undefeated": true,
+        "usable_hercules_dice_before_break": 2
+      },
+      "action": "break_one_usable_hercules_die",
+      "expected": {
+        "usable_hercules_dice_after_break": 1,
+        "result": "defeat",
+        "cause": "HIND_USABLE_DICE_BELOW_2",
+        "rng_event_delta": 0
+      },
+      "status": "provisional_owner_approved"
+    },
+    {
+      "id": "F037",
+      "name": "cretan_bull_single_logical_health_entity",
+      "expected": {
+        "logical_target_id": "labor.L07.d1",
+        "start_health": 12,
+        "after_one_damage": 11
+      }
+    },
+    {
+      "id": "F038",
+      "name": "cretan_bull_advances_once",
+      "expected": {
+        "advance_transition_count": 1
+      }
+    },
+    {
+      "id": "F039",
+      "name": "cretan_bull_healing_cap_12",
+      "expected": {
+        "health_after_heal": 12
+      }
+    },
+    {
+      "id": "F040",
+      "name": "cretan_bull_stack_not_targetable",
+      "expected": {
+        "legal_target_ids": [
+          "labor.L07.d1"
+        ],
+        "physical_stack_target_count": 0
+      }
+    },
+    {
+      "id": "F041",
+      "name": "battered_highest_id_removed",
+      "preconditions": {
+        "persistent_pool": [
+          "H1",
+          "H2",
+          "H3",
+          "H4",
+          "H5",
+          "H6"
+        ]
+      },
+      "effect": {
+        "temporary_dice_delta": -1
+      },
+      "expected": {
+        "usable": [
+          "H1",
+          "H2",
+          "H3",
+          "H4",
+          "H5"
+        ],
+        "temporarily_unavailable": [
+          "H6"
+        ],
+        "pending_decision": null
+      }
+    },
+    {
+      "id": "F042",
+      "name": "atlas_highest_two_ids_removed",
+      "preconditions": {
+        "persistent_pool": [
+          "H1",
+          "H2",
+          "H3",
+          "H4",
+          "H5",
+          "H6",
+          "H7",
+          "H8"
+        ]
+      },
+      "effect": {
+        "temporary_dice_delta": -2
+      },
+      "expected": {
+        "usable": [
+          "H1",
+          "H2",
+          "H3",
+          "H4",
+          "H5",
+          "H6"
+        ],
+        "temporarily_unavailable": [
+          "H7",
+          "H8"
+        ]
+      }
+    },
+    {
+      "id": "F043",
+      "name": "resolute_lowest_unused_id_added",
+      "preconditions": {
+        "persistent_pool": [
+          "H1",
+          "H2",
+          "H3",
+          "H4",
+          "H5"
+        ]
+      },
+      "effect": {
+        "temporary_dice_delta": 1
+      },
+      "expected": {
+        "usable": [
+          "H1",
+          "H2",
+          "H3",
+          "H4",
+          "H5",
+          "H6"
+        ],
+        "temporary_inclusion": [
+          "H6"
+        ]
+      }
+    },
+    {
+      "id": "F044",
+      "name": "abderus_lose_die_branch_highest_id_removed",
+      "preconditions": {
+        "usable": [
+          "H1",
+          "H2",
+          "H3",
+          "H4",
+          "H5",
+          "H6",
+          "H7"
+        ]
+      },
+      "input": "choose_lose_one_die_option",
+      "expected": {
+        "temporarily_unavailable": [
+          "H7"
+        ],
+        "additional_die_choice": false,
+        "rng_event_delta": 0
+      }
+    },
+    {
+      "id": "F045",
+      "name": "temporary_pool_restores_next_labor",
+      "expected": {
+        "restore_base_pool_before_new_mood_effects": true
+      }
+    }
+  ],
+  "golden": {
+    "run_id": "HERC-GOLDEN-RUN-0001",
+    "seed": "HERC-GOLDEN-RUN-0001",
+    "difficulty": "human",
+    "expected_result": "loss_at_Stymphalian_Birds",
+    "final_spirit": 8,
+    "final_divinity": "3/10",
+    "final_next_event": 174,
+    "orphaned_range": [
+      18,
+      25
+    ],
+    "event_153_expected_j": 0
+  }
+}

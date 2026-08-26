@@ -1,0 +1,3 @@
+import assert from "node:assert/strict";import test from "node:test";import { getTracks,laborDice } from "../../src/engine/labor/content.js";
+test("all Labor tracks normalize to stable nodes and edges",()=>{for(let n=1;n<=12;n++){const id=`labor.L${String(n).padStart(2,"0")}`;for(const track of Object.values(getTracks(id))){assert.ok(track.nodes[track.startId]);for(const node of Object.values(track.nodes))for(const next of node.next)assert.ok(track.nodes[next]);}}});
+test("Cretan Bull and Apples retain their corrected logical representations",()=>{const bull=laborDice("labor.L07");assert.equal(bull.length,1);assert.equal(bull[0].start_health,12);const apples=laborDice("labor.L11");assert.deepEqual(apples.map(d=>d.track_id),["track.L11","track.L11"]);});

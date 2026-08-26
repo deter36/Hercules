@@ -1,0 +1,2 @@
+import assert from "node:assert/strict"; import test from "node:test"; import { applySimultaneous } from "../../src/engine/resources/resolve.js";
+test("resources net simultaneous effects before cap",()=>{assert.equal(applySimultaneous(15,[3,-2],17,"SKULL"),16);assert.equal(applySimultaneous(17,[3],17,"SKULL"),17);assert.equal(applySimultaneous(17,[-1],17,"SKULL"),16);assert.equal(applySimultaneous(9,[2,-1],10,"TOP"),10);assert.equal(applySimultaneous(2,[-3],17,"SKULL"),"SKULL");});

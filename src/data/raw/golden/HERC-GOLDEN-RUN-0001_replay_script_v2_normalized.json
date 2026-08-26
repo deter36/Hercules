@@ -1,0 +1,1200 @@
+{
+  "artifact_type": "HerculesReplayScript",
+  "schema_version": "hercules_replay_script_v2_normalized",
+  "run_id": "HERC-GOLDEN-RUN-0001",
+  "seed": "HERC-GOLDEN-RUN-0001",
+  "difficulty": "Human",
+  "rng_policy": "HERC-RNG-v3",
+  "algorithm": "SHA256_COUNTER_V1",
+  "expected_final_next_event": 174,
+  "expected_result": "loss_at_Stymphalian_Birds",
+  "id_map": {
+    "id_schema": "golden_run_local_v1",
+    "note": "These are run-local stable implementation IDs for replay. Source documents do not provide canonical IDs for every linear track node.",
+    "rewards": {
+      "REWARD_L1_IMPENETRABLE_HIDE": "Impenetrable Hide",
+      "REWARD_L2_VENOMOUS_BLOOD": "Venomous Blood",
+      "REWARD_L3_BLESSING_OF_ARTEMIS": "Blessing of Artemis",
+      "REWARD_L4_REGRET_A": "Regret A",
+      "REWARD_L5_100_IMMORTAL_COWS_B": "100 Immortal Cows B",
+      "COMPONENT_BOW_OF_HERCULES": "Bow of Hercules"
+    },
+    "labor_dice": {
+      "LABOR1_D1": "Nemean Lion labor die",
+      "LABOR2_D1": "Lernean Hydra labor die",
+      "LABOR3_D1": "Ceryneian Hind labor die",
+      "LABOR4_L": "Erymanthian Boar left labor die",
+      "LABOR4_R": "Erymanthian Boar right labor die",
+      "LABOR5_A": "Augean Stables track A labor die",
+      "LABOR5_B": "Augean Stables track B labor die",
+      "LABOR6_C14": "Stymphalian Birds card/track 14 labor die",
+      "LABOR6_C15": "Stymphalian Birds card/track 15 labor die",
+      "LABOR6_C16": "Stymphalian Birds card/track 16 labor die",
+      "LABOR6_C17": "Stymphalian Birds card/track 17 labor die"
+    },
+    "labor6_nodes": {
+      "L6_C14_N0": "Start",
+      "L6_C14_N1": "Lose 1 Spirit",
+      "L6_C14_N2": "Lose 1 Spirit",
+      "L6_C14_N3": "Skull",
+      "L6_C15_N0": "Start",
+      "L6_C15_N1": "Cannot Block",
+      "L6_C15_N2": "Lose 2 Spirit",
+      "L6_C15_N3": "Lose 2 Spirit",
+      "L6_C15_N4": "Skull",
+      "L6_C16_N0": "Start",
+      "L6_C16_N1": "Lose 1 Spirit",
+      "L6_C16_N2": "Advance all other Labor dice 1 space",
+      "L6_C16_N3": "Lose 2 Spirit",
+      "L6_C16_N4": "Skull",
+      "L6_C17_N0": "Start",
+      "L6_C17_N1": "Lose 1 Spirit",
+      "L6_C17_N2": "Lose 1 Spirit",
+      "L6_C17_N3": "Skull"
+    }
+  },
+  "preconditions": {
+    "use_current_project_sources": true,
+    "initial_mood_input_order": [
+      "Melancholic",
+      "Resolute",
+      "Battered",
+      "Ferocious",
+      "Enraged",
+      "Haunted A",
+      "Haunted B",
+      "Haunted C",
+      "Haunted D"
+    ],
+    "reward_variant_naming": "A/B/C/D left-to-right",
+    "engine_corrections_required_for_replay": [
+      "Use v0.8 round-start cannot_block_this_round snapshot semantics.",
+      "100 Immortal Cows B source die remains usable for later gold/attack placement; blue_used != spent.",
+      "Use actual event 153 shuffle result j=0.",
+      "Preserve RNG indices 18-25 as orphaned_execution_error; next legitimate event after event 17 is 26."
+    ]
+  },
+  "inputs": [
+    {
+      "seq": 1,
+      "labor": 0,
+      "roll": null,
+      "action": "approve_initial_mood_input_order",
+      "order": [
+        "Melancholic",
+        "Resolute",
+        "Battered",
+        "Ferocious",
+        "Enraged",
+        "Haunted A",
+        "Haunted B",
+        "Haunted C",
+        "Haunted D"
+      ]
+    },
+    {
+      "seq": 2,
+      "labor": 1,
+      "roll": 1,
+      "action": "roll"
+    },
+    {
+      "seq": 3,
+      "labor": 1,
+      "roll": 1,
+      "action": "use_blue",
+      "ability_id": "COMPONENT_BOW_OF_HERCULES:BLUE",
+      "die_id": "H1",
+      "operation": {
+        "from": 1,
+        "to": 6
+      }
+    },
+    {
+      "seq": 4,
+      "labor": 1,
+      "roll": 1,
+      "action": "assign_attack",
+      "target_id": "LABOR1_D1",
+      "dice": [
+        "H1",
+        "H3",
+        "H4"
+      ],
+      "attack_instances": 3
+    },
+    {
+      "seq": 5,
+      "labor": 1,
+      "roll": 1,
+      "action": "resolve_assignments",
+      "migration_derived": true,
+      "derivation_reason": "Historical golden-run transcript advanced after assignment. Normalized to current v0.8 explicit Resolve Assignments semantics."
+    },
+    {
+      "seq": 6,
+      "labor": 1,
+      "roll": 2,
+      "action": "roll"
+    },
+    {
+      "seq": 7,
+      "labor": 1,
+      "roll": 2,
+      "action": "use_blue",
+      "ability_id": "COMPONENT_BOW_OF_HERCULES:BLUE",
+      "die_id": "H2",
+      "operation": {
+        "from": 1,
+        "to": 6
+      }
+    },
+    {
+      "seq": 8,
+      "labor": 1,
+      "roll": 2,
+      "action": "assign_attack",
+      "target_id": "LABOR1_D1",
+      "dice": [
+        "H2",
+        "H3",
+        "H5"
+      ],
+      "attack_instances": 3
+    },
+    {
+      "seq": 9,
+      "labor": 1,
+      "roll": 2,
+      "action": "resolve_assignments",
+      "migration_derived": true,
+      "derivation_reason": "Historical golden-run transcript advanced after assignment. Normalized to current v0.8 explicit Resolve Assignments semantics."
+    },
+    {
+      "seq": 10,
+      "labor": 2,
+      "roll": 1,
+      "action": "roll"
+    },
+    {
+      "seq": 11,
+      "labor": 2,
+      "roll": 1,
+      "action": "use_blue",
+      "ability_id": "COMPONENT_BOW_OF_HERCULES:BLUE",
+      "die_id": "H2",
+      "operation": {
+        "from": 1,
+        "to": 6
+      }
+    },
+    {
+      "seq": 12,
+      "labor": 2,
+      "roll": 1,
+      "action": "use_blue",
+      "ability_id": "REWARD_L1_IMPENETRABLE_HIDE:BLUE",
+      "die_id": "H4",
+      "operation": {
+        "from": 3,
+        "to": 6
+      }
+    },
+    {
+      "seq": 13,
+      "labor": 2,
+      "roll": 1,
+      "action": "assign_attack",
+      "target_id": "LABOR2_D1",
+      "dice": [
+        "H2",
+        "H4",
+        "H5"
+      ],
+      "attack_instances": 3
+    },
+    {
+      "seq": 14,
+      "labor": 2,
+      "roll": 1,
+      "action": "place_gold",
+      "ability_id": "REWARD_L1_IMPENETRABLE_HIDE:GOLD",
+      "dice": [
+        "H1"
+      ]
+    },
+    {
+      "seq": 15,
+      "labor": 2,
+      "roll": 1,
+      "action": "resolve_assignments",
+      "migration_derived": true,
+      "derivation_reason": "Historical golden-run transcript advanced after assignment. Normalized to current v0.8 explicit Resolve Assignments semantics."
+    },
+    {
+      "seq": 16,
+      "labor": 2,
+      "roll": 2,
+      "action": "roll"
+    },
+    {
+      "seq": 17,
+      "labor": 2,
+      "roll": 2,
+      "action": "use_blue",
+      "ability_id": "COMPONENT_BOW_OF_HERCULES:BLUE",
+      "die_id": "H2",
+      "operation": {
+        "from": 5,
+        "to": 6
+      }
+    },
+    {
+      "seq": 18,
+      "labor": 2,
+      "roll": 2,
+      "action": "use_blue",
+      "ability_id": "REWARD_L1_IMPENETRABLE_HIDE:BLUE",
+      "die_id": "H5",
+      "operation": {
+        "from": 3,
+        "to": 6
+      }
+    },
+    {
+      "seq": 19,
+      "labor": 2,
+      "roll": 2,
+      "action": "assign_attack",
+      "target_id": "LABOR2_D1",
+      "dice": [
+        "H2",
+        "H3",
+        "H4",
+        "H5"
+      ],
+      "attack_instances": 4
+    },
+    {
+      "seq": 20,
+      "labor": 2,
+      "roll": 2,
+      "action": "resolve_assignments",
+      "migration_derived": true,
+      "derivation_reason": "Historical golden-run transcript advanced after assignment. Normalized to current v0.8 explicit Resolve Assignments semantics."
+    },
+    {
+      "seq": 21,
+      "labor": 3,
+      "roll": 1,
+      "action": "roll"
+    },
+    {
+      "seq": 22,
+      "labor": 3,
+      "roll": 1,
+      "action": "use_blue",
+      "ability_id": "REWARD_L1_IMPENETRABLE_HIDE:BLUE",
+      "die_id": "H6",
+      "operation": {
+        "from": 3,
+        "to": 6
+      }
+    },
+    {
+      "seq": 23,
+      "labor": 3,
+      "roll": 1,
+      "action": "finalize_blue_phase"
+    },
+    {
+      "seq": 24,
+      "labor": 3,
+      "roll": 1,
+      "action": "assign_attack_sets",
+      "target_id": "LABOR3_D1",
+      "sets": [
+        [
+          "H1",
+          "H2"
+        ],
+        [
+          "H3",
+          "H5"
+        ],
+        [
+          "H4",
+          "H6"
+        ]
+      ]
+    },
+    {
+      "seq": 25,
+      "labor": 3,
+      "roll": 1,
+      "action": "resolve_assignments",
+      "migration_derived": true,
+      "derivation_reason": "Historical golden-run transcript advanced after assignment. Normalized to current v0.8 explicit Resolve Assignments semantics."
+    },
+    {
+      "seq": 26,
+      "labor": 3,
+      "roll": 2,
+      "action": "roll"
+    },
+    {
+      "seq": 27,
+      "labor": 3,
+      "roll": 2,
+      "action": "use_blue",
+      "ability_id": "COMPONENT_BOW_OF_HERCULES:BLUE",
+      "die_id": "H1",
+      "operation": {
+        "from": 3,
+        "to": 4
+      }
+    },
+    {
+      "seq": 28,
+      "labor": 3,
+      "roll": 2,
+      "action": "finalize_blue_phase"
+    },
+    {
+      "seq": 29,
+      "labor": 3,
+      "roll": 2,
+      "action": "assign_attack_sets",
+      "target_id": "LABOR3_D1",
+      "sets": [
+        [
+          "H1",
+          "H4"
+        ],
+        [
+          "H2",
+          "H3"
+        ],
+        [
+          "H5",
+          "H6"
+        ]
+      ]
+    },
+    {
+      "seq": 30,
+      "labor": 3,
+      "roll": 2,
+      "action": "resolve_assignments",
+      "migration_derived": true,
+      "derivation_reason": "Historical golden-run transcript advanced after assignment. Normalized to current v0.8 explicit Resolve Assignments semantics."
+    },
+    {
+      "seq": 31,
+      "labor": 3,
+      "roll": 2,
+      "action": "choose_broken_die",
+      "die_id": "H6"
+    },
+    {
+      "seq": 32,
+      "labor": 3,
+      "roll": 3,
+      "action": "roll"
+    },
+    {
+      "seq": 33,
+      "labor": 3,
+      "roll": 3,
+      "action": "finalize_blue_phase"
+    },
+    {
+      "seq": 34,
+      "labor": 3,
+      "roll": 3,
+      "action": "assign_attack_sets",
+      "target_id": "LABOR3_D1",
+      "sets": [
+        [
+          "H2",
+          "H4"
+        ]
+      ]
+    },
+    {
+      "seq": 35,
+      "labor": 3,
+      "roll": 3,
+      "action": "resolve_assignments",
+      "migration_derived": true,
+      "derivation_reason": "Historical golden-run transcript advanced after assignment. Normalized to current v0.8 explicit Resolve Assignments semantics."
+    },
+    {
+      "seq": 36,
+      "labor": 4,
+      "roll": 1,
+      "action": "roll"
+    },
+    {
+      "seq": 37,
+      "labor": 4,
+      "roll": 1,
+      "action": "reroll",
+      "ability_id": "REWARD_L2_VENOMOUS_BLOOD:A",
+      "die_id": "H3"
+    },
+    {
+      "seq": 38,
+      "labor": 4,
+      "roll": 1,
+      "action": "reroll",
+      "ability_id": "REWARD_L2_VENOMOUS_BLOOD:B",
+      "die_id": "H4"
+    },
+    {
+      "seq": 39,
+      "labor": 4,
+      "roll": 1,
+      "action": "finalize_blue_phase"
+    },
+    {
+      "seq": 40,
+      "labor": 4,
+      "roll": 1,
+      "action": "assign_attack_sets",
+      "target_id": "LABOR4_L",
+      "sets": [
+        [
+          "H1",
+          "H4",
+          "H5"
+        ],
+        [
+          "H2",
+          "H3",
+          "H6"
+        ]
+      ]
+    },
+    {
+      "seq": 41,
+      "labor": 4,
+      "roll": 1,
+      "action": "resolve_assignments",
+      "migration_derived": true,
+      "derivation_reason": "Historical golden-run transcript advanced after assignment. Normalized to current v0.8 explicit Resolve Assignments semantics."
+    },
+    {
+      "seq": 42,
+      "labor": 4,
+      "roll": 2,
+      "action": "roll"
+    },
+    {
+      "seq": 43,
+      "labor": 4,
+      "roll": 2,
+      "action": "reroll",
+      "ability_id": "REWARD_L2_VENOMOUS_BLOOD:A",
+      "die_id": "H1"
+    },
+    {
+      "seq": 44,
+      "labor": 4,
+      "roll": 2,
+      "action": "reroll",
+      "ability_id": "REWARD_L2_VENOMOUS_BLOOD:B",
+      "die_id": "H3"
+    },
+    {
+      "seq": 45,
+      "labor": 4,
+      "roll": 2,
+      "action": "finalize_blue_phase"
+    },
+    {
+      "seq": 46,
+      "labor": 4,
+      "roll": 2,
+      "action": "assign_attack_sets",
+      "target_id": "LABOR4_L",
+      "sets": [
+        [
+          "H1",
+          "H3",
+          "H4"
+        ]
+      ]
+    },
+    {
+      "seq": 47,
+      "labor": 4,
+      "roll": 2,
+      "action": "resolve_assignments",
+      "migration_derived": true,
+      "derivation_reason": "Historical golden-run transcript advanced after assignment. Normalized to current v0.8 explicit Resolve Assignments semantics."
+    },
+    {
+      "seq": 48,
+      "labor": 4,
+      "roll": 3,
+      "action": "roll"
+    },
+    {
+      "seq": 49,
+      "labor": 4,
+      "roll": 3,
+      "action": "reroll",
+      "ability_id": "REWARD_L2_VENOMOUS_BLOOD:A",
+      "die_id": "H6"
+    },
+    {
+      "seq": 50,
+      "labor": 4,
+      "roll": 3,
+      "action": "reroll",
+      "ability_id": "REWARD_L2_VENOMOUS_BLOOD:B",
+      "die_id": "H5"
+    },
+    {
+      "seq": 51,
+      "labor": 4,
+      "roll": 3,
+      "action": "finalize_blue_phase"
+    },
+    {
+      "seq": 52,
+      "labor": 4,
+      "roll": 3,
+      "action": "place_gold",
+      "ability_id": "REWARD_L3_BLESSING_OF_ARTEMIS:GOLD",
+      "dice": [
+        "H5",
+        "H6"
+      ]
+    },
+    {
+      "seq": 53,
+      "labor": 4,
+      "roll": 3,
+      "action": "assign_attack",
+      "target_id": "LABOR4_R",
+      "dice": [
+        "H1",
+        "H2",
+        "H3",
+        "H4"
+      ],
+      "attack_instances": 1
+    },
+    {
+      "seq": 54,
+      "labor": 4,
+      "roll": 3,
+      "action": "resolve_assignments",
+      "migration_derived": true,
+      "derivation_reason": "Historical golden-run transcript advanced after assignment. Normalized to current v0.8 explicit Resolve Assignments semantics."
+    },
+    {
+      "seq": 55,
+      "labor": 4,
+      "roll": 4,
+      "action": "roll"
+    },
+    {
+      "seq": 56,
+      "labor": 4,
+      "roll": 4,
+      "action": "reroll",
+      "ability_id": "REWARD_L2_VENOMOUS_BLOOD:A",
+      "die_id": "H3"
+    },
+    {
+      "seq": 57,
+      "labor": 4,
+      "roll": 4,
+      "action": "reroll",
+      "ability_id": "REWARD_L2_VENOMOUS_BLOOD:B",
+      "die_id": "H6"
+    },
+    {
+      "seq": 58,
+      "labor": 4,
+      "roll": 4,
+      "action": "use_blue",
+      "ability_id": "COMPONENT_BOW_OF_HERCULES:BLUE",
+      "die_id": "H2",
+      "operation": {
+        "from": 4,
+        "to": 3
+      }
+    },
+    {
+      "seq": 59,
+      "labor": 4,
+      "roll": 4,
+      "action": "finalize_blue_phase"
+    },
+    {
+      "seq": 60,
+      "labor": 4,
+      "roll": 4,
+      "action": "assign_attack_sets",
+      "target_id": "LABOR4_R",
+      "sets": [
+        [
+          "H4",
+          "H5"
+        ],
+        [
+          "H1",
+          "H2",
+          "H3",
+          "H6"
+        ]
+      ]
+    },
+    {
+      "seq": 61,
+      "labor": 4,
+      "roll": 4,
+      "action": "resolve_assignments",
+      "migration_derived": true,
+      "derivation_reason": "Historical golden-run transcript advanced after assignment. Normalized to current v0.8 explicit Resolve Assignments semantics."
+    },
+    {
+      "seq": 62,
+      "labor": 4,
+      "roll": null,
+      "action": "choose_reward",
+      "reward_id": "REWARD_L4_REGRET_A",
+      "variant": "A"
+    },
+    {
+      "seq": 63,
+      "labor": 5,
+      "roll": 1,
+      "action": "roll"
+    },
+    {
+      "seq": 64,
+      "labor": 5,
+      "roll": 1,
+      "action": "reroll",
+      "ability_id": "REWARD_L2_VENOMOUS_BLOOD:A",
+      "die_id": "H3"
+    },
+    {
+      "seq": 65,
+      "labor": 5,
+      "roll": 1,
+      "action": "reroll",
+      "ability_id": "REWARD_L2_VENOMOUS_BLOOD:B",
+      "die_id": "H1"
+    },
+    {
+      "seq": 66,
+      "labor": 5,
+      "roll": 1,
+      "action": "use_blue",
+      "ability_id": "COMPONENT_BOW_OF_HERCULES:BLUE",
+      "die_id": "H4",
+      "operation": {
+        "from": 2,
+        "to": 1
+      }
+    },
+    {
+      "seq": 67,
+      "labor": 5,
+      "roll": 1,
+      "action": "finalize_blue_phase"
+    },
+    {
+      "seq": 68,
+      "labor": 5,
+      "roll": 1,
+      "action": "assign_attack",
+      "target_id": "LABOR5_B",
+      "dice": [
+        "H4",
+        "H5"
+      ],
+      "attack_instances": 2
+    },
+    {
+      "seq": 69,
+      "labor": 5,
+      "roll": 1,
+      "action": "place_gold",
+      "ability_id": "REWARD_L1_IMPENETRABLE_HIDE:GOLD",
+      "dice": [
+        "H8"
+      ]
+    },
+    {
+      "seq": 70,
+      "labor": 5,
+      "roll": 1,
+      "action": "place_gold",
+      "ability_id": "REWARD_L4_REGRET_A:GOLD",
+      "dice": [
+        "H1",
+        "H2"
+      ]
+    },
+    {
+      "seq": 71,
+      "labor": 5,
+      "roll": 1,
+      "action": "resolve_assignments"
+    },
+    {
+      "seq": 72,
+      "labor": 5,
+      "roll": 2,
+      "action": "roll"
+    },
+    {
+      "seq": 73,
+      "labor": 5,
+      "roll": 2,
+      "action": "reroll",
+      "ability_id": "REWARD_L2_VENOMOUS_BLOOD:A",
+      "die_id": "H6"
+    },
+    {
+      "seq": 74,
+      "labor": 5,
+      "roll": 2,
+      "action": "use_blue",
+      "ability_id": "COMPONENT_BOW_OF_HERCULES:BLUE",
+      "die_id": "H4",
+      "operation": {
+        "from": 6,
+        "to": 1
+      }
+    },
+    {
+      "seq": 75,
+      "labor": 5,
+      "roll": 2,
+      "action": "reroll",
+      "ability_id": "REWARD_L2_VENOMOUS_BLOOD:B",
+      "die_id": "H7"
+    },
+    {
+      "seq": 76,
+      "labor": 5,
+      "roll": 2,
+      "action": "finalize_blue_phase"
+    },
+    {
+      "seq": 77,
+      "labor": 5,
+      "roll": 2,
+      "action": "undo_last_deterministic_action",
+      "undo_kind": "phase_transition",
+      "restored_phase": "BLUE_ABILITY_WINDOW"
+    },
+    {
+      "seq": 78,
+      "labor": 5,
+      "roll": 2,
+      "action": "use_blue",
+      "ability_id": "REWARD_L1_IMPENETRABLE_HIDE:BLUE",
+      "die_id": "H5",
+      "operation": {
+        "from": 6,
+        "to": 3
+      }
+    },
+    {
+      "seq": 79,
+      "labor": 5,
+      "roll": 2,
+      "action": "assign_attack",
+      "target_id": "LABOR5_B",
+      "dice": [
+        "H1",
+        "H2",
+        "H3"
+      ],
+      "attack_instances": 3
+    },
+    {
+      "seq": 80,
+      "labor": 5,
+      "roll": 2,
+      "action": "assign_attack",
+      "target_id": "LABOR5_A",
+      "dice": [
+        "H4"
+      ],
+      "attack_instances": 1
+    },
+    {
+      "seq": 81,
+      "labor": 5,
+      "roll": 2,
+      "action": "place_gold",
+      "ability_id": "REWARD_L4_REGRET_A:GOLD",
+      "dice": [
+        "H5",
+        "H6"
+      ]
+    },
+    {
+      "seq": 82,
+      "labor": 5,
+      "roll": 2,
+      "action": "place_gold",
+      "ability_id": "REWARD_L1_IMPENETRABLE_HIDE:GOLD",
+      "dice": [
+        "H7"
+      ]
+    },
+    {
+      "seq": 83,
+      "labor": 5,
+      "roll": 2,
+      "action": "resolve_assignments"
+    },
+    {
+      "seq": 84,
+      "labor": 5,
+      "roll": 3,
+      "action": "roll"
+    },
+    {
+      "seq": 85,
+      "labor": 5,
+      "roll": 3,
+      "action": "use_blue",
+      "ability_id": "COMPONENT_BOW_OF_HERCULES:BLUE",
+      "die_id": "H3",
+      "operation": {
+        "from": 5,
+        "to": 4
+      }
+    },
+    {
+      "seq": 86,
+      "labor": 5,
+      "roll": 3,
+      "action": "undo_last_deterministic_action",
+      "undo_kind": "blue_ability",
+      "restored": {
+        "H3": 5,
+        "Spirit": 10,
+        "Bow_used": false
+      }
+    },
+    {
+      "seq": 87,
+      "labor": 5,
+      "roll": 3,
+      "action": "reroll",
+      "ability_id": "REWARD_L2_VENOMOUS_BLOOD:A",
+      "die_id": "H5"
+    },
+    {
+      "seq": 88,
+      "labor": 5,
+      "roll": 3,
+      "action": "use_blue",
+      "ability_id": "COMPONENT_BOW_OF_HERCULES:BLUE",
+      "die_id": "H3",
+      "operation": {
+        "from": 5,
+        "to": 4
+      }
+    },
+    {
+      "seq": 89,
+      "labor": 5,
+      "roll": 3,
+      "action": "finalize_blue_phase"
+    },
+    {
+      "seq": 90,
+      "labor": 5,
+      "roll": 3,
+      "action": "assign_attack",
+      "target_id": "LABOR5_A",
+      "dice": [
+        "H1",
+        "H2",
+        "H6",
+        "H8"
+      ],
+      "attack_instances": 4
+    },
+    {
+      "seq": 91,
+      "labor": 5,
+      "roll": 3,
+      "action": "place_gold",
+      "ability_id": "REWARD_L3_BLESSING_OF_ARTEMIS:GOLD",
+      "dice": [
+        "H3",
+        "H5"
+      ]
+    },
+    {
+      "seq": 92,
+      "labor": 5,
+      "roll": 3,
+      "action": "place_gold",
+      "ability_id": "REWARD_L4_REGRET_A:GOLD",
+      "dice": [
+        "H4",
+        "H7"
+      ]
+    },
+    {
+      "seq": 93,
+      "labor": 5,
+      "roll": 3,
+      "action": "resolve_assignments",
+      "migration_derived": true,
+      "derivation_reason": "Historical golden-run transcript advanced after assignment. Normalized to current v0.8 explicit Resolve Assignments semantics."
+    },
+    {
+      "seq": 94,
+      "labor": 5,
+      "roll": null,
+      "action": "choose_reward",
+      "reward_id": "REWARD_L5_100_IMMORTAL_COWS_B",
+      "variant": "B"
+    },
+    {
+      "seq": 95,
+      "labor": 5,
+      "roll": null,
+      "action": "remove_prior_reward_or_component",
+      "target_id": "COMPONENT_BOW_OF_HERCULES"
+    },
+    {
+      "seq": 96,
+      "labor": 6,
+      "roll": 1,
+      "action": "roll"
+    },
+    {
+      "seq": 97,
+      "labor": 6,
+      "roll": 1,
+      "action": "reroll",
+      "ability_id": "REWARD_L2_VENOMOUS_BLOOD:A",
+      "die_id": "H1"
+    },
+    {
+      "seq": 98,
+      "labor": 6,
+      "roll": 1,
+      "action": "reroll",
+      "ability_id": "REWARD_L2_VENOMOUS_BLOOD:B",
+      "die_id": "H4"
+    },
+    {
+      "seq": 99,
+      "labor": 6,
+      "roll": 1,
+      "action": "use_blue_cows_b_and_reroll",
+      "ability_id": "REWARD_L5_100_IMMORTAL_COWS_B:BLUE",
+      "source_die_id": "H2",
+      "reroll_die_ids": [
+        "H6"
+      ]
+    },
+    {
+      "seq": 100,
+      "labor": 6,
+      "roll": 1,
+      "action": "assign_attack",
+      "target_id": "LABOR6_C14",
+      "dice": [
+        "H2"
+      ],
+      "attack_instances": 1
+    },
+    {
+      "seq": 101,
+      "labor": 6,
+      "roll": 1,
+      "action": "place_gold",
+      "ability_id": "REWARD_L1_IMPENETRABLE_HIDE:GOLD",
+      "dice": [
+        "H1"
+      ]
+    },
+    {
+      "seq": 102,
+      "labor": 6,
+      "roll": 1,
+      "action": "place_gold",
+      "ability_id": "REWARD_L3_BLESSING_OF_ARTEMIS:GOLD",
+      "dice": [
+        "H4",
+        "H5"
+      ]
+    },
+    {
+      "seq": 103,
+      "labor": 6,
+      "roll": 1,
+      "action": "resolve_assignments"
+    },
+    {
+      "seq": 104,
+      "labor": 6,
+      "roll": 2,
+      "action": "roll"
+    },
+    {
+      "seq": 105,
+      "labor": 6,
+      "roll": 2,
+      "action": "reroll",
+      "ability_id": "REWARD_L2_VENOMOUS_BLOOD:A",
+      "die_id": "H1"
+    },
+    {
+      "seq": 106,
+      "labor": 6,
+      "roll": 2,
+      "action": "reroll",
+      "ability_id": "REWARD_L2_VENOMOUS_BLOOD:B",
+      "die_id": "H3"
+    },
+    {
+      "seq": 107,
+      "labor": 6,
+      "roll": 2,
+      "action": "use_blue_cows_b_and_reroll",
+      "ability_id": "REWARD_L5_100_IMMORTAL_COWS_B:BLUE",
+      "source_die_id": "H4",
+      "reroll_die_ids": [
+        "H5"
+      ]
+    },
+    {
+      "seq": 108,
+      "labor": 6,
+      "roll": 2,
+      "action": "assign_attack",
+      "target_id": "LABOR6_C14",
+      "dice": [
+        "H4",
+        "H6"
+      ],
+      "attack_instances": 2
+    },
+    {
+      "seq": 109,
+      "labor": 6,
+      "roll": 2,
+      "action": "assign_attack",
+      "target_id": "LABOR6_C16",
+      "dice": [
+        "H7"
+      ],
+      "attack_instances": 1
+    },
+    {
+      "seq": 110,
+      "labor": 6,
+      "roll": 2,
+      "action": "place_gold",
+      "ability_id": "REWARD_L4_REGRET_A:GOLD",
+      "dice": [
+        "H1",
+        "H2"
+      ]
+    },
+    {
+      "seq": 111,
+      "labor": 6,
+      "roll": 2,
+      "action": "place_gold",
+      "ability_id": "REWARD_L1_IMPENETRABLE_HIDE:GOLD",
+      "dice": [
+        "H3"
+      ]
+    },
+    {
+      "seq": 112,
+      "labor": 6,
+      "roll": 2,
+      "action": "resolve_assignments"
+    }
+  ],
+  "explicit_categories_with_no_inputs": {
+    "branch_choices": [],
+    "mood_redraw_choices": [],
+    "resolve_anyway_with_meaningful_placement": [],
+    "explicit_leave_unused": []
+  },
+  "expected_terminal_state": {
+    "spirit": 8,
+    "divinity": "3/10",
+    "failed_labor_die_id": "LABOR6_C17",
+    "failed_node_id": "L6_C17_N3"
+  },
+  "normalization": {
+    "source_schema": "hercules_replay_script_v1",
+    "inserted_resolve_assignments_count": 12,
+    "inserted_at": [
+      {
+        "labor": 1,
+        "roll": 1
+      },
+      {
+        "labor": 1,
+        "roll": 2
+      },
+      {
+        "labor": 2,
+        "roll": 1
+      },
+      {
+        "labor": 2,
+        "roll": 2
+      },
+      {
+        "labor": 3,
+        "roll": 1
+      },
+      {
+        "labor": 3,
+        "roll": 2
+      },
+      {
+        "labor": 3,
+        "roll": 3
+      },
+      {
+        "labor": 4,
+        "roll": 1
+      },
+      {
+        "labor": 4,
+        "roll": 2
+      },
+      {
+        "labor": 4,
+        "roll": 3
+      },
+      {
+        "labor": 4,
+        "roll": 4
+      },
+      {
+        "labor": 5,
+        "roll": 3
+      }
+    ],
+    "note": "Inserted actions are migration-derived phase-completion controls only. No tactical choice, random result, placement, allocation, reward choice, or resource decision was changed."
+  }
+}

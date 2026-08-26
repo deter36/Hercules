@@ -1,0 +1,7 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": ".build-tools"
+  },
+  "include": ["src/data/generate.ts", "src/data/validation.ts"]
+}

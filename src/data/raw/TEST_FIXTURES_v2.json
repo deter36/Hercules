@@ -1,0 +1,117 @@
+{
+  "schema_version": "hercules_test_fixtures_v2",
+  "notes": "Starter machine-readable fixtures; Codex should expand each with full canonical pre/post state using engine types.",
+  "fixtures": [
+    {
+      "id": "F001",
+      "name": "labor_die_zero_becomes_inactive",
+      "expected": [
+        "LABOR_DAMAGE_APPLIED",
+        "LABOR_DIE_DEFEATED",
+        "LABOR_DEFEAT_CHECK"
+      ]
+    },
+    {
+      "id": "F002",
+      "name": "advance_all_excludes_defeated",
+      "expected": [
+        "LABOR_DIE_ADVANCED"
+      ]
+    },
+    {
+      "id": "F004",
+      "name": "cannot_block_nonretroactive",
+      "expected_round_snapshot": false
+    },
+    {
+      "id": "F005",
+      "name": "cannot_block_at_round_start",
+      "expected_round_snapshot": true
+    },
+    {
+      "id": "F009",
+      "name": "blood_amazons_a_derived",
+      "expected_derived_entity": true
+    },
+    {
+      "id": "F010",
+      "name": "cows_b_source_remains_usable",
+      "expected": {
+        "blueUsed": true,
+        "spent": false,
+        "locked": false
+      }
+    },
+    {
+      "id": "F013",
+      "name": "zeus_redraw_no_rng",
+      "expected_event_delta": 0
+    },
+    {
+      "id": "F019",
+      "name": "resolve_assignments_no_remaining_dice",
+      "expected_reason": "no_remaining_dice"
+    },
+    {
+      "id": "F021",
+      "name": "resolve_assignments_effectless_block",
+      "expected_reason": "only_effectless_placements"
+    },
+    {
+      "id": "F022",
+      "name": "resolve_assignments_meaningful_block",
+      "expected_pending": "CONFIRM_RESOLVE_WITH_UNUSED_MEANINGFUL_PLACEMENT"
+    },
+    {
+      "id": "F030",
+      "name": "apples_b3_b4_direction",
+      "legal": [
+        "B3->B4"
+      ],
+      "illegal": [
+        "B4->B3"
+      ]
+    },
+    {
+      "id": "F032",
+      "name": "cerberus_exact18_multi_die",
+      "legal_values": [
+        6,
+        5,
+        4,
+        3
+      ]
+    },
+    {
+      "id": "F036",
+      "name": "hind_defeat_when_usable_dice_below_two",
+      "preconditions": {
+        "labor": "labor.L03",
+        "hind_undefeated": true,
+        "usable_hercules_dice_before_break": 2
+      },
+      "action": "break_one_usable_hercules_die",
+      "expected": {
+        "usable_hercules_dice_after_break": 1,
+        "result": "defeat",
+        "cause": "HIND_USABLE_DICE_BELOW_2",
+        "rng_event_delta": 0
+      },
+      "status": "provisional_owner_approved"
+    }
+  ],
+  "golden": {
+    "run_id": "HERC-GOLDEN-RUN-0001",
+    "seed": "HERC-GOLDEN-RUN-0001",
+    "difficulty": "human",
+    "expected_result": "loss_at_Stymphalian_Birds",
+    "final_spirit": 8,
+    "final_divinity": "3/10",
+    "final_next_event": 174,
+    "orphaned_range": [
+      18,
+      25
+    ],
+    "event_153_expected_j": 0
+  }
+}

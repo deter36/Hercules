@@ -1,0 +1,3 @@
+import type{GameState}from"../state/types.js";
+export function applyLaborDamage(state:GameState,laborDieId:string,amount=1):GameState{if(!state.currentLabor)throw new Error("No active Labor.");const next=structuredClone(state);const labor=next.currentLabor!;const die=labor.laborDice[laborDieId];if(!die||die.status!=="active")throw new Error(`Labor die ${laborDieId} is not active.`);die.health=Math.max(0,die.health-amount);if(die.health===0)die.status="defeated_inactive";return next;}
+export function allLaborDiceDefeated(state:GameState):boolean{return !!state.currentLabor&&Object.values(state.currentLabor.laborDice).every(d=>d.status==="defeated_inactive");}

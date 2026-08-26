@@ -1,0 +1,5 @@
+import assert from "node:assert/strict";
+import test from "node:test";
+import { satisfies } from "../../src/engine/requirements/evaluate.js";
+test("generic requirements accept their canonical matches",()=>{assert.equal(satisfies({type:"die_in",values:[5,6]},[6]),true);assert.equal(satisfies({type:"matching_pair"},[4,4]),true);assert.equal(satisfies({type:"exact_sum",sum:12},[6,6]),true);assert.equal(satisfies({type:"fixed_straight",values:[1,2,3]},[3,1,2]),true);assert.equal(satisfies({type:"variable_straight",length:3},[4,5,6]),true);assert.equal(satisfies({type:"sum_equals_third",dice_count:3},[3,1,2]),true);assert.equal(satisfies({type:"three_plus_x_lte_y",dice_count:3},[5,2,3]),true);assert.equal(satisfies({type:"one_even_one_odd"},[2,3]),true);});
+test("generic requirements reject invalid allocations",()=>{assert.equal(satisfies({type:"matching_pair"},[4]),false);assert.equal(satisfies({type:"exact_sum",sum:12},[6,5]),false);assert.equal(satisfies({type:"variable_straight",length:3},[1,2,4]),false);assert.equal(satisfies({type:"matching_exact_pair",value:4},[4,5]),false);});

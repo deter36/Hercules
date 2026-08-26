@@ -1,0 +1,37 @@
+{
+  "package": "hercules_codex_handoff_v5",
+  "files": [
+    "GAME_RULES_SPEC.md",
+    "GAME_DATA_SCHEMA.md",
+    "GAME_DATA_v4.json",
+    "TEST_SCENARIOS.md",
+    "TEST_FIXTURES_v4.json",
+    "PRESENTATION_FLOW.md",
+    "IMPLEMENTATION_BRIEF.md",
+    "hercules_engine_execution_spec_v0_13.md"
+  ],
+  "authoritative_external_sources": [
+    "Hercules_Rules_104x155.pdf",
+    "Hercules_Verified_Gameplay_Reference_v12.md",
+    "hercules_engine_execution_spec_v0_13.md",
+    "Hercules_RNG_Spec_v3.md"
+  ],
+  "golden_artifacts": [
+    "HERC-GOLDEN-RUN-0001_golden_run_record.json",
+    "HERC-GOLDEN-RUN-0001_replay_script_v2_normalized.json",
+    "HERC-GOLDEN-RUN-0001_replay_validation_report.json"
+  ],
+  "bundled_golden_artifacts": [
+    "golden/HERC-GOLDEN-RUN-0001_golden_run_record.json",
+    "golden/HERC-GOLDEN-RUN-0001_replay_script_v2_normalized.json",
+    "golden/HERC-GOLDEN-RUN-0001_replay_validation_report.json"
+  ],
+  "notes": [
+    "v5 resolves temporary Hercules die-pool stable-ID mapping.",
+    "Count-only temporary losses remove highest eligible IDs first.",
+    "Count-only temporary gains add lowest unused IDs first.",
+    "No player choice is created for physical ID bookkeeping unless source text explicitly requires choosing a die.",
+    "Applies to Resolute, Battered, Weight of Atlas, and the lose-die branch of Ghost of Abderus.",
+    "No RNG algorithm change."
+  ]
+}

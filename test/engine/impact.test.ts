@@ -1,0 +1,2 @@
+import assert from "node:assert/strict";import test from "node:test";import{createInitialState}from"../../src/engine/state/create.js";import{resolveImpact}from"../../src/engine/transitions/resolve-impact.js";
+test("impact resolver applies effects then creates a branch decision",()=>{const s=createInitialState("human","impact");const n=resolveImpact(s,{id:"n",effect:{spirit_delta:-1},next:["a","b"]});assert.equal(n.player.spirit,16);assert.equal(n.pendingDecision?.type,"CHOOSE_TRACK_BRANCH");assert.deepEqual(n.pendingDecision?.legalOptions.map(o=>o.id),["a","b"]);});

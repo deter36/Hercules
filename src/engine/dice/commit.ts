@@ -1,0 +1,2 @@
+import type { HerculesDieState } from "../state/types.js";
+export function commitFaces(dice:Record<string,HerculesDieState>, faces:Readonly<Record<string,number>>):Record<string,HerculesDieState>{const next=structuredClone(dice);for(const id of Object.keys(next).sort()){const die=next[id];if(!die.rollable||die.broken)continue;const face=faces[id];if(!Number.isInteger(face)||face<1||face>6)throw new Error(`Missing or invalid roll face for ${id}.`);die.face=face;}return next;}
