@@ -20,4 +20,7 @@ test("the public playtest view exposes display data and engine-owned controls wi
   view = HerculesEngine.getPlayView(state);
   assert.equal(view.actions.some((action) => action.command.type === "FINISH_BLUE_PHASE"), true);
   assert.equal(view.actions.every((action) => action.command.type !== "RESOLVE_ANYWAY"), true);
+  const bowActions = view.actions.filter((action) => action.command.type === "USE_BLUE_ABILITY" && action.command.abilityId === "ability.bow.blue");
+  assert.equal(bowActions.length, 10);
+  assert.equal(bowActions.every((action) => action.command.type === "USE_BLUE_ABILITY" && (action.command.target === -1 || action.command.target === 1)), true);
 });
