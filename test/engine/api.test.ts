@@ -16,6 +16,7 @@ test("the public playtest view exposes display data and engine-owned controls wi
   let view = HerculesEngine.getPlayView(state);
   assert.equal(view.actions.some((action) => action.command.type === "ROLL"), true);
   assert.equal("deck" in view.mood, false);
+  assert.equal(typeof view.mood.effect, "string");
   state = HerculesEngine.submit(state, { type: "ROLL" }).state;
   view = HerculesEngine.getPlayView(state);
   assert.equal(view.actions.some((action) => action.command.type === "FINISH_BLUE_PHASE"), true);

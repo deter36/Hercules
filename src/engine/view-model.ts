@@ -15,7 +15,7 @@ export interface PlayView {
   player: GameState["player"];
   dice: GameState["herculesDice"];
   labor: { id: string; name: string; dice: Array<{ id: string; health: number; startingHealth: number; trackId: string; nodeId: string; nodeEffect: unknown; status: string }> } | null;
-  mood: { id: string | null; name: string | null };
+  mood: { id: string | null; name: string | null; effect: string | null };
   rewards: Array<{ id: string; name: string }>;
   pendingDecision: GameState["pendingDecision"];
   actions: PlayAction[];
@@ -30,6 +30,21 @@ const activeReward = (state: GameState, id: string): boolean => !state.player.re
 const eligibleDice = (state: GameState) => Object.values(state.herculesDice).filter(die => canPlace(die) && die.face !== null);
 const combinations = <T>(items: T[]): T[][] => items.flatMap((item, index) => [[item], ...combinations(items.slice(index + 1)).map(rest => [item, ...rest])]);
 const validPhysicalSets = (state: GameState, requirement: Requirement): string[][] => combinations(eligibleDice(state)).filter(dice => satisfies(requirement, dice.flatMap(die => state.round.effectiveDoubleDieIds.includes(die.id) ? [die.face!, die.face!] : [die.face!]))).map(dice => dice.map(die => die.id));
+const moodEffectDescription = (mood: RecordValue | undefined): string | null => {
+  if (!mood) return null;
+  const effect = mood.effect as RecordValue | undefined;
+  if (!effect) return null;
+  switch (effect.type) {
+    case "initial_roll_delta": return `Initial rolls are ${Number(effect.value) > 0 ? "increased" : "reduced"} by ${Math.abs(Number(effect.value))}${effect.min ? ` (minimum ${effect.min})` : ""}${effect.max ? ` (maximum ${effect.max})` : ""}.`;
+    case "temporary_dice_delta": return `${Number(effect.value) > 0 ? "Gain" : "Lose"} ${Math.abs(Number(effect.value))} temporary Hercules ${Math.abs(Number(effect.value)) === 1 ? "die" : "dice"} for this Labor.`;
+    case "grant_blue_any": return "Once this roll, a Hercules die may use a blue space to become any face.";
+    case "spirit_delta": return `Lose ${Math.abs(Number(effect.value))} Spirit.`;
+    case "player_choice": return "Choose: lose one temporary Hercules die, or lose 5 Spirit.";
+    case "set_aside_roll_face": return `Set aside every ${effect.face} rolled, including rerolls.`;
+    case "disable_owned_reward_choice": return "Choose an owned Reward to disable for this Labor.";
+    default: return `Verified Mood effect: ${JSON.stringify(effect)}.`;
+  }
+};
 
 function blueActions(state: GameState): { actions: PlayAction[]; abilities: PlayAbility[] } {
   if (state.game.phase !== "BLUE_ABILITY_WINDOW") return { actions: [], abilities: [] };
@@ -95,5 +110,5 @@ export function getPlayView(state: GameState): PlayView {
   if (state.undoStack.length > 0) command("undo", "Undo last deterministic action", { type: "UNDO_DETERMINISTIC" }, "utility");
   const labor = state.currentLabor ? (() => { const source = getLabor(state.currentLabor!.laborId); return { id: state.currentLabor!.laborId, name: String(source.name ?? state.currentLabor!.laborId), dice: Object.values(state.currentLabor!.laborDice).map(die => ({ ...die, nodeEffect: getNode(state.currentLabor!.laborId, die.trackId, die.nodeId).effect })) }; })() : null;
   const mood = GAME_DATA.moods.find(entry => entry.id === state.mood.activeMoodId);
-  return { game: state.game, player: state.player, dice: state.herculesDice, labor, mood: { id: state.mood.activeMoodId, name: mood ? String(mood.name) : null }, rewards: state.player.ownedRewardIds.map(id => ({ id, name: rewardName(id) })), pendingDecision: state.pendingDecision, actions, blueAbilities, transitions: state.transitions };
+  return { game: state.game, player: state.player, dice: state.herculesDice, labor, mood: { id: state.mood.activeMoodId, name: mood ? String(mood.name) : null, effect: moodEffectDescription(mood as unknown as RecordValue | undefined) }, rewards: state.player.ownedRewardIds.map(id => ({ id, name: rewardName(id) })), pendingDecision: state.pendingDecision, actions, blueAbilities, transitions: state.transitions };
 }
