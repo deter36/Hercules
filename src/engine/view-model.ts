@@ -8,6 +8,8 @@ import type { GameState } from "./state/types.js";
 
 type RecordValue = Record<string, unknown>;
 export interface PlayAction { id: string; label: string; command: EngineCommand; group: "round" | "blue" | "placement" | "decision" | "utility"; }
+export interface PlayControl { id: string; label: string; command?: EngineCommand; choices?: PlayControl[]; }
+export interface PlayAbility { id: string; label: string; choices: PlayControl[]; }
 export interface PlayView {
   game: GameState["game"];
   player: GameState["player"];
@@ -17,6 +19,7 @@ export interface PlayView {
   rewards: Array<{ id: string; name: string }>;
   pendingDecision: GameState["pendingDecision"];
   actions: PlayAction[];
+  blueAbilities: PlayAbility[];
   transitions: GameState["transitions"];
 }
 
@@ -28,8 +31,8 @@ const eligibleDice = (state: GameState) => Object.values(state.herculesDice).fil
 const combinations = <T>(items: T[]): T[][] => items.flatMap((item, index) => [[item], ...combinations(items.slice(index + 1)).map(rest => [item, ...rest])]);
 const validPhysicalSets = (state: GameState, requirement: Requirement): string[][] => combinations(eligibleDice(state)).filter(dice => satisfies(requirement, dice.flatMap(die => state.round.effectiveDoubleDieIds.includes(die.id) ? [die.face!, die.face!] : [die.face!]))).map(dice => dice.map(die => die.id));
 
-function blueActions(state: GameState): PlayAction[] {
-  if (state.game.phase !== "BLUE_ABILITY_WINDOW") return [];
+function blueActions(state: GameState): { actions: PlayAction[]; abilities: PlayAbility[] } {
+  if (state.game.phase !== "BLUE_ABILITY_WINDOW") return { actions: [], abilities: [] };
   const entries: Array<{ id: string; name: string; definition: RecordValue }> = [];
   if (!state.player.removedRewardOrComponentIds.includes("component.bow")) entries.push({ id: "ability.bow.blue", name: String(GAME_DATA.components.bow.name), definition: GAME_DATA.components.bow.blue_ability as unknown as RecordValue });
   if (state.mood.activeMoodId === "mood.ferocious") entries.push({ id: "ability.mood.ferocious.blue", name: "Ferocious", definition: { type: "set_any" } });
@@ -44,16 +47,38 @@ function blueActions(state: GameState): PlayAction[] {
     else if (type === "modify_pip" && Array.isArray(entry.definition.delta)) for (const delta of entry.definition.delta.filter((value): value is number => typeof value === "number")) { const after = entry.definition.wrap === true ? ((source.face! - 1 + delta + 6) % 6) + 1 : Math.max(1, Math.min(6, source.face! + delta)); actions.push({ id: `${entry.id}:${source.id}:${delta}`, label: `${entry.name}: ${source.id} ${source.face} → ${after}`, group: "blue", command: { type: "USE_BLUE_ABILITY", abilityId: entry.id, sourceDieId: source.id, target: delta } }); }
     else if (!["sacrifice_source_set_other_any", "place_source_reroll_any", "mood_redraw_next_ordered_no_rng"].includes(type)) actions.push({ id: `${entry.id}:${source.id}`, label: `${entry.name}: use ${source.id}`, group: "blue", command: { type: "USE_BLUE_ABILITY", abilityId: entry.id, sourceDieId: source.id } });
   }
-  return actions;
+  const entryActions = (entry: { id: string }) => actions.filter((action) => {
+    const command = action.command;
+    return (command.type === "USE_BLUE_ABILITY" && command.abilityId === entry.id) ||
+      (command.type === "REROLL_DIE" && command.abilityId === entry.id) ||
+      (entry.id === "ability.reward.L05.A.blue" && command.type === "USE_COWS_A") ||
+      (entry.id === "ability.reward.L05.B.blue" && command.type === "USE_COWS_B");
+  });
+  const pathFor = (action: PlayAction): string[] => {
+    const command = action.command;
+    if (command.type === "USE_BLUE_ABILITY") return [command.sourceDieId];
+    if (command.type === "REROLL_DIE") return [command.dieId];
+    if (command.type === "USE_COWS_A") return [command.sourceDieId, command.targetDieId];
+    if (command.type === "USE_COWS_B") return [command.sourceDieId, command.rerollDieIds.join(", ")];
+    return [];
+  };
+  const nestedControls = (group: PlayAction[], depth = 0): PlayControl[] => {
+    const keyed = new Map<string, PlayAction[]>();
+    for (const action of group) { const key = pathFor(action)[depth]; if (key) keyed.set(key, [...(keyed.get(key) ?? []), action]); }
+    return [...keyed.entries()].map(([key, matches]) => matches.length === 1 ? { id: `${matches[0].id}:choice`, label: key, command: matches[0].command } : { id: `${matches[0].id}:step:${depth}`, label: key, choices: nestedControls(matches, depth + 1).length ? nestedControls(matches, depth + 1) : matches.map(action => ({ id: `${action.id}:leaf`, label: action.label, command: action.command })) });
+  };
+  const abilities = entries.map((entry) => ({ id: entry.id, label: entry.name, choices: nestedControls(entryActions(entry)) })).filter((ability) => ability.choices.length > 0);
+  return { actions, abilities };
 }
 
 /** A display-and-command projection. The UI only renders this projection and submits its commands. */
 export function getPlayView(state: GameState): PlayView {
   const actions: PlayAction[] = [];
+  let blueAbilities: PlayAbility[] = [];
   const command = (id: string, label: string, action: EngineCommand, group: PlayAction["group"]): void => { actions.push({ id, label, command: action, group }); };
   if (state.pendingDecision) for (const option of state.pendingDecision.legalOptions) command(`decision:${option.id}`, option.label ?? option.id, { type: "CHOOSE_OPTION", decisionId: state.pendingDecision.id, optionId: option.id }, "decision");
   else if (state.game.phase === "READY_TO_ROLL") command("roll", "Roll Hercules dice", { type: "ROLL" }, "round");
-  else if (state.game.phase === "BLUE_ABILITY_WINDOW") { actions.push(...blueActions(state)); command("finish-blue", "Finish blue phase", { type: "FINISH_BLUE_PHASE" }, "round"); }
+  else if (state.game.phase === "BLUE_ABILITY_WINDOW") { const blue = blueActions(state); actions.push(...blue.actions); blueAbilities = blue.abilities; command("finish-blue", "Finish blue phase", { type: "FINISH_BLUE_PHASE" }, "round"); }
   else if (state.game.phase === "GOLD_AND_ATTACK_PLACEMENT") {
     const usedGold = new Set(state.round.goldPlacements.map(placement => placement.abilityId));
     for (const rewardId of state.player.ownedRewardIds.filter(id => activeReward(state, id))) for (const ability of records(findReward(rewardId)?.gold)) {
@@ -70,5 +95,5 @@ export function getPlayView(state: GameState): PlayView {
   if (state.undoStack.length > 0) command("undo", "Undo last deterministic action", { type: "UNDO_DETERMINISTIC" }, "utility");
   const labor = state.currentLabor ? (() => { const source = getLabor(state.currentLabor!.laborId); return { id: state.currentLabor!.laborId, name: String(source.name ?? state.currentLabor!.laborId), dice: Object.values(state.currentLabor!.laborDice).map(die => ({ ...die, nodeEffect: getNode(state.currentLabor!.laborId, die.trackId, die.nodeId).effect })) }; })() : null;
   const mood = GAME_DATA.moods.find(entry => entry.id === state.mood.activeMoodId);
-  return { game: state.game, player: state.player, dice: state.herculesDice, labor, mood: { id: state.mood.activeMoodId, name: mood ? String(mood.name) : null }, rewards: state.player.ownedRewardIds.map(id => ({ id, name: rewardName(id) })), pendingDecision: state.pendingDecision, actions, transitions: state.transitions };
+  return { game: state.game, player: state.player, dice: state.herculesDice, labor, mood: { id: state.mood.activeMoodId, name: mood ? String(mood.name) : null }, rewards: state.player.ownedRewardIds.map(id => ({ id, name: rewardName(id) })), pendingDecision: state.pendingDecision, actions, blueAbilities, transitions: state.transitions };
 }

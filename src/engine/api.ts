@@ -5,6 +5,7 @@ import { initializeGame } from "./state/create.js";
 import { deserialize, serialize } from "./state/save.js";
 import { exportDiagnostics } from "./diagnostics/export.js";
 import { getPlayView } from "./view-model.js";
+export type { PlayAbility, PlayControl, PlayView } from "./view-model.js";
 import type { Difficulty, GameState, SerializedGame } from "./state/types.js";
 
 export interface NewGameConfig { difficulty: Difficulty; seed: string; }

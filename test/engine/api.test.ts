@@ -23,4 +23,7 @@ test("the public playtest view exposes display data and engine-owned controls wi
   const bowActions = view.actions.filter((action) => action.command.type === "USE_BLUE_ABILITY" && action.command.abilityId === "ability.bow.blue");
   assert.equal(bowActions.length, 10);
   assert.equal(bowActions.every((action) => action.command.type === "USE_BLUE_ABILITY" && (action.command.target === -1 || action.command.target === 1)), true);
+  const bow = view.blueAbilities.find((ability) => ability.id === "ability.bow.blue");
+  assert.equal(bow?.choices.length, 5);
+  assert.equal(bow?.choices.every((source) => source.choices?.length === 2), true);
 });
