@@ -30,7 +30,24 @@ const activeReward = (state: GameState, id: string): boolean => !state.player.re
 const eligibleDice = (state: GameState) => Object.values(state.herculesDice).filter(die => canPlace(die) && die.face !== null);
 const combinations = <T>(items: T[]): T[][] => items.flatMap((item, index) => [[item], ...combinations(items.slice(index + 1)).map(rest => [item, ...rest])]);
 const validPhysicalSets = (state: GameState, requirement: Requirement): string[][] => combinations(eligibleDice(state)).filter(dice => satisfies(requirement, dice.flatMap(die => state.round.effectiveDoubleDieIds.includes(die.id) ? [die.face!, die.face!] : [die.face!]))).map(dice => dice.map(die => die.id));
-const requirementLabel = (r: Requirement): string => r.type === "matching_pair" ? "2 matching dice" : r.type === "any_die" ? "any 1 die" : r.type === "exact_die" ? `one ${r.value}` : r.type === "matching_triple" ? "3 matching dice" : r.type.replaceAll("_", " ");
+const requirementLabel = (r: Requirement): string => {
+  switch (r.type) {
+    case "any_die": return "any 1 die";
+    case "exact_die": return `one ${r.value}`;
+    case "die_in": return `one ${r.values.join(" or ")}`;
+    case "matching_pair": return "2 matching dice";
+    case "matching_triple": return "3 matching dice";
+    case "matching_exact_pair": return `2 matching ${r.value}s`;
+    case "exact_sum": return `dice totaling ${r.sum}`;
+    case "fixed_straight": return r.values.join("–");
+    case "variable_straight": return `${r.length}-die straight`;
+    case "sum_equals_third": return "3 dice: two add to the third";
+    case "three_plus_x_lte_y": return "3 dice: two lowest total ≤ highest";
+    case "multiplication_equals_sum_of_others": return "3 dice: one equals the other two multiplied";
+    case "one_even_one_odd": return "1 even and 1 odd die";
+    case "exact_values": return r.values.join(", ");
+  }
+};
 const moodEffectDescription = (mood: RecordValue | undefined): string | null => {
   if (!mood) return null;
   const effect = mood.effect as RecordValue | undefined;
