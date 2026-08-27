@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
 import { HerculesEngine } from "../engine/api.js";
-import type { PlayControl } from "../engine/api.js";
 import type { EngineCommand } from "../engine/commands/types.js";
 import type { Difficulty, GameState } from "../engine/state/types.js";
 import "./tracks.css";
@@ -35,29 +34,42 @@ export function App() {
   const [message, setMessage] = useState(loadedGame.restored ? "Resumed your saved game." : "Ready to begin a deterministic playtest.");
   const [debug, setDebug] = useState(false);
   const [gameMenuOpen, setGameMenuOpen] = useState(false);
-  const [activeAbilityId, setActiveAbilityId] = useState<string | null>(null);
-  const [abilitySteps, setAbilitySteps] = useState<PlayControl[][]>([]);
+  const [selectedDieIds, setSelectedDieIds] = useState<string[]>([]);
   const view = useMemo(() => HerculesEngine.getPlayView(state), [state]);
   const availableDice = Object.values(view.dice).filter(die => die.availableForLabor);
-  const submit = (command: EngineCommand) => { try { const result = HerculesEngine.submit(state, command); setState(result.state); setActiveAbilityId(null); setAbilitySteps([]); setMessage(`${result.transitions.at(-1)?.type ?? "Action complete"}.`); } catch (error) { setMessage(error instanceof Error ? error.message : String(error)); } };
-  const start = () => { try { const result = HerculesEngine.createGame({ difficulty, seed }); setState(result.state); setActiveAbilityId(null); setAbilitySteps([]); setMessage("New game created."); } catch (error) { setMessage(error instanceof Error ? error.message : String(error)); } };
+  const submit = (command: EngineCommand) => { try { const result = HerculesEngine.submit(state, command); setState(result.state); setSelectedDieIds([]); setMessage(`${result.transitions.at(-1)?.type ?? "Action complete"}.`); } catch (error) { setMessage(error instanceof Error ? error.message : String(error)); } };
+  const start = () => { try { const result = HerculesEngine.createGame({ difficulty, seed }); setState(result.state); setSelectedDieIds([]); setMessage("New game created."); } catch (error) { setMessage(error instanceof Error ? error.message : String(error)); } };
   const grouped = (group: string) => view.actions.filter(action => action.group === group);
-  const activeAbility = view.blueAbilities.find(ability => ability.id === activeAbilityId) ?? null;
-  const currentAbilityChoices = abilitySteps.at(-1) ?? activeAbility?.choices ?? [];
+  const actionDice = (command: EngineCommand): string[] => {
+    if (command.type === "USE_BLUE_ABILITY") return [command.sourceDieId];
+    if (command.type === "REROLL_DIE") return [command.dieId];
+    if (command.type === "USE_COWS_A") return [command.sourceDieId, command.targetDieId];
+    if (command.type === "USE_COWS_B") return [command.sourceDieId, ...command.rerollDieIds];
+    if (command.type === "PLACE_GOLD" || command.type === "ALLOCATE_ATTACK") return command.dieIds;
+    return [];
+  };
+  const sameDice = (left: string[], right: string[]) => left.length === right.length && [...left].sort().every((id, index) => id === [...right].sort()[index]);
+  const phaseAllowsSelection = view.game.phase === "BLUE_ABILITY_WINDOW" || view.game.phase === "GOLD_AND_ATTACK_PLACEMENT";
+  const selectable = (die: typeof availableDice[number]) => phaseAllowsSelection && die.face !== null && !die.broken && !die.spent && !die.locked && !die.allocated;
+  const selectedActions = selectedDieIds.length === 0 ? [] : view.actions.filter(action => (action.group === "blue" || action.group === "placement") && sameDice(actionDice(action.command), selectedDieIds));
+  const actionText = (action: ReturnType<typeof grouped>[number]) => {
+    if (action.command.type === "ALLOCATE_ATTACK") return `Attack ${action.command.targetId.replace(/^labor\.L\d+\./, "")}`;
+    if (action.command.type === "PLACE_GOLD") return `${action.label.split(":")[0]} ability`;
+    return action.label;
+  };
   useEffect(() => {
     try { window.localStorage.setItem(SAVE_KEY, JSON.stringify(HerculesEngine.serialize(state))); }
     catch { /* Storage can be unavailable or full; play continues in memory. */ }
   }, [state]);
-  const chooseAbility = (id: string) => { setActiveAbilityId(id); setAbilitySteps([]); };
-  const chooseAbilityControl = (control: PlayControl) => { if (control.command) submit(control.command); else if (control.choices) setAbilitySteps(steps => [...steps, control.choices!]); };
+  const toggleDie = (dieId: string) => setSelectedDieIds(ids => ids.includes(dieId) ? ids.filter(id => id !== dieId) : [...ids, dieId]);
   return <main>
     <header><div><p className="eyebrow">ENGINE PLAYTEST</p><h1>Hercules &amp; the 12 Labors</h1></div><div className="status"><span>{view.game.phase}</span><strong>{view.game.result?.toUpperCase() ?? "IN PROGRESS"}</strong></div></header>
     <section className="game-toolbar"><button className="new-game" onClick={start}>New game</button><section className="game-menu card"><button className="menu-toggle quiet" aria-expanded={gameMenuOpen} onClick={() => setGameMenuOpen(open => !open)}>Game menu <span>{gameMenuOpen ? "−" : "+"}</span></button>{gameMenuOpen && <div className="setup"><label>Difficulty<select value={difficulty} onChange={event => setDifficulty(event.target.value as Difficulty)}>{(["human", "hero", "god"] as Difficulty[]).map(value => <option key={value}>{value}</option>)}</select></label><label>Seed<input value={seed} onChange={event => setSeed(event.target.value)} /></label><button className="quiet" onClick={() => setDebug(value => !value)}>{debug ? "Hide" : "Show"} debug</button><button className="quiet" onClick={() => download("hercules-diagnostics.json", HerculesEngine.exportDiagnostics(state))}>Export diagnostics</button></div>}</section></section>
     <p className="message" role="status">{message}</p>
     <section className="dashboard">
-      <article className="card"><h2>Hercules</h2><div className="resources"><span>Spirit <b>{view.player.spirit}</b></span><span>Divinity <b>{view.player.divinity}</b></span></div><div className="dice">{availableDice.map(die => { const choice = activeAbility && abilitySteps.length === 0 ? currentAbilityChoices.find(control => control.label === die.id) : undefined; return <button className={`die ${choice ? "targetable" : ""} ${die.allocated || die.locked || die.spent ? "used" : ""}`} disabled={!choice} onClick={() => choice && chooseAbilityControl(choice)} key={die.id}><b>{die.id}</b><strong>{die.face ?? "—"}</strong><small>{choice ? "tap to use ability" : die.allocated ? "attack" : die.locked ? "gold" : die.spent ? "spent" : die.blueUsed ? "blue used" : die.rollable ? "ready" : "unavailable"}</small></button>; })}</div><h3>Rewards</h3><p>{view.rewards.length ? view.rewards.map(reward => reward.name).join(" · ") : "None yet"}</p></article>
+      <article className="card"><h2>Hercules</h2><div className="resources"><span>Spirit <b>{view.player.spirit}</b></span><span>Divinity <b>{view.player.divinity}</b></span></div>{phaseAllowsSelection && <p className="selection-help">Select dice, then choose an engine-legal action.</p>}<div className="dice">{availableDice.map(die => <button className={`die ${selectedDieIds.includes(die.id) ? "selected" : ""} ${selectable(die) ? "targetable" : ""} ${die.allocated || die.locked || die.spent ? "used" : ""}`} disabled={!selectable(die)} onClick={() => toggleDie(die.id)} key={die.id}><b>{die.id}</b><strong>{die.face ?? "—"}</strong><small>{selectedDieIds.includes(die.id) ? "selected" : die.allocated ? "attack" : die.locked ? "gold" : die.spent ? "spent" : die.blueUsed ? "blue used" : die.rollable ? "ready" : "unavailable"}</small></button>)}</div><h3>Rewards</h3><p>{view.rewards.length ? view.rewards.map(reward => reward.name).join(" · ") : "None yet"}</p></article>
       <div className="labor-stack"><article className="card"><h2>Labor</h2>{view.labor ? <><h3>{view.labor.name}</h3><p>Attack: <b>{[...new Set(view.labor.dice.map(die => die.attack))].join(" · ")}</b></p><div className="labor-health">{view.labor.dice.map(die => <span key={die.id}><b>{die.id.replace(/^labor\.L\d+\./, "")}</b> {die.health}/{die.startingHealth}</span>)}</div><LaborTracks labor={view.labor} /></> : <p>Preparing the first Labor…</p>}</article><article className="card mood-card"><h2>Current Mood</h2><h3>{view.mood.name ?? "—"}</h3>{view.mood.effect && <p className="mood-effect">{view.mood.effect}</p>}</article></div>
-      <article className="card controls"><h2>Actions</h2>{view.pendingDecision && <><h3>{view.pendingDecision.prompt}</h3><p>{view.pendingDecision.type}</p></>}{view.blueAbilities.length > 0 && <div className="ability-panel"><h3>Blue abilities</h3><div className="ability-list">{view.blueAbilities.map(ability => <button className={ability.id === activeAbilityId ? "selected" : "quiet"} key={ability.id} onClick={() => chooseAbility(ability.id)}>{ability.label}</button>)}</div>{activeAbility && <div className="ability-choices"><p>{abilitySteps.length ? "Choose the remaining option" : "Tap a highlighted die"}</p>{abilitySteps.length > 0 && <><button className="quiet back" onClick={() => setAbilitySteps(steps => steps.slice(0, -1))}>Back</button>{currentAbilityChoices.map(control => <button key={control.id} onClick={() => chooseAbilityControl(control)}>{control.label}</button>)}</>}</div>}</div>}{(["round", "placement", "decision", "utility"] as const).map(group => grouped(group).length ? <div className="action-group" key={group}><h3>{group}</h3>{grouped(group).map(action => <button key={action.id} onClick={() => submit(action.command)}>{action.label}</button>)}</div> : null)}{view.actions.length === 0 && <p>No engine-provided action is available.</p>}</article>
+      <article className="card controls"><h2>Actions</h2>{view.pendingDecision && <><h3>{view.pendingDecision.prompt}</h3><p>{view.pendingDecision.type}</p></>}{phaseAllowsSelection && <div className="action-group"><h3>Selected dice</h3><p>{selectedDieIds.length ? selectedDieIds.join(", ") : "Select one or more dice in the tray."}</p>{selectedDieIds.length > 0 && <button className="quiet" onClick={() => setSelectedDieIds([])}>Clear selection</button>}{selectedDieIds.length > 0 && (selectedActions.length ? selectedActions.map(action => <button key={action.id} onClick={() => submit(action.command)}>{actionText(action)}</button>) : <p>No engine-legal action uses exactly this selection.</p>)}</div>}{(["round", "decision", "utility"] as const).map(group => grouped(group).length ? <div className="action-group" key={group}><h3>{group}</h3>{grouped(group).map(action => <button key={action.id} onClick={() => submit(action.command)}>{action.label}</button>)}</div> : null)}{view.actions.length === 0 && <p>No engine-provided action is available.</p>}</article>
     </section>
     <section className="card history"><h2>Event history</h2><ol>{view.transitions.slice(-12).reverse().map(transition => <li key={transition.index}><b>{transition.index}</b> {historyText(transition)}</li>)}</ol></section>
     {debug && <section className="debug"><article className="card"><h2>Canonical state</h2><pre>{HerculesEngine.exportDiagnostics(state).canonicalState}</pre></article><article className="card"><h2>Diagnostics</h2><pre>{JSON.stringify(HerculesEngine.exportDiagnostics(state), null, 2)}</pre></article></section>}
