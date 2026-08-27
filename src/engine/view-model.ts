@@ -39,11 +39,11 @@ const requirementLabel = (r: Requirement): string => {
     case "matching_triple": return "3 matching dice";
     case "matching_exact_pair": return `2 matching ${r.value}s`;
     case "exact_sum": return `dice totaling ${r.sum}`;
-    case "fixed_straight": return r.values.join("–");
     case "variable_straight": return `${r.length}-die straight`;
-    case "sum_equals_third": return "3 dice: two add to the third";
-    case "three_plus_x_lte_y": return "3 dice: two lowest total ≤ highest";
-    case "multiplication_equals_sum_of_others": return "3 dice: one equals the other two multiplied";
+    case "sum_equals_third": return "A + B = C";
+    case "three_plus_x_lte_y": return "A + B ≤ C";
+    case "fixed_straight": return `${r.values.length}-die straight`;
+    case "multiplication_equals_sum_of_others": return "A × B = C";
     case "one_even_one_odd": return "1 even and 1 odd die";
     case "exact_values": return r.values.join(", ");
   }
