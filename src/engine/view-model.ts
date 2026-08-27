@@ -64,7 +64,8 @@ function blueActions(state: GameState): { actions: PlayAction[]; abilities: Play
     else if (type === "modify_pip" && Array.isArray(entry.definition.delta)) for (const delta of entry.definition.delta.filter((value): value is number => typeof value === "number")) { const after = entry.definition.wrap === true ? ((source.face! - 1 + delta + 6) % 6) + 1 : Math.max(1, Math.min(6, source.face! + delta)); actions.push({ id: `${entry.id}:${source.id}:${delta}`, label: `${entry.name}: ${source.id} ${source.face} → ${after}`, group: "blue", command: { type: "USE_BLUE_ABILITY", abilityId: entry.id, sourceDieId: source.id, target: delta } }); }
     else if (!["sacrifice_source_set_other_any", "place_source_reroll_any", "mood_redraw_next_ordered_no_rng"].includes(type)) actions.push({ id: `${entry.id}:${source.id}`, label: `${entry.name}: use ${source.id}`, group: "blue", command: { type: "USE_BLUE_ABILITY", abilityId: entry.id, sourceDieId: source.id } });
   }
-  const entryActions = (entry: { id: string }) => actions.filter((action) => {
+  const uniqueActions = [...new Map(actions.map(action => [action.id, action])).values()];
+  const entryActions = (entry: { id: string }) => uniqueActions.filter((action) => {
     const command = action.command;
     return (command.type === "USE_BLUE_ABILITY" && command.abilityId === entry.id) ||
       (command.type === "REROLL_DIE" && command.abilityId === entry.id) ||
@@ -85,7 +86,7 @@ function blueActions(state: GameState): { actions: PlayAction[]; abilities: Play
     return [...keyed.entries()].map(([key, matches]) => matches.length === 1 ? { id: `${matches[0].id}:choice`, label: key, command: matches[0].command } : { id: `${matches[0].id}:step:${depth}`, label: key, choices: nestedControls(matches, depth + 1).length ? nestedControls(matches, depth + 1) : matches.map(action => ({ id: `${action.id}:leaf`, label: action.label, command: action.command })) });
   };
   const abilities = entries.map((entry) => ({ id: entry.id, label: entry.name, choices: nestedControls(entryActions(entry)) })).filter((ability) => ability.choices.length > 0);
-  return { actions, abilities };
+  return { actions: uniqueActions, abilities };
 }
 
 /** A display-and-command projection. The UI only renders this projection and submits its commands. */

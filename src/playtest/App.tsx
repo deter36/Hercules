@@ -5,6 +5,7 @@ import type { EngineCommand } from "../engine/commands/types.js";
 import type { Difficulty, GameState } from "../engine/state/types.js";
 import "./tracks.css";
 import "./qol.css";
+import "./hind-arrow.css";
 
 const initial = HerculesEngine.createGame({ difficulty: "human", seed: "playtest-seed" }).state;
 const download = (name: string, value: unknown) => { const url = URL.createObjectURL(new Blob([JSON.stringify(value, null, 2)], { type: "application/json" })); const anchor = document.createElement("a"); anchor.href = url; anchor.download = name; anchor.click(); URL.revokeObjectURL(url); };
