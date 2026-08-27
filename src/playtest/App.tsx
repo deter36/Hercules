@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { HerculesEngine } from "../engine/api.js";
 import type { PlayControl } from "../engine/api.js";
 import type { EngineCommand } from "../engine/commands/types.js";
@@ -7,7 +7,20 @@ import "./tracks.css";
 import "./qol.css";
 import "./hind-arrow.css";
 
-const initial = HerculesEngine.createGame({ difficulty: "human", seed: "playtest-seed" }).state;
+const SAVE_KEY = "hercules-12-labors.playtest.save.v1";
+const freshGame = () => HerculesEngine.createGame({ difficulty: "human", seed: "playtest-seed" }).state;
+const loadGame = (): { state: GameState; restored: boolean } => {
+  if (typeof window === "undefined") return { state: freshGame(), restored: false };
+  try {
+    const saved = window.localStorage.getItem(SAVE_KEY);
+    if (!saved) return { state: freshGame(), restored: false };
+    return { state: HerculesEngine.deserialize(JSON.parse(saved)), restored: true };
+  } catch {
+    // A changed content revision or malformed local data must never prevent play.
+    window.localStorage.removeItem(SAVE_KEY);
+    return { state: freshGame(), restored: false };
+  }
+};
 const download = (name: string, value: unknown) => { const url = URL.createObjectURL(new Blob([JSON.stringify(value, null, 2)], { type: "application/json" })); const anchor = document.createElement("a"); anchor.href = url; anchor.download = name; anchor.click(); URL.revokeObjectURL(url); };
 type LaborView = NonNullable<ReturnType<typeof HerculesEngine.getPlayView>["labor"]>;
 const effectMark = (effect: unknown): string => { if (!effect || typeof effect !== "object") return "Start"; const value = effect as Record<string, unknown>; if (value.failure) return "☠"; if (value.break_hercules_die) return "⚡"; if (value.divinity_delta) return "✦−"; if (value.cannot_block) return "🛡̸"; if (value.heal && value.spirit_delta) return "♥−🔥"; if (value.heal) return `🔥${Number(value.heal) > 1 ? value.heal : ""}`; if (value.spirit_delta) return `♥−${Math.abs(Number(value.spirit_delta)) > 1 ? Math.abs(Number(value.spirit_delta)) : ""}`; return "•"; };
@@ -15,10 +28,11 @@ const historyText = (transition: { type: string; payload: Record<string, unknown
 function LaborTracks({ labor }: { labor: LaborView }) { return <div className={`labor-tracks ${labor.tracks.length > 1 ? "multi" : ""}`}>{labor.tracks.map(track => <section className={`labor-track ${track.type}`} key={track.id}><h4>{labor.tracks.length > 1 ? track.id.replace("track.", "") : "Track"}</h4><div className="track-grid">{track.nodes.map(node => { const occupants = labor.dice.filter(die => die.trackId === track.id && die.nodeId === node.id && die.status === "active"); return <div className={`track-node ${occupants.length ? "occupied" : ""} ${node.id === track.startId ? "start-node" : ""}`} key={node.id}><b>{node.id}</b><span>{effectMark(node.effect)}</span>{occupants.map(die => <i key={die.id} title={`${die.id}: ${die.health}/${die.startingHealth}`}>{die.id.replace(/^labor\.L\d+\./, "")}</i>)}{node.next.length > 0 && <small>→ {node.next.join(" · ")}</small>}</div>; })}</div></section>)}</div>; }
 
 export function App() {
-  const [difficulty, setDifficulty] = useState<Difficulty>("human");
-  const [seed, setSeed] = useState("playtest-seed");
-  const [state, setState] = useState<GameState>(initial);
-  const [message, setMessage] = useState("Ready to begin a deterministic playtest.");
+  const [loadedGame] = useState(loadGame);
+  const [difficulty, setDifficulty] = useState<Difficulty>(loadedGame.state.game.difficulty);
+  const [seed, setSeed] = useState(loadedGame.state.rng.seed);
+  const [state, setState] = useState<GameState>(loadedGame.state);
+  const [message, setMessage] = useState(loadedGame.restored ? "Resumed your saved game." : "Ready to begin a deterministic playtest.");
   const [debug, setDebug] = useState(false);
   const [gameMenuOpen, setGameMenuOpen] = useState(false);
   const [activeAbilityId, setActiveAbilityId] = useState<string | null>(null);
@@ -30,6 +44,10 @@ export function App() {
   const grouped = (group: string) => view.actions.filter(action => action.group === group);
   const activeAbility = view.blueAbilities.find(ability => ability.id === activeAbilityId) ?? null;
   const currentAbilityChoices = abilitySteps.at(-1) ?? activeAbility?.choices ?? [];
+  useEffect(() => {
+    try { window.localStorage.setItem(SAVE_KEY, JSON.stringify(HerculesEngine.serialize(state))); }
+    catch { /* Storage can be unavailable or full; play continues in memory. */ }
+  }, [state]);
   const chooseAbility = (id: string) => { setActiveAbilityId(id); setAbilitySteps([]); };
   const chooseAbilityControl = (control: PlayControl) => { if (control.command) submit(control.command); else if (control.choices) setAbilitySteps(steps => [...steps, control.choices!]); };
   return <main>
