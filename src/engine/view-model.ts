@@ -16,7 +16,7 @@ export interface PlayView {
   dice: GameState["herculesDice"];
   labor: { id: string; name: string; dice: Array<{ id: string; health: number; startingHealth: number; trackId: string; nodeId: string; nodeEffect: unknown; status: string; attack: string }>; tracks: Array<{ id: string; type: string; startId: string; nodes: Array<{ id: string; effect: unknown; next: string[] }> }> } | null;
   mood: { id: string | null; name: string | null; effect: string | null };
-  rewards: Array<{ id: string; name: string }>;
+  rewards: Array<{ id: string; name: string; summary: string }>;
   pendingDecision: GameState["pendingDecision"];
   actions: PlayAction[];
   blueAbilities: PlayAbility[];
@@ -26,6 +26,42 @@ export interface PlayView {
 const records = (value: unknown): RecordValue[] => Array.isArray(value) ? value as RecordValue[] : [];
 const findReward = (id: string): RecordValue | undefined => GAME_DATA.labors.flatMap((labor) => records(labor.rewards)).find((reward) => reward.id === id);
 const rewardName = (id: string): string => id === "component.bow" ? String(GAME_DATA.components.bow.name) : String(findReward(id)?.name ?? id);
+const rewardAbilitySummary: Record<string, string> = {
+  "reward.L01": "Blue: swap a 3 and 6. Gold: block 1 Spirit.",
+  "reward.L02": "Blue: reroll up to 2 dice.",
+  "reward.L03": "Gold: two 4s gain 1 Divinity.",
+  "reward.L04.A": "Gold: matching pair gains 2 Spirit.",
+  "reward.L04.B": "Blue: one die counts as two; costs 2 Spirit.",
+  "reward.L05.A": "Blue: sacrifice one die to set another die.",
+  "reward.L05.B": "Blue: place one die to reroll any die.",
+  "reward.L06.A": "Blue: change odd to even, or even to odd; costs 2 Spirit.",
+  "reward.L06.B": "Blue: set any die; costs 2 Spirit.",
+  "reward.L06.C": "Gold: any die gains 1 Spirit.",
+  "reward.L06.D": "Gold: a 5 blocks 2 Spirit.",
+  "reward.L07.A": "Blue: raise or lower a die by 1.",
+  "reward.L07.B": "Blue: raise up to 2 dice by 1.",
+  "reward.L08.A": "Blue: flip a die to its opposite face.",
+  "reward.L08.B": "Mood: redraw the revealed Mood.",
+  "reward.L09.A": "Blue: one die counts as two.",
+  "reward.L09.B": "Gold: a 6 and 3 gain 2 Divinity.",
+  "reward.L10.A": "Blue: raise or lower up to 2 dice by 1.",
+  "reward.L10.B": "Gold: one even and one odd gain 1 Divinity.",
+  "reward.L10.C": "Blue: flip up to 2 dice to opposite faces.",
+  "reward.L11.A": "Gold: a 6 gains 2 Spirit.",
+  "reward.L11.B": "Gold: a 5 gains 1 Divinity.",
+  "reward.L11.C": "Gold: any die blocks 2 Spirit."
+};
+const rewardSummary = (id: string): string => rewardAbilitySummary[id] ?? "No active ability.";
+const rewardBonusSummary = (id: string): string => {
+  const bonus = records(findReward(id)?.bonus);
+  const parts: string[] = [];
+  for (const effect of bonus) {
+    if (typeof effect.spirit_delta === "number") parts.push(`${effect.spirit_delta > 0 ? "+" : ""}${effect.spirit_delta} Spirit`);
+    if (typeof effect.hercules_dice_delta === "number") parts.push(`${effect.hercules_dice_delta > 0 ? "+" : ""}${effect.hercules_dice_delta} Hercules ${Math.abs(effect.hercules_dice_delta) === 1 ? "die" : "dice"}`);
+    if (typeof effect.divinity_delta === "number") parts.push(`${effect.divinity_delta > 0 ? "+" : ""}${effect.divinity_delta} Divinity`);
+  }
+  return parts.join(" · ");
+};
 const activeReward = (state: GameState, id: string): boolean => !state.player.removedRewardOrComponentIds.includes(id) && !state.player.temporaryEffects.some(effect => typeof effect === "object" && effect !== null && (effect as RecordValue).type === "disabled_reward" && (effect as RecordValue).rewardId === id);
 const eligibleDice = (state: GameState) => Object.values(state.herculesDice).filter(die => canPlace(die) && die.face !== null);
 const combinations = <T>(items: T[]): T[][] => items.flatMap((item, index) => [[item], ...combinations(items.slice(index + 1)).map(rest => [item, ...rest])]);
@@ -111,7 +147,13 @@ export function getPlayView(state: GameState): PlayView {
   const actions: PlayAction[] = [];
   let blueAbilities: PlayAbility[] = [];
   const command = (id: string, label: string, action: EngineCommand, group: PlayAction["group"]): void => { actions.push({ id, label, command: action, group }); };
-  if (state.pendingDecision) for (const option of state.pendingDecision.legalOptions) command(`decision:${option.id}`, option.label ?? option.id, { type: "CHOOSE_OPTION", decisionId: state.pendingDecision.id, optionId: option.id }, "decision");
+  if (state.pendingDecision) for (const option of state.pendingDecision.legalOptions) {
+    const isRewardChoice = state.pendingDecision.type === "CHOOSE_REWARD";
+    const label = isRewardChoice
+      ? `${rewardName(option.id)} — ${rewardBonusSummary(option.id)}. ${rewardSummary(option.id)}`
+      : option.label ?? option.id;
+    command(`decision:${option.id}`, label, { type: "CHOOSE_OPTION", decisionId: state.pendingDecision.id, optionId: option.id }, "decision");
+  }
   else if (state.game.phase === "READY_TO_ROLL") command("roll", "Roll Hercules dice", { type: "ROLL" }, "round");
   else if (state.game.phase === "BLUE_ABILITY_WINDOW") { const blue = blueActions(state); actions.push(...blue.actions); blueAbilities = blue.abilities; command("finish-blue", "Finish blue phase", { type: "FINISH_BLUE_PHASE" }, "round"); }
   else if (state.game.phase === "GOLD_AND_ATTACK_PLACEMENT") {
@@ -130,5 +172,5 @@ export function getPlayView(state: GameState): PlayView {
   if (state.undoStack.length > 0) command("undo", "Undo last deterministic action", { type: "UNDO_DETERMINISTIC" }, "utility");
   const labor = state.currentLabor ? (() => { const source = getLabor(state.currentLabor!.laborId); const tracks = Object.values(getTracks(state.currentLabor!.laborId)).map(track => ({ id: track.id, type: track.type, startId: track.startId, nodes: Object.values(track.nodes).map(node => ({ id: node.id, effect: node.effect, next: node.next })) })); return { id: state.currentLabor!.laborId, name: String(source.name ?? state.currentLabor!.laborId), dice: Object.values(state.currentLabor!.laborDice).map(die => ({ ...die, nodeEffect: getNode(state.currentLabor!.laborId, die.trackId, die.nodeId).effect, attack: requirementLabel(attackForLaborDie(state.currentLabor!.laborId, die.id).requirement) })), tracks }; })() : null;
   const mood = GAME_DATA.moods.find(entry => entry.id === state.mood.activeMoodId);
-  return { game: state.game, player: state.player, dice: state.herculesDice, labor, mood: { id: state.mood.activeMoodId, name: mood ? String(mood.name) : null, effect: moodEffectDescription(mood as unknown as RecordValue | undefined) }, rewards: state.player.ownedRewardIds.map(id => ({ id, name: rewardName(id) })), pendingDecision: state.pendingDecision, actions, blueAbilities, transitions: state.transitions };
+  return { game: state.game, player: state.player, dice: state.herculesDice, labor, mood: { id: state.mood.activeMoodId, name: mood ? String(mood.name) : null, effect: moodEffectDescription(mood as unknown as RecordValue | undefined) }, rewards: state.player.ownedRewardIds.map(id => ({ id, name: rewardName(id), summary: rewardSummary(id) })), pendingDecision: state.pendingDecision, actions, blueAbilities, transitions: state.transitions };
 }

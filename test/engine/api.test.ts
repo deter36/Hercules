@@ -28,3 +28,23 @@ test("the public playtest view exposes display data and engine-owned controls wi
   assert.equal(bow?.choices.length, 5);
   assert.equal(bow?.choices.every((source) => source.choices?.length === 2), true);
 });
+
+test("the public playtest view supplies player-facing reward summaries and choice labels", () => {
+  const state = HerculesEngine.createGame({ difficulty: "human", seed: "reward-display" }).state;
+  state.player.ownedRewardIds.push("reward.L04.B");
+  state.pendingDecision = {
+    id: "reward:labor.L04",
+    type: "CHOOSE_REWARD",
+    prompt: "Choose a Reward",
+    legalOptions: [{ id: "reward.L04.A" }, { id: "reward.L04.B" }],
+    source: { kind: "labor", id: "labor.L04" },
+    context: {},
+    allowSkip: false,
+    randomnessOnResolve: false,
+    revealsHiddenInformation: false,
+    undoBarrierOnResolve: false
+  };
+  const view = HerculesEngine.getPlayView(state);
+  assert.equal(view.rewards.find((reward) => reward.id === "reward.L04.B")?.summary, "Blue: one die counts as two; costs 2 Spirit.");
+  assert.ok(view.actions.some((action) => action.label === "Regret B — +2 Spirit · +1 Hercules die. Blue: one die counts as two; costs 2 Spirit."));
+});
