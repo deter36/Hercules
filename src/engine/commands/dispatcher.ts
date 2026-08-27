@@ -11,10 +11,30 @@ import { chooseReward, chooseRewardToRemove } from "../rewards/resolve.js";
 import { resolveAssignments, resolveAnyway } from "./resolve-assignments.js";
 import { resolveZeusRedraw } from "../labor/setup.js";
 import { completeLaborTransition } from "../labor/transition.js";
+import { GAME_DATA } from "../../data/generated/game-data.js";
 
 const hash = (state: GameState): string => sha256Hex(JSON.stringify(state));
 const sameCommand = (left: EngineCommand, right: EngineCommand): boolean => JSON.stringify(left) === JSON.stringify(right);
 const directAction = (command: EngineCommand): boolean => ["USE_BLUE_ABILITY", "REROLL_DIE", "USE_COWS_A", "USE_COWS_B", "PLACE_GOLD", "ALLOCATE_ATTACK"].includes(command.type);
+
+/**
+ * A command can carry the game through several automatic lifecycle steps.  Keep
+ * their provenance in the command record so a diagnostic log never attributes a
+ * new Labor's Mood effect to the Labor that just ended.
+ */
+export const lifecycle = (before: GameState, after: GameState): Record<string, unknown> => {
+  const events: Array<Record<string, unknown>> = [];
+  const newlyCompleted = after.game.completedLaborIds.filter((id) => !before.game.completedLaborIds.includes(id));
+  for (const laborId of newlyCompleted) events.push({ type: "LABOR_DEFEATED", laborId });
+  if (before.game.currentLaborId !== after.game.currentLaborId && after.game.currentLaborId) events.push({ type: "LABOR_STARTED", laborId: after.game.currentLaborId });
+  if (before.mood.activeMoodId !== after.mood.activeMoodId && after.mood.activeMoodId) {
+    const mood = GAME_DATA.moods.find((entry) => entry.id === after.mood.activeMoodId);
+    const effect = mood?.effect as Record<string, unknown> | undefined;
+    events.push({ type: "MOOD_REVEALED", moodId: after.mood.activeMoodId, moodName: mood?.name, effect });
+    if (effect?.type === "spirit_delta" && typeof effect.value === "number") events.push({ type: "MOOD_SPIRIT_EFFECT", moodId: after.mood.activeMoodId, delta: effect.value });
+  }
+  return events.length ? { lifecycle: events } : {};
+};
 
 export function getLegalCommands(state: GameState): EngineCommand[] {
   const undo = state.undoStack.length > 0 ? [{ type: "UNDO_DETERMINISTIC" } as const] : [];
@@ -92,7 +112,7 @@ export function submit(state: GameState, command: EngineCommand): EngineResult {
   }
   if (next.game.phase === "LABOR_TRANSITION" && !next.pendingDecision) next = completeLaborTransition(next);
   const after = hash(next);
-  const payload: Record<string, unknown> = { command, spirit: { before: state.player.spirit, after: next.player.spirit }, divinity: { before: state.player.divinity, after: next.player.divinity } };
+  const payload: Record<string, unknown> = { command, spirit: { before: state.player.spirit, after: next.player.spirit }, divinity: { before: state.player.divinity, after: next.player.divinity }, ...lifecycle(state, next) };
   if (command.type === "PLACE_GOLD") payload.goldAbilityId = command.abilityId;
   if (command.type === "ALLOCATE_ATTACK") payload.attack = { targetId: command.targetId, dieIds: command.dieIds };
   const transition: TransitionRecord = { index: next.transitionIndex++, type, source: { kind: "command", id: command.type }, payload, beforeHash: before, afterHash: after };

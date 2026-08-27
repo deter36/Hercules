@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import { completeLaborTransition } from "../../src/engine/labor/transition.js";
-import { startLabor } from "../../src/engine/labor/setup.js";
+import { resolveMood, startLabor } from "../../src/engine/labor/setup.js";
 import { createInitialState } from "../../src/engine/state/create.js";
 
 test("Labor transition preserves progression and starts the next certified Labor", () => {
@@ -23,4 +23,13 @@ test("completion after the twelfth Labor uses the certified Divinity victory bou
   state.game.phase = "LABOR_TRANSITION";
   state.player.divinity = "TOP";
   assert.equal(completeLaborTransition(state).game.result, "victory");
+});
+
+test("Haunted C applies its full certified Spirit loss when the Boar begins", () => {
+  const state = startLabor(createInitialState("human", "haunted-c"), "labor.L04");
+  state.player.spirit = 15;
+  const next = resolveMood(state, "mood.haunted_c");
+  assert.equal(next.game.currentLaborId, "labor.L04");
+  assert.equal(next.mood.activeMoodId, "mood.haunted_c");
+  assert.equal(next.player.spirit, 12);
 });

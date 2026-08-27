@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { getLegalCommands, submit } from "../../src/engine/commands/dispatcher.js";
+import { getLegalCommands, lifecycle, submit } from "../../src/engine/commands/dispatcher.js";
 import { createInitialState } from "../../src/engine/state/create.js";
 import { startLabor, resolveMood } from "../../src/engine/labor/setup.js";
 import { checkpointDeterministicAction } from "../../src/engine/state/undo.js";
@@ -54,4 +54,20 @@ test("public action commands route through engine validation and create undo che
   assert.equal(result.state.player.spirit, 14);
   assert.equal(result.transitions[0].type, "BLUE_ABILITY_USED");
   assert.ok(getLegalCommands(result.state).some((command) => command.type === "UNDO_DETERMINISTIC"));
+});
+
+test("a Labor transition records the new Mood's automatic effect provenance", () => {
+  const before = startLabor(createInitialState("human", "lifecycle-provenance"), "labor.L03");
+  before.game.completedLaborIds = ["labor.L01", "labor.L02"];
+  before.player.spirit = 15;
+  const after = startLabor(structuredClone(before), "labor.L04");
+  after.game.completedLaborIds.push("labor.L03");
+  after.mood.activeMoodId = "mood.haunted_c";
+  after.player.spirit = 12;
+  assert.deepEqual(lifecycle(before, after), { lifecycle: [
+    { type: "LABOR_DEFEATED", laborId: "labor.L03" },
+    { type: "LABOR_STARTED", laborId: "labor.L04" },
+    { type: "MOOD_REVEALED", moodId: "mood.haunted_c", moodName: "Haunted C", effect: { type: "spirit_delta", value: -3 } },
+    { type: "MOOD_SPIRIT_EFFECT", moodId: "mood.haunted_c", delta: -3 },
+  ] });
 });
