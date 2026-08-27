@@ -62,10 +62,13 @@ test("a Labor transition records the new Mood's automatic effect provenance", ()
   before.player.spirit = 15;
   const after = startLabor(structuredClone(before), "labor.L04");
   after.game.completedLaborIds.push("labor.L03");
+  after.player.ownedRewardIds.push("reward.L03");
   after.mood.activeMoodId = "mood.haunted_c";
   after.player.spirit = 12;
   assert.deepEqual(lifecycle(before, after), { lifecycle: [
     { type: "LABOR_DEFEATED", laborId: "labor.L03" },
+    { type: "REWARD_GAINED", rewardId: "reward.L03", rewardName: "Blessing of Artemis" },
+    { type: "REWARD_SPIRIT_EFFECT", rewardId: "reward.L03", delta: 3 },
     { type: "LABOR_STARTED", laborId: "labor.L04" },
     { type: "MOOD_REVEALED", moodId: "mood.haunted_c", moodName: "Haunted C", effect: { type: "spirit_delta", value: -3 } },
     { type: "MOOD_SPIRIT_EFFECT", moodId: "mood.haunted_c", delta: -3 },

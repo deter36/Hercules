@@ -26,6 +26,15 @@ export const lifecycle = (before: GameState, after: GameState): Record<string, u
   const events: Array<Record<string, unknown>> = [];
   const newlyCompleted = after.game.completedLaborIds.filter((id) => !before.game.completedLaborIds.includes(id));
   for (const laborId of newlyCompleted) events.push({ type: "LABOR_DEFEATED", laborId });
+  const newlyOwned = after.player.ownedRewardIds.filter((id) => !before.player.ownedRewardIds.includes(id));
+  for (const rewardId of newlyOwned) {
+    const reward = GAME_DATA.labors.flatMap((labor) => Array.isArray(labor.rewards) ? labor.rewards : []).find((entry) => entry.id === rewardId) as Record<string, unknown> | undefined;
+    events.push({ type: "REWARD_GAINED", rewardId, rewardName: reward?.name });
+    for (const bonus of Array.isArray(reward?.bonus) ? reward.bonus : []) {
+      const effect = bonus as Record<string, unknown>;
+      if (typeof effect.spirit_delta === "number") events.push({ type: "REWARD_SPIRIT_EFFECT", rewardId, delta: effect.spirit_delta });
+    }
+  }
   if (before.game.currentLaborId !== after.game.currentLaborId && after.game.currentLaborId) events.push({ type: "LABOR_STARTED", laborId: after.game.currentLaborId });
   if (before.mood.activeMoodId !== after.mood.activeMoodId && after.mood.activeMoodId) {
     const mood = GAME_DATA.moods.find((entry) => entry.id === after.mood.activeMoodId);
