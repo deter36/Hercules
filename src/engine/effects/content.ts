@@ -1,19 +1,37 @@
 import type { GameState, PendingDecision } from "../state/types.js";
 import { breakDie } from "../dice/lifecycle.js";
 import { getNode } from "../labor/content.js";
+import { applySimultaneous } from "../resources/resolve.js";
 
 type Effect = Record<string, unknown>;
 
-export function applyContentEffect(state: GameState, effect: Effect, sourceId: string, sourceLaborDieId?: string): GameState {
+export function resolveQueuedResources(state: GameState): GameState {
+  const next = structuredClone(state);
+  const queue = next.round.resourceQueue;
+  if (typeof next.player.spirit === "number") next.player.spirit = applySimultaneous(next.player.spirit, queue.spiritDeltas, 17, "SKULL") as GameState["player"]["spirit"];
+  if (typeof next.player.divinity === "number") next.player.divinity = applySimultaneous(next.player.divinity, queue.divinityDeltas, 10, "TOP") as GameState["player"]["divinity"];
+  next.round.resourceQueue = { spiritDeltas: [], divinityDeltas: [] };
+  if (next.player.spirit === "SKULL" || next.player.spirit === 0) { next.game.phase = "DEFEAT"; next.game.result = "defeat"; }
+  return next;
+}
+
+export function applyContentEffect(state: GameState, effect: Effect, sourceId: string, sourceLaborDieId?: string, queueResources = false): GameState {
   let next = structuredClone(state);
   if (typeof effect.spirit_delta === "number" && typeof next.player.spirit === "number") {
     const loss = effect.spirit_delta < 0 ? -effect.spirit_delta : 0;
     const blocked = loss > 0 && !next.currentLabor?.cannotBlockThisRound ? Math.min(loss, next.round.blockedSpirit) : 0;
     next.round.blockedSpirit -= blocked;
-    const total = next.player.spirit + effect.spirit_delta + blocked;
-    next.player.spirit = total <= 0 ? "SKULL" : Math.min(17, total);
+    const delta = effect.spirit_delta + blocked;
+    if (queueResources) next.round.resourceQueue.spiritDeltas.push(delta);
+    else {
+      const total = next.player.spirit + delta;
+      next.player.spirit = total <= 0 ? "SKULL" : Math.min(17, total);
+    }
   }
-  if (typeof effect.divinity_delta === "number" && typeof next.player.divinity === "number") next.player.divinity = Math.max(0, Math.min(10, next.player.divinity + effect.divinity_delta));
+  if (typeof effect.divinity_delta === "number" && typeof next.player.divinity === "number") {
+    if (queueResources) next.round.resourceQueue.divinityDeltas.push(effect.divinity_delta);
+    else next.player.divinity = Math.max(0, Math.min(10, next.player.divinity + effect.divinity_delta));
+  }
   if (typeof effect.hercules_dice_delta === "number") {
     const total = next.player.persistentHerculesDice + effect.hercules_dice_delta;
     if (!Number.isInteger(total) || total < 1 || total > Object.keys(next.herculesDice).length) throw new Error("Persistent Hercules die adjustment exceeds the certified physical die inventory.");
@@ -32,7 +50,7 @@ export function applyContentEffect(state: GameState, effect: Effect, sourceId: s
       }
       const entered = getNode(next.currentLabor!.laborId, die.trackId, die.nodeId);
       if (entered.effect?.failure !== undefined) { next.game.phase = "DEFEAT"; next.game.result = "defeat"; return next; }
-      if (entered.effect) next = applyContentEffect(next, entered.effect, entered.id, targetId);
+      if (entered.effect) next = applyContentEffect(next, entered.effect, entered.id, targetId, queueResources);
       if (next.pendingDecision || next.game.phase === "DEFEAT") return next;
     }
   }

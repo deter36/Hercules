@@ -53,7 +53,7 @@ export function placeGoldAbility(state: GameState, abilityId: string, dieIds: st
   if (typeof definition.effect === "object" && definition.effect !== null) {
     const effect = definition.effect as RecordValue;
     if (typeof effect.block_spirit === "number" && !next.currentLabor?.cannotBlockThisRound) next.round.blockedSpirit += effect.block_spirit;
-    else next = applyContentEffect(next, effect, abilityId);
+    else next = applyContentEffect(next, effect, abilityId, undefined, true);
   }
   return next;
 }

@@ -1,4 +1,4 @@
-import { applyContentEffect } from "../effects/content.js";
+import { applyContentEffect, resolveQueuedResources } from "../effects/content.js";
 import { getNode } from "../labor/content.js";
 import type { GameState, PendingDecision } from "../state/types.js";
 
@@ -28,9 +28,11 @@ export function resolveEnteredImpacts(state: GameState): GameState {
     const node = getNode(labor.laborId, die.trackId, die.nodeId);
     const effect = node.effect;
     if (effect?.failure !== undefined) { next.game.phase = "DEFEAT"; next.game.result = "defeat"; return next; }
-    if (effect) next = applyContentEffect(next, effect, node.id, die.id);
+    if (effect) next = applyContentEffect(next, effect, node.id, die.id, true);
     if (next.pendingDecision) return next;
   }
+  next = resolveQueuedResources(next);
+  if (next.game.phase === "DEFEAT") return next;
   next.game.phase = "FAILURE_CHECK";
   if (next.player.spirit === 0 || next.player.spirit === "SKULL") { next.game.phase = "DEFEAT"; next.game.result = "defeat"; }
   return next;

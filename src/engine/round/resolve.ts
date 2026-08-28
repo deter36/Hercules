@@ -11,6 +11,7 @@ import { beginRewardChoice } from "../rewards/resolve.js";
 import { enforceHindSoftLock } from "../labor/hind.js";
 import { completeLaborTransition } from "../labor/transition.js";
 import { beginRngUndoInterval } from "../state/undo.js";
+import { resolveQueuedResources } from "../effects/content.js";
 
 const moodEffect = (state: GameState): unknown => GAME_DATA.moods.find((mood) => mood.id === state.mood.activeMoodId)?.effect;
 
@@ -74,7 +75,7 @@ export function resolveRoundDamage(state: GameState): GameState {
   if (state.game.phase !== "GOLD_AND_ATTACK_PLACEMENT" && state.game.phase !== "DAMAGE_RESOLUTION") throw new Error("Damage resolution is not legal.");
   let next = structuredClone(state);
   for (const allocation of next.round.attackAllocations) { if(allocation.targetId==="__all_active_targets__"){for(const target of Object.values(next.currentLabor!.laborDice).filter(die=>die.status==="active"))next=applyLaborDamage(next,target.id,allocation.damage);}else if(next.currentLabor!.laborDice[allocation.targetId]?.status==="active")next = applyLaborDamage(next, allocation.targetId, allocation.damage); }
-  if(allLaborDiceDefeated(next)){next.game.phase="REWARD_SELECTION";return beginRewardChoice(next);}
+  if(allLaborDiceDefeated(next)){next=resolveQueuedResources(next);if(next.game.phase==="DEFEAT")return next;next.game.phase="REWARD_SELECTION";return beginRewardChoice(next);}
   next.game.phase = "LABOR_ADVANCE";
   next=advanceLaborDice(next);
   if(next.pendingDecision)return next;
@@ -89,7 +90,7 @@ export function cleanupRound(state: GameState): GameState {
   const next = structuredClone(state);
   (next.round as GameState["round"] & { usedBlueAbilityIds?: string[] }).usedBlueAbilityIds = [];
   next.herculesDice = resetRound(next.herculesDice);
-  next.round = { rollNumber: next.round.rollNumber, rerollNumber: next.round.rerollNumber, cowsBRerollNumber: next.round.cowsBRerollNumber, effectiveDoubleDieIds: [], derivedContributions: {}, goldPlacements: [], attackAllocations: [], blockedSpirit: 0 };
+  next.round = { rollNumber: next.round.rollNumber, rerollNumber: next.round.rerollNumber, cowsBRerollNumber: next.round.cowsBRerollNumber, effectiveDoubleDieIds: [], derivedContributions: {}, goldPlacements: [], attackAllocations: [], blockedSpirit: 0, resourceQueue: { spiritDeltas: [], divinityDeltas: [] } };
   next.game.phase = "READY_TO_ROLL";
   return next;
 }
