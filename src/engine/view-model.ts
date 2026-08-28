@@ -14,6 +14,7 @@ export interface PlayView {
   game: GameState["game"];
   player: GameState["player"];
   dice: GameState["herculesDice"];
+  derivedContributions: Array<{ id: string; sourceDieId: string; face: number; allocated: boolean }>;
   labor: { id: string; name: string; dice: Array<{ id: string; health: number; startingHealth: number; trackId: string; nodeId: string; nodeEffect: unknown; status: string; attack: string }>; tracks: Array<{ id: string; type: string; startId: string; nodes: Array<{ id: string; effect: unknown; next: string[] }> }> } | null;
   mood: { id: string | null; name: string | null; effect: string | null };
   rewards: Array<{ id: string; name: string; summary: string }>;
@@ -65,7 +66,15 @@ const rewardBonusSummary = (id: string): string => {
 const activeReward = (state: GameState, id: string): boolean => !state.player.removedRewardOrComponentIds.includes(id) && !state.player.temporaryEffects.some(effect => typeof effect === "object" && effect !== null && (effect as RecordValue).type === "disabled_reward" && (effect as RecordValue).rewardId === id);
 const eligibleDice = (state: GameState) => Object.values(state.herculesDice).filter(die => canPlace(die) && die.face !== null);
 const combinations = <T>(items: T[]): T[][] => items.flatMap((item, index) => [[item], ...combinations(items.slice(index + 1)).map(rest => [item, ...rest])]);
-const validPhysicalSets = (state: GameState, requirement: Requirement): string[][] => combinations(eligibleDice(state)).filter(dice => satisfies(requirement, dice.flatMap(die => state.round.effectiveDoubleDieIds.includes(die.id) ? [die.face!, die.face!] : [die.face!]))).map(dice => dice.map(die => die.id));
+type PlacementPiece = { id: string; value: number; kind: "die" | "contribution" };
+const eligiblePlacementPieces = (state: GameState): PlacementPiece[] => [
+  ...eligibleDice(state).map(die => ({ id: die.id, value: die.face!, kind: "die" as const })),
+  ...Object.values(state.round.derivedContributions).filter(contribution => !contribution.allocated).map(contribution => ({ id: contribution.id, value: contribution.face, kind: "contribution" as const }))
+];
+const validPlacementSets = (state: GameState, requirement: Requirement): Array<{ dieIds: string[]; contributionIds: string[] }> => combinations(eligiblePlacementPieces(state))
+  .filter(pieces => satisfies(requirement, pieces.map(piece => piece.value)))
+  .map(pieces => ({ dieIds: pieces.filter(piece => piece.kind === "die").map(piece => piece.id), contributionIds: pieces.filter(piece => piece.kind === "contribution").map(piece => piece.id) }));
+const placementSetLabel = (set: { dieIds: string[]; contributionIds: string[] }): string => [...set.dieIds, ...set.contributionIds].join(", ");
 const requirementLabel = (r: Requirement): string => {
   switch (r.type) {
     case "any_die": return "any 1 die";
@@ -161,16 +170,16 @@ export function getPlayView(state: GameState): PlayView {
     for (const rewardId of state.player.ownedRewardIds.filter(id => activeReward(state, id))) for (const ability of records(findReward(rewardId)?.gold)) {
       const requirement = ability.requirement as Requirement;
       if (usedGold.has(String(ability.id)) || !requirement) continue;
-      for (const dieIds of validPhysicalSets(state, requirement)) command(`gold:${ability.id}:${dieIds.join("-")}`, `${rewardName(rewardId)}: ${dieIds.join(", ")}`, { type: "PLACE_GOLD", abilityId: String(ability.id), dieIds }, "placement");
+      for (const set of validPlacementSets(state, requirement)) command(`gold:${ability.id}:${[...set.dieIds, ...set.contributionIds].join("-")}`, `${rewardName(rewardId)}: ${placementSetLabel(set)}`, { type: "PLACE_GOLD", abilityId: String(ability.id), ...set }, "placement");
     }
     for (const target of Object.values(state.currentLabor?.laborDice ?? {}).filter(die => die.status === "active")) {
       const attack = attackForLaborDie(state.currentLabor!.laborId, target.id);
-      for (const dieIds of validPhysicalSets(state, attack.requirement)) command(`attack:${target.id}:${dieIds.join("-")}`, `Attack ${target.id} with ${dieIds.join(", ")}`, { type: "ALLOCATE_ATTACK", targetId: target.id, dieIds }, "placement");
+      for (const set of validPlacementSets(state, attack.requirement)) command(`attack:${target.id}:${[...set.dieIds, ...set.contributionIds].join("-")}`, `Attack ${target.id} with ${placementSetLabel(set)}`, { type: "ALLOCATE_ATTACK", targetId: target.id, ...set }, "placement");
     }
     command("resolve", "Resolve assignments", { type: "RESOLVE_ASSIGNMENTS" }, "round");
   }
   if (state.undoStack.length > 0) command("undo", "Undo last deterministic action", { type: "UNDO_DETERMINISTIC" }, "utility");
   const labor = state.currentLabor ? (() => { const source = getLabor(state.currentLabor!.laborId); const tracks = Object.values(getTracks(state.currentLabor!.laborId)).map(track => ({ id: track.id, type: track.type, startId: track.startId, nodes: Object.values(track.nodes).map(node => ({ id: node.id, effect: node.effect, next: node.next })) })); return { id: state.currentLabor!.laborId, name: String(source.name ?? state.currentLabor!.laborId), dice: Object.values(state.currentLabor!.laborDice).map(die => ({ ...die, nodeEffect: getNode(state.currentLabor!.laborId, die.trackId, die.nodeId).effect, attack: requirementLabel(attackForLaborDie(state.currentLabor!.laborId, die.id).requirement) })), tracks }; })() : null;
   const mood = GAME_DATA.moods.find(entry => entry.id === state.mood.activeMoodId);
-  return { game: state.game, player: state.player, dice: state.herculesDice, labor, mood: { id: state.mood.activeMoodId, name: mood ? String(mood.name) : null, effect: moodEffectDescription(mood as unknown as RecordValue | undefined) }, rewards: state.player.ownedRewardIds.map(id => ({ id, name: rewardName(id), summary: rewardSummary(id) })), pendingDecision: state.pendingDecision, actions, blueAbilities, transitions: state.transitions };
+  return { game: state.game, player: state.player, dice: state.herculesDice, derivedContributions: Object.values(state.round.derivedContributions), labor, mood: { id: state.mood.activeMoodId, name: mood ? String(mood.name) : null, effect: moodEffectDescription(mood as unknown as RecordValue | undefined) }, rewards: state.player.ownedRewardIds.map(id => ({ id, name: rewardName(id), summary: rewardSummary(id) })), pendingDecision: state.pendingDecision, actions, blueAbilities, transitions: state.transitions };
 }

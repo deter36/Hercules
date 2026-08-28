@@ -84,7 +84,7 @@ export function submit(state: GameState, command: EngineCommand): EngineResult {
         next = useCowsA(next, command.sourceDieId, command.targetDieId, command.face);
         type = "COWS_A_USED";
       } else if (command.type === "PLACE_GOLD") {
-        next = placeGoldAbility(next, command.abilityId, command.dieIds);
+        next = placeGoldAbility(next, command.abilityId, command.dieIds, command.contributionIds);
         type = "GOLD_ABILITY_PLACED";
       } else if (command.type === "ALLOCATE_ATTACK") {
         next = allocateAttack(next, command.targetId, command.dieIds, command.contributionIds);
@@ -123,7 +123,7 @@ export function submit(state: GameState, command: EngineCommand): EngineResult {
   const after = hash(next);
   const payload: Record<string, unknown> = { command, spirit: { before: state.player.spirit, after: next.player.spirit }, divinity: { before: state.player.divinity, after: next.player.divinity }, ...lifecycle(state, next) };
   if (command.type === "PLACE_GOLD") payload.goldAbilityId = command.abilityId;
-  if (command.type === "ALLOCATE_ATTACK") payload.attack = { targetId: command.targetId, dieIds: command.dieIds };
+  if (command.type === "ALLOCATE_ATTACK") payload.attack = { targetId: command.targetId, dieIds: command.dieIds, contributionIds: command.contributionIds ?? [] };
   const transition: TransitionRecord = { index: next.transitionIndex++, type, source: { kind: "command", id: command.type }, payload, beforeHash: before, afterHash: after };
   next.transitions.push(structuredClone(transition));
   assertValidState(next, type);

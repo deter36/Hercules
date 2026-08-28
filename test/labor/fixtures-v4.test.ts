@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { allocateAttack, useBlueAbility } from "../../src/engine/actions/placement.js";
+import { allocateAttack, placeGoldAbility, useBlueAbility } from "../../src/engine/actions/placement.js";
 import { resolveAssignments } from "../../src/engine/commands/resolve-assignments.js";
 import { getTracks } from "../../src/engine/labor/content.js";
 import { startLabor, resolveMood } from "../../src/engine/labor/setup.js";
@@ -24,6 +24,20 @@ test("F009 Blood of the Amazons A creates one linked nonphysical derived contrib
   state = commitInitialRoll(state, {H1:4,H2:2,H3:2,H4:2,H5:2});
   const result = useBlueAbility(state, "ability.reward.L09.A.blue", "H1");
   assert.deepEqual(Object.values(result.round.derivedContributions), [{id:"H1-D1",sourceDieId:"H1",face:4,allocated:false}]);
+});
+
+test("Regret B creates an independently assignable linked copy", () => {
+  let state = resolveMood(startLabor(createInitialState("human", "regret-copy"), "labor.L05"), "mood.haunted_a");
+  state.player.ownedRewardIds.push("reward.L04.B", "reward.L01");
+  state = commitInitialRoll(state, {H1:2,H2:1,H3:3,H4:4,H5:5});
+  state = useBlueAbility(state, "ability.reward.L04.B.blue", "H2");
+  assert.deepEqual(Object.values(state.round.derivedContributions), [{id:"H2-D1",sourceDieId:"H2",face:1,allocated:false}]);
+  state.game.phase = "GOLD_AND_ATTACK_PLACEMENT";
+  const attack = allocateAttack(state, "labor.L05.A", ["H2"]);
+  assert.equal(attack.round.attackAllocations[0].damage, 1);
+  const gold = placeGoldAbility(state, "ability.reward.L01.gold", [], ["H2-D1"]);
+  assert.equal(gold.round.derivedContributions["H2-D1"].allocated, true);
+  assert.equal(gold.herculesDice.H2.locked, false);
 });
 
 test("F019/F022 resolve assignments distinguishes no available dice from a meaningful legal attack", () => {
