@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import { HerculesEngine } from "../../src/engine/api.js";
+import { startLabor } from "../../src/engine/labor/setup.js";
 
 test("the public engine facade creates, validates, saves, and submits", () => {
   const created = HerculesEngine.createGame({ difficulty: "human", seed: "public-api" });
@@ -27,6 +28,13 @@ test("the public playtest view exposes display data and engine-owned controls wi
   const bow = view.blueAbilities.find((ability) => ability.id === "ability.bow.blue");
   assert.equal(bow?.choices.length, 5);
   assert.equal(bow?.choices.every((source) => source.choices?.length === 2), true);
+});
+
+test("multi-track Labors pair stable track labels with their attack requirements", () => {
+  const state = startLabor(HerculesEngine.createGame({ difficulty: "human", seed: "track-labels" }).state, "labor.L06");
+  const view = HerculesEngine.getPlayView(state);
+  assert.deepEqual(view.labor?.tracks.map(track => track.label), ["Track A", "Track B", "Track C", "Track D"]);
+  assert.deepEqual(view.labor?.tracks.map(track => track.attack), ["one 3 or 6", "one 6", "one 3", "one 3 or 6"]);
 });
 
 test("the public playtest view supplies player-facing reward summaries and choice labels", () => {
