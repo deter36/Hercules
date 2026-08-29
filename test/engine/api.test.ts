@@ -59,4 +59,6 @@ test("the public playtest view supplies player-facing reward summaries and choic
   const removalView = HerculesEngine.getPlayView(state);
   assert.ok(removalView.actions.some((action) => action.label === "Regret B"));
   assert.ok(removalView.actions.some((action) => action.command.type === "CHOOSE_OPTION" && action.command.optionId === "component.bow" && action.label !== "component.bow"));
+  state.player.removedRewardOrComponentIds.push("reward.L04.B");
+  assert.equal(HerculesEngine.getPlayView(state).rewards.some((reward) => reward.id === "reward.L04.B"), false);
 });
