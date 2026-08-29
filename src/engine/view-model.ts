@@ -87,7 +87,7 @@ const requirementLabel = (r: Requirement): string => {
     case "variable_straight": return `${r.length}-die straight`;
     case "sum_equals_third": return "A + B = C";
     case "three_plus_x_lte_y": return "A + B ≤ C";
-    case "fixed_straight": return `${r.values.length}-die straight`;
+    case "fixed_straight": return `fixed ${r.values.join("-")} straight`;
     case "multiplication_equals_sum_of_others": return "A × B = C";
     case "one_even_one_odd": return "1 even and 1 odd die";
     case "exact_values": return r.values.join(", ");
