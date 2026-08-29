@@ -72,7 +72,7 @@ export function App() {
   const selectableContribution = (contribution: typeof derivedContributions[number]) => phaseAllowsSelection && !contribution.allocated;
   const selectedActions = selectedDieIds.length === 0 ? [] : view.actions.filter(action => (action.group === "blue" || action.group === "placement") && sameDice(actionDice(action.command), selectedDieIds));
   const actionGroup = (action: ReturnType<typeof grouped>[number]) => {
-    if (action.command.type === "ALLOCATE_ATTACK") return { key: `attack:${action.command.targetId}`, label: `Attack ${action.command.targetId.replace(/^labor\.L\d+\./, "")}` };
+    if (action.command.type === "ALLOCATE_ATTACK") return { key: `attack:${action.command.targetId}`, label: action.label.replace(/ with .+$/, "") };
     if (action.command.type === "PLACE_GOLD") return { key: `gold:${action.command.abilityId}`, label: action.label.split(":")[0] };
     if (action.command.type === "USE_BLUE_ABILITY") return { key: `blue:${action.command.abilityId}`, label: action.label.split(":")[0] };
     if (action.command.type === "REROLL_DIE") return { key: `blue:${action.command.abilityId}`, label: action.label.split(":")[0] };

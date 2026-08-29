@@ -93,6 +93,9 @@ const requirementLabel = (r: Requirement): string => {
     case "exact_values": return r.values.join(", ");
   }
 };
+const attackLabel = (attack: ReturnType<typeof attackForLaborDie>): string => attack.scope === "all_active_targets"
+  ? `${requirementLabel(attack.requirement)} · hits every active Labor die`
+  : requirementLabel(attack.requirement);
 const moodEffectDescription = (mood: RecordValue | undefined): string | null => {
   if (!mood) return null;
   const effect = mood.effect as RecordValue | undefined;
@@ -173,14 +176,17 @@ export function getPlayView(state: GameState): PlayView {
       if (usedGold.has(String(ability.id)) || !requirement) continue;
       for (const set of validPlacementSets(state, requirement)) command(`gold:${ability.id}:${[...set.dieIds, ...set.contributionIds].join("-")}`, `${rewardName(rewardId)}: ${placementSetLabel(set)}`, { type: "PLACE_GOLD", abilityId: String(ability.id), ...set }, "placement");
     }
-    for (const target of Object.values(state.currentLabor?.laborDice ?? {}).filter(die => die.status === "active")) {
+    const targets = Object.values(state.currentLabor?.laborDice ?? {}).filter(die => die.status === "active");
+    for (const [index, target] of targets.entries()) {
       const attack = attackForLaborDie(state.currentLabor!.laborId, target.id);
-      for (const set of validPlacementSets(state, attack.requirement)) command(`attack:${target.id}:${[...set.dieIds, ...set.contributionIds].join("-")}`, `Attack ${target.id} with ${placementSetLabel(set)}`, { type: "ALLOCATE_ATTACK", targetId: target.id, ...set }, "placement");
+      if (attack.scope === "all_active_targets" && index > 0) continue;
+      const label = attack.scope === "all_active_targets" ? "Attack every active Labor die" : `Attack ${target.id}`;
+      for (const set of validPlacementSets(state, attack.requirement)) command(`attack:${target.id}:${[...set.dieIds, ...set.contributionIds].join("-")}`, `${label} with ${placementSetLabel(set)}`, { type: "ALLOCATE_ATTACK", targetId: target.id, ...set }, "placement");
     }
     command("resolve", "Resolve assignments", { type: "RESOLVE_ASSIGNMENTS" }, "round");
   }
   if (state.undoStack.length > 0) command("undo", "Undo last deterministic action", { type: "UNDO_DETERMINISTIC" }, "utility");
-  const labor = state.currentLabor ? (() => { const source = getLabor(state.currentLabor!.laborId); const dice = Object.values(state.currentLabor!.laborDice).map(die => ({ ...die, nodeEffect: getNode(state.currentLabor!.laborId, die.trackId, die.nodeId).effect, attack: requirementLabel(attackForLaborDie(state.currentLabor!.laborId, die.id).requirement) })); const sourceTracks = Object.values(getTracks(state.currentLabor!.laborId)); const tracks = sourceTracks.map((track, index) => ({ id: track.id, label: sourceTracks.length > 1 ? `Track ${String.fromCharCode(65 + index)}` : "Track", attack: dice.find(die => die.trackId === track.id)?.attack ?? null, type: track.type, startId: track.startId, nodes: Object.values(track.nodes).map(node => ({ id: node.id, effect: node.effect, next: node.next })) })); return { id: state.currentLabor!.laborId, name: String(source.name ?? state.currentLabor!.laborId), dice, tracks }; })() : null;
+  const labor = state.currentLabor ? (() => { const source = getLabor(state.currentLabor!.laborId); const dice = Object.values(state.currentLabor!.laborDice).map(die => ({ ...die, nodeEffect: getNode(state.currentLabor!.laborId, die.trackId, die.nodeId).effect, attack: attackLabel(attackForLaborDie(state.currentLabor!.laborId, die.id)) })); const sourceTracks = Object.values(getTracks(state.currentLabor!.laborId)); const tracks = sourceTracks.map((track, index) => ({ id: track.id, label: sourceTracks.length > 1 ? `Track ${String.fromCharCode(65 + index)}` : "Track", attack: dice.find(die => die.trackId === track.id)?.attack ?? null, type: track.type, startId: track.startId, nodes: Object.values(track.nodes).map(node => ({ id: node.id, effect: node.effect, next: node.next })) })); return { id: state.currentLabor!.laborId, name: String(source.name ?? state.currentLabor!.laborId), dice, tracks }; })() : null;
   const mood = GAME_DATA.moods.find(entry => entry.id === state.mood.activeMoodId);
   return { game: state.game, player: state.player, dice: state.herculesDice, derivedContributions: Object.values(state.round.derivedContributions), labor, mood: { id: state.mood.activeMoodId, name: mood ? String(mood.name) : null, effect: moodEffectDescription(mood as unknown as RecordValue | undefined) }, rewards: state.player.ownedRewardIds.filter(id => activeReward(state, id)).map(id => ({ id, name: rewardName(id), summary: rewardSummary(id) })), pendingDecision: state.pendingDecision, actions, blueAbilities, transitions: state.transitions };
 }
