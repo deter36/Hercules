@@ -7,7 +7,17 @@ import "./qol.css";
 import "./hind-arrow.css";
 
 const SAVE_KEY = "hercules-12-labors.playtest.save.v1";
-const freshGame = () => HerculesEngine.createGame({ difficulty: "human", seed: "playtest-seed" }).state;
+let fallbackSeedCounter = 0;
+const randomSeed = (): string => {
+  const values = new Uint32Array(2);
+  if (globalThis.crypto?.getRandomValues) {
+    globalThis.crypto.getRandomValues(values);
+    return `playtest-${values[0].toString(36)}-${values[1].toString(36)}`;
+  }
+  fallbackSeedCounter += 1;
+  return `playtest-${Date.now().toString(36)}-${fallbackSeedCounter.toString(36)}`;
+};
+const freshGame = () => HerculesEngine.createGame({ difficulty: "human", seed: randomSeed() }).state;
 const persistGame = (state: GameState): boolean => {
   try { window.localStorage.setItem(SAVE_KEY, JSON.stringify(HerculesEngine.serialize(state))); return true; }
   catch { return false; }
@@ -52,7 +62,7 @@ export function App() {
   const availableDice = Object.values(view.dice).filter(die => die.availableForLabor);
   const derivedContributions = view.derivedContributions;
   const submit = (command: EngineCommand) => { try { const result = HerculesEngine.submit(state, command); setSaveAvailable(persistGame(result.state)); setState(result.state); setSelectedDieIds([]); setSelectedActionKey(null); setMessage(`${result.transitions.at(-1)?.type ?? "Action complete"}.`); } catch (error) { setMessage(error instanceof Error ? error.message : String(error)); } };
-  const start = () => { try { const result = HerculesEngine.createGame({ difficulty, seed }); setSaveAvailable(persistGame(result.state)); setState(result.state); setSelectedDieIds([]); setSelectedActionKey(null); setMessage("New game created."); } catch (error) { setMessage(error instanceof Error ? error.message : String(error)); } };
+  const start = (nextSeed = randomSeed()) => { try { const result = HerculesEngine.createGame({ difficulty, seed: nextSeed }); setSeed(nextSeed); setSaveAvailable(persistGame(result.state)); setState(result.state); setSelectedDieIds([]); setSelectedActionKey(null); setMessage(`New game created with seed ${nextSeed}.`); } catch (error) { setMessage(error instanceof Error ? error.message : String(error)); } };
   const copyDiagnostics = async () => {
     try { await navigator.clipboard.writeText(JSON.stringify(HerculesEngine.exportDiagnostics(state))); setMessage("Diagnostics copied. Paste them into this chat message."); }
     catch { setMessage("Could not copy diagnostics. Your browser may block clipboard access."); }
@@ -93,7 +103,7 @@ export function App() {
   const toggleDie = (dieId: string) => { setSelectedActionKey(null); setSelectedDieIds(ids => ids.includes(dieId) ? ids.filter(id => id !== dieId) : [...ids, dieId]); };
   return <main>
     <header><div><p className="eyebrow">ENGINE PLAYTEST</p><h1>Hercules &amp; the 12 Labors</h1></div><div className="status"><span>{view.game.phase}</span><strong>{view.game.result?.toUpperCase() ?? "IN PROGRESS"}</strong></div></header>
-    <section className="game-toolbar"><button className="new-game" onClick={start}>New game</button><section className="game-menu card"><button className="menu-toggle quiet" aria-expanded={gameMenuOpen} onClick={() => setGameMenuOpen(open => !open)}>Game menu <span>{gameMenuOpen ? "−" : "+"}</span></button>{gameMenuOpen && <div className="setup"><label>Difficulty<select value={difficulty} onChange={event => setDifficulty(event.target.value as Difficulty)}>{(["human", "hero", "god"] as Difficulty[]).map(value => <option key={value}>{value}</option>)}</select></label><label>Seed<input value={seed} onChange={event => setSeed(event.target.value)} /></label><button className="quiet" onClick={() => setDebug(value => !value)}>{debug ? "Hide" : "Show"} debug</button><button className="quiet" onClick={copyDiagnostics}>Copy diagnostics</button><button className="quiet" onClick={() => download("hercules-diagnostics.json", HerculesEngine.exportDiagnostics(state))}>Export diagnostics</button></div>}</section></section>
+    <section className="game-toolbar"><button className="new-game" onClick={() => start()}>New game</button><section className="game-menu card"><button className="menu-toggle quiet" aria-expanded={gameMenuOpen} onClick={() => setGameMenuOpen(open => !open)}>Game menu <span>{gameMenuOpen ? "−" : "+"}</span></button>{gameMenuOpen && <div className="setup"><label>Difficulty<select value={difficulty} onChange={event => setDifficulty(event.target.value as Difficulty)}>{(["human", "hero", "god"] as Difficulty[]).map(value => <option key={value}>{value}</option>)}</select></label><label>Seed<input value={seed} onChange={event => setSeed(event.target.value)} /></label><button className="quiet" onClick={() => start(seed)}>Start this seed</button><button className="quiet" onClick={() => setDebug(value => !value)}>{debug ? "Hide" : "Show"} debug</button><button className="quiet" onClick={copyDiagnostics}>Copy diagnostics</button><button className="quiet" onClick={() => download("hercules-diagnostics.json", HerculesEngine.exportDiagnostics(state))}>Export diagnostics</button></div>}</section></section>
     <p className="message" role="status">{message}{!saveAvailable && " This browser is not allowing local game saves."}</p>
     <section className="dashboard">
       <article className="card"><h2>Hercules</h2><div className="resources"><span>Spirit <b>{view.player.spirit}</b></span><span>Divinity <b>{view.player.divinity}</b></span></div>{phaseAllowsSelection && <p className="selection-help">Select dice or a linked copy, then choose an engine-legal action.</p>}<div className="dice">{availableDice.map(die => <button className={`die ${selectedDieIds.includes(die.id) ? "selected" : ""} ${selectable(die) ? "targetable" : ""} ${die.allocated || die.locked || die.spent ? "used" : ""}`} disabled={!selectable(die)} onClick={() => toggleDie(die.id)} key={die.id}><b>{die.id}</b><strong>{die.face ?? "—"}</strong><small>{selectedDieIds.includes(die.id) ? "selected" : die.allocated ? "attack" : die.locked ? "gold" : die.spent ? "spent" : die.blueUsed ? "blue used" : die.rollable ? "ready" : "unavailable"}</small></button>)}{derivedContributions.map(contribution => <button className={`die derived ${selectedDieIds.includes(contribution.id) ? "selected" : ""} ${selectableContribution(contribution) ? "targetable" : ""} ${contribution.allocated ? "used" : ""}`} disabled={!selectableContribution(contribution)} onClick={() => toggleDie(contribution.id)} key={contribution.id}><b>{contribution.id}</b><strong>{contribution.face}</strong><small>{selectedDieIds.includes(contribution.id) ? "selected" : contribution.allocated ? "used" : `copy of ${contribution.sourceDieId}`}</small></button>)}</div><h3>Rewards</h3>{view.rewards.length ? <ul className="reward-list">{view.rewards.map(reward => <li key={reward.id}><b>{reward.name}</b><small>{reward.summary}</small></li>)}</ul> : <p>None yet</p>}</article>
