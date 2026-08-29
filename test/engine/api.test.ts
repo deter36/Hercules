@@ -37,10 +37,10 @@ test("multi-track Labors pair stable track labels with their attack requirements
   assert.deepEqual(view.labor?.tracks.map(track => track.attack), ["one 3 or 6", "one 6", "one 3", "one 3 or 6"]);
 });
 
-test("fixed-straight attacks display their required faces", () => {
+test("Mares fixed-straight attacks show that the player chooses one target", () => {
   const state = startLabor(HerculesEngine.createGame({ difficulty: "human", seed: "mares-attack-label" }).state, "labor.L08");
   const view = HerculesEngine.getPlayView(state);
-  assert.deepEqual(view.labor?.tracks.map(track => track.attack), ["fixed 1-2-3 straight · hits every active Labor die", "fixed 1-2-3 straight · hits every active Labor die"]);
+  assert.deepEqual(view.labor?.tracks.map(track => track.attack), ["fixed 1-2-3 straight · choose 1 target", "fixed 1-2-3 straight · choose 1 target"]);
 });
 
 test("the public playtest view supplies player-facing reward summaries and choice labels", () => {

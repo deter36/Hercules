@@ -93,9 +93,11 @@ const requirementLabel = (r: Requirement): string => {
     case "exact_values": return r.values.join(", ");
   }
 };
-const attackLabel = (attack: ReturnType<typeof attackForLaborDie>): string => attack.scope === "all_active_targets"
-  ? `${requirementLabel(attack.requirement)} · hits every active Labor die`
-  : requirementLabel(attack.requirement);
+const attackLabel = (attack: ReturnType<typeof attackForLaborDie>): string => {
+  if (attack.scope === "all_active_targets") return `${requirementLabel(attack.requirement)} · hits every active Labor die`;
+  if (attack.scope === "single_active_target_per_attack_instance") return `${requirementLabel(attack.requirement)} · choose 1 target`;
+  return requirementLabel(attack.requirement);
+};
 const moodEffectDescription = (mood: RecordValue | undefined): string | null => {
   if (!mood) return null;
   const effect = mood.effect as RecordValue | undefined;
@@ -180,7 +182,8 @@ export function getPlayView(state: GameState): PlayView {
     for (const [index, target] of targets.entries()) {
       const attack = attackForLaborDie(state.currentLabor!.laborId, target.id);
       if (attack.scope === "all_active_targets" && index > 0) continue;
-      const label = attack.scope === "all_active_targets" ? "Attack every active Labor die" : `Attack ${target.id}`;
+      const targetLabel = target.id.replace(/^labor\.L\d+\./, "");
+      const label = attack.scope === "all_active_targets" ? "Attack every active Labor die" : `Attack ${targetLabel}`;
       for (const set of validPlacementSets(state, attack.requirement)) command(`attack:${target.id}:${[...set.dieIds, ...set.contributionIds].join("-")}`, `${label} with ${placementSetLabel(set)}`, { type: "ALLOCATE_ATTACK", targetId: target.id, ...set }, "placement");
     }
     command("resolve", "Resolve assignments", { type: "RESOLVE_ASSIGNMENTS" }, "round");

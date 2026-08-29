@@ -1620,7 +1620,8 @@
         }
       ],
       "attack": {
-        "scope": "all_active_targets",
+        "scope": "single_active_target_per_attack_instance",
+        "target_selection": "player",
         "requirement": {
           "type": "fixed_straight",
           "values": [
@@ -1630,6 +1631,15 @@
           ]
         },
         "damage": 1
+      },
+      "labor_die_semantics": {
+        "independent_health": true,
+        "independent_track_position": true,
+        "independent_healing": true,
+        "independent_advancement": true,
+        "independent_defeat_status": true,
+        "shared_attack_requirement": true,
+        "shared_attack_damage": false
       },
       "tracks": {
         "track.L08.A": {

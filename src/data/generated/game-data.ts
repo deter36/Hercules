@@ -1,6 +1,6 @@
 // Generated from src/data/raw/GAME_DATA_v4.json. Do not edit.
-export const GAME_DATA_SOURCE_HASH = "356bb6b4554c8872cc853986362c572e8601f8b0c0ffbfc6c69d9505f4102303" as const;
-export const GAME_DATA_CONTENT_HASH = "d731fd0dfdf7ff9dfb27fe25f5f61c6e4274a73bab7854ed0085fc76e804052e" as const;
+export const GAME_DATA_SOURCE_HASH = "9ee8d2464541cb478bdd9add94153d922bea5ae2b9ecc84c8c9d46b1ac80cb86" as const;
+export const GAME_DATA_CONTENT_HASH = "d75c117988439b6bc843c6cdca03699801e3ab451c270812c67b30233fdb6ddb" as const;
 export const GAME_DATA = {
   "schema_version": "hercules_game_data_v4",
   "game_id": "hercules_12_labors",
@@ -1623,7 +1623,8 @@ export const GAME_DATA = {
         }
       ],
       "attack": {
-        "scope": "all_active_targets",
+        "scope": "single_active_target_per_attack_instance",
+        "target_selection": "player",
         "requirement": {
           "type": "fixed_straight",
           "values": [
@@ -1633,6 +1634,15 @@ export const GAME_DATA = {
           ]
         },
         "damage": 1
+      },
+      "labor_die_semantics": {
+        "independent_health": true,
+        "independent_track_position": true,
+        "independent_healing": true,
+        "independent_advancement": true,
+        "independent_defeat_status": true,
+        "shared_attack_requirement": true,
+        "shared_attack_damage": false
       },
       "tracks": {
         "track.L08.A": {
