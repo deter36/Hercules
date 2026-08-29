@@ -158,9 +158,10 @@ export function getPlayView(state: GameState): PlayView {
   const command = (id: string, label: string, action: EngineCommand, group: PlayAction["group"]): void => { actions.push({ id, label, command: action, group }); };
   if (state.pendingDecision) for (const option of state.pendingDecision.legalOptions) {
     const isRewardChoice = state.pendingDecision.type === "CHOOSE_REWARD";
+    const isOwnedRewardChoice = state.pendingDecision.type === "CHOOSE_REWARD_TO_REMOVE" || state.pendingDecision.type === "CHOOSE_PHOLUS_REWARD";
     const label = isRewardChoice
       ? `${rewardName(option.id)} — ${rewardBonusSummary(option.id)}. ${rewardSummary(option.id)}`
-      : option.label ?? option.id;
+      : isOwnedRewardChoice ? rewardName(option.id) : option.label ?? option.id;
     command(`decision:${option.id}`, label, { type: "CHOOSE_OPTION", decisionId: state.pendingDecision.id, optionId: option.id }, "decision");
   }
   else if (state.game.phase === "READY_TO_ROLL") command("roll", "Roll Hercules dice", { type: "ROLL" }, "round");
