@@ -5,6 +5,7 @@ import type { Difficulty, GameState } from "../engine/state/types.js";
 import "./tracks.css";
 import "./qol.css";
 import "./hind-arrow.css";
+import "./dice-contrast.css";
 
 const SAVE_KEY = "hercules-12-labors.playtest.save.v1";
 let fallbackSeedCounter = 0;

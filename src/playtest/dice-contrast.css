@@ -1,0 +1,7 @@
+.die {
+  color: #fff;
+}
+
+.die.selected {
+  color: #171006;
+}
