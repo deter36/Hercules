@@ -43,6 +43,13 @@ test("Mares fixed-straight attacks show that the player chooses one target", () 
   assert.deepEqual(view.labor?.tracks.map(track => track.attack), ["fixed 1-2-3 straight · choose 1 target", "fixed 1-2-3 straight · choose 1 target"]);
 });
 
+test("Belt, Apples, and Cerberus attacks show that the player chooses one target", () => {
+  for (const [laborId, expected] of [["labor.L09", "A × B = C · choose 1 target"], ["labor.L11", "4-die straight · choose 1 target"], ["labor.L12", "dice totaling 18 · choose 1 target"]] as const) {
+    const state = startLabor(HerculesEngine.createGame({ difficulty: "human", seed: `${laborId}-attack-label` }).state, laborId);
+    assert.ok(HerculesEngine.getPlayView(state).labor?.tracks.every(track => track.attack === expected));
+  }
+});
+
 test("the public playtest view supplies player-facing reward summaries and choice labels", () => {
   const state = HerculesEngine.createGame({ difficulty: "human", seed: "reward-display" }).state;
   state.player.ownedRewardIds.push("reward.L04.B");

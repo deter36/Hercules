@@ -1,6 +1,6 @@
 // Generated from src/data/raw/GAME_DATA_v4.json. Do not edit.
-export const GAME_DATA_SOURCE_HASH = "9ee8d2464541cb478bdd9add94153d922bea5ae2b9ecc84c8c9d46b1ac80cb86" as const;
-export const GAME_DATA_CONTENT_HASH = "d75c117988439b6bc843c6cdca03699801e3ab451c270812c67b30233fdb6ddb" as const;
+export const GAME_DATA_SOURCE_HASH = "a9693d988a096060f29150f082c0d40f128a244aadf0b78f989b7cb1f1616ec9" as const;
+export const GAME_DATA_CONTENT_HASH = "a6657fa9bffa3740b8da2ddc9fccbfe9780fc91cf0d2f64025d752bdb2bbee4d" as const;
 export const GAME_DATA = {
   "schema_version": "hercules_game_data_v4",
   "game_id": "hercules_12_labors",
@@ -1842,11 +1842,21 @@ export const GAME_DATA = {
         }
       ],
       "attack": {
-        "scope": "all_active_targets",
+        "scope": "single_active_target_per_attack_instance",
+        "target_selection": "player",
         "requirement": {
           "type": "multiplication_equals_sum_of_others"
         },
         "damage": 1
+      },
+      "labor_die_semantics": {
+        "independent_health": true,
+        "independent_track_position": true,
+        "independent_healing": true,
+        "independent_advancement": true,
+        "independent_defeat_status": true,
+        "shared_attack_requirement": true,
+        "shared_attack_damage": false
       },
       "tracks": {
         "track.L09.left3": {
@@ -2416,12 +2426,23 @@ export const GAME_DATA = {
         }
       ],
       "attack": {
-        "scope": "all_active_targets",
+        "scope": "single_active_target_per_attack_instance",
+        "target_selection": "player",
         "requirement": {
           "type": "variable_straight",
           "length": 4
         },
         "damage": 1
+      },
+      "labor_die_semantics": {
+        "independent_health": true,
+        "independent_track_position": true,
+        "independent_healing": true,
+        "independent_advancement": true,
+        "independent_defeat_status": true,
+        "shared_track_graph": true,
+        "shared_attack_requirement": true,
+        "shared_attack_damage": false
       },
       "tracks": {
         "track.L11": {
@@ -2779,7 +2800,8 @@ export const GAME_DATA = {
         }
       ],
       "attack": {
-        "scope": "all_active_targets",
+        "scope": "single_active_target_per_attack_instance",
+        "target_selection": "player",
         "requirement": {
           "type": "exact_sum",
           "sum": 18,
@@ -2787,6 +2809,15 @@ export const GAME_DATA = {
         },
         "damage": 1,
         "multiple_disjoint_attacks_per_roll": true
+      },
+      "labor_die_semantics": {
+        "independent_health": true,
+        "independent_track_position": true,
+        "independent_healing": true,
+        "independent_advancement": true,
+        "independent_defeat_status": true,
+        "shared_attack_requirement": true,
+        "shared_attack_damage": false
       },
       "tracks": {
         "track.L12.A": {
