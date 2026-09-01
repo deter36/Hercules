@@ -118,7 +118,7 @@ function blueActions(state: GameState): { actions: PlayAction[]; abilities: Play
   if (state.game.phase !== "BLUE_ABILITY_WINDOW") return { actions: [], abilities: [] };
   const used = (state.round as GameState["round"] & { usedBlueAbilityIds?: string[] }).usedBlueAbilityIds ?? [];
   const entries: Array<{ id: string; name: string; definition: RecordValue }> = [];
-  if (!state.player.removedRewardOrComponentIds.includes("component.bow")) entries.push({ id: "ability.bow.blue", name: String(GAME_DATA.components.bow.name), definition: GAME_DATA.components.bow.blue_ability as unknown as RecordValue });
+  if (activeReward(state, "component.bow")) entries.push({ id: "ability.bow.blue", name: String(GAME_DATA.components.bow.name), definition: GAME_DATA.components.bow.blue_ability as unknown as RecordValue });
   if (state.mood.activeMoodId === "mood.ferocious") entries.push({ id: "ability.mood.ferocious.blue", name: "Ferocious", definition: { type: "set_any" } });
   for (const rewardId of state.player.ownedRewardIds.filter(id => activeReward(state, id))) for (const ability of records(findReward(rewardId)?.blue)) entries.push({ id: String(ability.id), name: rewardName(rewardId), definition: ability });
   const actions: PlayAction[] = [];
