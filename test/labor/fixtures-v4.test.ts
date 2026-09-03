@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import { allocateAttack, placeGoldAbility, useBlueAbility } from "../../src/engine/actions/placement.js";
 import { resolveAssignments } from "../../src/engine/commands/resolve-assignments.js";
+import { applyContentEffect } from "../../src/engine/effects/content.js";
 import { getTracks } from "../../src/engine/labor/content.js";
 import { startLabor, resolveMood } from "../../src/engine/labor/setup.js";
 import { commitInitialRoll } from "../../src/engine/round/resolve.js";
@@ -16,6 +17,27 @@ test("F004/F005 Cannot Block is a round-start snapshot", () => {
   const enteredLater = startLabor(createInitialState("human", "snapshot"), "labor.L06");
   const rolledLater = commitInitialRoll(resolveMood(enteredLater, "mood.haunted_a"), {H1:2,H2:2,H3:2,H4:2,H5:2});
   assert.equal(rolledLater.currentLabor!.cannotBlockThisRound, false);
+});
+
+test("every Cannot Block node applies only through the next round's snapshot", () => {
+  const laborIds = ["labor.L04", "labor.L05", "labor.L06", "labor.L08", "labor.L09", "labor.L10", "labor.L12"];
+  for (const laborId of laborIds) {
+    for (const track of Object.values(getTracks(laborId))) {
+      for (const node of Object.values(track.nodes).filter((entry) => entry.effect?.cannot_block === true)) {
+        const atRoundStart = startLabor(createInitialState("human", `cannot-block-start:${node.id}`), laborId);
+        const die = Object.values(atRoundStart.currentLabor!.laborDice).find((entry) => entry.trackId === track.id)!;
+        die.nodeId = node.id;
+        const snapshotted = commitInitialRoll(resolveMood(atRoundStart, "mood.haunted_a"), {H1:2,H2:2,H3:2,H4:2,H5:2});
+        assert.equal(snapshotted.currentLabor!.cannotBlockThisRound, true, node.id);
+
+        const enteredThisRound = startLabor(createInitialState("human", `cannot-block-entered:${node.id}`), laborId);
+        const enteredDie = Object.values(enteredThisRound.currentLabor!.laborDice).find((entry) => entry.trackId === track.id)!;
+        const rolled = commitInitialRoll(resolveMood(enteredThisRound, "mood.haunted_a"), {H1:2,H2:2,H3:2,H4:2,H5:2});
+        const afterImpact = applyContentEffect(rolled, node.effect!, node.id, enteredDie.id, true);
+        assert.equal(afterImpact.currentLabor!.cannotBlockThisRound, false, node.id);
+      }
+    }
+  }
 });
 
 test("F009 Blood of the Amazons A creates one linked nonphysical derived contribution", () => {
