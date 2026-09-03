@@ -41,7 +41,6 @@ export function applyContentEffect(state: GameState, effect: Effect, sourceId: s
     const die = next.currentLabor.laborDice[sourceLaborDieId];
     if (die?.status === "active") die.health = Math.min(die.startingHealth, die.health + effect.heal);
   }
-  if (effect.cannot_block === true && next.currentLabor) next.currentLabor.cannotBlockThisRound = true;
   if (typeof effect.advance_all_other_active_labor_dice === "number" && next.currentLabor && sourceLaborDieId) {
     const targets = Object.values(next.currentLabor!.laborDice).filter((die) => die.status === "active" && die.id !== sourceLaborDieId).map((die) => die.id);
     for (const targetId of targets) {

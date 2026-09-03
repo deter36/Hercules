@@ -23,6 +23,21 @@ test("entered skull is an explicit defeat", () => {
   assert.equal(resolved.game.result, "defeat");
 });
 
+test("Cerberus Cannot Block entered during impacts does not invalidate this round's Spirit block", () => {
+  const state = startLabor(createInitialState("human", "cerberus-nonretroactive-block"), "labor.L12");
+  state.game.phase = "IMPACT_RESOLUTION";
+  state.round.blockedSpirit = 1;
+  state.currentLabor!.laborDice["labor.L12.A"].nodeId = "L12A.n2";
+  state.currentLabor!.laborDice["labor.L12.B"].nodeId = "L12B.n2";
+  state.currentLabor!.laborDice["labor.L12.C"].status = "defeated_inactive";
+  state.currentLabor!.laborDice["labor.L12.C"].health = 0;
+
+  const resolved = resolveEnteredImpacts(state);
+
+  assert.equal(resolved.currentLabor!.cannotBlockThisRound, false);
+  assert.equal(resolved.player.spirit, 16);
+});
+
 test("Apples asks for each die's route independently before resolving their movement", () => {
   const state = startLabor(createInitialState("human", "apples-two-routes"), "labor.L11");
   state.game.phase = "LABOR_ADVANCE";
