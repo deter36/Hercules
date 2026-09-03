@@ -4,7 +4,7 @@ import type { EngineResult, EngineCommand, TransitionRecord } from "./types.js";
 import type { GameState } from "../state/types.js";
 import { beginRngUndoInterval, checkpointDeterministicAction, undoDeterministicAction } from "../state/undo.js";
 import { cleanupRound, rollFromRng, resolveRoundDamage } from "../round/resolve.js";
-import { resolveEnteredImpacts } from "../round/progress.js";
+import { advanceLaborDice, resolveEnteredImpacts } from "../round/progress.js";
 import { chooseBranch, chooseBrokenDie, chooseGhostAbderusCost, choosePholusReward } from "../decisions/resolve.js";
 import { allocateAttack, placeGoldAbility, useBlueAbility, useCowsA, useCowsB, useRerollOne } from "../actions/placement.js";
 import { chooseReward, chooseRewardToRemove } from "../rewards/resolve.js";
@@ -100,8 +100,15 @@ export function submit(state: GameState, command: EngineCommand): EngineResult {
         const decision = next.pendingDecision!;
         if (decision.type === "CHOOSE_TRACK_BRANCH") {
           next = chooseBranch(next, command.decisionId, command.optionId);
-          next = resolveEnteredImpacts(next);
-          if (next.game.phase === "FAILURE_CHECK") next = cleanupRound(next);
+          const remaining = decision.context.remainingLaborDieIds;
+          if (Array.isArray(remaining) && remaining.every((id): id is string => typeof id === "string") && remaining.length > 0) {
+            next.game.phase = "LABOR_ADVANCE";
+            next = advanceLaborDice(next, remaining);
+          }
+          if (!next.pendingDecision) {
+            next = resolveEnteredImpacts(next);
+            if (next.game.phase === "FAILURE_CHECK") next = cleanupRound(next);
+          }
         }
         else if (decision.type === "CHOOSE_DIE_TO_BREAK") next = chooseBrokenDie(next, command.decisionId, command.optionId);
         else if (decision.type === "CHOOSE_GHOST_ABDERUS_COST") next = chooseGhostAbderusCost(next, command.decisionId, command.optionId as "lose_die" | "lose_spirit");
