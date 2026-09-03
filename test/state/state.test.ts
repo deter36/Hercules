@@ -51,6 +51,17 @@ test("save/load preserves the current deterministic undo window", () => {
   assert.equal(undone.rng.nextEvent, restored.rng.nextEvent);
 });
 
+test("save/load restores the skipped Apples route choice from the affected build", () => {
+  const state = startLabor(createInitialState("human", "repair-apples-route"), "labor.L11");
+  state.game.phase = "READY_TO_ROLL";
+  state.currentLabor!.laborDice["labor.L11.left"].nodeId = "A2";
+  state.transitions.push({ index: 0, type: "DECISION_RESOLVED", source: { kind: "command", id: "CHOOSE_OPTION" }, payload: { command: { type: "CHOOSE_OPTION", decisionId: "branch:labor.L11.left:A1", optionId: "A2" } }, beforeHash: "before", afterHash: "after" });
+  const repaired = deserialize(serialize(state));
+  assert.equal(repaired.game.phase, "LABOR_ADVANCE");
+  assert.equal(repaired.pendingDecision?.context.laborDieId, "labor.L11.right");
+  assert.deepEqual(repaired.pendingDecision?.legalOptions.map(option => option.id), ["A2", "B3", "B4"]);
+});
+
 test("invariants reject illegal die reuse", () => {
   const state = createInitialState("human", "invalid-state-seed");
   state.herculesDice.H1.locked = true;
