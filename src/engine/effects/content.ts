@@ -1,4 +1,4 @@
-import type { GameState, PendingDecision } from "../state/types.js";
+import type { GameState } from "../state/types.js";
 import { breakDie } from "../dice/lifecycle.js";
 import { getNode } from "../labor/content.js";
 import { applySimultaneous } from "../resources/resolve.js";
@@ -58,9 +58,11 @@ export function applyContentEffect(state: GameState, effect: Effect, sourceId: s
   }
   if (typeof effect.break_hercules_die === "string" && next.herculesDice[effect.break_hercules_die]) next.herculesDice[effect.break_hercules_die] = breakDie(next.herculesDice[effect.break_hercules_die]);
   if (typeof effect.break_hercules_die === "number") {
-    const legal = Object.values(next.herculesDice).filter((die) => die.availableForLabor && !die.broken).map((die) => ({ id: die.id }));
-    const decision: PendingDecision = { id: `break:${sourceId}`, type: "CHOOSE_DIE_TO_BREAK", prompt: "Choose a die to break", legalOptions: legal, source: { kind: "effect", id: sourceId }, context: { count: effect.break_hercules_die }, allowSkip: false, randomnessOnResolve: false, undoBarrierOnResolve: false, revealsHiddenInformation: false };
-    next.pendingDecision = decision;
+    const targets = Object.values(next.herculesDice)
+      .filter((die) => die.availableForLabor && !die.broken)
+      .sort((left, right) => Number(right.id.slice(1)) - Number(left.id.slice(1)))
+      .slice(0, effect.break_hercules_die);
+    for (const die of targets) next.herculesDice[die.id] = breakDie(die);
   }
   return next;
 }

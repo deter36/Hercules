@@ -443,7 +443,7 @@ Blocking:
 - entering a Cannot Block node during end-of-round advancement does not retroactively alter the round just resolved
 - while `cannot_block_this_round` is true, blocking effects cannot prevent the applicable Spirit loss
 
-If an impact breaks a Hercules die and a choice of physical die matters, stop for player selection.
+When an impact breaks one or more unspecified Hercules dice, break the highest-numbered eligible physical die or dice automatically.
 
 After all impacts resolve, enter `FAILURE_CHECK`.
 
