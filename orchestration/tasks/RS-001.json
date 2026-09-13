@@ -1,14 +1,12 @@
 {
   "manifest_revision": "e1-m0001",
   "claim": null,
-  "blocking_issue_ids": [
-    "ISS-PM-SETUP-002"
-  ],
+  "blocking_issue_ids": [],
   "handoff_path": null,
   "pm_review": null,
   "id": "RS-001",
   "role": "rules_spec",
-  "status": "blocked",
+  "status": "ready",
   "objective": "Assess the exact historical canonical inputs for Golden Run 0001 and prepare a small constructed Labor VIII validation scenario. Report readiness per scenario with authority and provenance.",
   "dependencies": [],
   "input_artifact_ids": [
@@ -73,5 +71,5 @@
   "assigned_issue_ids": [
     "ISS-PM-SETUP-001"
   ],
-  "blocked_reason": "The prepared branch is local only; public publication requires explicit approval after automatic approval review rejected the push."
+  "blocked_reason": null
 }

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "experiment_id": "HERC-ORCH-E1",
-  "phase": "blocked",
+  "phase": "prepared",
   "updated_at": "2026-09-13T04:58:06.854712+00:00",
   "repository": "https://github.com/deter36/Hercules",
   "branch": "codex/hercules-orchestration-e1",
@@ -292,10 +292,10 @@
   },
   "pm_schedule": {
     "cadence": "hourly",
-    "status": "PAUSED",
+    "status": "ACTIVE",
     "automation_id": "hercules-experiment-pm",
     "destination": "current PM task",
-    "confirmation": "Codex automation tool confirmed pause pending public-publication approval"
+    "confirmation": "Codex automation tool confirmed resumption after publication approval"
   },
   "gates": {
     "golden_ready_for_validation": {
@@ -356,10 +356,13 @@
     }
   ],
   "publication": {
-    "status": "blocked_by_automatic_approval_review",
+    "status": "published",
     "destination_visibility": "public",
-    "prepared_commit": "6c2315a5feb1c61089ad3870c5a690a3224ce404",
-    "approval_required": "Explicit permission to publish orchestration materials and copied local rulebook/gameplay-reference/RNG sources to deter36/Hercules.",
-    "remote_branch_created": false
+    "prepared_commit": "22ff1e963e3c4e8c441c2d05ce1d9d8ce9deb28b",
+    "approval_required": null,
+    "approval_evidence": "User explicitly approved pushing the complete experiment branch, including the copied public-branch payload, in the PM task on 2026-09-13.",
+    "remote_branch": "origin/codex/hercules-orchestration-e1",
+    "verified_remote_commit": "22ff1e963e3c4e8c441c2d05ce1d9d8ce9deb28b",
+    "remote_branch_created": true
   }
 }

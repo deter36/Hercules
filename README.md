@@ -4,10 +4,10 @@ This branch is a controlled historical experiment in repository-based coordinati
 Start at [the current manifest](orchestration/current_manifest.md), then read
 [the operating protocol](orchestration/README.md) and your role's onboarding file.
 
-The PM has prepared and committed the experiment locally. Public publication is
-blocked pending explicit approval for the copied source documents and coordination
-materials. The hourly PM schedule is saved and paused. After publication,
-Rules/Spec readiness review is the first worker task; validation has not run.
+The PM has prepared and published the experiment branch with the user's explicit
+approval for the copied source documents and coordination materials. The hourly PM
+schedule is active. Rules/Spec readiness review is the first eligible worker task;
+validation has not run.
 The implementation-ready spec is behind a separate, later human checkpoint.
 
 Coordination uses files and ordinary Git commits on `codex/hercules-orchestration-e1`

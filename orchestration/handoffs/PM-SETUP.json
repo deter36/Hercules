@@ -2,7 +2,7 @@
   "task_id": "PM-SETUP",
   "run_id": "PM-SETUP-20260913",
   "role": "project_manager",
-  "status": "prepared_publication_blocked",
+  "status": "published_ready_for_worker_instantiation",
   "manifest_revision": "e1-m0001",
   "baseline_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
   "decisions": [
@@ -41,9 +41,9 @@
     "Exact historical export timestamps for recovered external sources are not independently established.",
     "Worker source/authority review and L08 constructed preconditions remain pending.",
     "ISS-PM-SETUP-001: 12 of 13 legacy checksum entries match; GAME_DATA_v4 does not. Routed to Rules/Spec without changing canon.",
-    "Public publication explicitly blocked by automatic approval review; local setup complete, PM schedule paused, no workers started."
+    "Worker instantiation remains a human action under the experiment contract; no workers have claimed tasks yet."
   ],
-  "recommended_next_action": "Obtain explicit publication approval for this public payload or a private destination; publish and verify remote branch, resume PM schedule, ready RS-001, then human instantiates workers.",
+  "recommended_next_action": "Human instantiates Rules/Spec and Validation workers from their onboarding prompts; Rules/Spec claims RS-001 first.",
   "inputs": [
     {
       "path": "orchestration/project_state.json",
@@ -71,9 +71,9 @@
     },
     {
       "id": "ISS-PM-SETUP-002",
-      "status": "human_review_required",
+      "status": "closed",
       "owner": "project_manager",
-      "disposition": "human_escalation"
+      "disposition": "human_approval_received_and_publication_verified"
     }
   ],
   "authority_refs": [
@@ -88,9 +88,9 @@
   ],
   "pm_schedule": {
     "cadence": "hourly",
-    "status": "PAUSED",
+    "status": "ACTIVE",
     "automation_id": "hercules-experiment-pm",
     "destination": "current PM task",
-    "confirmation": "Codex automation tool confirmed pause pending public-publication approval"
+    "confirmation": "Codex automation tool confirmed resumption after publication approval"
   }
 }

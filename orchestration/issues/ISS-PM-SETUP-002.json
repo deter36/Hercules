@@ -5,8 +5,8 @@
   "category": "coordination_infrastructure",
   "origin": "automatic_approval_review",
   "severity": "S1",
-  "blocking": true,
-  "status": "human_review_required",
+  "blocking": false,
+  "status": "closed",
   "owner": "project_manager",
   "manifest_revision": "e1-m0001",
   "input_versions": [
@@ -30,8 +30,14 @@
   "regression_required": false,
   "human_authority_required": true,
   "disposition": "human_escalation",
-  "resolution_artifacts": [],
+  "resolution_artifacts": [
+    "origin/codex/hercules-orchestration-e1@22ff1e963e3c4e8c441c2d05ce1d9d8ce9deb28b"
+  ],
   "verification_task_id": null,
-  "closure": null,
-  "resolution_needed": "User explicitly approves publishing this branch including recovered rulebook, gameplay reference, RNG spec and orchestration instructions to the public repository, or directs an appropriate private destination. After approval publish, verify remote commit, then resume PM schedule and ready RS-001."
+  "closure": {
+    "disposition": "human_approval_received_and_publication_verified",
+    "human_evidence": "User explicitly granted permission to push the complete experiment branch on 2026-09-13.",
+    "verification": "Remote branch origin/codex/hercules-orchestration-e1 resolved to 22ff1e963e3c4e8c441c2d05ce1d9d8ce9deb28b after push."
+  },
+  "resolution_needed": null
 }
