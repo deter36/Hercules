@@ -1,14 +1,12 @@
 {
   "manifest_revision": "e1-m0001",
   "claim": null,
-  "blocking_issue_ids": [
-    "ISS-PM-SETUP-001"
-  ],
+  "blocking_issue_ids": [],
   "handoff_path": null,
   "pm_review": null,
   "id": "RS-002",
   "role": "rules_spec",
-  "status": "blocked",
+  "status": "ready",
   "objective": "Convert the accepted RS-001 findings into explicit corrected canonical artifacts and regression expectations, preserving source provenance and proposing exact manifest pins.",
   "dependencies": [
     "RS-001 accepted",
@@ -62,5 +60,15 @@
     "Do not edit engine implementation. Route implementation work for ISS-RS-RS-001-002, -003 and -004 explicitly in the handoff.",
     "Submit exact source authority, uncertainty, changed object IDs and independent validation requirements."
   ],
-  "blocked_reason": "ISS-PM-SETUP-001 requires the human to either provide the historical GAME_DATA_v4 preimage matching the recorded checksum or authorize re-establishing corrected canon from the pinned source review."
+  "blocked_reason": null,
+  "authority_decision": {
+    "issue_id": "ISS-PM-SETUP-001",
+    "decision": "Re-establish corrected canon from the pinned rulebook, v12 gameplay reference, and execution specification review.",
+    "source": "User response in the Project Manager task on 2026-09-13: 'yes it should.'",
+    "constraints": [
+      "Preserve the unavailable historical checksum as historical evidence.",
+      "Do not import later-branch corrections.",
+      "Propose exact new pins for PM promotion and independent validation."
+    ]
+  }
 }

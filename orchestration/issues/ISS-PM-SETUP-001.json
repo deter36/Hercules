@@ -6,10 +6,10 @@
   "category": "source_data_defect",
   "origin": "historical_package_checksum",
   "severity": "S2",
-  "blocking": true,
+  "blocking": false,
   "blocking_scope": "source/provenance readiness; must receive PM-reviewed disposition before validation release",
-  "status": "human_review_required",
-  "owner": "human",
+  "status": "closed",
+  "owner": "project_manager",
   "manifest_revision": "e1-m0001",
   "input_versions": [
     {
@@ -46,21 +46,28 @@
     "result_path": "orchestration/handoffs/PM-SETUP.json",
     "checkpoint": "repository preparation; no gameplay execution"
   },
-  "canonical_update_required": null,
+  "canonical_update_required": true,
   "regression_required": true,
   "human_authority_required": true,
   "disposition": {
-    "type": "human_escalation",
-    "state": "proposed",
-    "reason": "The manifest and generated data identify the current bytes, but the historical SHA256SUMS preimage is unavailable in the allowed branch history. A stale-metadata-only conclusion is not established. This pass also finds a substantive L08 source-scope conflict, which must be resolved independently of checksum metadata.",
-    "requested_authority": "Supply the historical GAME_DATA_v4.json bytes associated with SHA-256 15313bbc55a4cec400b04a99f862de70fc545009ec5efaaf32c5fc861e88b5b7, or record an explicit scoped owner disposition accepting re-established corrected canon after source review. Do not substitute later-branch corrections."
+    "type": "canonical_update",
+    "state": "authorized",
+    "reason": "The historical checksum-matching preimage is unavailable. The owner explicitly authorized re-establishing corrected canon from the pinned rulebook, v12 gameplay reference, and execution specification review.",
+    "authority": "User response in the Project Manager task on 2026-09-13: 'yes it should.'",
+    "scope": "RS-002 may correct and re-pin canon from the already pinned sources. It may not import later-branch corrections or alter historical evidence."
   },
   "resolution_artifacts": [
     "orchestration/validation/RS-001-audit.json",
     "orchestration/validation/RS-001-readiness.json"
   ],
   "verification_task_id": null,
-  "closure": null,
+  "closure": {
+    "decision": "authorize_reestablished_corrected_canon",
+    "human_authority_received": true,
+    "date": "2026-09-13",
+    "next_owner": "rules_spec",
+    "verification_required": true
+  },
   "assigned_action": "Investigate the mismatch and report whether this is stale checksum metadata or substantive canonical/provenance divergence. Verify the pinned content against historical authority. Propose a canonical update or evidence-backed no-change decision; do not silently rewrite historical checksums.",
   "investigation": {
     "run_id": "rules-spec-20260913T051344Z-26d973",

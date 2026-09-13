@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "experiment_id": "HERC-ORCH-E1",
-  "phase": "prepared",
+  "phase": "active",
   "updated_at": "2026-09-13T04:58:06.854712+00:00",
   "repository": "https://github.com/deter36/Hercules",
   "branch": "codex/hercules-orchestration-e1",
@@ -281,7 +281,7 @@
   ],
   "workers": {
     "rules_spec": {
-      "status": "active_waiting_for_authority",
+      "status": "active",
       "first_claim": "rules-spec-20260913T051344Z-26d973",
       "schedule_verified": true
     },
@@ -306,7 +306,6 @@
         "orchestration/validation/RS-001-readiness.json"
       ],
       "pending": [
-        "Human authority disposition for ISS-PM-SETUP-001",
         "Promoted exact corrected inputs from RS-002",
         "Independent validation of known terminal-state and Cannot Block discrepancies"
       ]
@@ -318,7 +317,6 @@
         "orchestration/validation/RS-001-L08-scenario.json"
       ],
       "pending": [
-        "Human authority disposition for ISS-PM-SETUP-001",
         "RS-002 canonical requirement/damage and healing-scope correction",
         "Manifest promotion of corrected raw and generated content"
       ]
@@ -366,6 +364,14 @@
       "type": "worker_handoff_received_with_blocking_findings",
       "task_id": "RS-001",
       "handoff": "orchestration/handoffs/RS-001-rules-spec-20260913T051344Z-26d973.json",
+      "counts_as_worker_validation": false
+    },
+    {
+      "stage": "authority_resolution",
+      "type": "human_authorized_reestablished_corrected_canon",
+      "issue_id": "ISS-PM-SETUP-001",
+      "task_released": "RS-002",
+      "date": "2026-09-13",
       "counts_as_worker_validation": false
     }
   ],
