@@ -1,0 +1,386 @@
+{
+  "schema_version": 1,
+  "task_id": "VAL-001",
+  "run_id": "validation-20260913T142211Z-7fd36a",
+  "role": "validation",
+  "status": "blocked",
+  "pass_fail": "BLOCKED",
+  "validation_mode": "deterministic_replay",
+  "scenario_id": "HERC-GOLDEN-RUN-0001",
+  "manifest_revision": "e1-m0002",
+  "tested_commit": "210d476d04a7916f208b32cee998529d433ef2ef",
+  "inputs": [
+    {
+      "id": "game-data",
+      "path": "src/data/raw/GAME_DATA_v4.json",
+      "source_commit": "6bffa094431d84429ed93339d48f839bcc5a2302",
+      "observed_commit": "210d476d04a7916f208b32cee998529d433ef2ef",
+      "kind": "blob",
+      "git_object": "9407bd9cb58eae1d8cd7a1495a65275e3ef644e1",
+      "sha256_git_bytes": "b32c1e902d200e25e59d475c9453c97e4687603aaecf3f948250fe1bec844ac4",
+      "pin_match": true
+    },
+    {
+      "id": "data-schema",
+      "path": "src/data/raw/GAME_DATA_SCHEMA.md",
+      "source_commit": "6bffa094431d84429ed93339d48f839bcc5a2302",
+      "observed_commit": "210d476d04a7916f208b32cee998529d433ef2ef",
+      "kind": "blob",
+      "git_object": "d9300f6ae1d04cb6772a901a1ed15af34ba814ea",
+      "sha256_git_bytes": "7b857d72ed6982c94d9e2fd1bae7d3b1187065b57ec9fe1bab95ef9a5d9e9d97",
+      "pin_match": true
+    },
+    {
+      "id": "rules-spec",
+      "path": "src/data/raw/GAME_RULES_SPEC.md",
+      "source_commit": "6bffa094431d84429ed93339d48f839bcc5a2302",
+      "observed_commit": "210d476d04a7916f208b32cee998529d433ef2ef",
+      "kind": "blob",
+      "git_object": "07cea77200d58483e39eed0d702efd022dc840a0",
+      "sha256_git_bytes": "34ddfe22914b78e6e479e236e5e063b962839efccc88ae93b508230b10f51893",
+      "pin_match": true
+    },
+    {
+      "id": "execution-spec",
+      "path": "src/data/raw/hercules_engine_execution_spec_v0_13.md",
+      "source_commit": "6bffa094431d84429ed93339d48f839bcc5a2302",
+      "observed_commit": "210d476d04a7916f208b32cee998529d433ef2ef",
+      "kind": "blob",
+      "git_object": "da5f94c4437cdff2366efc161eac1f187aca1a87",
+      "sha256_git_bytes": "5b2c52c9862db8ce3573bed12af891b2cfb94cca450fc789d7f7bc9a38565492",
+      "pin_match": true
+    },
+    {
+      "id": "test-scenarios",
+      "path": "src/data/raw/TEST_SCENARIOS.md",
+      "source_commit": "6bffa094431d84429ed93339d48f839bcc5a2302",
+      "observed_commit": "210d476d04a7916f208b32cee998529d433ef2ef",
+      "kind": "blob",
+      "git_object": "0b51c516eb5c287c7d39bfbf2f50b9cd92128b86",
+      "sha256_git_bytes": "0bb3f1d88778f4ceea906e5911e68d0d97f97ac7658781e79d362e261e2cdae7",
+      "pin_match": true
+    },
+    {
+      "id": "test-fixtures",
+      "path": "src/data/raw/TEST_FIXTURES_v4.json",
+      "source_commit": "6bffa094431d84429ed93339d48f839bcc5a2302",
+      "observed_commit": "210d476d04a7916f208b32cee998529d433ef2ef",
+      "kind": "blob",
+      "git_object": "cadae99fd2c7205d29f17375a36bc70df3e629b3",
+      "sha256_git_bytes": "31459edf0c79ad29bfe3a02b40a4b4a7ec1b6676ed11b7e4f69b7fa14439d14e",
+      "pin_match": true
+    },
+    {
+      "id": "package-manifest",
+      "path": "src/data/raw/HANDOFF_MANIFEST.json",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "observed_commit": "210d476d04a7916f208b32cee998529d433ef2ef",
+      "kind": "blob",
+      "git_object": "766c18906cc20578ef5fc7d11c5e6a82bc4d9d54",
+      "sha256_git_bytes": "c249e816d87bb2f7c2e715caddf7a0d3d27bef83434b6f91b86652be60548078",
+      "pin_match": true
+    },
+    {
+      "id": "package-checksums",
+      "path": "src/data/raw/SHA256SUMS.json",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "observed_commit": "210d476d04a7916f208b32cee998529d433ef2ef",
+      "kind": "blob",
+      "git_object": "aebdce242d075b500df9f8624f0b471c9f5d040f",
+      "sha256_git_bytes": "47b5b40c7d7265f35eee89ae36001dace681ebc2ff2b1f4b2bdaf47691059094",
+      "pin_match": true
+    },
+    {
+      "id": "implementation-brief",
+      "path": "src/data/raw/IMPLEMENTATION_BRIEF.md",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "observed_commit": "210d476d04a7916f208b32cee998529d433ef2ef",
+      "kind": "blob",
+      "git_object": "7abba014243ce1e5cd68c922018fed5c5a383ba1",
+      "sha256_git_bytes": "cf7696152ecefd32ff2307eb2137da0df6e3ff5cebcfa519b917e6621fe7fad4",
+      "pin_match": true
+    },
+    {
+      "id": "presentation-flow",
+      "path": "src/data/raw/PRESENTATION_FLOW.md",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "observed_commit": "210d476d04a7916f208b32cee998529d433ef2ef",
+      "kind": "blob",
+      "git_object": "2bcb04974b018a50dc4f481fc8c35c5e44d52e04",
+      "sha256_git_bytes": "5cc092125143bf6c2296df42b51b609e3599948587a3c0c09d18cb8d44ec6d4b",
+      "pin_match": true
+    },
+    {
+      "id": "golden-record",
+      "path": "src/data/raw/golden/HERC-GOLDEN-RUN-0001_golden_run_record.json",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "observed_commit": "210d476d04a7916f208b32cee998529d433ef2ef",
+      "kind": "blob",
+      "git_object": "8d4dd7d3e8137d28d1e931be514ba8bfe4c1474d",
+      "sha256_git_bytes": "2c7264dd7a1baa8f2907c013bf195986df6b0aebc2319dc9bee95a82ec1b9061",
+      "pin_match": true
+    },
+    {
+      "id": "golden-script",
+      "path": "src/data/raw/golden/HERC-GOLDEN-RUN-0001_replay_script_v2_normalized.json",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "observed_commit": "210d476d04a7916f208b32cee998529d433ef2ef",
+      "kind": "blob",
+      "git_object": "da24321337d3c297d858d58b8e2c292fad937eb1",
+      "sha256_git_bytes": "e342e1891616ebb319f3a355515af97709ab560eac7192fb98c349b4e8a7da59",
+      "pin_match": true
+    },
+    {
+      "id": "golden-prior-report",
+      "path": "src/data/raw/golden/HERC-GOLDEN-RUN-0001_replay_validation_report.json",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "observed_commit": "210d476d04a7916f208b32cee998529d433ef2ef",
+      "kind": "blob",
+      "git_object": "866da0a2c60aac30545e6cdbbf2f8a532f0cc82b",
+      "sha256_git_bytes": "b27ab485c2791f61b97173d63756bb6e24b10ff78d1ccb49baa60475fe0814e1",
+      "pin_match": true
+    },
+    {
+      "id": "historical-engine",
+      "path": "src/engine",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "observed_commit": "210d476d04a7916f208b32cee998529d433ef2ef",
+      "kind": "tree",
+      "git_object": "dac7a33b4fea961c4ba10fed79eda3da5f719211",
+      "sha256_git_bytes": null,
+      "pin_match": true
+    },
+    {
+      "id": "rng-implementation",
+      "path": "src/rng",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "observed_commit": "210d476d04a7916f208b32cee998529d433ef2ef",
+      "kind": "tree",
+      "git_object": "574ad2efc0e8fb67c3e38ebbd0f56c41755a6cdf",
+      "sha256_git_bytes": null,
+      "pin_match": true
+    },
+    {
+      "id": "replay-implementation",
+      "path": "src/replay",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "observed_commit": "210d476d04a7916f208b32cee998529d433ef2ef",
+      "kind": "tree",
+      "git_object": "8df5cbcbd7e2733e829c5c0abea0005381ba7433",
+      "sha256_git_bytes": null,
+      "pin_match": true
+    },
+    {
+      "id": "generated-data",
+      "path": "src/data/generated",
+      "source_commit": "6bffa094431d84429ed93339d48f839bcc5a2302",
+      "observed_commit": "210d476d04a7916f208b32cee998529d433ef2ef",
+      "kind": "tree",
+      "git_object": "a9238f5f4600fd0f5d7ad5f27590bf8833734605",
+      "sha256_git_bytes": null,
+      "pin_match": true
+    },
+    {
+      "id": "existing-tests",
+      "path": "test",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "observed_commit": "210d476d04a7916f208b32cee998529d433ef2ef",
+      "kind": "tree",
+      "git_object": "953f11900a4467a8f7807b5b437c677f3b12ea22",
+      "sha256_git_bytes": null,
+      "pin_match": true
+    },
+    {
+      "id": "package",
+      "path": "package.json",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "observed_commit": "210d476d04a7916f208b32cee998529d433ef2ef",
+      "kind": "blob",
+      "git_object": "ec00f499a965e96db2ca4d0b8e4cda50e7bea805",
+      "sha256_git_bytes": "57309a5e04e6b3368f5edaaac040d86680442d7abae76f5567d793e96a1e1fd9",
+      "pin_match": true
+    },
+    {
+      "id": "lockfile",
+      "path": "pnpm-lock.yaml",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "observed_commit": "210d476d04a7916f208b32cee998529d433ef2ef",
+      "kind": "blob",
+      "git_object": "f974b55ecfee5f821216dd2ee26e6a4cb85e1737",
+      "sha256_git_bytes": "fe4a0dac8359a8b6252c5e3e4d02a2f8158ada9b7f6189f8e6c0f7e1f653c28e",
+      "pin_match": true
+    },
+    {
+      "id": "tsconfig",
+      "path": "tsconfig.json",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "observed_commit": "210d476d04a7916f208b32cee998529d433ef2ef",
+      "kind": "blob",
+      "git_object": "e10045c9619b6c3d47281654d968c7dfb8217c48",
+      "sha256_git_bytes": "1e0f0d23494bc5e21924b2f287bfa8f1f734579037fa6355db4be2fde3528545",
+      "pin_match": true
+    },
+    {
+      "id": "tools-tsconfig",
+      "path": "tsconfig.tools.json",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "observed_commit": "210d476d04a7916f208b32cee998529d433ef2ef",
+      "kind": "blob",
+      "git_object": "874248bd29f4521f9fa3e14e9356639ed800847a",
+      "sha256_git_bytes": "dc70f5b95f167083c3cf9e2223c5b5fe929876736b9ea549b556a4fb5c670e80",
+      "pin_match": true
+    },
+    {
+      "id": "data-generator",
+      "path": "src/data/generate.ts",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "observed_commit": "210d476d04a7916f208b32cee998529d433ef2ef",
+      "kind": "blob",
+      "git_object": "c018bb23e59239d6873d6f7cd0d4aa6482e1acd2",
+      "sha256_git_bytes": "8b1809a8119a16da7eeae0dc38484135a025675849e1a86b77c71fec597dcbf3",
+      "pin_match": true
+    },
+    {
+      "id": "data-validator",
+      "path": "src/data/validation.ts",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "observed_commit": "210d476d04a7916f208b32cee998529d433ef2ef",
+      "kind": "blob",
+      "git_object": "df88d2d5aa065f8de8ef653924ed8a1704315415",
+      "sha256_git_bytes": "62671ac1f74e16970d8956556b11b8c72ad53db083a3989588ec25c515bc4ab1",
+      "pin_match": true
+    },
+    {
+      "id": "official-rulebook",
+      "path": "src/data/raw/sources/Hercules_Rules_104x155.pdf",
+      "source_commit": null,
+      "observed_commit": "210d476d04a7916f208b32cee998529d433ef2ef",
+      "kind": "blob",
+      "git_object": "bb1662bbede6a183bfe5b5548a126d20099a496b",
+      "sha256_git_bytes": "de7d479426b40fd94935be85ef09e37ef30f2d00c5f8fcd4b20ab39b6720ef4a",
+      "pin_match": true
+    },
+    {
+      "id": "verified-reference",
+      "path": "src/data/raw/sources/Hercules_Verified_Gameplay_Reference_v12.md",
+      "source_commit": null,
+      "observed_commit": "210d476d04a7916f208b32cee998529d433ef2ef",
+      "kind": "blob",
+      "git_object": "9b806258acc2a7daa60224d66e27c83baa2e6a0c",
+      "sha256_git_bytes": "d3cc41b91fb32440c6970cad0d148222ffa9e9e08c277c361fd1f0ce6082ffde",
+      "pin_match": true
+    },
+    {
+      "id": "rng-spec",
+      "path": "src/data/raw/sources/Hercules_RNG_Spec_v3.md",
+      "source_commit": null,
+      "observed_commit": "210d476d04a7916f208b32cee998529d433ef2ef",
+      "kind": "blob",
+      "git_object": "c1b70237e259cacf7a913f7ffccb1344a01189ac",
+      "sha256_git_bytes": "6e735e6eee584d2c0ac754d620e6b46c35dd40883ccfc843a6aa289bc7b7d988",
+      "pin_match": true
+    },
+    {
+      "path": "orchestration/validation/RS-001-readiness.json",
+      "observed_commit": "210d476d04a7916f208b32cee998529d433ef2ef",
+      "git_object": "6fd8a445afc98455a252f74a0eccbf62a0e8c2af",
+      "sha256_git_bytes": "f795dc3782f89c390436567c051273855ef3bc7959fb8d528b2fcfe58a8ab374",
+      "pin_match": null,
+      "expected_pin": null,
+      "observation_only": true
+    },
+    {
+      "path": "orchestration/validation/RS-001-golden-start-state.json",
+      "observed_commit": "210d476d04a7916f208b32cee998529d433ef2ef",
+      "git_object": "2c1d1b69692c3e38edba8bd42adf2bd42fe5826c",
+      "sha256_git_bytes": "3c4f8de10b411a612ab04b860750886c360e25d7056fcc7890dcdda28f6eb289",
+      "pin_match": null,
+      "expected_pin": null,
+      "observation_only": true
+    },
+    {
+      "path": "orchestration/handoffs/RS-002-rules-spec-20260913T131948Z-6e6af8.json",
+      "observed_commit": "210d476d04a7916f208b32cee998529d433ef2ef",
+      "git_object": "ec4b9e65909a9f6ce98081ca0bf1a1e30ba7f11b",
+      "sha256_git_bytes": "ce9ed7f73f197b813b286d484fcfdbcfa44cb4e7eaf41cf29a1489455f813944",
+      "pin_match": null,
+      "expected_pin": null,
+      "observation_only": true
+    }
+  ],
+  "preflight": {
+    "canonical_pin_count": 27,
+    "canonical_pins_match": true,
+    "additional_input_pins_missing": [
+      "orchestration/validation/RS-001-readiness.json",
+      "orchestration/validation/RS-001-golden-start-state.json",
+      "orchestration/handoffs/RS-002-rules-spec-20260913T131948Z-6e6af8.json"
+    ],
+    "evidence_path": "orchestration/validation/VAL-001-validation-20260913T142211Z-7fd36a-input-verification.json"
+  },
+  "replay_started": false,
+  "player_choices_consumed": [],
+  "player_choice_count": 0,
+  "rng": {
+    "algorithm": "SHA256_COUNTER_V1",
+    "policy": "HERC-RNG-v3",
+    "seed": "HERC-GOLDEN-RUN-0001",
+    "declared_start_index": 0,
+    "start_index": null,
+    "end_index": null,
+    "expected_end_index": 174,
+    "initialized": false,
+    "events": [],
+    "events_consumed": 0,
+    "orphaned_ranges": [
+      {
+        "first": 18,
+        "last": 25,
+        "status": "declared historical permanent orphans; not reached or generated in this run"
+      }
+    ],
+    "source_ledger": "src/data/raw/golden/HERC-GOLDEN-RUN-0001_golden_run_record.json#/rng_event_ledger"
+  },
+  "checkpoints_reached": [],
+  "expected_checkpoints": [
+    {
+      "completed_labor": 1,
+      "status": "NOT_REACHED"
+    },
+    {
+      "completed_labor": 2,
+      "status": "NOT_REACHED"
+    },
+    {
+      "completed_labor": 3,
+      "status": "NOT_REACHED"
+    },
+    {
+      "completed_labor": 4,
+      "status": "NOT_REACHED"
+    },
+    {
+      "completed_labor": 5,
+      "status": "NOT_REACHED"
+    }
+  ],
+  "terminal_state": null,
+  "stopped_at": {
+    "stage": "input_version_preflight",
+    "before_input_seq": 1,
+    "before_rng_event": 0,
+    "gameplay_divergence": null,
+    "reason": "Required additional execution inputs lack PM-controlled exact version pins."
+  },
+  "issue_ids": [
+    "ISS-VAL-VAL-001-001"
+  ],
+  "method_limitations": [
+    "Execution did not begin because exact readiness/start-state/handoff version binding is incomplete.",
+    "No tactical, terminal-state, RNG-value, or historical-engine conformance result is claimed.",
+    "Initial sandboxed Node child-process attempt returned EPERM before producing evidence; direct Git checks and the approved escalated evidence run completed."
+  ],
+  "reproducibility_status": "Preflight is reproducible from the claimed input commit; tactical replay NOT_RUN.",
+  "rerun_required": true,
+  "next_action": "PM pin the three observed additional inputs or their reviewed replacements, bind the selected complete start state, and requeue VAL-001 with renewed exact inputs. Then perform the full assigned replay."
+}

@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "task_id": "VAL-001",
+  "run_id": "validation-20260913T142211Z-7fd36a",
+  "manifest_revision": "e1-m0002",
+  "tested_commit": "210d476d04a7916f208b32cee998529d433ef2ef",
+  "replay_started": false,
+  "accepted_start_state": null,
+  "last_valid_execution_state": null,
+  "terminal_state": null,
+  "checkpoints": [],
+  "expected_completed_labor_checkpoints": [
+    {
+      "completed_labor": 1,
+      "status": "NOT_REACHED"
+    },
+    {
+      "completed_labor": 2,
+      "status": "NOT_REACHED"
+    },
+    {
+      "completed_labor": 3,
+      "status": "NOT_REACHED"
+    },
+    {
+      "completed_labor": 4,
+      "status": "NOT_REACHED"
+    },
+    {
+      "completed_labor": 5,
+      "status": "NOT_REACHED"
+    }
+  ],
+  "stopped_at": {
+    "stage": "input_version_preflight",
+    "before_input_seq": 1,
+    "before_rng_event": 0,
+    "gameplay_divergence": null,
+    "reason": "Required additional execution inputs lack PM-controlled exact version pins."
+  },
+  "candidate_start_state_input": {
+    "path": "orchestration/validation/RS-001-golden-start-state.json",
+    "expected_manifest_pin": null,
+    "observed_commit": "210d476d04a7916f208b32cee998529d433ef2ef",
+    "observed_git_object": "2c1d1b69692c3e38edba8bd42adf2bd42fe5826c",
+    "observed_sha256_git_bytes": "3c4f8de10b411a612ab04b860750886c360e25d7056fcc7890dcdda28f6eb289",
+    "observed_working_object": "2c1d1b69692c3e38edba8bd42adf2bd42fe5826c",
+    "embedded_manifest_revision": "e1-m0001",
+    "embedded_tested_commit": null,
+    "embedded_readiness": null,
+    "pin_status": "MISSING",
+    "observation_only": true
+  },
+  "note": "No state was initialized or mutated. The unpinned candidate remains available at its original input path; no substitute state was constructed."
+}

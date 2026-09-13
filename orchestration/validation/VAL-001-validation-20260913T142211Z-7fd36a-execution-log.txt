@@ -1,0 +1,19 @@
+VAL-001 deterministic replay preflight
+Run: validation-20260913T142211Z-7fd36a
+Tested commit: 210d476d04a7916f208b32cee998529d433ef2ef
+Readiness release commit: 793d2bcbd1cf6f357378180456ff1b014bab30ef
+Manifest: e1-m0002
+Node: v24.19.0
+Git: git version 2.54.0.windows.1
+Initial sandboxed Node spawnSync(git) failed with EPERM before producing evidence; direct Git checks verified all object pins before the pushed claim. The first recorder run hit the default child-process buffer limit while hashing the 23 MB rulebook; it wrote no result files. The buffer was raised to 64 MiB and the recorder was rerun.
+Claim commit: 210d476; normal claim push succeeded.
+Canonical artifacts verified: 27/27; all matching: true
+Missing additional-input pins: 3
+REQUIRED_ADDITIONAL_INPUT_UNPINNED: orchestration/validation/RS-001-readiness.json
+REQUIRED_ADDITIONAL_INPUT_UNPINNED: orchestration/validation/RS-001-golden-start-state.json
+REQUIRED_ADDITIONAL_INPUT_UNPINNED: orchestration/handoffs/RS-002-rules-spec-20260913T131948Z-6e6af8.json
+Task start_state.complete_state_path: null; candidate state file exists but is unpinned.
+Stopped before accepting an initial state, before script input 1 and before RNG event 0.
+Commands consumed: 0. RNG events consumed: 0. Labor checkpoints reached: 0/5.
+Outcome: BLOCKED. No gameplay PASS/FAIL or ledger replay is claimed.
+Reproduce preflight: node orchestration/validation/VAL-001-validation-20260913T142211Z-7fd36a-preflight.mjs --check

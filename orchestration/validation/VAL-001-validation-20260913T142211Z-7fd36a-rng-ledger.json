@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "task_id": "VAL-001",
+  "run_id": "validation-20260913T142211Z-7fd36a",
+  "manifest_revision": "e1-m0002",
+  "tested_commit": "210d476d04a7916f208b32cee998529d433ef2ef",
+  "algorithm": "SHA256_COUNTER_V1",
+  "policy": "HERC-RNG-v3",
+  "seed": "HERC-GOLDEN-RUN-0001",
+  "declared_start_index": 0,
+  "start_index": null,
+  "end_index": null,
+  "expected_end_index": 174,
+  "initialized": false,
+  "events": [],
+  "events_consumed": 0,
+  "orphaned_ranges": [
+    {
+      "first": 18,
+      "last": 25,
+      "status": "declared historical permanent orphans; not reached or generated in this run"
+    }
+  ],
+  "source_ledger": "src/data/raw/golden/HERC-GOLDEN-RUN-0001_golden_run_record.json#/rng_event_ledger"
+}
