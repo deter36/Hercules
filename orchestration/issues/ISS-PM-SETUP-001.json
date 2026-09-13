@@ -8,7 +8,7 @@
   "severity": "S2",
   "blocking": true,
   "blocking_scope": "source/provenance readiness; must receive PM-reviewed disposition before validation release",
-  "status": "assigned",
+  "status": "resolution_submitted",
   "owner": "rules_spec",
   "manifest_revision": "e1-m0001",
   "input_versions": [
@@ -48,10 +48,50 @@
   },
   "canonical_update_required": null,
   "regression_required": true,
-  "human_authority_required": false,
-  "disposition": null,
-  "resolution_artifacts": [],
+  "human_authority_required": true,
+  "disposition": {
+    "type": "human_escalation",
+    "state": "proposed",
+    "reason": "The manifest and generated data identify the current bytes, but the historical SHA256SUMS preimage is unavailable in the allowed branch history. A stale-metadata-only conclusion is not established. This pass also finds a substantive L08 source-scope conflict, which must be resolved independently of checksum metadata.",
+    "requested_authority": "Supply the historical GAME_DATA_v4.json bytes associated with SHA-256 15313bbc55a4cec400b04a99f862de70fc545009ec5efaaf32c5fc861e88b5b7, or record an explicit scoped owner disposition accepting re-established corrected canon after source review. Do not substitute later-branch corrections."
+  },
+  "resolution_artifacts": [
+    "orchestration/validation/RS-001-audit.json",
+    "orchestration/validation/RS-001-readiness.json"
+  ],
   "verification_task_id": null,
   "closure": null,
-  "assigned_action": "Investigate the mismatch and report whether this is stale checksum metadata or substantive canonical/provenance divergence. Verify the pinned content against historical authority. Propose a canonical update or evidence-backed no-change decision; do not silently rewrite historical checksums."
+  "assigned_action": "Investigate the mismatch and report whether this is stale checksum metadata or substantive canonical/provenance divergence. Verify the pinned content against historical authority. Propose a canonical update or evidence-backed no-change decision; do not silently rewrite historical checksums.",
+  "investigation": {
+    "run_id": "rules-spec-20260913T051344Z-26d973",
+    "tested_commit": "f297112eaeb8537fcd2b5e51c5673e311e1067d7",
+    "method": "git cat-file blob bytes; check all 13 package checksum entries and all 27 manifest pins; inspect reachable history of this data path only; compare scoped content with official rulebook and recovered v12",
+    "matching_historical_checksum_entries": 12,
+    "mismatching_entries": 1,
+    "line_ending_controls": {
+      "git_blob_lf_count": 3040,
+      "git_blob_crlf_count": 0,
+      "crlf_bytes_sha256": "d28dbdf97a7c8f4ef4f3eda1039922cb2c9228fbb4f22881a9f9a44b543c9772",
+      "checkout_bytes_sha256": "d28dbdf97a7c8f4ef4f3eda1039922cb2c9228fbb4f22881a9f9a44b543c9772"
+    },
+    "current_raw_and_generated_agree": true,
+    "generated_source_hash": "356bb6b4554c8872cc853986362c572e8601f8b0c0ffbfc6c69d9505f4102303",
+    "reachable_data_path_history": [
+      {
+        "commit": "fc12a6cac54ad8fa848bd1b70ea0a63cc80fdc65",
+        "subject": "Initial Hercules playtest",
+        "finding": "Only reachable data-file introduction/change in experiment ancestry; it already carries the current data bytes."
+      }
+    ],
+    "conclusion": "unresolved historical source-integrity discrepancy; neither CRLF nor a current raw/generated divergence; no proof of the exact original hashed content",
+    "related_source_finding": "ISS-RS-RS-001-001"
+  },
+  "regression_expectation": {
+    "assertions": [
+      "Independently hash Git blob bytes, not Windows checkout bytes.",
+      "Check current manifest object IDs and raw/generated semantic identity.",
+      "Retain the historical mismatch as evidence; a new accepted inventory must explicitly supersede it with correction authority and exact IDs.",
+      "A matching edited checksum alone does not resolve substantive source divergence."
+    ]
+  }
 }

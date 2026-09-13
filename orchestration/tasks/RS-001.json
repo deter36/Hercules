@@ -7,12 +7,18 @@
     "expires_at": "2026-09-13T07:13:44.545378+00:00",
     "remote_commit_read": "f713a323b35f9e8f6aa20c48095cfb1195690b08"
   },
-  "blocking_issue_ids": [],
-  "handoff_path": null,
+  "blocking_issue_ids": [
+    "ISS-PM-SETUP-001",
+    "ISS-RS-RS-001-001",
+    "ISS-RS-RS-001-002",
+    "ISS-RS-RS-001-003",
+    "ISS-RS-RS-001-004"
+  ],
+  "handoff_path": "orchestration/handoffs/RS-001-rules-spec-20260913T051344Z-26d973.json",
   "pm_review": null,
   "id": "RS-001",
   "role": "rules_spec",
-  "status": "in_progress",
+  "status": "submitted",
   "objective": "Assess the exact historical canonical inputs for Golden Run 0001 and prepare a small constructed Labor VIII validation scenario. Report readiness per scenario with authority and provenance.",
   "dependencies": [],
   "input_artifact_ids": [
@@ -77,5 +83,10 @@
   "assigned_issue_ids": [
     "ISS-PM-SETUP-001"
   ],
-  "blocked_reason": null
+  "blocked_reason": null,
+  "submission": {
+    "assessment_complete": true,
+    "scenario_readiness": "both BLOCKED",
+    "note": "Readiness assessment is submitted for PM review; no validation gate or canonical correction is claimed."
+  }
 }

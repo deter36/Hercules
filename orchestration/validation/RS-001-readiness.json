@@ -1,0 +1,1071 @@
+{
+  "schema_version": 1,
+  "task_id": "RS-001",
+  "run_id": "rules-spec-20260913T051344Z-26d973",
+  "manifest_revision": "e1-m0001",
+  "tested_commit": "f297112eaeb8537fcd2b5e51c5673e311e1067d7",
+  "assessment_complete": true,
+  "validation_release_authority": "PM only",
+  "overall_readiness": "BLOCKED",
+  "input_versions": [
+    {
+      "id": "game-data",
+      "path": "src/data/raw/GAME_DATA_v4.json",
+      "kind": "blob",
+      "git_object": "2ec9fc341d53c509a7a0148fc1d26582c0e87c17",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "role": "canonical_content",
+      "sha256_git_bytes": "356bb6b4554c8872cc853986362c572e8601f8b0c0ffbfc6c69d9505f4102303"
+    },
+    {
+      "id": "data-schema",
+      "path": "src/data/raw/GAME_DATA_SCHEMA.md",
+      "kind": "blob",
+      "git_object": "b6ea85ce7cbf2553a0f9337babff3786199510b9",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "role": "representation_contract",
+      "sha256_git_bytes": "77a6c0e40f2e85441693b112b0299aa601515b36dbf70fcb6785dee9afe6408b"
+    },
+    {
+      "id": "rules-spec",
+      "path": "src/data/raw/GAME_RULES_SPEC.md",
+      "kind": "blob",
+      "git_object": "1e4d80a805be60fe7a031417df224c3a96d1894b",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "role": "execution_semantics",
+      "sha256_git_bytes": "a0b57360c50e5765ba3f698dc29e7fa42af2675c2269adfded0b19690f0a3b61"
+    },
+    {
+      "id": "execution-spec",
+      "path": "src/data/raw/hercules_engine_execution_spec_v0_13.md",
+      "kind": "blob",
+      "git_object": "190f0c2e57932251a8ef5f54eb9f1d7cb653f9ba",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "role": "execution_semantics",
+      "sha256_git_bytes": "5b848484b817a96556a8459e2e0d61ec9a6b25d4c46e2f84a0ea90726e9ea91e"
+    },
+    {
+      "id": "test-scenarios",
+      "path": "src/data/raw/TEST_SCENARIOS.md",
+      "kind": "blob",
+      "git_object": "93e9df18135e323db64af9e89ce3e5fed2e9abd3",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "role": "historical_expectations",
+      "sha256_git_bytes": "a02e0a16d7f137ba26af79ff06431c4bd2cc6e92d05db5144d57f9c80611e9af"
+    },
+    {
+      "id": "test-fixtures",
+      "path": "src/data/raw/TEST_FIXTURES_v4.json",
+      "kind": "blob",
+      "git_object": "49b55a701c2e3f13c22a98140c72265736fe5c71",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "role": "historical_expectations",
+      "sha256_git_bytes": "20cef9c252173031a65b6cf88e3290a52216d560b6513b53392132aad3cbc8b1"
+    },
+    {
+      "id": "package-manifest",
+      "path": "src/data/raw/HANDOFF_MANIFEST.json",
+      "kind": "blob",
+      "git_object": "766c18906cc20578ef5fc7d11c5e6a82bc4d9d54",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "role": "historical_inventory",
+      "sha256_git_bytes": "c249e816d87bb2f7c2e715caddf7a0d3d27bef83434b6f91b86652be60548078"
+    },
+    {
+      "id": "package-checksums",
+      "path": "src/data/raw/SHA256SUMS.json",
+      "kind": "blob",
+      "git_object": "aebdce242d075b500df9f8624f0b471c9f5d040f",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "role": "historical_checksums",
+      "sha256_git_bytes": "47b5b40c7d7265f35eee89ae36001dace681ebc2ff2b1f4b2bdaf47691059094"
+    },
+    {
+      "id": "implementation-brief",
+      "path": "src/data/raw/IMPLEMENTATION_BRIEF.md",
+      "kind": "blob",
+      "git_object": "7abba014243ce1e5cd68c922018fed5c5a383ba1",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "role": "historical_architecture_only",
+      "sha256_git_bytes": "cf7696152ecefd32ff2307eb2137da0df6e3ff5cebcfa519b917e6621fe7fad4"
+    },
+    {
+      "id": "presentation-flow",
+      "path": "src/data/raw/PRESENTATION_FLOW.md",
+      "kind": "blob",
+      "git_object": "2bcb04974b018a50dc4f481fc8c35c5e44d52e04",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "role": "future_product_context",
+      "sha256_git_bytes": "5cc092125143bf6c2296df42b51b609e3599948587a3c0c09d18cb8d44ec6d4b"
+    },
+    {
+      "id": "golden-record",
+      "path": "src/data/raw/golden/HERC-GOLDEN-RUN-0001_golden_run_record.json",
+      "kind": "blob",
+      "git_object": "8d4dd7d3e8137d28d1e931be514ba8bfe4c1474d",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "role": "historical_replay_evidence",
+      "sha256_git_bytes": "2c7264dd7a1baa8f2907c013bf195986df6b0aebc2319dc9bee95a82ec1b9061"
+    },
+    {
+      "id": "golden-script",
+      "path": "src/data/raw/golden/HERC-GOLDEN-RUN-0001_replay_script_v2_normalized.json",
+      "kind": "blob",
+      "git_object": "da24321337d3c297d858d58b8e2c292fad937eb1",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "role": "historical_replay_evidence",
+      "sha256_git_bytes": "e342e1891616ebb319f3a355515af97709ab560eac7192fb98c349b4e8a7da59"
+    },
+    {
+      "id": "golden-prior-report",
+      "path": "src/data/raw/golden/HERC-GOLDEN-RUN-0001_replay_validation_report.json",
+      "kind": "blob",
+      "git_object": "866da0a2c60aac30545e6cdbbf2f8a532f0cc82b",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "role": "historical_replay_evidence",
+      "sha256_git_bytes": "b27ab485c2791f61b97173d63756bb6e24b10ff78d1ccb49baa60475fe0814e1"
+    },
+    {
+      "id": "historical-engine",
+      "path": "src/engine",
+      "kind": "tree",
+      "git_object": "dac7a33b4fea961c4ba10fed79eda3da5f719211",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "role": "historical_implementation_or_tests"
+    },
+    {
+      "id": "rng-implementation",
+      "path": "src/rng",
+      "kind": "tree",
+      "git_object": "574ad2efc0e8fb67c3e38ebbd0f56c41755a6cdf",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "role": "historical_implementation_or_tests"
+    },
+    {
+      "id": "replay-implementation",
+      "path": "src/replay",
+      "kind": "tree",
+      "git_object": "8df5cbcbd7e2733e829c5c0abea0005381ba7433",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "role": "historical_implementation_or_tests"
+    },
+    {
+      "id": "generated-data",
+      "path": "src/data/generated",
+      "kind": "tree",
+      "git_object": "6b17d0f311730bf28b41e331bd0da3151439216c",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "role": "historical_implementation_or_tests"
+    },
+    {
+      "id": "existing-tests",
+      "path": "test",
+      "kind": "tree",
+      "git_object": "953f11900a4467a8f7807b5b437c677f3b12ea22",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "role": "historical_implementation_or_tests"
+    },
+    {
+      "id": "package",
+      "path": "package.json",
+      "kind": "blob",
+      "git_object": "ec00f499a965e96db2ca4d0b8e4cda50e7bea805",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "role": "reproduction_tooling",
+      "sha256_git_bytes": "57309a5e04e6b3368f5edaaac040d86680442d7abae76f5567d793e96a1e1fd9"
+    },
+    {
+      "id": "lockfile",
+      "path": "pnpm-lock.yaml",
+      "kind": "blob",
+      "git_object": "f974b55ecfee5f821216dd2ee26e6a4cb85e1737",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "role": "reproduction_tooling",
+      "sha256_git_bytes": "fe4a0dac8359a8b6252c5e3e4d02a2f8158ada9b7f6189f8e6c0f7e1f653c28e"
+    },
+    {
+      "id": "tsconfig",
+      "path": "tsconfig.json",
+      "kind": "blob",
+      "git_object": "e10045c9619b6c3d47281654d968c7dfb8217c48",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "role": "reproduction_tooling",
+      "sha256_git_bytes": "1e0f0d23494bc5e21924b2f287bfa8f1f734579037fa6355db4be2fde3528545"
+    },
+    {
+      "id": "tools-tsconfig",
+      "path": "tsconfig.tools.json",
+      "kind": "blob",
+      "git_object": "874248bd29f4521f9fa3e14e9356639ed800847a",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "role": "reproduction_tooling",
+      "sha256_git_bytes": "dc70f5b95f167083c3cf9e2223c5b5fe929876736b9ea549b556a4fb5c670e80"
+    },
+    {
+      "id": "data-generator",
+      "path": "src/data/generate.ts",
+      "kind": "blob",
+      "git_object": "c018bb23e59239d6873d6f7cd0d4aa6482e1acd2",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "role": "reproduction_tooling",
+      "sha256_git_bytes": "8b1809a8119a16da7eeae0dc38484135a025675849e1a86b77c71fec597dcbf3"
+    },
+    {
+      "id": "data-validator",
+      "path": "src/data/validation.ts",
+      "kind": "blob",
+      "git_object": "df88d2d5aa065f8de8ef653924ed8a1704315415",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "role": "reproduction_tooling",
+      "sha256_git_bytes": "62671ac1f74e16970d8956556b11b8c72ad53db083a3989588ec25c515bc4ab1"
+    },
+    {
+      "id": "official-rulebook",
+      "path": "src/data/raw/sources/Hercules_Rules_104x155.pdf",
+      "kind": "blob",
+      "git_object": "bb1662bbede6a183bfe5b5548a126d20099a496b",
+      "source_commit": null,
+      "sha256_git_bytes": "de7d479426b40fd94935be85ef09e37ef30f2d00c5f8fcd4b20ab39b6720ef4a",
+      "role": "official_rules",
+      "provenance": {
+        "type": "recovered_historical_reference",
+        "source_filename": "Hercules_Rules_104x155.pdf",
+        "verification": "byte_identical_local_export; substantive verification assigned to RS-001",
+        "historical_basis": "named by historical handoff authority chain; version identity checked",
+        "export_timestamp_verified": false
+      }
+    },
+    {
+      "id": "verified-reference",
+      "path": "src/data/raw/sources/Hercules_Verified_Gameplay_Reference_v12.md",
+      "kind": "blob",
+      "git_object": "9b806258acc2a7daa60224d66e27c83baa2e6a0c",
+      "source_commit": null,
+      "sha256_git_bytes": "d3cc41b91fb32440c6970cad0d148222ffa9e9e08c277c361fd1f0ce6082ffde",
+      "role": "recorded_owner_verified_components",
+      "provenance": {
+        "type": "recovered_historical_reference",
+        "source_filename": "Hercules_Verified_Gameplay_Reference_v12.md",
+        "verification": "byte_identical_local_export; substantive verification assigned to RS-001",
+        "historical_basis": "named by historical handoff authority chain; version identity checked",
+        "export_timestamp_verified": false
+      }
+    },
+    {
+      "id": "rng-spec",
+      "path": "src/data/raw/sources/Hercules_RNG_Spec_v3.md",
+      "kind": "blob",
+      "git_object": "c1b70237e259cacf7a913f7ffccb1344a01189ac",
+      "source_commit": null,
+      "sha256_git_bytes": "6e735e6eee584d2c0ac754d620e6b46c35dd40883ccfc843a6aa289bc7b7d988",
+      "role": "deterministic_randomness_authority",
+      "provenance": {
+        "type": "recovered_historical_reference",
+        "source_filename": "Hercules_RNG_Spec_v3.md",
+        "verification": "byte_identical_local_export; substantive verification assigned to RS-001",
+        "historical_basis": "named by historical handoff authority chain; version identity checked",
+        "export_timestamp_verified": false
+      }
+    }
+  ],
+  "input_verification": {
+    "report": "orchestration/validation/RS-001-audit.json",
+    "all_27_manifest_pins_match": true,
+    "missing_manifest_inputs": [],
+    "stale_manifest_inputs": [],
+    "raw_generated_semantic_equality": true,
+    "historical_checksum_mismatch": "ISS-PM-SETUP-001"
+  },
+  "authority_review": [
+    {
+      "scope": "Golden setup/dice/resources",
+      "status": "verified",
+      "checks": [
+        "Human H1–H5, stable H1–H11 inventory",
+        "Spirit X=17, Divinity X=0/TOP=10",
+        "Bow initially available; Labor I one die at 6/Start",
+        "normal nine-Mood deck excludes special cards"
+      ],
+      "refs": [
+        {
+          "artifact_id": "official-rulebook",
+          "path": "src/data/raw/sources/Hercules_Rules_104x155.pdf",
+          "git_object": "bb1662bbede6a183bfe5b5548a126d20099a496b",
+          "source_commit": null,
+          "section": "printed pp. 4–5 setup; pp. 8–10 round/placement; p. 12 attacks; p. 13 impacts; p. 17 allocation/healing",
+          "status": "verified"
+        },
+        {
+          "artifact_id": "verified-reference",
+          "path": "src/data/raw/sources/Hercules_Verified_Gameplay_Reference_v12.md",
+          "git_object": "9b806258acc2a7daa60224d66e27c83baa2e6a0c",
+          "source_commit": null,
+          "section": "Global setup; Moods; Labors I–VI and VIII; Important generic execution notes",
+          "status": "owner_designer_verified",
+          "note": "Recorded owner verification, not a new physical-component inspection or fresh designer confirmation. Per-record data labels cite v9; this pass cross-checked the supplied v12 for the scoped facts only."
+        },
+        {
+          "artifact_id": "execution-spec",
+          "path": "src/data/raw/hercules_engine_execution_spec_v0_13.md",
+          "git_object": "190f0c2e57932251a8ef5f54eb9f1d7cb653f9ba",
+          "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+          "section": "§§3–19, temporary die-pool mapping and transition shuffle convention",
+          "status": "verified"
+        }
+      ]
+    },
+    {
+      "scope": "Golden Labors I–VI",
+      "status": "owner_designer_verified",
+      "checks": [
+        "Compared start health, attack requirements, ordered track icons, rewards selected by script, and special-Mood replacement facts against supplied v12",
+        "L03 circular edges loop n4→n1; L04 distinct per-track requirements; L05 common exact-1 requirement with player-selected target; L06 four per-die requirements and advance-all effect"
+      ],
+      "refs": [
+        {
+          "artifact_id": "verified-reference",
+          "path": "src/data/raw/sources/Hercules_Verified_Gameplay_Reference_v12.md",
+          "git_object": "9b806258acc2a7daa60224d66e27c83baa2e6a0c",
+          "source_commit": null,
+          "section": "Global setup; Moods; Labors I–VI and VIII; Important generic execution notes",
+          "status": "owner_designer_verified",
+          "note": "Recorded owner verification, not a new physical-component inspection or fresh designer confirmation. Per-record data labels cite v9; this pass cross-checked the supplied v12 for the scoped facts only."
+        },
+        {
+          "artifact_id": "execution-spec",
+          "path": "src/data/raw/hercules_engine_execution_spec_v0_13.md",
+          "git_object": "190f0c2e57932251a8ef5f54eb9f1d7cb653f9ba",
+          "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+          "section": "§§3–19, temporary die-pool mapping and transition shuffle convention",
+          "status": "verified"
+        },
+        {
+          "artifact_id": "game-data",
+          "path": "src/data/raw/GAME_DATA_v4.json",
+          "git_object": "2ec9fc341d53c509a7a0148fc1d26582c0e87c17",
+          "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+          "section": "$.labors[0:6]",
+          "status": "verified"
+        }
+      ],
+      "limits": [
+        "Recorded v12 component provenance accepted for this scope; no fresh physical scan/photography certification.",
+        "Historical behavioral agreement does not certify the generic helper outside exercised states."
+      ]
+    },
+    {
+      "scope": "Golden source exceptions",
+      "status": "provisional_owner_approved",
+      "checks": [
+        "Preserve F036 Hind usable-dice-below-2 defeat rule pending designer confirmation; do not relabel it verified.",
+        "Preserve historical reconciliation A01–A07, including event 153 j=0 and canonical terminal Spirit 8."
+      ],
+      "refs": [
+        {
+          "artifact_id": "test-scenarios",
+          "path": "src/data/raw/TEST_SCENARIOS.md",
+          "git_object": "93e9df18135e323db64af9e89ce3e5fed2e9abd3",
+          "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+          "section": "F036",
+          "status": "provisional_owner_approved"
+        },
+        {
+          "artifact_id": "golden-record",
+          "path": "src/data/raw/golden/HERC-GOLDEN-RUN-0001_golden_run_record.json",
+          "git_object": "8d4dd7d3e8137d28d1e931be514ba8bfe4c1474d",
+          "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+          "section": "anomalies_and_spec_issues; reproducibility",
+          "status": "verified"
+        }
+      ]
+    },
+    {
+      "scope": "Die lifecycle/phase/player ownership",
+      "status": "verified",
+      "checks": [
+        "Blue-used remains distinct from spent/locked/allocated/broken",
+        "Gold dice cannot attack; no physical die reuse across attack sets",
+        "Cows B source reusable after blue; broken H6 returns at next Labor setup",
+        "Explicit Resolve Assignments and stop on pending choices",
+        "Immediate inactive status at health zero; exclude inactive dice from healing, movement and advance-all"
+      ],
+      "refs": [
+        {
+          "artifact_id": "official-rulebook",
+          "path": "src/data/raw/sources/Hercules_Rules_104x155.pdf",
+          "git_object": "bb1662bbede6a183bfe5b5548a126d20099a496b",
+          "source_commit": null,
+          "section": "pp. 7, 9–10, 14",
+          "status": "verified"
+        },
+        {
+          "artifact_id": "verified-reference",
+          "path": "src/data/raw/sources/Hercules_Verified_Gameplay_Reference_v12.md",
+          "git_object": "9b806258acc2a7daa60224d66e27c83baa2e6a0c",
+          "source_commit": null,
+          "section": "Global setup; Moods; Labors I–VI and VIII; Important generic execution notes",
+          "status": "owner_designer_verified",
+          "note": "Recorded owner verification, not a new physical-component inspection or fresh designer confirmation. Per-record data labels cite v9; this pass cross-checked the supplied v12 for the scoped facts only."
+        },
+        {
+          "artifact_id": "execution-spec",
+          "path": "src/data/raw/hercules_engine_execution_spec_v0_13.md",
+          "git_object": "190f0c2e57932251a8ef5f54eb9f1d7cb653f9ba",
+          "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+          "section": "§§3–19, temporary die-pool mapping and transition shuffle convention",
+          "status": "verified"
+        }
+      ]
+    },
+    {
+      "scope": "Labor VIII content and topology",
+      "status": "owner_designer_verified",
+      "checks": [
+        "Two distinct dice at health 6; fixed 1-2-3 straight",
+        "Both complete linear tracks and every printed impact agree with v12",
+        "No branch, break, Reward choice or new Mood resolution inside the primary constructed boundary"
+      ],
+      "refs": [
+        {
+          "artifact_id": "verified-reference",
+          "path": "src/data/raw/sources/Hercules_Verified_Gameplay_Reference_v12.md",
+          "git_object": "9b806258acc2a7daa60224d66e27c83baa2e6a0c",
+          "source_commit": null,
+          "section": "Global setup; Moods; Labors I–VI and VIII; Important generic execution notes",
+          "status": "owner_designer_verified",
+          "note": "Recorded owner verification, not a new physical-component inspection or fresh designer confirmation. Per-record data labels cite v9; this pass cross-checked the supplied v12 for the scoped facts only."
+        },
+        {
+          "artifact_id": "game-data",
+          "path": "src/data/raw/GAME_DATA_v4.json",
+          "git_object": "2ec9fc341d53c509a7a0148fc1d26582c0e87c17",
+          "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+          "section": "$.labors[7].labor_dice and tracks",
+          "status": "verified"
+        }
+      ],
+      "conflicts": [
+        "ISS-RS-RS-001-001",
+        "ISS-RS-RS-001-002"
+      ]
+    },
+    {
+      "scope": "Timing, restriction and failure identity",
+      "status": "source_conflicted",
+      "checks": [
+        "Source semantics require per-source healing and round-start Cannot Block snapshot",
+        "Golden terminal failed-die status is explicit; engine observations differ"
+      ],
+      "refs": [
+        {
+          "artifact_id": "execution-spec",
+          "path": "src/data/raw/hercules_engine_execution_spec_v0_13.md",
+          "git_object": "190f0c2e57932251a8ef5f54eb9f1d7cb653f9ba",
+          "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+          "section": "§§3–19, temporary die-pool mapping and transition shuffle convention",
+          "status": "verified"
+        },
+        {
+          "artifact_id": "official-rulebook",
+          "path": "src/data/raw/sources/Hercules_Rules_104x155.pdf",
+          "git_object": "bb1662bbede6a183bfe5b5548a126d20099a496b",
+          "source_commit": null,
+          "section": "p. 13 add to the Labor die; p. 17 triggering Labor die healing cap",
+          "status": "verified"
+        },
+        {
+          "artifact_id": "verified-reference",
+          "path": "src/data/raw/sources/Hercules_Verified_Gameplay_Reference_v12.md",
+          "git_object": "9b806258acc2a7daa60224d66e27c83baa2e6a0c",
+          "source_commit": null,
+          "section": "Labor VIII Track B; Important generic execution notes",
+          "status": "owner_designer_verified"
+        },
+        {
+          "artifact_id": "execution-spec",
+          "path": "src/data/raw/hercules_engine_execution_spec_v0_13.md",
+          "git_object": "190f0c2e57932251a8ef5f54eb9f1d7cb653f9ba",
+          "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+          "section": "§15 healing applies to Labor die value, capped at starting value",
+          "status": "verified"
+        },
+        {
+          "artifact_id": "verified-reference",
+          "path": "src/data/raw/sources/Hercules_Verified_Gameplay_Reference_v12.md",
+          "git_object": "9b806258acc2a7daa60224d66e27c83baa2e6a0c",
+          "source_commit": null,
+          "section": "Important generic execution notes: Cannot Block snapshot",
+          "status": "owner_designer_verified"
+        },
+        {
+          "artifact_id": "execution-spec",
+          "path": "src/data/raw/hercules_engine_execution_spec_v0_13.md",
+          "git_object": "190f0c2e57932251a8ef5f54eb9f1d7cb653f9ba",
+          "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+          "section": "§8 step 1; §15 Blocking",
+          "status": "verified"
+        },
+        {
+          "artifact_id": "test-fixtures",
+          "path": "src/data/raw/TEST_FIXTURES_v4.json",
+          "git_object": "49b55a701c2e3f13c22a98140c72265736fe5c71",
+          "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+          "section": "F004/F005",
+          "status": "verified"
+        }
+      ],
+      "issues": [
+        "ISS-RS-RS-001-002",
+        "ISS-RS-RS-001-003",
+        "ISS-RS-RS-001-004"
+      ]
+    },
+    {
+      "scope": "Historical package identity",
+      "status": "unresolved",
+      "checks": [
+        "27 current manifest pins verified",
+        "13 original package checksums: 12 match, GAME_DATA differs",
+        "Current generated object equals current raw object; source hash equals current Git-byte SHA-256",
+        "Original mismatching checksum preimage is unavailable in allowed history"
+      ],
+      "refs": [
+        {
+          "artifact_id": "package-checksums",
+          "path": "src/data/raw/SHA256SUMS.json",
+          "git_object": "aebdce242d075b500df9f8624f0b471c9f5d040f",
+          "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+          "section": "GAME_DATA_v4.json entry",
+          "status": "verified"
+        },
+        {
+          "artifact_id": "package-manifest",
+          "path": "src/data/raw/HANDOFF_MANIFEST.json",
+          "git_object": "766c18906cc20578ef5fc7d11c5e6a82bc4d9d54",
+          "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+          "section": "external authority filenames and v5 notes",
+          "status": "verified"
+        }
+      ],
+      "issue": "ISS-PM-SETUP-001"
+    }
+  ],
+  "golden": {
+    "scenario_id": "HERC-GOLDEN-RUN-0001",
+    "status": "BLOCKED",
+    "blocking_issue_ids": [
+      "ISS-PM-SETUP-001",
+      "ISS-RS-RS-001-003",
+      "ISS-RS-RS-001-004"
+    ],
+    "preconditions_complete": true,
+    "source_start_state_path": "orchestration/validation/RS-001-golden-start-state.json",
+    "ordered_mood_input_names": [
+      "Melancholic",
+      "Resolute",
+      "Battered",
+      "Ferocious",
+      "Enraged",
+      "Haunted A",
+      "Haunted B",
+      "Haunted C",
+      "Haunted D"
+    ],
+    "rng": {
+      "algorithm": "SHA256_COUNTER_V1",
+      "policy": "HERC-RNG-v3",
+      "seed": "HERC-GOLDEN-RUN-0001",
+      "start_index": 0,
+      "first_roll_start_index": 8,
+      "expected_end_index": 174,
+      "orphaned_ranges": [
+        {
+          "first": 18,
+          "last": 25,
+          "status": "orphaned_execution_error",
+          "resume_at": 26,
+          "authority": "golden-record A02; RNG v3 Recovery"
+        }
+      ],
+      "recovery_ledger": "src/data/raw/golden/HERC-GOLDEN-RUN-0001_golden_run_record.json#/rng_event_ledger",
+      "independent_audit": {
+        "method": "Independent Python hashlib SHA-256 and big-endian length-prefixed encoding; check rejection attempts, bounds, ledger indices and interpreted results",
+        "contiguous_0_through_173": true,
+        "orphaned_indices": [
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25
+        ],
+        "expected_orphan_range_matches": true,
+        "computed_committed_events": 166,
+        "errors": [],
+        "event_153": {
+          "event_index": 153,
+          "value": 0
+        }
+      }
+    },
+    "player_script": {
+      "path": "src/data/raw/golden/HERC-GOLDEN-RUN-0001_replay_script_v2_normalized.json",
+      "git_object": "da24321337d3c297d858d58b8e2c292fad937eb1",
+      "sequence": "all 112 inputs, in order",
+      "choice_authority": "recorded human choices plus the 12 explicitly marked historical normalization controls"
+    },
+    "checkpoints": {
+      "source_path": "src/data/raw/golden/HERC-GOLDEN-RUN-0001_golden_run_record.json#/checkpoints",
+      "boundary": "after completion/reward/end-Labor shuffle, before next Labor setup and Mood draw",
+      "expected": [
+        {
+          "completed_labor": 1,
+          "labor_name": "Nemean Lion",
+          "spirit": 16,
+          "divinity": "0/10",
+          "owned_rewards": [
+            "REWARD_L1_IMPENETRABLE_HIDE"
+          ],
+          "hercules_dice": {
+            "H1": "intact_available",
+            "H2": "intact_available",
+            "H3": "intact_available",
+            "H4": "intact_available",
+            "H5": "intact_available"
+          },
+          "mood_deck_top_to_bottom": [
+            "Haunted B",
+            "Battered",
+            "Haunted C",
+            "Haunted D",
+            "Haunted A",
+            "Ferocious",
+            "Enraged",
+            "Resolute",
+            "Melancholic"
+          ],
+          "completed_labors": [
+            1
+          ],
+          "next_event": 34
+        },
+        {
+          "completed_labor": 2,
+          "labor_name": "Lernean Hydra",
+          "spirit": 13,
+          "divinity": "0/10",
+          "owned_rewards": [
+            "REWARD_L1_IMPENETRABLE_HIDE",
+            "REWARD_L2_VENOMOUS_BLOOD"
+          ],
+          "hercules_dice": {
+            "H1": "intact_available",
+            "H2": "intact_available",
+            "H3": "intact_available",
+            "H4": "intact_available",
+            "H5": "intact_available",
+            "H6": "intact_available"
+          },
+          "mood_deck_top_to_bottom": [
+            "Haunted B",
+            "Haunted C",
+            "Enraged",
+            "Ferocious",
+            "Battered",
+            "Resolute",
+            "Melancholic",
+            "Haunted A",
+            "Haunted D"
+          ],
+          "completed_labors": [
+            1,
+            2
+          ],
+          "next_event": 52
+        },
+        {
+          "completed_labor": 3,
+          "labor_name": "Ceryneian Hind",
+          "spirit": 14,
+          "divinity": "0/10",
+          "owned_rewards": [
+            "REWARD_L1_IMPENETRABLE_HIDE",
+            "REWARD_L2_VENOMOUS_BLOOD",
+            "REWARD_L3_BLESSING_OF_ARTEMIS"
+          ],
+          "hercules_dice": {
+            "H1": "intact_available",
+            "H2": "intact_available",
+            "H3": "intact_available",
+            "H4": "intact_available",
+            "H5": "intact_available",
+            "H6": "broken_until_next_labor_setup"
+          },
+          "mood_deck_top_to_bottom": [
+            "Haunted C",
+            "Resolute",
+            "Ferocious",
+            "Haunted D",
+            "Melancholic",
+            "Haunted A",
+            "Battered",
+            "Haunted B",
+            "Enraged"
+          ],
+          "completed_labors": [
+            1,
+            2,
+            3
+          ],
+          "next_event": 77
+        },
+        {
+          "completed_labor": 4,
+          "labor_name": "Erymanthian Boar",
+          "spirit": 9,
+          "divinity": "1/10",
+          "owned_rewards": [
+            "REWARD_L1_IMPENETRABLE_HIDE",
+            "REWARD_L2_VENOMOUS_BLOOD",
+            "REWARD_L3_BLESSING_OF_ARTEMIS",
+            "REWARD_L4_REGRET_A"
+          ],
+          "hercules_dice": {
+            "H1": "intact_available",
+            "H2": "intact_available",
+            "H3": "intact_available",
+            "H4": "intact_available",
+            "H5": "intact_available",
+            "H6": "intact_available",
+            "H7": "intact_available"
+          },
+          "mood_deck_top_to_bottom": [
+            "Resolute",
+            "Ferocious",
+            "Enraged",
+            "Haunted D",
+            "Haunted C",
+            "Ghost of Pholus",
+            "Battered",
+            "Haunted B",
+            "Haunted A"
+          ],
+          "completed_labors": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "next_event": 117
+        },
+        {
+          "completed_labor": 5,
+          "labor_name": "Augean Stables",
+          "spirit": 14,
+          "divinity": "2/10",
+          "owned_rewards": [
+            "REWARD_L1_IMPENETRABLE_HIDE",
+            "REWARD_L2_VENOMOUS_BLOOD",
+            "REWARD_L3_BLESSING_OF_ARTEMIS",
+            "REWARD_L4_REGRET_A",
+            "REWARD_L5_100_IMMORTAL_COWS_B"
+          ],
+          "removed_components": [
+            "COMPONENT_BOW_OF_HERCULES"
+          ],
+          "hercules_dice": {
+            "H1": "intact_available",
+            "H2": "intact_available",
+            "H3": "intact_available",
+            "H4": "intact_available",
+            "H5": "intact_available",
+            "H6": "intact_available",
+            "H7": "intact_available"
+          },
+          "mood_deck_top_to_bottom": [
+            "Haunted B",
+            "Resolute",
+            "Haunted D",
+            "Enraged",
+            "Haunted A",
+            "Battered",
+            "Haunted C",
+            "Ferocious",
+            "Ghost of Pholus"
+          ],
+          "completed_labors": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "next_event": 154
+        }
+      ],
+      "diagnostic_comparison": [
+        {
+          "completed_labor": 1,
+          "checks": {
+            "spirit": true,
+            "divinity": true,
+            "next_event": true,
+            "mood_order": true,
+            "completed_labors": true,
+            "rewards": true,
+            "removed_components": true,
+            "persistent_dice_count": true,
+            "broken_dice": true
+          },
+          "all_listed_checks_match": true,
+          "boundary": "after reward and end-Labor shuffle, before next Labor setup/Mood resolution; not every die flag is certified by the coarse historical labels"
+        },
+        {
+          "completed_labor": 2,
+          "checks": {
+            "spirit": true,
+            "divinity": true,
+            "next_event": true,
+            "mood_order": true,
+            "completed_labors": true,
+            "rewards": true,
+            "removed_components": true,
+            "persistent_dice_count": true,
+            "broken_dice": true
+          },
+          "all_listed_checks_match": true,
+          "boundary": "after reward and end-Labor shuffle, before next Labor setup/Mood resolution; not every die flag is certified by the coarse historical labels"
+        },
+        {
+          "completed_labor": 3,
+          "checks": {
+            "spirit": true,
+            "divinity": true,
+            "next_event": true,
+            "mood_order": true,
+            "completed_labors": true,
+            "rewards": true,
+            "removed_components": true,
+            "persistent_dice_count": true,
+            "broken_dice": true
+          },
+          "all_listed_checks_match": true,
+          "boundary": "after reward and end-Labor shuffle, before next Labor setup/Mood resolution; not every die flag is certified by the coarse historical labels"
+        },
+        {
+          "completed_labor": 4,
+          "checks": {
+            "spirit": true,
+            "divinity": true,
+            "next_event": true,
+            "mood_order": true,
+            "completed_labors": true,
+            "rewards": true,
+            "removed_components": true,
+            "persistent_dice_count": true,
+            "broken_dice": true
+          },
+          "all_listed_checks_match": true,
+          "boundary": "after reward and end-Labor shuffle, before next Labor setup/Mood resolution; not every die flag is certified by the coarse historical labels"
+        },
+        {
+          "completed_labor": 5,
+          "checks": {
+            "spirit": true,
+            "divinity": true,
+            "next_event": true,
+            "mood_order": true,
+            "completed_labors": true,
+            "rewards": true,
+            "removed_components": true,
+            "persistent_dice_count": true,
+            "broken_dice": true
+          },
+          "all_listed_checks_match": true,
+          "boundary": "after reward and end-Labor shuffle, before next Labor setup/Mood resolution; not every die flag is certified by the coarse historical labels"
+        }
+      ]
+    },
+    "stopping_rule": {
+      "last_input_seq": 112,
+      "labor": "labor.L06",
+      "expected_failure_die": "labor.L06.C17",
+      "expected_node": "L06C17.n3",
+      "phase": "DEFEAT",
+      "cleanup_allowed": false,
+      "reward_flow_allowed": false,
+      "new_randomness_allowed": false,
+      "earlier_stop_conditions": [
+        "script requests an illegal action",
+        "unrecorded player decision",
+        "source conflict affects current transition",
+        "RNG or hidden-state mismatch"
+      ]
+    },
+    "expected_terminal_state_source": "src/data/raw/golden/HERC-GOLDEN-RUN-0001_golden_run_record.json#/terminal_state",
+    "historical_reconciliation": "Retain A01–A07 exactly; notably canonical Spirit 8 supersedes the historical display 7 under A07, and event 153 j=0 is recorded computation evidence. This pass adds no replacement historical outcome.",
+    "provisional_rules": [
+      "HIND-USABLE-DICE-BELOW-2"
+    ],
+    "diagnosis_summary": {
+      "phase": "DEFEAT",
+      "spirit": 8,
+      "divinity": 3,
+      "next_event": 174,
+      "checkpoint_summaries_match": 5,
+      "terminal_status_mismatch": "ISS-RS-RS-001-003",
+      "pass_fail": "FAIL_full_terminal_state; ledger_and_listed_checkpoint_checks_match",
+      "limitation": "Preparation diagnosis; not independent Validation acceptance."
+    }
+  },
+  "historical_replay_adapter": {
+    "path": "src/replay/golden-run.ts",
+    "tested_commit": "f297112eaeb8537fcd2b5e51c5673e311e1067d7",
+    "input_script": {
+      "id": "golden-script",
+      "path": "src/data/raw/golden/HERC-GOLDEN-RUN-0001_replay_script_v2_normalized.json",
+      "kind": "blob",
+      "git_object": "da24321337d3c297d858d58b8e2c292fad937eb1",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "role": "historical_replay_evidence",
+      "sha256_git_bytes": "e342e1891616ebb319f3a355515af97709ab560eac7192fb98c349b4e8a7da59"
+    },
+    "input_count": 112,
+    "supported_action_categories": [
+      "approve_initial_mood_input_order",
+      "roll",
+      "use_blue",
+      "assign_attack",
+      "resolve_assignments",
+      "place_gold",
+      "finalize_blue_phase",
+      "assign_attack_sets",
+      "choose_broken_die",
+      "reroll",
+      "choose_reward",
+      "undo_last_deterministic_action",
+      "remove_prior_reward_or_component",
+      "use_blue_cows_b_and_reroll"
+    ],
+    "unsupported_recorded_actions": [],
+    "skipped_recorded_actions": [
+      {
+        "seq": 1,
+        "action": "approve_initial_mood_input_order",
+        "handling": "skipped; initializeGame uses generated normal-Mood order instead",
+        "disposition": "no_change for these exact pins only: four-way order equality independently verified; future order differences must stop"
+      }
+    ],
+    "normalization": {
+      "migration_derived_resolve_count": 12,
+      "total_resolve_assignments": 16,
+      "historical_phase_controls_only": true
+    },
+    "implicit_phase_handling": "Before historical attack/gold placements, finishBlueForHistoricalPlacement switches BLUE_ABILITY_WINDOW to placement; explicit finalize_blue_phase also directly changes the phase. This adapts historical controls and does not establish conformance of the public typed-command/transition-log API.",
+    "player_ownership": "All attack targets, sets, rerolls, Reward variants, Bow removal and H6 break choice are taken from exact script inputs. No branch, redraw or resolve-anyway action is supplied; any unexpected meaningful-placement prompt causes a stop.",
+    "undo": "Snapshots restore deterministic changes for inputs 77 and 86; adapter rejects undo across changed RNG nextEvent. The adapter maintains its own snapshots, separate from public dispatcher undo.",
+    "identity_mapping": "External Labor die/reward IDs map to canonical IDs by suffix/name. Current mappings match supplied content; future duplicate names or changed variants require rechecking. Bow 1↔6 script deltas reach the recorded faces with one Spirit cost.",
+    "rng_recovery": "At Labor I transition with nextEvent=18, adapter inserts synthetic orphan records 18–25 and resumes at 26. Preserve the original golden ledger, whose orphan purpose/raw fields are null; the adapter descriptions are annotations, not regenerated random evidence.",
+    "limitations": [
+      "Hardcodes Human difficulty instead of enforcing script.difficulty. Current script is Human and was independently checked.",
+      "Does not enforce input labor/roll/sequence metadata, operation.from faces, all expected checkpoints, or terminal result/state; it only checks final nextEvent itself.",
+      "verifyGoldenRunLedger is separate ledger verification, and is not a tactical replay. This pass independently checks index continuity, rejection bounds and values with Python.",
+      "A returned DEFEAT and matching resources/RNG do not certify terminal die status: ISS-RS-RS-001-003 records a real mismatch."
+    ],
+    "required_validation": "Independent Validation must guard exact initialization/order, compare all named checkpoints and full terminal fields, and stop on unrecorded decisions. Prior PASS is not release evidence."
+  },
+  "labor_viii": {
+    "scenario_id": "RS-001-L08-CONSTRUCTED-001",
+    "status": "BLOCKED",
+    "scenario_path": "orchestration/validation/RS-001-L08-scenario.json",
+    "start_state_complete": true,
+    "choices_complete": true,
+    "blocking_issue_ids": [
+      "ISS-PM-SETUP-001",
+      "ISS-RS-RS-001-001",
+      "ISS-RS-RS-001-002"
+    ],
+    "expectations_status": "source_conflicted until scoped correction is accepted/promoted",
+    "zero_rng": true
+  },
+  "issue_ids": [
+    "ISS-PM-SETUP-001",
+    "ISS-RS-RS-001-001",
+    "ISS-RS-RS-001-002",
+    "ISS-RS-RS-001-003",
+    "ISS-RS-RS-001-004"
+  ],
+  "proposed_owner_work": [
+    {
+      "owner": "rules_spec",
+      "scope": "Resolve historical source-integrity discrepancy or obtain scoped human authority; preserve original checksum evidence."
+    },
+    {
+      "owner": "rules_spec",
+      "scope": "Canonical L08 requirement/damage separation and source-scoped healing representation, with derived content and regression expectations. Requires new correction assignment."
+    },
+    {
+      "owner": "rules_spec",
+      "scope": "Diagnose/implement engine changes for source-scoped healing, terminal failure status and snapshot persistence only under explicit engine task authority."
+    },
+    {
+      "owner": "validation",
+      "scope": "PM-released independent Golden full-state replay, L08 boundary assertions and snapshot regression on exact accepted inputs."
+    }
+  ],
+  "schedule_confirmation": {
+    "automation_id": "hercules-rules-spec-worker",
+    "status": "ACTIVE",
+    "cadence": "hourly",
+    "kind": "heartbeat",
+    "destination": "this Rules / Spec worker task",
+    "confirmation": "Codex automation_update returned Created automation in the app, status ACTIVE; existing automation files checked first."
+  },
+  "scope_limits": [
+    "No main/later branch, Downloads, other conversation or PM research consulted. Experiment branch ancestry only.",
+    "No canonical source, engine, generated data, tests, policy or manifest changed.",
+    "No final implementation specification generated.",
+    "Historical implementation brief/presentation flow read for role boundaries only.",
+    "No package installation, build or broad test suite; package scripts were inspected because they regenerate data."
+  ],
+  "criteria_traceability": [
+    {
+      "criterion": 1,
+      "evidence": "RS-001-audit.json pins: all 27 exact Git objects; SHA-256 uses Git blob bytes"
+    },
+    {
+      "criterion": 2,
+      "evidence": "authority_review, issues and fixture expectation_authority"
+    },
+    {
+      "criterion": 3,
+      "evidence": "golden fields and RS-001-golden-start-state.json"
+    },
+    {
+      "criterion": 4,
+      "evidence": "historical_replay_adapter plus executed RS-001-diagnostic.json"
+    },
+    {
+      "criterion": 5,
+      "evidence": "RS-001-L08-scenario.json start_state/actions/track_graphs/rng/stopping_rule"
+    },
+    {
+      "criterion": 6,
+      "evidence": "RS-001-L08-scenario.json labels and proposed_expected_transitions; conflicts remain blocked"
+    },
+    {
+      "criterion": 7,
+      "evidence": "golden.status and labor_viii.status, blocking issues and proposed_owner_work"
+    },
+    {
+      "criterion": 8,
+      "evidence": "run-specific structured handoff with inputs, exact changed IDs and dispositions"
+    },
+    {
+      "criterion": 9,
+      "evidence": "ISS-PM-SETUP-001 investigation, explicit unresolved disposition and hash regression expectation"
+    }
+  ]
+}

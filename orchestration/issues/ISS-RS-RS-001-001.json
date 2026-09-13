@@ -1,0 +1,356 @@
+{
+  "id": "ISS-RS-RS-001-001",
+  "task_id": "RS-001",
+  "run_id": "rules-spec-20260913T051344Z-26d973",
+  "category": "source_data_defect",
+  "origin": "canonical_artifact",
+  "severity": "S1",
+  "blocking": true,
+  "blocking_scope": "Labor VIII attack interpretation; golden L05 uses target scope and is not affected by this L08 field",
+  "status": "open",
+  "owner": "rules_spec",
+  "manifest_revision": "e1-m0001",
+  "input_versions": [
+    {
+      "id": "game-data",
+      "path": "src/data/raw/GAME_DATA_v4.json",
+      "kind": "blob",
+      "git_object": "2ec9fc341d53c509a7a0148fc1d26582c0e87c17",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "role": "canonical_content",
+      "sha256_git_bytes": "356bb6b4554c8872cc853986362c572e8601f8b0c0ffbfc6c69d9505f4102303"
+    },
+    {
+      "id": "data-schema",
+      "path": "src/data/raw/GAME_DATA_SCHEMA.md",
+      "kind": "blob",
+      "git_object": "b6ea85ce7cbf2553a0f9337babff3786199510b9",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "role": "representation_contract",
+      "sha256_git_bytes": "77a6c0e40f2e85441693b112b0299aa601515b36dbf70fcb6785dee9afe6408b"
+    },
+    {
+      "id": "rules-spec",
+      "path": "src/data/raw/GAME_RULES_SPEC.md",
+      "kind": "blob",
+      "git_object": "1e4d80a805be60fe7a031417df224c3a96d1894b",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "role": "execution_semantics",
+      "sha256_git_bytes": "a0b57360c50e5765ba3f698dc29e7fa42af2675c2269adfded0b19690f0a3b61"
+    },
+    {
+      "id": "execution-spec",
+      "path": "src/data/raw/hercules_engine_execution_spec_v0_13.md",
+      "kind": "blob",
+      "git_object": "190f0c2e57932251a8ef5f54eb9f1d7cb653f9ba",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "role": "execution_semantics",
+      "sha256_git_bytes": "5b848484b817a96556a8459e2e0d61ec9a6b25d4c46e2f84a0ea90726e9ea91e"
+    },
+    {
+      "id": "test-scenarios",
+      "path": "src/data/raw/TEST_SCENARIOS.md",
+      "kind": "blob",
+      "git_object": "93e9df18135e323db64af9e89ce3e5fed2e9abd3",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "role": "historical_expectations",
+      "sha256_git_bytes": "a02e0a16d7f137ba26af79ff06431c4bd2cc6e92d05db5144d57f9c80611e9af"
+    },
+    {
+      "id": "test-fixtures",
+      "path": "src/data/raw/TEST_FIXTURES_v4.json",
+      "kind": "blob",
+      "git_object": "49b55a701c2e3f13c22a98140c72265736fe5c71",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "role": "historical_expectations",
+      "sha256_git_bytes": "20cef9c252173031a65b6cf88e3290a52216d560b6513b53392132aad3cbc8b1"
+    },
+    {
+      "id": "package-manifest",
+      "path": "src/data/raw/HANDOFF_MANIFEST.json",
+      "kind": "blob",
+      "git_object": "766c18906cc20578ef5fc7d11c5e6a82bc4d9d54",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "role": "historical_inventory",
+      "sha256_git_bytes": "c249e816d87bb2f7c2e715caddf7a0d3d27bef83434b6f91b86652be60548078"
+    },
+    {
+      "id": "package-checksums",
+      "path": "src/data/raw/SHA256SUMS.json",
+      "kind": "blob",
+      "git_object": "aebdce242d075b500df9f8624f0b471c9f5d040f",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "role": "historical_checksums",
+      "sha256_git_bytes": "47b5b40c7d7265f35eee89ae36001dace681ebc2ff2b1f4b2bdaf47691059094"
+    },
+    {
+      "id": "implementation-brief",
+      "path": "src/data/raw/IMPLEMENTATION_BRIEF.md",
+      "kind": "blob",
+      "git_object": "7abba014243ce1e5cd68c922018fed5c5a383ba1",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "role": "historical_architecture_only",
+      "sha256_git_bytes": "cf7696152ecefd32ff2307eb2137da0df6e3ff5cebcfa519b917e6621fe7fad4"
+    },
+    {
+      "id": "presentation-flow",
+      "path": "src/data/raw/PRESENTATION_FLOW.md",
+      "kind": "blob",
+      "git_object": "2bcb04974b018a50dc4f481fc8c35c5e44d52e04",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "role": "future_product_context",
+      "sha256_git_bytes": "5cc092125143bf6c2296df42b51b609e3599948587a3c0c09d18cb8d44ec6d4b"
+    },
+    {
+      "id": "golden-record",
+      "path": "src/data/raw/golden/HERC-GOLDEN-RUN-0001_golden_run_record.json",
+      "kind": "blob",
+      "git_object": "8d4dd7d3e8137d28d1e931be514ba8bfe4c1474d",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "role": "historical_replay_evidence",
+      "sha256_git_bytes": "2c7264dd7a1baa8f2907c013bf195986df6b0aebc2319dc9bee95a82ec1b9061"
+    },
+    {
+      "id": "golden-script",
+      "path": "src/data/raw/golden/HERC-GOLDEN-RUN-0001_replay_script_v2_normalized.json",
+      "kind": "blob",
+      "git_object": "da24321337d3c297d858d58b8e2c292fad937eb1",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "role": "historical_replay_evidence",
+      "sha256_git_bytes": "e342e1891616ebb319f3a355515af97709ab560eac7192fb98c349b4e8a7da59"
+    },
+    {
+      "id": "golden-prior-report",
+      "path": "src/data/raw/golden/HERC-GOLDEN-RUN-0001_replay_validation_report.json",
+      "kind": "blob",
+      "git_object": "866da0a2c60aac30545e6cdbbf2f8a532f0cc82b",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "role": "historical_replay_evidence",
+      "sha256_git_bytes": "b27ab485c2791f61b97173d63756bb6e24b10ff78d1ccb49baa60475fe0814e1"
+    },
+    {
+      "id": "historical-engine",
+      "path": "src/engine",
+      "kind": "tree",
+      "git_object": "dac7a33b4fea961c4ba10fed79eda3da5f719211",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "role": "historical_implementation_or_tests"
+    },
+    {
+      "id": "rng-implementation",
+      "path": "src/rng",
+      "kind": "tree",
+      "git_object": "574ad2efc0e8fb67c3e38ebbd0f56c41755a6cdf",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "role": "historical_implementation_or_tests"
+    },
+    {
+      "id": "replay-implementation",
+      "path": "src/replay",
+      "kind": "tree",
+      "git_object": "8df5cbcbd7e2733e829c5c0abea0005381ba7433",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "role": "historical_implementation_or_tests"
+    },
+    {
+      "id": "generated-data",
+      "path": "src/data/generated",
+      "kind": "tree",
+      "git_object": "6b17d0f311730bf28b41e331bd0da3151439216c",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "role": "historical_implementation_or_tests"
+    },
+    {
+      "id": "existing-tests",
+      "path": "test",
+      "kind": "tree",
+      "git_object": "953f11900a4467a8f7807b5b437c677f3b12ea22",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "role": "historical_implementation_or_tests"
+    },
+    {
+      "id": "package",
+      "path": "package.json",
+      "kind": "blob",
+      "git_object": "ec00f499a965e96db2ca4d0b8e4cda50e7bea805",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "role": "reproduction_tooling",
+      "sha256_git_bytes": "57309a5e04e6b3368f5edaaac040d86680442d7abae76f5567d793e96a1e1fd9"
+    },
+    {
+      "id": "lockfile",
+      "path": "pnpm-lock.yaml",
+      "kind": "blob",
+      "git_object": "f974b55ecfee5f821216dd2ee26e6a4cb85e1737",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "role": "reproduction_tooling",
+      "sha256_git_bytes": "fe4a0dac8359a8b6252c5e3e4d02a2f8158ada9b7f6189f8e6c0f7e1f653c28e"
+    },
+    {
+      "id": "tsconfig",
+      "path": "tsconfig.json",
+      "kind": "blob",
+      "git_object": "e10045c9619b6c3d47281654d968c7dfb8217c48",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "role": "reproduction_tooling",
+      "sha256_git_bytes": "1e0f0d23494bc5e21924b2f287bfa8f1f734579037fa6355db4be2fde3528545"
+    },
+    {
+      "id": "tools-tsconfig",
+      "path": "tsconfig.tools.json",
+      "kind": "blob",
+      "git_object": "874248bd29f4521f9fa3e14e9356639ed800847a",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "role": "reproduction_tooling",
+      "sha256_git_bytes": "dc70f5b95f167083c3cf9e2223c5b5fe929876736b9ea549b556a4fb5c670e80"
+    },
+    {
+      "id": "data-generator",
+      "path": "src/data/generate.ts",
+      "kind": "blob",
+      "git_object": "c018bb23e59239d6873d6f7cd0d4aa6482e1acd2",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "role": "reproduction_tooling",
+      "sha256_git_bytes": "8b1809a8119a16da7eeae0dc38484135a025675849e1a86b77c71fec597dcbf3"
+    },
+    {
+      "id": "data-validator",
+      "path": "src/data/validation.ts",
+      "kind": "blob",
+      "git_object": "df88d2d5aa065f8de8ef653924ed8a1704315415",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "role": "reproduction_tooling",
+      "sha256_git_bytes": "62671ac1f74e16970d8956556b11b8c72ad53db083a3989588ec25c515bc4ab1"
+    },
+    {
+      "id": "official-rulebook",
+      "path": "src/data/raw/sources/Hercules_Rules_104x155.pdf",
+      "kind": "blob",
+      "git_object": "bb1662bbede6a183bfe5b5548a126d20099a496b",
+      "source_commit": null,
+      "sha256_git_bytes": "de7d479426b40fd94935be85ef09e37ef30f2d00c5f8fcd4b20ab39b6720ef4a",
+      "role": "official_rules",
+      "provenance": {
+        "type": "recovered_historical_reference",
+        "source_filename": "Hercules_Rules_104x155.pdf",
+        "verification": "byte_identical_local_export; substantive verification assigned to RS-001",
+        "historical_basis": "named by historical handoff authority chain; version identity checked",
+        "export_timestamp_verified": false
+      }
+    },
+    {
+      "id": "verified-reference",
+      "path": "src/data/raw/sources/Hercules_Verified_Gameplay_Reference_v12.md",
+      "kind": "blob",
+      "git_object": "9b806258acc2a7daa60224d66e27c83baa2e6a0c",
+      "source_commit": null,
+      "sha256_git_bytes": "d3cc41b91fb32440c6970cad0d148222ffa9e9e08c277c361fd1f0ce6082ffde",
+      "role": "recorded_owner_verified_components",
+      "provenance": {
+        "type": "recovered_historical_reference",
+        "source_filename": "Hercules_Verified_Gameplay_Reference_v12.md",
+        "verification": "byte_identical_local_export; substantive verification assigned to RS-001",
+        "historical_basis": "named by historical handoff authority chain; version identity checked",
+        "export_timestamp_verified": false
+      }
+    },
+    {
+      "id": "rng-spec",
+      "path": "src/data/raw/sources/Hercules_RNG_Spec_v3.md",
+      "kind": "blob",
+      "git_object": "c1b70237e259cacf7a913f7ffccb1344a01189ac",
+      "source_commit": null,
+      "sha256_git_bytes": "6e735e6eee584d2c0ac754d620e6b46c35dd40883ccfc843a6aa289bc7b7d988",
+      "role": "deterministic_randomness_authority",
+      "provenance": {
+        "type": "recovered_historical_reference",
+        "source_filename": "Hercules_RNG_Spec_v3.md",
+        "verification": "byte_identical_local_export; substantive verification assigned to RS-001",
+        "historical_basis": "named by historical handoff authority chain; version identity checked",
+        "export_timestamp_verified": false
+      }
+    }
+  ],
+  "affected_artifacts": [
+    "src/data/raw/GAME_DATA_v4.json",
+    "src/data/raw/GAME_DATA_SCHEMA.md",
+    "src/data/raw/GAME_RULES_SPEC.md",
+    "src/data/generated/game-data.ts"
+  ],
+  "evidence": {
+    "expected": {
+      "requirement_scope": "same fixed 1-2-3 requirement for either active L08 die",
+      "damage_per_instance": 1,
+      "damage_recipient": "one player-selected eligible Labor die",
+      "choice_owner": "player",
+      "proposed_status": "verified reading of rulebook and execution §12; canonical representation remains source_conflicted"
+    },
+    "observed": {
+      "raw_scope": "all_active_targets",
+      "diagnostic_pointer": "/l08/allocated/round/attackAllocations/0",
+      "selected_target": "labor.L08.A",
+      "stored_target": "__all_active_targets__",
+      "damage_only_health": {
+        "labor.L08.A": 5,
+        "labor.L08.B": 5
+      }
+    },
+    "source_refs": [
+      {
+        "artifact_id": "official-rulebook",
+        "path": "src/data/raw/sources/Hercules_Rules_104x155.pdf",
+        "git_object": "bb1662bbede6a183bfe5b5548a126d20099a496b",
+        "source_commit": null,
+        "section": "p. 8 reduce a Labor die; p. 12 fixed 1-2-3 straight; p. 17 player damage assignment",
+        "status": "verified"
+      },
+      {
+        "artifact_id": "verified-reference",
+        "path": "src/data/raw/sources/Hercules_Verified_Gameplay_Reference_v12.md",
+        "git_object": "9b806258acc2a7daa60224d66e27c83baa2e6a0c",
+        "source_commit": null,
+        "section": "Labor VIII and Important generic execution notes",
+        "status": "source_conflicted",
+        "note": "Labor-wide/applies to both is ambiguous between shared requirement and broadcast damage; generic notes retain player damage allocation."
+      },
+      {
+        "artifact_id": "execution-spec",
+        "path": "src/data/raw/hercules_engine_execution_spec_v0_13.md",
+        "git_object": "190f0c2e57932251a8ef5f54eb9f1d7cb653f9ba",
+        "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+        "section": "§10 player damage distribution; §12 reduce the target Labor die",
+        "status": "verified"
+      },
+      {
+        "artifact_id": "game-data",
+        "path": "src/data/raw/GAME_DATA_v4.json",
+        "git_object": "2ec9fc341d53c509a7a0148fc1d26582c0e87c17",
+        "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+        "section": "$.labors[7].attack",
+        "status": "source_conflicted"
+      }
+    ],
+    "result_path": "orchestration/validation/RS-001-diagnostic.json",
+    "checkpoint": "Labor VIII attack interpretation; golden L05 uses target scope and is not affected by this L08 field"
+  },
+  "canonical_update_required": true,
+  "regression_required": true,
+  "human_authority_required": false,
+  "disposition": {
+    "type": "canonical_update",
+    "state": "proposed",
+    "action": "Split requirement eligibility from damage recipients and preserve the player-selected target; correct L08 data and derived content together. Preserve the original source text with an authority-backed interpretation. PM may seek owner clarification if the v12 sentence is intended as an explicit exception, but no such exception is established in supplied sources."
+  },
+  "regression_expectation": {
+    "scenario": "orchestration/validation/RS-001-L08-scenario.json",
+    "assertions": [
+      "After the scripted attack, A=5 and B=6 before impacts; selection must survive allocation.",
+      "A mirrored selected-B case must leave A=6, B=5 at the damage boundary.",
+      "Never use final health alone: later healing can conceal wrong damage scope."
+    ]
+  },
+  "resolution_artifacts": [],
+  "verification_task_id": null,
+  "closure": null,
+  "authority_note": "This preparation task reports a source-backed proposed disposition. PM assigns correction/engine work and independent validation; no canon or engine was changed."
+}
