@@ -15,10 +15,14 @@
     "ISS-RS-RS-001-004"
   ],
   "handoff_path": "orchestration/handoffs/RS-001-rules-spec-20260913T051344Z-26d973.json",
-  "pm_review": null,
+  "pm_review": {
+    "decision": "accepted_as_completed_blocked_readiness_assessment",
+    "evidence": "All nine acceptance criteria have traceable deliverables; exact pins and RNG ledger were audited, the constructed L08 fixture is complete, and five blocking findings were recorded without changing canon.",
+    "gate_effect": "No validation gate opened. Findings are routed through RS-002, known execution discrepancies, and human authority ISS-PM-SETUP-001."
+  },
   "id": "RS-001",
   "role": "rules_spec",
-  "status": "submitted",
+  "status": "accepted",
   "objective": "Assess the exact historical canonical inputs for Golden Run 0001 and prepare a small constructed Labor VIII validation scenario. Report readiness per scenario with authority and provenance.",
   "dependencies": [],
   "input_artifact_ids": [

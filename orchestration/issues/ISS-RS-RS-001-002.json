@@ -7,7 +7,7 @@
   "severity": "S2",
   "blocking": true,
   "blocking_scope": "Labor VIII impact/healing; shared helper requires scoped regression outside this scenario",
-  "status": "open",
+  "status": "assigned",
   "owner": "rules_spec",
   "manifest_revision": "e1-m0001",
   "input_versions": [

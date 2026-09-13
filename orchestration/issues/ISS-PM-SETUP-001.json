@@ -8,8 +8,8 @@
   "severity": "S2",
   "blocking": true,
   "blocking_scope": "source/provenance readiness; must receive PM-reviewed disposition before validation release",
-  "status": "resolution_submitted",
-  "owner": "rules_spec",
+  "status": "human_review_required",
+  "owner": "human",
   "manifest_revision": "e1-m0001",
   "input_versions": [
     {

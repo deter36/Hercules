@@ -271,6 +271,7 @@
   ],
   "tasks": [
     "RS-001",
+    "RS-002",
     "VAL-001",
     "VAL-002"
   ],
@@ -280,9 +281,9 @@
   ],
   "workers": {
     "rules_spec": {
-      "status": "awaiting_human_instantiation",
-      "first_claim": null,
-      "schedule_verified": false
+      "status": "active_waiting_for_authority",
+      "first_claim": "rules-spec-20260913T051344Z-26d973",
+      "schedule_verified": true
     },
     "validation": {
       "status": "awaiting_human_instantiation",
@@ -299,21 +300,27 @@
   },
   "gates": {
     "golden_ready_for_validation": {
-      "status": "not_evaluated",
-      "evidence": [],
+      "status": "blocked",
+      "evidence": [
+        "orchestration/handoffs/RS-001-rules-spec-20260913T051344Z-26d973.json",
+        "orchestration/validation/RS-001-readiness.json"
+      ],
       "pending": [
-        "RS-001 readiness handoff",
-        "PM review of exact inputs and authority",
-        "ISS-PM-SETUP-001 source-integrity disposition"
+        "Human authority disposition for ISS-PM-SETUP-001",
+        "Promoted exact corrected inputs from RS-002",
+        "Independent validation of known terminal-state and Cannot Block discrepancies"
       ]
     },
     "l08_ready_for_validation": {
-      "status": "not_evaluated",
-      "evidence": [],
+      "status": "blocked",
+      "evidence": [
+        "orchestration/handoffs/RS-001-rules-spec-20260913T051344Z-26d973.json",
+        "orchestration/validation/RS-001-L08-scenario.json"
+      ],
       "pending": [
-        "complete constructed scenario/start state/choices",
-        "RS-001 scoped readiness and authority review",
-        "ISS-PM-SETUP-001 source-integrity disposition"
+        "Human authority disposition for ISS-PM-SETUP-001",
+        "RS-002 canonical requirement/damage and healing-scope correction",
+        "Manifest promotion of corrected raw and generated content"
       ]
     },
     "ready_for_revalidation": {
@@ -352,6 +359,13 @@
       "stage": "setup_preflight",
       "type": "publication_approval_block",
       "issue_id": "ISS-PM-SETUP-002",
+      "counts_as_worker_validation": false
+    },
+    {
+      "stage": "rules_spec_readiness",
+      "type": "worker_handoff_received_with_blocking_findings",
+      "task_id": "RS-001",
+      "handoff": "orchestration/handoffs/RS-001-rules-spec-20260913T051344Z-26d973.json",
       "counts_as_worker_validation": false
     }
   ],

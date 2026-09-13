@@ -7,7 +7,7 @@
   "severity": "S1",
   "blocking": true,
   "blocking_scope": "Labor VIII attack interpretation; golden L05 uses target scope and is not affected by this L08 field",
-  "status": "open",
+  "status": "assigned",
   "owner": "rules_spec",
   "manifest_revision": "e1-m0001",
   "input_versions": [

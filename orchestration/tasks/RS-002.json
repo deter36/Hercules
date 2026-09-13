@@ -1,0 +1,66 @@
+{
+  "manifest_revision": "e1-m0001",
+  "claim": null,
+  "blocking_issue_ids": [
+    "ISS-PM-SETUP-001"
+  ],
+  "handoff_path": null,
+  "pm_review": null,
+  "id": "RS-002",
+  "role": "rules_spec",
+  "status": "blocked",
+  "objective": "Convert the accepted RS-001 findings into explicit corrected canonical artifacts and regression expectations, preserving source provenance and proposing exact manifest pins.",
+  "dependencies": [
+    "RS-001 accepted",
+    "Human authority disposition recorded for ISS-PM-SETUP-001"
+  ],
+  "assigned_issue_ids": [
+    "ISS-PM-SETUP-001",
+    "ISS-RS-RS-001-001",
+    "ISS-RS-RS-001-002"
+  ],
+  "input_artifact_ids": [
+    "game-data",
+    "data-schema",
+    "rules-spec",
+    "execution-spec",
+    "generated-data",
+    "official-rulebook",
+    "verified-reference",
+    "test-scenarios",
+    "test-fixtures"
+  ],
+  "allowed_changes": [
+    "src/data/raw/GAME_DATA_v4.json",
+    "src/data/raw/GAME_DATA_SCHEMA.md",
+    "src/data/raw/GAME_RULES_SPEC.md",
+    "src/data/raw/hercules_engine_execution_spec_v0_13.md",
+    "src/data/raw/TEST_SCENARIOS.md",
+    "src/data/raw/TEST_FIXTURES_v4.json",
+    "src/data/generated/game-data.ts",
+    "src/engine/build-version.ts",
+    "orchestration/issues/ISS-PM-SETUP-001.json",
+    "orchestration/issues/ISS-RS-RS-001-001.json",
+    "orchestration/issues/ISS-RS-RS-001-002.json",
+    "orchestration/validation/RS-002-*",
+    "orchestration/handoffs/RS-002-*",
+    "orchestration/tasks/RS-002.json"
+  ],
+  "deliverables": [
+    "Corrected raw canon with explicit L08 requirement eligibility, one selected damage recipient, and source-scoped healing semantics",
+    "Regenerated content matching the corrected raw source",
+    "Regression expectations for L08 attack/damage and healing boundaries",
+    "A structured RS-002 handoff containing exact before/after Git object IDs and proposed manifest revision"
+  ],
+  "acceptance_criteria": [
+    "Use the recorded human disposition for ISS-PM-SETUP-001; do not infer or replace it.",
+    "Preserve the original v12 statement and record the higher-authority rulebook/execution interpretation with explicit provenance rather than erasing the conflict history.",
+    "Separate attack-requirement eligibility from the player-selected damage recipient in structured canon.",
+    "Make healing apply only to the Labor die whose entered node produced the effect, capped at that die's starting health.",
+    "Regenerate derived data and prove semantic equality with the corrected raw source.",
+    "Add or update regression expectations without changing Golden Run historical outcomes to fit the engine.",
+    "Do not edit engine implementation. Route implementation work for ISS-RS-RS-001-002, -003 and -004 explicitly in the handoff.",
+    "Submit exact source authority, uncertainty, changed object IDs and independent validation requirements."
+  ],
+  "blocked_reason": "ISS-PM-SETUP-001 requires the human to either provide the historical GAME_DATA_v4 preimage matching the recorded checksum or authorize re-establishing corrected canon from the pinned source review."
+}
