@@ -264,6 +264,11 @@ Validate every committed attack allocation from structured requirements.
 
 Each legal attack instance deals one damage unless content explicitly says otherwise.
 
+For Labor VIII, both active Mares dice share the fixed `1-2-3` requirement. The
+player selects exactly one eligible stable die ID for each valid set during
+allocation. Damage applies only to that selected die; shared requirement
+eligibility does not duplicate damage. Preserve this choice through resolution.
+
 If a Labor die reaches 0:
 
 - set `defeated_inactive`
@@ -283,6 +288,11 @@ Track movement reads outgoing graph edges from the canonical node.
 ### Impacts
 
 Resolve effects on entered nodes.
+
+A healing icon affects only the active Labor die whose entry produced that
+impact. Cap its health at its own starting health. Preserve every other die and
+every node position; exclude defeated/inactive dice. Keep the source die ID and
+entered node in the effect context, including on shared tracks.
 
 `Cannot Block` is a round-start snapshot. Entering a Cannot Block node during end-of-round advancement does not retroactively invalidate blocking already available that round.
 
@@ -398,3 +408,26 @@ Example:
 `H1..H6 + Battered -> H1..H5 active, H6 temporarily unavailable`.
 
 This identity convention must be used by RNG roll ordering, replay, diagnostics, and save/load.
+
+## RS-002 correction provenance and verification boundary
+
+These targeted amendments implement ISS-RS-RS-001-001 and the canonical portion of
+ISS-RS-RS-001-002 under the authority recorded in ISS-PM-SETUP-001. The original v12
+statement is preserved verbatim in `GAME_DATA_v4.json.source_corrections`:
+
+> • Attack scope: **labor-wide** fixed `1-2-3` straight; applies to both Labor dice.
+
+The pinned rulebook pp. 8, 12 and 17 and baseline execution sections 10 and 12
+resolve this as shared requirement eligibility with player-selected damage.
+Rulebook pp. 13 and 17, v12 generic execution notes, and baseline execution sections
+13 and 15 establish source-local healing, starting-value cap and inactive exclusion.
+Exact source objects and the recorded human decision are in those correction
+records. The source export was reviewed; its historical verification labels are
+not a claim of a fresh physical-component check.
+
+F046–F054 separate allocation, damage, healing and full-round observations. F046
+must report A=5/B=6 before impacts and A=5/B=6 afterward; F047 must report A=6/B=5
+before impacts and A=6/B=6 afterward. Final health alone cannot prove correct
+damage or healing. Existing Golden Run expectations remain historical inputs.
+Engine implementation and independent validation are outstanding; this scoped
+amendment does not authorize a final implementation specification.

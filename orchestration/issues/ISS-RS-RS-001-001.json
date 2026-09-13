@@ -7,7 +7,7 @@
   "severity": "S1",
   "blocking": true,
   "blocking_scope": "Labor VIII attack interpretation; golden L05 uses target scope and is not affected by this L08 field",
-  "status": "assigned",
+  "status": "resolution_submitted",
   "owner": "rules_spec",
   "manifest_revision": "e1-m0001",
   "input_versions": [
@@ -338,8 +338,10 @@
   "human_authority_required": false,
   "disposition": {
     "type": "canonical_update",
-    "state": "proposed",
-    "action": "Split requirement eligibility from damage recipients and preserve the player-selected target; correct L08 data and derived content together. Preserve the original source text with an authority-backed interpretation. PM may seek owner clarification if the v12 sentence is intended as an explicit exception, but no such exception is established in supplied sources."
+    "state": "resolution_submitted",
+    "action": "Explicit L08 requirement eligibility and selected damage recipient; numeric healing annotated with source scope and cap; schema/spec amendments; F046-F054; regenerated data.",
+    "scope": "Canonical portion only. Engine behavior is independently diagnosed and remains blocking where failing.",
+    "verification_required": true
   },
   "regression_expectation": {
     "scenario": "orchestration/validation/RS-001-L08-scenario.json",
@@ -349,8 +351,94 @@
       "Never use final health alone: later healing can conceal wrong damage scope."
     ]
   },
-  "resolution_artifacts": [],
+  "resolution_artifacts": [
+    "src/data/raw/GAME_DATA_v4.json",
+    "src/data/raw/GAME_DATA_SCHEMA.md",
+    "src/data/raw/GAME_RULES_SPEC.md",
+    "src/data/raw/hercules_engine_execution_spec_v0_13.md",
+    "src/data/raw/TEST_SCENARIOS.md",
+    "src/data/raw/TEST_FIXTURES_v4.json",
+    "src/data/generated/game-data.ts",
+    "orchestration/validation/RS-002-rules-spec-20260913T131948Z-6e6af8-audit.mjs",
+    "orchestration/validation/RS-002-rules-spec-20260913T131948Z-6e6af8-audit.json",
+    "orchestration/handoffs/RS-002-rules-spec-20260913T131948Z-6e6af8.json"
+  ],
   "verification_task_id": null,
   "closure": null,
-  "authority_note": "This preparation task reports a source-backed proposed disposition. PM assigns correction/engine work and independent validation; no canon or engine was changed."
+  "authority_note": "This preparation task reports a source-backed proposed disposition. PM assigns correction/engine work and independent validation; no canon or engine was changed.",
+  "canonical_correction_submission": {
+    "task_id": "RS-002",
+    "run_id": "rules-spec-20260913T131948Z-6e6af8",
+    "manifest_revision": "e1-m0001",
+    "proposed_manifest_revision": "e1-m0002",
+    "content_revision": "RS-002.1",
+    "status": "submitted_pending_PM_promotion_and_independent_validation",
+    "report_path": "orchestration/validation/RS-002-rules-spec-20260913T131948Z-6e6af8-audit.json",
+    "handoff_path": "orchestration/handoffs/RS-002-rules-spec-20260913T131948Z-6e6af8.json",
+    "authority_source": {
+      "issue_id": "ISS-PM-SETUP-001",
+      "decision": "Re-establish corrected canon from the pinned rulebook, v12 gameplay reference, and execution specification review.",
+      "source": "User response in the Project Manager task on 2026-09-13: 'yes it should.'",
+      "constraints": [
+        "Preserve the unavailable historical checksum as historical evidence.",
+        "Do not import later-branch corrections.",
+        "Propose exact new pins for PM promotion and independent validation."
+      ]
+    },
+    "candidate_artifacts": [
+      {
+        "id": "game-data",
+        "path": "src/data/raw/GAME_DATA_v4.json",
+        "before_git_object": "2ec9fc341d53c509a7a0148fc1d26582c0e87c17",
+        "after_git_object": "9407bd9cb58eae1d8cd7a1495a65275e3ef644e1",
+        "sha256_git_bytes": "b32c1e902d200e25e59d475c9453c97e4687603aaecf3f948250fe1bec844ac4"
+      },
+      {
+        "id": "data-schema",
+        "path": "src/data/raw/GAME_DATA_SCHEMA.md",
+        "before_git_object": "b6ea85ce7cbf2553a0f9337babff3786199510b9",
+        "after_git_object": "d9300f6ae1d04cb6772a901a1ed15af34ba814ea",
+        "sha256_git_bytes": "7b857d72ed6982c94d9e2fd1bae7d3b1187065b57ec9fe1bab95ef9a5d9e9d97"
+      },
+      {
+        "id": "rules-spec",
+        "path": "src/data/raw/GAME_RULES_SPEC.md",
+        "before_git_object": "1e4d80a805be60fe7a031417df224c3a96d1894b",
+        "after_git_object": "07cea77200d58483e39eed0d702efd022dc840a0",
+        "sha256_git_bytes": "34ddfe22914b78e6e479e236e5e063b962839efccc88ae93b508230b10f51893"
+      },
+      {
+        "id": "execution-spec",
+        "path": "src/data/raw/hercules_engine_execution_spec_v0_13.md",
+        "before_git_object": "190f0c2e57932251a8ef5f54eb9f1d7cb653f9ba",
+        "after_git_object": "da5f94c4437cdff2366efc161eac1f187aca1a87",
+        "sha256_git_bytes": "5b2c52c9862db8ce3573bed12af891b2cfb94cca450fc789d7f7bc9a38565492"
+      },
+      {
+        "id": "test-scenarios",
+        "path": "src/data/raw/TEST_SCENARIOS.md",
+        "before_git_object": "93e9df18135e323db64af9e89ce3e5fed2e9abd3",
+        "after_git_object": "0b51c516eb5c287c7d39bfbf2f50b9cd92128b86",
+        "sha256_git_bytes": "0bb3f1d88778f4ceea906e5911e68d0d97f97ac7658781e79d362e261e2cdae7"
+      },
+      {
+        "id": "test-fixtures",
+        "path": "src/data/raw/TEST_FIXTURES_v4.json",
+        "before_git_object": "49b55a701c2e3f13c22a98140c72265736fe5c71",
+        "after_git_object": "cadae99fd2c7205d29f17375a36bc70df3e629b3",
+        "sha256_git_bytes": "31459edf0c79ad29bfe3a02b40a4b4a7ec1b6676ed11b7e4f69b7fa14439d14e"
+      },
+      {
+        "id": "generated-data-file",
+        "path": "src/data/generated/game-data.ts",
+        "before_git_object": "2717cb43e67e5010abd302b0d4ce10d9ede7df2a",
+        "after_git_object": "12a9a34b5a1492067da3ee0e6df1b41c7a122bb4",
+        "sha256_git_bytes": "cc707dcd43e1f35a14a9a4bc013d3ce71d2fa79498f86a4bf4574c95ba0ff41b"
+      }
+    ],
+    "engine_implementation_changed": false,
+    "independent_validation_required": true,
+    "diagnostic_result": "F046/F047 preserve chosen A/B IDs and pass distinct pre-advance damage checks; F048 handles two disjoint allocations. Full F046 still fails due to issue -002 healing.",
+    "closure_condition": "PM promotion of exact candidate canon and generated pins, followed by independent chosen-target and complete-round verification."
+  }
 }

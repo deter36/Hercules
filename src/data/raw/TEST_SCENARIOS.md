@@ -438,3 +438,39 @@ Expected next Labor setup:
 1. restore persistent pool including H6
 2. clear prior temporary availability markers
 3. apply new Labor Mood pool effects
+
+## RS-002 candidate regression expectations (F046–F054)
+
+`TEST_FIXTURES_v4.json.regression_contexts.RS-002-L08` contains the complete isolated
+post-roll start state, fixed dice, hidden Mood ordering, phase and zero-event RNG
+boundary. It derives from the accepted RS-001 constructed scenario and does not
+claim prior human play. Each case uses a fresh copy with only its listed overrides.
+Choices are fixed by the scripted test author. No engine observation authorizes
+changing an expected result. Candidate content revision is `RS-002.1`; PM must pin
+the actual raw/generated objects before independent Validation.
+
+| Fixture | Boundary and required observation |
+|---|---|
+| F046 | Allocate H1/H2/H3 to A: retain A, no health change. Damage A=5/B=6 at starts. Advance to n1/n1; B heals only itself. Cleanup A=5/B=6, Spirit=7, Divinity=0, READY_TO_ROLL. |
+| F047 | Mirror to B: damage A=6/B=5, then B heals to 6. Same resources/nodes/cleanup. Both boundaries required even though final A=6/B=6 can mask defects. |
+| F048 | Synthetic six-die pool with two disjoint 1/2/3 sets assigned one to each die: damage A=5/B=5. Stop before advancement. |
+| F049 | Reject invalid straight, unknown or inactive target, and reuse of already allocated physical dice without changing input state or RNG. |
+| F050 | Isolated B.n1 healing: A=2/B=3 becomes A=2/B=4; preserve nodes and unrelated state. |
+| F051 | B at 6 remains 6; B at 5 reaches 6. A stays 2. |
+| F052 | Inactive A stays health 0 while B heals; a stale healing effect for inactive B does nothing and does not heal A. No inactive advancement is claimed. |
+| F053 | Missing/unknown source, wrong track source or mismatched entered node rejects without mutation. These are execution-contract invariants. |
+| F054 | B.n5 composite effect heals only B (3 to 4) and applies -1 Spirit (10 to 9), with A=2 and no blocking. |
+
+At every boundary the RNG counter/ledger must remain exactly unchanged. F046/F047
+also require per-roll cleanup, no pending choices/triggers, preserved Mood order,
+no Rewards and continued unavailability of H6–H11. Observe damage before impacts
+and healing independently; a final-health-only assertion is insufficient.
+
+The generic pinned validator does not enforce the newly explicit scope fields.
+RS-002's executable content audit is preparation evidence. Runtime failures remain
+failures pending authorized engine correction and independent replay. Route
+ISS-RS-RS-001-002 to source-scoped healing plus context validation, -003 to terminal
+Labor-die status, and -004 to round-start Cannot Block snapshot handling. Existing
+F004/F005, F039, F001–F045 and the Golden record remain unchanged; extend the later
+engine regression suite to cover shared tracks/Heal 2 and both snapshot directions.
+Do not rewrite Golden outcomes to match a defective engine.

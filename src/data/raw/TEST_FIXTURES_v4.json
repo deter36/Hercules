@@ -253,6 +253,765 @@
       "expected": {
         "restore_base_pool_before_new_mood_effects": true
       }
+    },
+    {
+      "id": "F046",
+      "name": "mares_select_a",
+      "context_id": "RS-002-L08",
+      "kind": "allocation_and_round",
+      "rng_event_delta": 0,
+      "actions": [
+        {
+          "command": "ASSIGN_ATTACK",
+          "target_id": "labor.L08.A",
+          "physical_die_ids": [
+            "H1",
+            "H2",
+            "H3"
+          ]
+        },
+        {
+          "command": "RESOLVE_ASSIGNMENTS"
+        },
+        {
+          "command": "RESOLVE_ROUND_DAMAGE"
+        }
+      ],
+      "expected": {
+        "after_allocation": {
+          "target_ids": [
+            "labor.L08.A"
+          ],
+          "health": {
+            "labor.L08.A": 6,
+            "labor.L08.B": 6
+          },
+          "node_ids": {
+            "labor.L08.A": "L08A.start",
+            "labor.L08.B": "L08B.start"
+          }
+        },
+        "after_damage": {
+          "health": {
+            "labor.L08.A": 5,
+            "labor.L08.B": 6
+          },
+          "node_ids": {
+            "labor.L08.A": "L08A.start",
+            "labor.L08.B": "L08B.start"
+          },
+          "spirit": 10,
+          "divinity": 0
+        },
+        "after_round": {
+          "health": {
+            "labor.L08.A": 5,
+            "labor.L08.B": 6
+          },
+          "node_ids": {
+            "labor.L08.A": "L08A.n1",
+            "labor.L08.B": "L08B.n1"
+          },
+          "statuses": {
+            "labor.L08.A": "active",
+            "labor.L08.B": "active"
+          },
+          "spirit": 7,
+          "divinity": 0,
+          "phase": "READY_TO_ROLL",
+          "pending_decision": null
+        },
+        "cleanup": {
+          "allocated_ids": [],
+          "locked_ids": [],
+          "spent_ids": [],
+          "blue_used_ids": [],
+          "broken_ids": [],
+          "attack_allocations": [],
+          "gold_placements": [],
+          "pending_triggers": []
+        },
+        "preserve": [
+          "rng",
+          "mood",
+          "player.ownedRewardIds",
+          "unavailable Hercules dice"
+        ]
+      }
+    },
+    {
+      "id": "F047",
+      "name": "mares_select_b",
+      "context_id": "RS-002-L08",
+      "kind": "allocation_and_round",
+      "rng_event_delta": 0,
+      "actions": [
+        {
+          "command": "ASSIGN_ATTACK",
+          "target_id": "labor.L08.B",
+          "physical_die_ids": [
+            "H1",
+            "H2",
+            "H3"
+          ]
+        },
+        {
+          "command": "RESOLVE_ASSIGNMENTS"
+        },
+        {
+          "command": "RESOLVE_ROUND_DAMAGE"
+        }
+      ],
+      "expected": {
+        "after_allocation": {
+          "target_ids": [
+            "labor.L08.B"
+          ],
+          "health": {
+            "labor.L08.A": 6,
+            "labor.L08.B": 6
+          },
+          "node_ids": {
+            "labor.L08.A": "L08A.start",
+            "labor.L08.B": "L08B.start"
+          }
+        },
+        "after_damage": {
+          "health": {
+            "labor.L08.A": 6,
+            "labor.L08.B": 5
+          },
+          "node_ids": {
+            "labor.L08.A": "L08A.start",
+            "labor.L08.B": "L08B.start"
+          },
+          "spirit": 10,
+          "divinity": 0
+        },
+        "after_round": {
+          "health": {
+            "labor.L08.A": 6,
+            "labor.L08.B": 6
+          },
+          "node_ids": {
+            "labor.L08.A": "L08A.n1",
+            "labor.L08.B": "L08B.n1"
+          },
+          "statuses": {
+            "labor.L08.A": "active",
+            "labor.L08.B": "active"
+          },
+          "spirit": 7,
+          "divinity": 0,
+          "phase": "READY_TO_ROLL",
+          "pending_decision": null
+        },
+        "cleanup": {
+          "allocated_ids": [],
+          "locked_ids": [],
+          "spent_ids": [],
+          "blue_used_ids": [],
+          "broken_ids": [],
+          "attack_allocations": [],
+          "gold_placements": [],
+          "pending_triggers": []
+        },
+        "preserve": [
+          "rng",
+          "mood",
+          "player.ownedRewardIds",
+          "unavailable Hercules dice"
+        ]
+      }
+    },
+    {
+      "id": "F048",
+      "name": "mares_two_disjoint_selected_sets",
+      "context_id": "RS-002-L08",
+      "kind": "damage_only",
+      "rng_event_delta": 0,
+      "overrides": {
+        "player.persistentHerculesDice": 6,
+        "herculesDice.H4.face": 1,
+        "herculesDice.H5.face": 2,
+        "herculesDice.H6": {
+          "id": "H6",
+          "face": 3,
+          "rollable": true,
+          "blueUsed": false,
+          "spent": false,
+          "locked": false,
+          "allocated": false,
+          "broken": false,
+          "availableForLabor": true,
+          "poolSource": "base",
+          "placement": null,
+          "history": []
+        }
+      },
+      "actions": [
+        {
+          "command": "ASSIGN_ATTACK",
+          "target_id": "labor.L08.A",
+          "physical_die_ids": [
+            "H1",
+            "H2",
+            "H3"
+          ]
+        },
+        {
+          "command": "ASSIGN_ATTACK",
+          "target_id": "labor.L08.B",
+          "physical_die_ids": [
+            "H4",
+            "H5",
+            "H6"
+          ]
+        },
+        {
+          "command": "RESOLVE_ASSIGNMENTS"
+        }
+      ],
+      "expected": {
+        "after_allocation": {
+          "target_ids": [
+            "labor.L08.A",
+            "labor.L08.B"
+          ],
+          "health": {
+            "labor.L08.A": 6,
+            "labor.L08.B": 6
+          }
+        },
+        "after_damage": {
+          "health": {
+            "labor.L08.A": 5,
+            "labor.L08.B": 5
+          },
+          "node_ids": {
+            "labor.L08.A": "L08A.start",
+            "labor.L08.B": "L08B.start"
+          },
+          "spirit": 10,
+          "divinity": 0
+        }
+      }
+    },
+    {
+      "id": "F049",
+      "name": "mares_reject_invalid_allocations",
+      "context_id": "RS-002-L08",
+      "kind": "allocation_rejections",
+      "rng_event_delta": 0,
+      "cases": [
+        {
+          "name": "invalid_straight",
+          "target_id": "labor.L08.A",
+          "physical_die_ids": [
+            "H1",
+            "H2",
+            "H4"
+          ]
+        },
+        {
+          "name": "unknown_target",
+          "target_id": "labor.L08.unknown",
+          "physical_die_ids": [
+            "H1",
+            "H2",
+            "H3"
+          ]
+        },
+        {
+          "name": "inactive_target",
+          "target_id": "labor.L08.A",
+          "physical_die_ids": [
+            "H1",
+            "H2",
+            "H3"
+          ],
+          "overrides": {
+            "currentLabor.laborDice": {
+              "labor.L08.A": {
+                "id": "labor.L08.A",
+                "health": 0,
+                "startingHealth": 6,
+                "trackId": "track.L08.A",
+                "nodeId": "L08A.start",
+                "status": "defeated_inactive"
+              },
+              "labor.L08.B": {
+                "id": "labor.L08.B",
+                "health": 6,
+                "startingHealth": 6,
+                "trackId": "track.L08.B",
+                "nodeId": "L08B.start",
+                "status": "active"
+              }
+            }
+          }
+        },
+        {
+          "name": "reused_physical_die",
+          "target_id": "labor.L08.B",
+          "physical_die_ids": [
+            "H1",
+            "H2",
+            "H3"
+          ],
+          "setup_allocation": {
+            "target_id": "labor.L08.A",
+            "physical_die_ids": [
+              "H1",
+              "H2",
+              "H3"
+            ]
+          }
+        }
+      ],
+      "expected": {
+        "reject": true,
+        "state_unchanged": true,
+        "rng_unchanged": true
+      }
+    },
+    {
+      "id": "F050",
+      "name": "healing_unequal_pools_source_only",
+      "context_id": "RS-002-L08",
+      "kind": "healing_only",
+      "rng_event_delta": 0,
+      "cases": [
+        {
+          "name": "B_at_first_heal",
+          "overrides": {
+            "game.phase": "IMPACT_RESOLUTION",
+            "currentLabor.laborDice": {
+              "labor.L08.A": {
+                "id": "labor.L08.A",
+                "health": 2,
+                "startingHealth": 6,
+                "trackId": "track.L08.A",
+                "nodeId": "L08A.n2",
+                "status": "active"
+              },
+              "labor.L08.B": {
+                "id": "labor.L08.B",
+                "health": 3,
+                "startingHealth": 6,
+                "trackId": "track.L08.B",
+                "nodeId": "L08B.n1",
+                "status": "active"
+              }
+            }
+          },
+          "source_labor_die_id": "labor.L08.B",
+          "entered_node_id": "L08B.n1",
+          "expected": {
+            "health": {
+              "labor.L08.A": 2,
+              "labor.L08.B": 4
+            },
+            "node_ids": {
+              "labor.L08.A": "L08A.n2",
+              "labor.L08.B": "L08B.n1"
+            },
+            "statuses": {
+              "labor.L08.A": "active",
+              "labor.L08.B": "active"
+            },
+            "spirit": 10,
+            "divinity": 0,
+            "preserve": [
+              "rng",
+              "all non-resource player state",
+              "all Hercules dice"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "F051",
+      "name": "healing_source_cap",
+      "context_id": "RS-002-L08",
+      "kind": "healing_only",
+      "rng_event_delta": 0,
+      "cases": [
+        {
+          "name": "source_at_cap",
+          "overrides": {
+            "game.phase": "IMPACT_RESOLUTION",
+            "currentLabor.laborDice": {
+              "labor.L08.A": {
+                "id": "labor.L08.A",
+                "health": 2,
+                "startingHealth": 6,
+                "trackId": "track.L08.A",
+                "nodeId": "L08A.n2",
+                "status": "active"
+              },
+              "labor.L08.B": {
+                "id": "labor.L08.B",
+                "health": 6,
+                "startingHealth": 6,
+                "trackId": "track.L08.B",
+                "nodeId": "L08B.n1",
+                "status": "active"
+              }
+            }
+          },
+          "source_labor_die_id": "labor.L08.B",
+          "entered_node_id": "L08B.n1",
+          "expected": {
+            "health": {
+              "labor.L08.A": 2,
+              "labor.L08.B": 6
+            },
+            "node_ids": {
+              "labor.L08.A": "L08A.n2",
+              "labor.L08.B": "L08B.n1"
+            },
+            "statuses": {
+              "labor.L08.A": "active",
+              "labor.L08.B": "active"
+            },
+            "spirit": 10,
+            "divinity": 0,
+            "preserve": [
+              "rng",
+              "all non-resource player state",
+              "all Hercules dice"
+            ]
+          }
+        },
+        {
+          "name": "source_one_below_cap",
+          "overrides": {
+            "game.phase": "IMPACT_RESOLUTION",
+            "currentLabor.laborDice": {
+              "labor.L08.A": {
+                "id": "labor.L08.A",
+                "health": 2,
+                "startingHealth": 6,
+                "trackId": "track.L08.A",
+                "nodeId": "L08A.n2",
+                "status": "active"
+              },
+              "labor.L08.B": {
+                "id": "labor.L08.B",
+                "health": 5,
+                "startingHealth": 6,
+                "trackId": "track.L08.B",
+                "nodeId": "L08B.n1",
+                "status": "active"
+              }
+            }
+          },
+          "source_labor_die_id": "labor.L08.B",
+          "entered_node_id": "L08B.n1",
+          "expected": {
+            "health": {
+              "labor.L08.A": 2,
+              "labor.L08.B": 6
+            },
+            "node_ids": {
+              "labor.L08.A": "L08A.n2",
+              "labor.L08.B": "L08B.n1"
+            },
+            "statuses": {
+              "labor.L08.A": "active",
+              "labor.L08.B": "active"
+            },
+            "spirit": 10,
+            "divinity": 0,
+            "preserve": [
+              "rng",
+              "all non-resource player state",
+              "all Hercules dice"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "F052",
+      "name": "healing_inactive_exclusion",
+      "context_id": "RS-002-L08",
+      "kind": "healing_only",
+      "rng_event_delta": 0,
+      "cases": [
+        {
+          "name": "inactive_other_die",
+          "overrides": {
+            "game.phase": "IMPACT_RESOLUTION",
+            "currentLabor.laborDice": {
+              "labor.L08.A": {
+                "id": "labor.L08.A",
+                "health": 0,
+                "startingHealth": 6,
+                "trackId": "track.L08.A",
+                "nodeId": "L08A.n2",
+                "status": "defeated_inactive"
+              },
+              "labor.L08.B": {
+                "id": "labor.L08.B",
+                "health": 3,
+                "startingHealth": 6,
+                "trackId": "track.L08.B",
+                "nodeId": "L08B.n1",
+                "status": "active"
+              }
+            }
+          },
+          "source_labor_die_id": "labor.L08.B",
+          "entered_node_id": "L08B.n1",
+          "expected": {
+            "health": {
+              "labor.L08.A": 0,
+              "labor.L08.B": 4
+            },
+            "node_ids": {
+              "labor.L08.A": "L08A.n2",
+              "labor.L08.B": "L08B.n1"
+            },
+            "statuses": {
+              "labor.L08.A": "defeated_inactive",
+              "labor.L08.B": "active"
+            },
+            "spirit": 10,
+            "divinity": 0,
+            "preserve": [
+              "rng",
+              "all non-resource player state",
+              "all Hercules dice"
+            ]
+          }
+        },
+        {
+          "name": "stale_queued_inactive_source",
+          "overrides": {
+            "game.phase": "IMPACT_RESOLUTION",
+            "currentLabor.laborDice": {
+              "labor.L08.A": {
+                "id": "labor.L08.A",
+                "health": 2,
+                "startingHealth": 6,
+                "trackId": "track.L08.A",
+                "nodeId": "L08A.n2",
+                "status": "active"
+              },
+              "labor.L08.B": {
+                "id": "labor.L08.B",
+                "health": 0,
+                "startingHealth": 6,
+                "trackId": "track.L08.B",
+                "nodeId": "L08B.n1",
+                "status": "defeated_inactive"
+              }
+            }
+          },
+          "source_labor_die_id": "labor.L08.B",
+          "entered_node_id": "L08B.n1",
+          "expected": {
+            "health": {
+              "labor.L08.A": 2,
+              "labor.L08.B": 0
+            },
+            "node_ids": {
+              "labor.L08.A": "L08A.n2",
+              "labor.L08.B": "L08B.n1"
+            },
+            "statuses": {
+              "labor.L08.A": "active",
+              "labor.L08.B": "defeated_inactive"
+            },
+            "spirit": 10,
+            "divinity": 0,
+            "preserve": [
+              "rng",
+              "all non-resource player state",
+              "all Hercules dice"
+            ]
+          }
+        }
+      ],
+      "notes": "The stale-source case probes exclusion at the helper boundary. No legal advancement into a healing node is claimed for an inactive die."
+    },
+    {
+      "id": "F053",
+      "name": "healing_reject_invalid_source_context",
+      "context_id": "RS-002-L08",
+      "kind": "healing_context_rejections",
+      "rng_event_delta": 0,
+      "cases": [
+        {
+          "name": "missing_source",
+          "overrides": {
+            "game.phase": "IMPACT_RESOLUTION",
+            "currentLabor.laborDice": {
+              "labor.L08.A": {
+                "id": "labor.L08.A",
+                "health": 2,
+                "startingHealth": 6,
+                "trackId": "track.L08.A",
+                "nodeId": "L08A.n2",
+                "status": "active"
+              },
+              "labor.L08.B": {
+                "id": "labor.L08.B",
+                "health": 3,
+                "startingHealth": 6,
+                "trackId": "track.L08.B",
+                "nodeId": "L08B.n1",
+                "status": "active"
+              }
+            }
+          },
+          "source_labor_die_id": null,
+          "entered_node_id": "L08B.n1"
+        },
+        {
+          "name": "unknown_source",
+          "overrides": {
+            "game.phase": "IMPACT_RESOLUTION",
+            "currentLabor.laborDice": {
+              "labor.L08.A": {
+                "id": "labor.L08.A",
+                "health": 2,
+                "startingHealth": 6,
+                "trackId": "track.L08.A",
+                "nodeId": "L08A.n2",
+                "status": "active"
+              },
+              "labor.L08.B": {
+                "id": "labor.L08.B",
+                "health": 3,
+                "startingHealth": 6,
+                "trackId": "track.L08.B",
+                "nodeId": "L08B.n1",
+                "status": "active"
+              }
+            }
+          },
+          "source_labor_die_id": "labor.L08.unknown",
+          "entered_node_id": "L08B.n1"
+        },
+        {
+          "name": "wrong_track_source",
+          "overrides": {
+            "game.phase": "IMPACT_RESOLUTION",
+            "currentLabor.laborDice": {
+              "labor.L08.A": {
+                "id": "labor.L08.A",
+                "health": 2,
+                "startingHealth": 6,
+                "trackId": "track.L08.A",
+                "nodeId": "L08A.n2",
+                "status": "active"
+              },
+              "labor.L08.B": {
+                "id": "labor.L08.B",
+                "health": 3,
+                "startingHealth": 6,
+                "trackId": "track.L08.B",
+                "nodeId": "L08B.n1",
+                "status": "active"
+              }
+            }
+          },
+          "source_labor_die_id": "labor.L08.A",
+          "entered_node_id": "L08B.n1"
+        },
+        {
+          "name": "source_not_on_entered_node",
+          "overrides": {
+            "game.phase": "IMPACT_RESOLUTION",
+            "currentLabor.laborDice": {
+              "labor.L08.A": {
+                "id": "labor.L08.A",
+                "health": 2,
+                "startingHealth": 6,
+                "trackId": "track.L08.A",
+                "nodeId": "L08A.n2",
+                "status": "active"
+              },
+              "labor.L08.B": {
+                "id": "labor.L08.B",
+                "health": 3,
+                "startingHealth": 6,
+                "trackId": "track.L08.B",
+                "nodeId": "L08B.n1",
+                "status": "active"
+              }
+            }
+          },
+          "source_labor_die_id": "labor.L08.B",
+          "entered_node_id": "L08B.n3"
+        }
+      ],
+      "expected": {
+        "reject": true,
+        "state_unchanged": true,
+        "rng_unchanged": true
+      },
+      "notes": "Implementation-contract assertions; missing or mismatched context must never produce broadcast healing."
+    },
+    {
+      "id": "F054",
+      "name": "composite_heal_and_spirit_loss",
+      "context_id": "RS-002-L08",
+      "kind": "healing_only",
+      "rng_event_delta": 0,
+      "cases": [
+        {
+          "name": "B_composite_node",
+          "overrides": {
+            "game.phase": "IMPACT_RESOLUTION",
+            "currentLabor.laborDice": {
+              "labor.L08.A": {
+                "id": "labor.L08.A",
+                "health": 2,
+                "startingHealth": 6,
+                "trackId": "track.L08.A",
+                "nodeId": "L08A.n2",
+                "status": "active"
+              },
+              "labor.L08.B": {
+                "id": "labor.L08.B",
+                "health": 3,
+                "startingHealth": 6,
+                "trackId": "track.L08.B",
+                "nodeId": "L08B.n5",
+                "status": "active"
+              }
+            }
+          },
+          "source_labor_die_id": "labor.L08.B",
+          "entered_node_id": "L08B.n5",
+          "expected": {
+            "health": {
+              "labor.L08.A": 2,
+              "labor.L08.B": 4
+            },
+            "node_ids": {
+              "labor.L08.A": "L08A.n2",
+              "labor.L08.B": "L08B.n5"
+            },
+            "statuses": {
+              "labor.L08.A": "active",
+              "labor.L08.B": "active"
+            },
+            "spirit": 9,
+            "divinity": 0,
+            "preserve": [
+              "rng",
+              "all non-resource player state",
+              "all Hercules dice"
+            ]
+          }
+        }
+      ]
     }
   ],
   "golden": {
@@ -268,5 +1027,258 @@
       25
     ],
     "event_153_expected_j": 0
+  },
+  "regression_contexts": {
+    "RS-002-L08": {
+      "kind": "constructed_scripted_test",
+      "is_recorded_human_play": false,
+      "boundary": "Isolated post-roll placement state with fixed dice; not a replay of Labors I–VII, an actual RNG roll, or a Begin-at-any-Labor restart. No prior-game history is claimed.",
+      "choice_owner": "scripted_test_author_under_RS-002_assignment",
+      "required_content_revision": "RS-002.1",
+      "start_state": {
+        "schemaVersion": "hercules_game_state_v1",
+        "dataRevision": "hercules_game_data_v4",
+        "game": {
+          "difficulty": "human",
+          "currentLaborId": "labor.L08",
+          "completedLaborIds": [],
+          "phase": "GOLD_AND_ATTACK_PLACEMENT",
+          "result": null
+        },
+        "player": {
+          "spirit": 10,
+          "divinity": 0,
+          "ownedRewardIds": [],
+          "removedRewardOrComponentIds": [],
+          "temporaryEffects": [],
+          "persistentHerculesDice": 5
+        },
+        "herculesDice": {
+          "H1": {
+            "id": "H1",
+            "face": 1,
+            "rollable": true,
+            "blueUsed": false,
+            "spent": false,
+            "locked": false,
+            "allocated": false,
+            "broken": false,
+            "availableForLabor": true,
+            "poolSource": "base",
+            "placement": null,
+            "history": []
+          },
+          "H2": {
+            "id": "H2",
+            "face": 2,
+            "rollable": true,
+            "blueUsed": false,
+            "spent": false,
+            "locked": false,
+            "allocated": false,
+            "broken": false,
+            "availableForLabor": true,
+            "poolSource": "base",
+            "placement": null,
+            "history": []
+          },
+          "H3": {
+            "id": "H3",
+            "face": 3,
+            "rollable": true,
+            "blueUsed": false,
+            "spent": false,
+            "locked": false,
+            "allocated": false,
+            "broken": false,
+            "availableForLabor": true,
+            "poolSource": "base",
+            "placement": null,
+            "history": []
+          },
+          "H4": {
+            "id": "H4",
+            "face": 5,
+            "rollable": true,
+            "blueUsed": false,
+            "spent": false,
+            "locked": false,
+            "allocated": false,
+            "broken": false,
+            "availableForLabor": true,
+            "poolSource": "base",
+            "placement": null,
+            "history": []
+          },
+          "H5": {
+            "id": "H5",
+            "face": 6,
+            "rollable": true,
+            "blueUsed": false,
+            "spent": false,
+            "locked": false,
+            "allocated": false,
+            "broken": false,
+            "availableForLabor": true,
+            "poolSource": "base",
+            "placement": null,
+            "history": []
+          },
+          "H6": {
+            "id": "H6",
+            "face": null,
+            "rollable": false,
+            "blueUsed": false,
+            "spent": false,
+            "locked": false,
+            "allocated": false,
+            "broken": false,
+            "availableForLabor": false,
+            "poolSource": "temporarily_unavailable",
+            "placement": null,
+            "history": []
+          },
+          "H7": {
+            "id": "H7",
+            "face": null,
+            "rollable": false,
+            "blueUsed": false,
+            "spent": false,
+            "locked": false,
+            "allocated": false,
+            "broken": false,
+            "availableForLabor": false,
+            "poolSource": "temporarily_unavailable",
+            "placement": null,
+            "history": []
+          },
+          "H8": {
+            "id": "H8",
+            "face": null,
+            "rollable": false,
+            "blueUsed": false,
+            "spent": false,
+            "locked": false,
+            "allocated": false,
+            "broken": false,
+            "availableForLabor": false,
+            "poolSource": "temporarily_unavailable",
+            "placement": null,
+            "history": []
+          },
+          "H9": {
+            "id": "H9",
+            "face": null,
+            "rollable": false,
+            "blueUsed": false,
+            "spent": false,
+            "locked": false,
+            "allocated": false,
+            "broken": false,
+            "availableForLabor": false,
+            "poolSource": "temporarily_unavailable",
+            "placement": null,
+            "history": []
+          },
+          "H10": {
+            "id": "H10",
+            "face": null,
+            "rollable": false,
+            "blueUsed": false,
+            "spent": false,
+            "locked": false,
+            "allocated": false,
+            "broken": false,
+            "availableForLabor": false,
+            "poolSource": "temporarily_unavailable",
+            "placement": null,
+            "history": []
+          },
+          "H11": {
+            "id": "H11",
+            "face": null,
+            "rollable": false,
+            "blueUsed": false,
+            "spent": false,
+            "locked": false,
+            "allocated": false,
+            "broken": false,
+            "availableForLabor": false,
+            "poolSource": "temporarily_unavailable",
+            "placement": null,
+            "history": []
+          }
+        },
+        "currentLabor": {
+          "laborId": "labor.L08",
+          "laborDice": {
+            "labor.L08.A": {
+              "id": "labor.L08.A",
+              "health": 6,
+              "startingHealth": 6,
+              "trackId": "track.L08.A",
+              "nodeId": "L08A.start",
+              "status": "active"
+            },
+            "labor.L08.B": {
+              "id": "labor.L08.B",
+              "health": 6,
+              "startingHealth": 6,
+              "trackId": "track.L08.B",
+              "nodeId": "L08B.start",
+              "status": "active"
+            }
+          },
+          "cannotBlockThisRound": false
+        },
+        "round": {
+          "rollNumber": 1,
+          "rerollNumber": 0,
+          "cowsBRerollNumber": 0,
+          "effectiveDoubleDieIds": [],
+          "derivedContributions": {},
+          "goldPlacements": [],
+          "attackAllocations": [],
+          "blockedSpirit": 0,
+          "resourceQueue": {
+            "spiritDeltas": [],
+            "divinityDeltas": []
+          }
+        },
+        "mood": {
+          "deck": [
+            "mood.melancholic",
+            "mood.resolute",
+            "mood.battered",
+            "mood.ferocious",
+            "mood.enraged",
+            "mood.haunted_a",
+            "mood.haunted_c",
+            "mood.haunted_d"
+          ],
+          "activeMoodId": "mood.haunted_b",
+          "returnedMoodIds": []
+        },
+        "rng": {
+          "algorithm": "SHA256_COUNTER_V1",
+          "policyVersion": "HERC-RNG-v3",
+          "seed": "RS-001-L08-FIXED",
+          "nextEvent": "0",
+          "ledger": []
+        },
+        "pendingDecision": null,
+        "pendingTriggers": [],
+        "transitionIndex": 0,
+        "transitions": [],
+        "undoStack": []
+      },
+      "source_scenario": "orchestration/validation/RS-001-L08-scenario.json",
+      "preparation_notes": [
+        "Post-roll state copied from the accepted RS-001 preparation; no preceding game history or actual roll is claimed.",
+        "Bow blue phase is finished unused; no Rewards or gold allocations. Haunted B already resolved. Hidden Mood order is fully specified.",
+        "Each fixture starts from a fresh deep copy. Apply its explicit overrides before executing. No random calls: preserve full RNG state.",
+        "Compare named checkpoints separately. Diagnostic helper boundaries must be labeled; they are not independent engine certification."
+      ]
+    }
   }
 }

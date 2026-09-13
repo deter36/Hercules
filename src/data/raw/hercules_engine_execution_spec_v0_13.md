@@ -372,7 +372,10 @@ For each valid attack allocation:
 
 1. Validate legality against current requirement.
 2. Apply 1 Labor damage unless content specifies otherwise.
-3. Reduce the target Labor die value accordingly.
+3. Reduce the selected target Labor die value accordingly. For Labor VIII, validate
+   the fixed `1-2-3` requirement for either active listed target, then retain exactly
+   one player-selected target ID per set. Do not expand shared eligibility into
+   multiple damage recipients.
 4. If a Labor die reaches 0, keep its track position unchanged unless content specifies otherwise.
 5. Resolve all player-selected attack allocations that were legally committed.
 
@@ -433,9 +436,13 @@ Generic impacts currently include:
 - skull/failure
 
 Healing:
-- increases Labor die value
-- never exceeds verified starting value
-- does not move the die backward on the track
+- carries the source Labor die ID and entered-node ID through queued resolution
+- increases only that active source die's health/value
+- never exceeds that same die's verified starting value
+- leaves other Labor dice and all node positions unchanged
+- excludes defeated/inactive dice, including stale queued effects for those dice
+- rejects missing, unknown or mismatched source context before mutation; never
+  infers a broadcast or a player-selected healing recipient
 
 Blocking:
 - prevents Spirit loss only as allowed by the active gold ability
@@ -839,3 +846,20 @@ Any discovery should be classified as:
 - display/interaction problem
 
 This specification should be revised only from verified discoveries, not convenience assumptions.
+
+## RS-002 scoped amendment record
+
+The changes in sections 12 and 15 are candidate corrections under the recorded
+ISS-PM-SETUP-001 authority, with exact original sources and conflicting v12 wording
+preserved in `GAME_DATA_v4.json.source_corrections`. They do not represent a new
+full implementation specification. The source-context rejection rule is a
+representation/dispatch invariant; the healing mechanics derive from rulebook
+pp. 13 and 17, and target selection derives from pp. 8, 12 and 17 and the original
+sections 10 and 12. Every healing node uses `heal_scope: source_labor_die` and
+`heal_cap: source_start_health` under `GAME_DATA_SCHEMA.md`.
+
+Use F046–F054 for distinct placement, pre-advance damage, healing and cleanup
+boundaries. The generic historical engine still needs source-scoped healing
+(ISS-RS-RS-001-002), terminal status handling (-003), and non-retroactive Cannot
+Block snapshots (-004). Their implementation is outside RS-002. Existing Golden
+Run outcomes, fixture expectations and source exports must be preserved.

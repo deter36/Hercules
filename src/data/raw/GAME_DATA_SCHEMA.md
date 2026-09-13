@@ -286,3 +286,67 @@ Ghost of Abderus:
 - there is no second physical-die-selection checkpoint unless an authoritative rule later establishes one
 
 Physical-die choices explicitly required by gameplay, such as choosing a die to break, remain player decisions.
+
+## RS-002.1 scoped correction contract
+
+This additive content revision retains `schema_version: hercules_game_data_v4` and
+adds `content_revision: RS-002.1`. Consumers must pin the exact content hash; the
+schema family alone does not identify corrected behavior. This is candidate canon
+under RS-002 until PM promotes it and independent Validation verifies it.
+
+For Labor VIII, the existing numeric `damage: 1` is per valid set. The legacy
+`scope: target` is a compatibility representation of the damage recipient. The
+explicit fields below are authoritative for the corrected record; reject
+inconsistency between them instead of choosing one silently.
+
+```ts
+interface MaresAttackScope {
+  scope: "target";
+  requirement_scope: "shared_by_listed_targets";
+  eligible_target_ids: ["labor.L08.A", "labor.L08.B"];
+  damage_scope: "single_selected_target";
+  target_selection: {
+    owner: "player";
+    count: 1;
+    timing: "attack_allocation";
+    allowed_statuses: ["active"];
+  };
+  correction_ref: "RS-002-L08-ATTACK";
+}
+
+interface LaborNodeHealing {
+  heal: number; // positive integer, existing amount unchanged
+  heal_scope: "source_labor_die";
+  heal_cap: "source_start_health";
+}
+```
+
+Requirement eligibility is the intersection of listed IDs and active dice in the
+current Labor. The same `fixed_straight [1,2,3]` is checked for either eligible
+target. Store the selected stable ID with that allocation; one set has exactly
+one damage recipient. Another disjoint set is a separate player allocation.
+Unlisted, inactive or absent targets and invalid/reused physical dice are rejected
+before mutation. Never replace the chosen ID with an all-target sentinel.
+
+Every numeric track-node healing effect carries both scope and cap fields. Its
+execution context must identify the source Labor die and the entered node. Resolve
+the node in that die's track and verify it is its current entered node. Missing,
+unknown or mismatched source context is an execution-contract error: reject it
+before mutation. This error behavior is an implementation invariant, not a new
+gameplay rule or a player choice. A stale effect for a defeated/inactive source is
+excluded without mutation. Do not use a node ID alone to infer a source on a
+shared track. For a valid active source, new health is
+`min(source.startingHealth, source.health + heal)`. All other Labor dice and all
+node IDs remain unchanged by healing. Companion icons still resolve normally.
+
+`source_corrections` records original representations, source paths/objects and
+sections, review status, interpretation, and the recorded human authority. The
+v12 source and historical checksums remain unchanged. `RS-002-HEALING` applies to
+all annotated numeric track heals; amounts and topology were preserved. The
+correction does not resolve attack-scope ambiguity in other Labors.
+
+Required validation adds explicit L08 scope/ID checks, positive healing amounts,
+scope/cap presence on every track heal, and runtime source-context checks. The
+pinned generic validator does not yet enforce these new fields. The RS-002 audit
+checks candidate content; a separately authorized engine/validator task must
+implement runtime enforcement and run F046–F054 before certification.

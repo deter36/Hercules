@@ -1,0 +1,869 @@
+{
+  "task_id": "RS-002",
+  "run_id": "rules-spec-20260913T131948Z-6e6af8",
+  "role": "rules_spec",
+  "status": "submitted",
+  "manifest_revision": "e1-m0001",
+  "inputs": [
+    {
+      "id": "game-data",
+      "path": "src/data/raw/GAME_DATA_v4.json",
+      "kind": "blob",
+      "git_object": "2ec9fc341d53c509a7a0148fc1d26582c0e87c17",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "role": "canonical_content",
+      "sha256_git_bytes": "356bb6b4554c8872cc853986362c572e8601f8b0c0ffbfc6c69d9505f4102303"
+    },
+    {
+      "id": "data-schema",
+      "path": "src/data/raw/GAME_DATA_SCHEMA.md",
+      "kind": "blob",
+      "git_object": "b6ea85ce7cbf2553a0f9337babff3786199510b9",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "role": "representation_contract",
+      "sha256_git_bytes": "77a6c0e40f2e85441693b112b0299aa601515b36dbf70fcb6785dee9afe6408b"
+    },
+    {
+      "id": "rules-spec",
+      "path": "src/data/raw/GAME_RULES_SPEC.md",
+      "kind": "blob",
+      "git_object": "1e4d80a805be60fe7a031417df224c3a96d1894b",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "role": "execution_semantics",
+      "sha256_git_bytes": "a0b57360c50e5765ba3f698dc29e7fa42af2675c2269adfded0b19690f0a3b61"
+    },
+    {
+      "id": "execution-spec",
+      "path": "src/data/raw/hercules_engine_execution_spec_v0_13.md",
+      "kind": "blob",
+      "git_object": "190f0c2e57932251a8ef5f54eb9f1d7cb653f9ba",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "role": "execution_semantics",
+      "sha256_git_bytes": "5b848484b817a96556a8459e2e0d61ec9a6b25d4c46e2f84a0ea90726e9ea91e"
+    },
+    {
+      "id": "test-scenarios",
+      "path": "src/data/raw/TEST_SCENARIOS.md",
+      "kind": "blob",
+      "git_object": "93e9df18135e323db64af9e89ce3e5fed2e9abd3",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "role": "historical_expectations",
+      "sha256_git_bytes": "a02e0a16d7f137ba26af79ff06431c4bd2cc6e92d05db5144d57f9c80611e9af"
+    },
+    {
+      "id": "test-fixtures",
+      "path": "src/data/raw/TEST_FIXTURES_v4.json",
+      "kind": "blob",
+      "git_object": "49b55a701c2e3f13c22a98140c72265736fe5c71",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "role": "historical_expectations",
+      "sha256_git_bytes": "20cef9c252173031a65b6cf88e3290a52216d560b6513b53392132aad3cbc8b1"
+    },
+    {
+      "id": "package-manifest",
+      "path": "src/data/raw/HANDOFF_MANIFEST.json",
+      "kind": "blob",
+      "git_object": "766c18906cc20578ef5fc7d11c5e6a82bc4d9d54",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "role": "historical_inventory",
+      "sha256_git_bytes": "c249e816d87bb2f7c2e715caddf7a0d3d27bef83434b6f91b86652be60548078"
+    },
+    {
+      "id": "package-checksums",
+      "path": "src/data/raw/SHA256SUMS.json",
+      "kind": "blob",
+      "git_object": "aebdce242d075b500df9f8624f0b471c9f5d040f",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "role": "historical_checksums",
+      "sha256_git_bytes": "47b5b40c7d7265f35eee89ae36001dace681ebc2ff2b1f4b2bdaf47691059094"
+    },
+    {
+      "id": "implementation-brief",
+      "path": "src/data/raw/IMPLEMENTATION_BRIEF.md",
+      "kind": "blob",
+      "git_object": "7abba014243ce1e5cd68c922018fed5c5a383ba1",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "role": "historical_architecture_only",
+      "sha256_git_bytes": "cf7696152ecefd32ff2307eb2137da0df6e3ff5cebcfa519b917e6621fe7fad4"
+    },
+    {
+      "id": "presentation-flow",
+      "path": "src/data/raw/PRESENTATION_FLOW.md",
+      "kind": "blob",
+      "git_object": "2bcb04974b018a50dc4f481fc8c35c5e44d52e04",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "role": "future_product_context",
+      "sha256_git_bytes": "5cc092125143bf6c2296df42b51b609e3599948587a3c0c09d18cb8d44ec6d4b"
+    },
+    {
+      "id": "golden-record",
+      "path": "src/data/raw/golden/HERC-GOLDEN-RUN-0001_golden_run_record.json",
+      "kind": "blob",
+      "git_object": "8d4dd7d3e8137d28d1e931be514ba8bfe4c1474d",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "role": "historical_replay_evidence",
+      "sha256_git_bytes": "2c7264dd7a1baa8f2907c013bf195986df6b0aebc2319dc9bee95a82ec1b9061"
+    },
+    {
+      "id": "golden-script",
+      "path": "src/data/raw/golden/HERC-GOLDEN-RUN-0001_replay_script_v2_normalized.json",
+      "kind": "blob",
+      "git_object": "da24321337d3c297d858d58b8e2c292fad937eb1",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "role": "historical_replay_evidence",
+      "sha256_git_bytes": "e342e1891616ebb319f3a355515af97709ab560eac7192fb98c349b4e8a7da59"
+    },
+    {
+      "id": "golden-prior-report",
+      "path": "src/data/raw/golden/HERC-GOLDEN-RUN-0001_replay_validation_report.json",
+      "kind": "blob",
+      "git_object": "866da0a2c60aac30545e6cdbbf2f8a532f0cc82b",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "role": "historical_replay_evidence",
+      "sha256_git_bytes": "b27ab485c2791f61b97173d63756bb6e24b10ff78d1ccb49baa60475fe0814e1"
+    },
+    {
+      "id": "historical-engine",
+      "path": "src/engine",
+      "kind": "tree",
+      "git_object": "dac7a33b4fea961c4ba10fed79eda3da5f719211",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "role": "historical_implementation_or_tests"
+    },
+    {
+      "id": "rng-implementation",
+      "path": "src/rng",
+      "kind": "tree",
+      "git_object": "574ad2efc0e8fb67c3e38ebbd0f56c41755a6cdf",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "role": "historical_implementation_or_tests"
+    },
+    {
+      "id": "replay-implementation",
+      "path": "src/replay",
+      "kind": "tree",
+      "git_object": "8df5cbcbd7e2733e829c5c0abea0005381ba7433",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "role": "historical_implementation_or_tests"
+    },
+    {
+      "id": "generated-data",
+      "path": "src/data/generated",
+      "kind": "tree",
+      "git_object": "6b17d0f311730bf28b41e331bd0da3151439216c",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "role": "historical_implementation_or_tests"
+    },
+    {
+      "id": "existing-tests",
+      "path": "test",
+      "kind": "tree",
+      "git_object": "953f11900a4467a8f7807b5b437c677f3b12ea22",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "role": "historical_implementation_or_tests"
+    },
+    {
+      "id": "package",
+      "path": "package.json",
+      "kind": "blob",
+      "git_object": "ec00f499a965e96db2ca4d0b8e4cda50e7bea805",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "role": "reproduction_tooling",
+      "sha256_git_bytes": "57309a5e04e6b3368f5edaaac040d86680442d7abae76f5567d793e96a1e1fd9"
+    },
+    {
+      "id": "lockfile",
+      "path": "pnpm-lock.yaml",
+      "kind": "blob",
+      "git_object": "f974b55ecfee5f821216dd2ee26e6a4cb85e1737",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "role": "reproduction_tooling",
+      "sha256_git_bytes": "fe4a0dac8359a8b6252c5e3e4d02a2f8158ada9b7f6189f8e6c0f7e1f653c28e"
+    },
+    {
+      "id": "tsconfig",
+      "path": "tsconfig.json",
+      "kind": "blob",
+      "git_object": "e10045c9619b6c3d47281654d968c7dfb8217c48",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "role": "reproduction_tooling",
+      "sha256_git_bytes": "1e0f0d23494bc5e21924b2f287bfa8f1f734579037fa6355db4be2fde3528545"
+    },
+    {
+      "id": "tools-tsconfig",
+      "path": "tsconfig.tools.json",
+      "kind": "blob",
+      "git_object": "874248bd29f4521f9fa3e14e9356639ed800847a",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "role": "reproduction_tooling",
+      "sha256_git_bytes": "dc70f5b95f167083c3cf9e2223c5b5fe929876736b9ea549b556a4fb5c670e80"
+    },
+    {
+      "id": "data-generator",
+      "path": "src/data/generate.ts",
+      "kind": "blob",
+      "git_object": "c018bb23e59239d6873d6f7cd0d4aa6482e1acd2",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "role": "reproduction_tooling",
+      "sha256_git_bytes": "8b1809a8119a16da7eeae0dc38484135a025675849e1a86b77c71fec597dcbf3"
+    },
+    {
+      "id": "data-validator",
+      "path": "src/data/validation.ts",
+      "kind": "blob",
+      "git_object": "df88d2d5aa065f8de8ef653924ed8a1704315415",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "role": "reproduction_tooling",
+      "sha256_git_bytes": "62671ac1f74e16970d8956556b11b8c72ad53db083a3989588ec25c515bc4ab1"
+    },
+    {
+      "id": "official-rulebook",
+      "path": "src/data/raw/sources/Hercules_Rules_104x155.pdf",
+      "kind": "blob",
+      "git_object": "bb1662bbede6a183bfe5b5548a126d20099a496b",
+      "source_commit": null,
+      "sha256_git_bytes": "de7d479426b40fd94935be85ef09e37ef30f2d00c5f8fcd4b20ab39b6720ef4a",
+      "role": "official_rules",
+      "provenance": {
+        "type": "recovered_historical_reference",
+        "source_filename": "Hercules_Rules_104x155.pdf",
+        "verification": "byte_identical_local_export; substantive verification assigned to RS-001",
+        "historical_basis": "named by historical handoff authority chain; version identity checked",
+        "export_timestamp_verified": false
+      }
+    },
+    {
+      "id": "verified-reference",
+      "path": "src/data/raw/sources/Hercules_Verified_Gameplay_Reference_v12.md",
+      "kind": "blob",
+      "git_object": "9b806258acc2a7daa60224d66e27c83baa2e6a0c",
+      "source_commit": null,
+      "sha256_git_bytes": "d3cc41b91fb32440c6970cad0d148222ffa9e9e08c277c361fd1f0ce6082ffde",
+      "role": "recorded_owner_verified_components",
+      "provenance": {
+        "type": "recovered_historical_reference",
+        "source_filename": "Hercules_Verified_Gameplay_Reference_v12.md",
+        "verification": "byte_identical_local_export; substantive verification assigned to RS-001",
+        "historical_basis": "named by historical handoff authority chain; version identity checked",
+        "export_timestamp_verified": false
+      }
+    },
+    {
+      "id": "rng-spec",
+      "path": "src/data/raw/sources/Hercules_RNG_Spec_v3.md",
+      "kind": "blob",
+      "git_object": "c1b70237e259cacf7a913f7ffccb1344a01189ac",
+      "source_commit": null,
+      "sha256_git_bytes": "6e735e6eee584d2c0ac754d620e6b46c35dd40883ccfc843a6aa289bc7b7d988",
+      "role": "deterministic_randomness_authority",
+      "provenance": {
+        "type": "recovered_historical_reference",
+        "source_filename": "Hercules_RNG_Spec_v3.md",
+        "verification": "byte_identical_local_export; substantive verification assigned to RS-001",
+        "historical_basis": "named by historical handoff authority chain; version identity checked",
+        "export_timestamp_verified": false
+      }
+    }
+  ],
+  "additional_repository_inputs": [
+    {
+      "path": "orchestration/project_state.json",
+      "kind": "blob",
+      "git_object": "4f288d9ad86d7d0c1a1ecb1f8ac55e432e27c1d9",
+      "source_commit": "aab92880ea10e4cb33d3af34530d7c16cdad11ef",
+      "sha256_git_bytes": "f7af9085b8b1561ed0981f5efd57cbcde34cecddf2bbdea85e7226a2c13e5bda"
+    },
+    {
+      "path": "orchestration/current_manifest.md",
+      "kind": "blob",
+      "git_object": "52b1d541306ddf718ce87a02654701dc11036192",
+      "source_commit": "aab92880ea10e4cb33d3af34530d7c16cdad11ef",
+      "sha256_git_bytes": "9e4403e7c913b9876a24c2df419802d3eece910bb2c6a68bb931b186f95560b5"
+    },
+    {
+      "path": "orchestration/tasks/RS-002.json",
+      "kind": "blob",
+      "git_object": "278df115fa0a4aa6e4873c612a5bee7fc08bf77c",
+      "source_commit": "aab92880ea10e4cb33d3af34530d7c16cdad11ef",
+      "sha256_git_bytes": "3ea42da3dbc07ee5378bfa37b32f1e14cf60f5c8de657e026d3d0fac8f61ee32"
+    },
+    {
+      "path": "orchestration/issues/ISS-PM-SETUP-001.json",
+      "kind": "blob",
+      "git_object": "67d09340f5f571c1113c7b0475507a221f999d1d",
+      "source_commit": "aab92880ea10e4cb33d3af34530d7c16cdad11ef",
+      "sha256_git_bytes": "71ecb4c33050e9a1e8933f4fe332821d89b0f9e1a8d0f96df6373ec34a0f854b"
+    },
+    {
+      "path": "orchestration/issues/ISS-RS-RS-001-001.json",
+      "kind": "blob",
+      "git_object": "c235f5c0122c3510dbdb588f87765b61082d1226",
+      "source_commit": "aab92880ea10e4cb33d3af34530d7c16cdad11ef",
+      "sha256_git_bytes": "4cfad3e2119f2d69ffcc176953a02e5ba63fe64f9d7f63126d108ff695469fea"
+    },
+    {
+      "path": "orchestration/issues/ISS-RS-RS-001-002.json",
+      "kind": "blob",
+      "git_object": "c9929a7b670536b14f7bfad77417502859d48c90",
+      "source_commit": "aab92880ea10e4cb33d3af34530d7c16cdad11ef",
+      "sha256_git_bytes": "944bc710b539c39fbfeb5762545cf3683fe85cbd3f975be5ad8102707d04765d"
+    },
+    {
+      "path": "orchestration/issues/ISS-RS-RS-001-003.json",
+      "kind": "blob",
+      "git_object": "ba634598bb3fabd272cf65d47ba4b93e429e6f5f",
+      "source_commit": "aab92880ea10e4cb33d3af34530d7c16cdad11ef",
+      "sha256_git_bytes": "a4b83e1744728e2221deb87ba898855c0a09e43f9de1eb4408fca1f1362ce13a"
+    },
+    {
+      "path": "orchestration/issues/ISS-RS-RS-001-004.json",
+      "kind": "blob",
+      "git_object": "0aee6c01b454adc34422f703aa225a114e37904f",
+      "source_commit": "aab92880ea10e4cb33d3af34530d7c16cdad11ef",
+      "sha256_git_bytes": "fdf877db1a51f2ab6bd1575bea6f1452d8fea009620a076472049fad8e644372"
+    },
+    {
+      "path": "orchestration/validation/RS-001-L08-scenario.json",
+      "kind": "blob",
+      "git_object": "26274cbd8d42ebb23de206545e32c1d72728c35a",
+      "source_commit": "aab92880ea10e4cb33d3af34530d7c16cdad11ef",
+      "sha256_git_bytes": "ed12d6c59322497317ead04cd3b2d33294e9e3c1899a3737d2619d99fc60dfc7"
+    }
+  ],
+  "changed_artifacts": [
+    {
+      "id": "game-data",
+      "path": "src/data/raw/GAME_DATA_v4.json",
+      "kind": "blob",
+      "before_git_object": "2ec9fc341d53c509a7a0148fc1d26582c0e87c17",
+      "after_git_object": "9407bd9cb58eae1d8cd7a1495a65275e3ef644e1",
+      "before_sha256_git_bytes": "356bb6b4554c8872cc853986362c572e8601f8b0c0ffbfc6c69d9505f4102303",
+      "after_sha256_git_bytes": "b32c1e902d200e25e59d475c9453c97e4687603aaecf3f948250fe1bec844ac4"
+    },
+    {
+      "id": "data-schema",
+      "path": "src/data/raw/GAME_DATA_SCHEMA.md",
+      "kind": "blob",
+      "before_git_object": "b6ea85ce7cbf2553a0f9337babff3786199510b9",
+      "after_git_object": "d9300f6ae1d04cb6772a901a1ed15af34ba814ea",
+      "before_sha256_git_bytes": "77a6c0e40f2e85441693b112b0299aa601515b36dbf70fcb6785dee9afe6408b",
+      "after_sha256_git_bytes": "7b857d72ed6982c94d9e2fd1bae7d3b1187065b57ec9fe1bab95ef9a5d9e9d97"
+    },
+    {
+      "id": "rules-spec",
+      "path": "src/data/raw/GAME_RULES_SPEC.md",
+      "kind": "blob",
+      "before_git_object": "1e4d80a805be60fe7a031417df224c3a96d1894b",
+      "after_git_object": "07cea77200d58483e39eed0d702efd022dc840a0",
+      "before_sha256_git_bytes": "a0b57360c50e5765ba3f698dc29e7fa42af2675c2269adfded0b19690f0a3b61",
+      "after_sha256_git_bytes": "34ddfe22914b78e6e479e236e5e063b962839efccc88ae93b508230b10f51893"
+    },
+    {
+      "id": "execution-spec",
+      "path": "src/data/raw/hercules_engine_execution_spec_v0_13.md",
+      "kind": "blob",
+      "before_git_object": "190f0c2e57932251a8ef5f54eb9f1d7cb653f9ba",
+      "after_git_object": "da5f94c4437cdff2366efc161eac1f187aca1a87",
+      "before_sha256_git_bytes": "5b848484b817a96556a8459e2e0d61ec9a6b25d4c46e2f84a0ea90726e9ea91e",
+      "after_sha256_git_bytes": "5b2c52c9862db8ce3573bed12af891b2cfb94cca450fc789d7f7bc9a38565492"
+    },
+    {
+      "id": "test-scenarios",
+      "path": "src/data/raw/TEST_SCENARIOS.md",
+      "kind": "blob",
+      "before_git_object": "93e9df18135e323db64af9e89ce3e5fed2e9abd3",
+      "after_git_object": "0b51c516eb5c287c7d39bfbf2f50b9cd92128b86",
+      "before_sha256_git_bytes": "a02e0a16d7f137ba26af79ff06431c4bd2cc6e92d05db5144d57f9c80611e9af",
+      "after_sha256_git_bytes": "0bb3f1d88778f4ceea906e5911e68d0d97f97ac7658781e79d362e261e2cdae7"
+    },
+    {
+      "id": "test-fixtures",
+      "path": "src/data/raw/TEST_FIXTURES_v4.json",
+      "kind": "blob",
+      "before_git_object": "49b55a701c2e3f13c22a98140c72265736fe5c71",
+      "after_git_object": "cadae99fd2c7205d29f17375a36bc70df3e629b3",
+      "before_sha256_git_bytes": "20cef9c252173031a65b6cf88e3290a52216d560b6513b53392132aad3cbc8b1",
+      "after_sha256_git_bytes": "31459edf0c79ad29bfe3a02b40a4b4a7ec1b6676ed11b7e4f69b7fa14439d14e"
+    },
+    {
+      "id": "generated-data-file",
+      "path": "src/data/generated/game-data.ts",
+      "kind": "blob",
+      "before_git_object": "2717cb43e67e5010abd302b0d4ce10d9ede7df2a",
+      "after_git_object": "12a9a34b5a1492067da3ee0e6df1b41c7a122bb4",
+      "before_sha256_git_bytes": "a4a677a5d342fa61114c3cdb4a712b45b4a3e6855a7077064f0c4adb5437baed",
+      "after_sha256_git_bytes": "cc707dcd43e1f35a14a9a4bc013d3ce71d2fa79498f86a4bf4574c95ba0ff41b"
+    },
+    {
+      "id": "generated-data",
+      "path": "src/data/generated",
+      "kind": "tree",
+      "before_git_object": "6b17d0f311730bf28b41e331bd0da3151439216c",
+      "after_git_object": "a9238f5f4600fd0f5d7ad5f27590bf8833734605",
+      "before_sha256_git_bytes": null,
+      "after_sha256_git_bytes": null,
+      "method": "Git tree object from the sole game-data.ts entry; verify against the staged/committed subtree before publication."
+    },
+    {
+      "path": "orchestration/issues/ISS-PM-SETUP-001.json",
+      "kind": "blob",
+      "before_git_object": "67d09340f5f571c1113c7b0475507a221f999d1d",
+      "after_git_object": "86db6d1112117ec3127ece42dae46cc084313f07",
+      "before_sha256_git_bytes": "71ecb4c33050e9a1e8933f4fe332821d89b0f9e1a8d0f96df6373ec34a0f854b",
+      "after_sha256_git_bytes": "bf8ac11754e350d5947fd27ffe2ed5fd1eae405ecc13beefad5a1372b165746a"
+    },
+    {
+      "path": "orchestration/issues/ISS-RS-RS-001-001.json",
+      "kind": "blob",
+      "before_git_object": "c235f5c0122c3510dbdb588f87765b61082d1226",
+      "after_git_object": "81a1462ee606371f8bf55587c2a10da221138806",
+      "before_sha256_git_bytes": "4cfad3e2119f2d69ffcc176953a02e5ba63fe64f9d7f63126d108ff695469fea",
+      "after_sha256_git_bytes": "eab5c7f3a5d254fd53ce27ed1f1db526ddbd713c0121c724134a8d18159d8217"
+    },
+    {
+      "path": "orchestration/issues/ISS-RS-RS-001-002.json",
+      "kind": "blob",
+      "before_git_object": "c9929a7b670536b14f7bfad77417502859d48c90",
+      "after_git_object": "0163a9565c41def1831cf4869e03596e0caa1883",
+      "before_sha256_git_bytes": "944bc710b539c39fbfeb5762545cf3683fe85cbd3f975be5ad8102707d04765d",
+      "after_sha256_git_bytes": "54edf0df4c78c68d241592a801dbeb25a0ca98e8d440dffd526c408d104f01e9"
+    },
+    {
+      "path": "orchestration/tasks/RS-002.json",
+      "kind": "blob",
+      "before_git_object": "278df115fa0a4aa6e4873c612a5bee7fc08bf77c",
+      "after_git_object": "38f634f3a3da821b48162c12d22b113b83bae718",
+      "before_sha256_git_bytes": "3ea42da3dbc07ee5378bfa37b32f1e14cf60f5c8de657e026d3d0fac8f61ee32",
+      "after_sha256_git_bytes": "4117bbb525d8b0822000fb0540ced1bb09772d6e82e946b5e7b4d9bb73cfc9a8"
+    },
+    {
+      "path": "orchestration/validation/RS-002-rules-spec-20260913T131948Z-6e6af8-audit.mjs",
+      "kind": "blob",
+      "before_git_object": null,
+      "after_git_object": "331df87a9447101bc58490b8b4c37b142dcdaa3f",
+      "before_sha256_git_bytes": null,
+      "after_sha256_git_bytes": "05567c03b3248e29cb95f25459dcfa81586a0525b693f885c5163011d0e727f4"
+    },
+    {
+      "path": "orchestration/validation/RS-002-rules-spec-20260913T131948Z-6e6af8-audit.json",
+      "kind": "blob",
+      "before_git_object": null,
+      "after_git_object": "63498dc2bdfac6b55799d66aadc8df878a70ac43",
+      "before_sha256_git_bytes": null,
+      "after_sha256_git_bytes": "646ebbd80b063bd9d85532002534cf5ae3aac138b05e7fbe0465063468d081b7"
+    }
+  ],
+  "delivery_record": {
+    "path": "orchestration/handoffs/RS-002-rules-spec-20260913T131948Z-6e6af8.json",
+    "git_object": "Resolve this path in the containing submission commit; a handoff cannot contain its own hash."
+  },
+  "tested_base_commit": "aab92880ea10e4cb33d3af34530d7c16cdad11ef",
+  "claim_commit": "aab92880ea10e4cb33d3af34530d7c16cdad11ef",
+  "issue_ids": [
+    "ISS-PM-SETUP-001",
+    "ISS-RS-RS-001-001",
+    "ISS-RS-RS-001-002",
+    "ISS-RS-RS-001-003",
+    "ISS-RS-RS-001-004"
+  ],
+  "issue_dispositions": [
+    {
+      "id": "ISS-PM-SETUP-001",
+      "type": "canonical_update",
+      "state": "authorized_correction_submitted",
+      "reason": "Applied the PM-recorded human disposition without altering its closed authority issue or recovering the unavailable checksum preimage."
+    },
+    {
+      "id": "ISS-RS-RS-001-001",
+      "type": "canonical_update_and_regression_update",
+      "state": "resolution_submitted",
+      "reason": "L08 shared requirement and one selected recipient are explicit. Retained source conflict history and regenerated data; chosen-target diagnostics pass before healing."
+    },
+    {
+      "id": "ISS-RS-RS-001-002",
+      "type": "canonical_update_and_regression_update",
+      "state": "canonical_portion_submitted_engine_portion_open",
+      "reason": "All 46 numeric track heals have source scope and cap. Runtime dispatcher still broadcasts and lacks context checks; 10 runtime assertion failures concern this issue."
+    },
+    {
+      "id": "ISS-RS-RS-001-003",
+      "type": "no_canonical_change",
+      "state": "engine_work_required",
+      "reason": "Pinned canon already requires active_failure_terminal; candidate replay still leaves C17 active at skull. Preserve Golden outcome and route an engine task."
+    },
+    {
+      "id": "ISS-RS-RS-001-004",
+      "type": "no_canonical_change",
+      "state": "engine_work_required",
+      "reason": "Pinned spec already freezes Cannot Block at round start. Helper probe remains snapshot=true/Spirit=8 versus false/9 expected. Route engine timing and both-direction regression work."
+    }
+  ],
+  "decisions": [
+    "Retain schema family hercules_game_data_v4 and add content_revision RS-002.1; exact content hashes identify corrected behavior.",
+    "Use legacy L08 scope=target consistently with explicit requirement_scope, eligible_target_ids, damage_scope and player selection contract.",
+    "Retain every healing amount and graph edge; annotate all 46 numeric track-node heals because the cited healing rule is generic.",
+    "Treat invalid healing source context as an execution-contract rejection invariant; it does not introduce a gameplay choice.",
+    "Preserve every original F001-F045 fixture, the entire Golden expectation object, all Golden source files and all source exports.",
+    "Leave engine implementation and BUILD_VERSION 0.1.3 unchanged. Generic validator source also unchanged; its PASS alone does not enforce new scope fields.",
+    "Prepare only scoped amendments; final implementation-spec generation remains unauthorized."
+  ],
+  "authority_refs": [
+    {
+      "id": "RS-002-L08-ATTACK",
+      "issue_id": "ISS-RS-RS-001-001",
+      "status": "verified",
+      "applies_to": "/labors/7/attack",
+      "previous_status": "source_conflicted",
+      "original_reference_statement": "• Attack scope: **labor-wide** fixed `1-2-3` straight; applies to both Labor dice.",
+      "original_raw_scope": "all_active_targets",
+      "interpretation": "Labor-wide/applies to both establishes the same fixed 1-2-3 requirement for either active Mares die. Each valid set deals exactly 1 damage to one player-selected eligible die. It does not duplicate damage across the two dice.",
+      "source_refs": [
+        {
+          "artifact_id": "official-rulebook",
+          "path": "src/data/raw/sources/Hercules_Rules_104x155.pdf",
+          "git_object": "bb1662bbede6a183bfe5b5548a126d20099a496b",
+          "source_commit": null,
+          "section": "printed/PDF pp. 8, 12, 17: one damage per attack result; fixed straight; player allocation",
+          "status": "verified",
+          "verification_basis": "Review of the pinned repository artifact; no fresh physical-component verification."
+        },
+        {
+          "artifact_id": "verified-reference",
+          "path": "src/data/raw/sources/Hercules_Verified_Gameplay_Reference_v12.md",
+          "git_object": "9b806258acc2a7daa60224d66e27c83baa2e6a0c",
+          "source_commit": null,
+          "section": "Labor VIII; Important generic execution notes",
+          "status": "source_conflicted",
+          "verification_basis": "Review of the pinned repository artifact; no fresh physical-component verification."
+        },
+        {
+          "artifact_id": "execution-spec",
+          "path": "src/data/raw/hercules_engine_execution_spec_v0_13.md",
+          "git_object": "190f0c2e57932251a8ef5f54eb9f1d7cb653f9ba",
+          "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+          "section": "Baseline sections 10 and 12: player distribution; reduce the target Labor die",
+          "status": "verified",
+          "verification_basis": "Review of the pinned repository artifact; no fresh physical-component verification."
+        }
+      ],
+      "authority_ref": {
+        "issue_id": "ISS-PM-SETUP-001",
+        "path": "orchestration/issues/ISS-PM-SETUP-001.json",
+        "recorded_at_commit": "d241f9d53d2a1c52702f263d82442b528a3b0954",
+        "decision": {
+          "issue_id": "ISS-PM-SETUP-001",
+          "decision": "Re-establish corrected canon from the pinned rulebook, v12 gameplay reference, and execution specification review.",
+          "source": "User response in the Project Manager task on 2026-09-13: 'yes it should.'",
+          "constraints": [
+            "Preserve the unavailable historical checksum as historical evidence.",
+            "Do not import later-branch corrections.",
+            "Propose exact new pins for PM promotion and independent validation."
+          ]
+        }
+      }
+    },
+    {
+      "id": "RS-002-HEALING",
+      "issue_id": "ISS-RS-RS-001-002",
+      "status": "verified",
+      "applies_to": "Every numeric heal effect on a Labor track node in this artifact",
+      "previous_representation": "Numeric heal amount with implicit recipient and cap",
+      "interpretation": "Only the active Labor die whose entry into this node produced the effect gains health, up to that same die's start_health. Healing never moves a node, affects another die, or reactivates an inactive die.",
+      "source_refs": [
+        {
+          "artifact_id": "official-rulebook",
+          "path": "src/data/raw/sources/Hercules_Rules_104x155.pdf",
+          "git_object": "bb1662bbede6a183bfe5b5548a126d20099a496b",
+          "source_commit": null,
+          "section": "printed/PDF pp. 13 and 17: add to the Labor die; triggering die starting-value cap",
+          "status": "verified",
+          "verification_basis": "Review of the pinned repository artifact; no fresh physical-component verification."
+        },
+        {
+          "artifact_id": "verified-reference",
+          "path": "src/data/raw/sources/Hercules_Verified_Gameplay_Reference_v12.md",
+          "git_object": "9b806258acc2a7daa60224d66e27c83baa2e6a0c",
+          "source_commit": null,
+          "section": "Important generic execution notes; Labor VIII track effects",
+          "status": "owner_designer_verified",
+          "verification_basis": "Review of the pinned repository artifact; no fresh physical-component verification."
+        },
+        {
+          "artifact_id": "execution-spec",
+          "path": "src/data/raw/hercules_engine_execution_spec_v0_13.md",
+          "git_object": "190f0c2e57932251a8ef5f54eb9f1d7cb653f9ba",
+          "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+          "section": "Baseline sections 13 and 15: inactive exclusion; healing and cap",
+          "status": "verified",
+          "verification_basis": "Review of the pinned repository artifact; no fresh physical-component verification."
+        }
+      ],
+      "authority_ref": {
+        "issue_id": "ISS-PM-SETUP-001",
+        "path": "orchestration/issues/ISS-PM-SETUP-001.json",
+        "recorded_at_commit": "d241f9d53d2a1c52702f263d82442b528a3b0954",
+        "decision": {
+          "issue_id": "ISS-PM-SETUP-001",
+          "decision": "Re-establish corrected canon from the pinned rulebook, v12 gameplay reference, and execution specification review.",
+          "source": "User response in the Project Manager task on 2026-09-13: 'yes it should.'",
+          "constraints": [
+            "Preserve the unavailable historical checksum as historical evidence.",
+            "Do not import later-branch corrections.",
+            "Propose exact new pins for PM promotion and independent validation."
+          ]
+        }
+      }
+    },
+    {
+      "id": "RS-002-REESTABLISH-CANON",
+      "issue_id": "ISS-PM-SETUP-001",
+      "status": "owner_verified",
+      "meaning": "Owner authorized a new source-backed candidate inventory; the historical checksum preimage is not recovered and unrelated content is not newly verified.",
+      "historical_checksum_path": "src/data/raw/SHA256SUMS.json",
+      "historical_expected_sha256": "15313bbc55a4cec400b04a99f862de70fc545009ec5efaaf32c5fc861e88b5b7",
+      "baseline_git_blob": "2ec9fc341d53c509a7a0148fc1d26582c0e87c17",
+      "baseline_sha256": "356bb6b4554c8872cc853986362c572e8601f8b0c0ffbfc6c69d9505f4102303",
+      "historical_preimage_status": "unavailable",
+      "authority_ref": {
+        "issue_id": "ISS-PM-SETUP-001",
+        "path": "orchestration/issues/ISS-PM-SETUP-001.json",
+        "recorded_at_commit": "d241f9d53d2a1c52702f263d82442b528a3b0954",
+        "decision": {
+          "issue_id": "ISS-PM-SETUP-001",
+          "decision": "Re-establish corrected canon from the pinned rulebook, v12 gameplay reference, and execution specification review.",
+          "source": "User response in the Project Manager task on 2026-09-13: 'yes it should.'",
+          "constraints": [
+            "Preserve the unavailable historical checksum as historical evidence.",
+            "Do not import later-branch corrections.",
+            "Propose exact new pins for PM promotion and independent validation."
+          ]
+        }
+      },
+      "verification_scope": "recorded_authorization_only; not recovery of the historical checksum preimage"
+    }
+  ],
+  "assumptions": [
+    "Repository-recorded human approval is used exactly as supplied; no other task or later branch was consulted.",
+    "The complete post-roll RS-001 start state is reused as an isolated constructed fixture with explicit overrides. No prior game history or RNG roll is claimed.",
+    "Recovered v12/PDF exports have pinned bytes but no newly established export dates or fresh physical-component verification.",
+    "The v12 Labor VIII phrase does not establish an explicit broadcast-damage exception to the higher-authority allocation rule. Original wording and conflict classification remain visible."
+  ],
+  "unresolved_items": [
+    {
+      "kind": "historical_integrity",
+      "issue_id": "ISS-PM-SETUP-001",
+      "detail": "The original checksum-matching GAME_DATA preimage remains unavailable. Human authorization permits re-establishment; it is not proof of the missing bytes."
+    },
+    {
+      "kind": "engine_implementation",
+      "issue_ids": [
+        "ISS-RS-RS-001-002",
+        "ISS-RS-RS-001-003",
+        "ISS-RS-RS-001-004"
+      ],
+      "detail": "No engine code changed. Source healing, source-context checks, terminal skull status and frozen Cannot Block require separately authorized implementation and independent verification."
+    },
+    {
+      "kind": "validator_enforcement",
+      "detail": "Pinned generic validator accepts additive metadata but does not enforce it. RS-002 checks only this candidate; PM must route durable validator enforcement with the engine task."
+    },
+    {
+      "kind": "scope_boundary",
+      "detail": "Other Labors retain their original attack-scope fields. Analogous labor-wide wording outside L08 is not adjudicated by this assignment. No whole-game certification is claimed."
+    },
+    {
+      "kind": "inherited_provisional",
+      "detail": "The Hind below-two-usable-dice ruling remains provisional owner-approved, pending designer confirmation as in the existing manifest."
+    },
+    {
+      "kind": "validation_release",
+      "detail": "PM promotion and independent Validation have not occurred. RS-002 remains submitted until that verification is accepted."
+    }
+  ],
+  "deliverable_paths": [
+    "src/data/raw/GAME_DATA_v4.json",
+    "src/data/raw/GAME_DATA_SCHEMA.md",
+    "src/data/raw/GAME_RULES_SPEC.md",
+    "src/data/raw/hercules_engine_execution_spec_v0_13.md",
+    "src/data/raw/TEST_SCENARIOS.md",
+    "src/data/raw/TEST_FIXTURES_v4.json",
+    "src/data/generated/game-data.ts",
+    "orchestration/validation/RS-002-rules-spec-20260913T131948Z-6e6af8-audit.mjs",
+    "orchestration/validation/RS-002-rules-spec-20260913T131948Z-6e6af8-audit.json",
+    "orchestration/handoffs/RS-002-rules-spec-20260913T131948Z-6e6af8.json"
+  ],
+  "validation_required": {
+    "required": true,
+    "owner": "independent_validation_via_PM_assignment",
+    "prerequisites": [
+      "PM verifies this atomic submission and promotes the exact changed raw/schema/spec/fixture/generated pins to a new manifest revision.",
+      "PM provides separately explicit engine/validator scope for issues -002, -003 and -004 and records those new implementation pins before success verification.",
+      "Validation uses the complete declared state/actions, unchanged Golden inputs and zero-RNG fixture boundary; no speculative play or later-source substitution."
+    ],
+    "required_checks": [
+      "Independently recompute Git object IDs and Git-byte SHA256; verify raw/generated semantic equality and all 46 healing annotations.",
+      "Check explicit L08 scope and original source/correction authority against pinned rulebook pp. 8/12/17, v12 Labor VIII and generic notes, and baseline execution sections 10/12/13/15.",
+      "Run F046-F054 with separate allocation, damage, healing and full-round boundaries. Verify inactive/invalid-source exclusion and all unchanged state assertions.",
+      "Verify generic source-local healing on shared tracks and Heal 2 including existing F039 Bull cap 12; these additional runtime cases were not executed in RS-002.",
+      "Replay Golden through its recorded Labor VI terminal state. Keep expected Spirit 8, Divinity 3, nextEvent 174, orphan interval 18-25, loss and scripted choices unchanged; separately assert terminal C17 status.",
+      "Extend Cannot Block regressions beyond existing F004/F005 snapshot tests to entry during advancement and the next-round snapshot."
+    ],
+    "current_evidence": {
+      "content_contract": "PASS",
+      "runtime_regressions": "FAIL",
+      "content_assertions": 121,
+      "runtime_assertions": 146,
+      "runtime_failures": [
+        "F046 after_round health",
+        "F050/B_at_first_heal health",
+        "F051/source_at_cap health",
+        "F051/source_one_below_cap health",
+        "F052/stale_queued_inactive_source health",
+        "F053/missing_source rejected",
+        "F053/unknown_source rejected",
+        "F053/wrong_track_source rejected",
+        "F053/source_not_on_entered_node rejected",
+        "F054/B_composite_node health",
+        "ISS-RS-RS-001-003 terminal skull status",
+        "ISS-RS-RS-001-004 non-retroactive snapshot"
+      ],
+      "independent_validation": "NOT_RUN",
+      "engine_edited": false
+    },
+    "gate_pass": false
+  },
+  "regression_implications": {
+    "added_fixture_ids": [
+      "F046",
+      "F047",
+      "F048",
+      "F049",
+      "F050",
+      "F051",
+      "F052",
+      "F053",
+      "F054"
+    ],
+    "preserved_fixture_ids": "F001-F045",
+    "historical_golden_expected_unchanged": true,
+    "healing_node_count": 46,
+    "executed_assertions": {
+      "content": 121,
+      "runtime": 146,
+      "runtime_passed": 134,
+      "runtime_failed": 12
+    },
+    "first_L08_divergence": "F046 after-round health: expected A=5/B=6, observed A=6/B=6. Selected-target allocation and pre-advance A=5/B=6 now pass.",
+    "mirrored_control": "F047 final A=6/B=6 passes despite the defective helper; its pre-advance A=6/B=5 assertion prevents damage masking.",
+    "golden_resource_summary": "DEFEAT, Spirit 8, Divinity 3, nextEvent 174 retained; terminal-status assertion still FAIL."
+  },
+  "proposed_manifest": {
+    "manifest_revision": "e1-m0002",
+    "supersedes": "e1-m0001",
+    "status": "proposed_not_promoted",
+    "changed_pins": [
+      {
+        "id": "game-data",
+        "path": "src/data/raw/GAME_DATA_v4.json",
+        "kind": "blob",
+        "git_object": "9407bd9cb58eae1d8cd7a1495a65275e3ef644e1",
+        "source_commit": null,
+        "role": "canonical_content",
+        "sha256_git_bytes": "b32c1e902d200e25e59d475c9453c97e4687603aaecf3f948250fe1bec844ac4",
+        "source_commit_resolution": "Containing RS-002 submission commit; PM fills this after publication to avoid a circular self-hash."
+      },
+      {
+        "id": "data-schema",
+        "path": "src/data/raw/GAME_DATA_SCHEMA.md",
+        "kind": "blob",
+        "git_object": "d9300f6ae1d04cb6772a901a1ed15af34ba814ea",
+        "source_commit": null,
+        "role": "representation_contract",
+        "sha256_git_bytes": "7b857d72ed6982c94d9e2fd1bae7d3b1187065b57ec9fe1bab95ef9a5d9e9d97",
+        "source_commit_resolution": "Containing RS-002 submission commit; PM fills this after publication to avoid a circular self-hash."
+      },
+      {
+        "id": "rules-spec",
+        "path": "src/data/raw/GAME_RULES_SPEC.md",
+        "kind": "blob",
+        "git_object": "07cea77200d58483e39eed0d702efd022dc840a0",
+        "source_commit": null,
+        "role": "execution_semantics",
+        "sha256_git_bytes": "34ddfe22914b78e6e479e236e5e063b962839efccc88ae93b508230b10f51893",
+        "source_commit_resolution": "Containing RS-002 submission commit; PM fills this after publication to avoid a circular self-hash."
+      },
+      {
+        "id": "execution-spec",
+        "path": "src/data/raw/hercules_engine_execution_spec_v0_13.md",
+        "kind": "blob",
+        "git_object": "da5f94c4437cdff2366efc161eac1f187aca1a87",
+        "source_commit": null,
+        "role": "execution_semantics",
+        "sha256_git_bytes": "5b2c52c9862db8ce3573bed12af891b2cfb94cca450fc789d7f7bc9a38565492",
+        "source_commit_resolution": "Containing RS-002 submission commit; PM fills this after publication to avoid a circular self-hash."
+      },
+      {
+        "id": "test-scenarios",
+        "path": "src/data/raw/TEST_SCENARIOS.md",
+        "kind": "blob",
+        "git_object": "0b51c516eb5c287c7d39bfbf2f50b9cd92128b86",
+        "source_commit": null,
+        "role": "historical_expectations",
+        "sha256_git_bytes": "0bb3f1d88778f4ceea906e5911e68d0d97f97ac7658781e79d362e261e2cdae7",
+        "source_commit_resolution": "Containing RS-002 submission commit; PM fills this after publication to avoid a circular self-hash."
+      },
+      {
+        "id": "test-fixtures",
+        "path": "src/data/raw/TEST_FIXTURES_v4.json",
+        "kind": "blob",
+        "git_object": "cadae99fd2c7205d29f17375a36bc70df3e629b3",
+        "source_commit": null,
+        "role": "historical_expectations",
+        "sha256_git_bytes": "31459edf0c79ad29bfe3a02b40a4b4a7ec1b6676ed11b7e4f69b7fa14439d14e",
+        "source_commit_resolution": "Containing RS-002 submission commit; PM fills this after publication to avoid a circular self-hash."
+      },
+      {
+        "id": "generated-data",
+        "path": "src/data/generated",
+        "kind": "tree",
+        "git_object": "a9238f5f4600fd0f5d7ad5f27590bf8833734605",
+        "source_commit": null,
+        "role": "historical_implementation_or_tests",
+        "source_commit_resolution": "Containing RS-002 submission commit; PM fills this after publication to avoid a circular self-hash."
+      }
+    ],
+    "unchanged_artifact_ids": [
+      "package-manifest",
+      "package-checksums",
+      "implementation-brief",
+      "presentation-flow",
+      "golden-record",
+      "golden-script",
+      "golden-prior-report",
+      "historical-engine",
+      "rng-implementation",
+      "replay-implementation",
+      "existing-tests",
+      "package",
+      "lockfile",
+      "tsconfig",
+      "tools-tsconfig",
+      "data-generator",
+      "data-validator",
+      "official-rulebook",
+      "verified-reference",
+      "rng-spec"
+    ],
+    "historical_inventory_disposition": "Leave SHA256SUMS.json and HANDOFF_MANIFEST.json as historical inventory. The explicit PM-promoted manifest will identify the new candidate, not repair the unavailable preimage."
+  },
+  "execution": {
+    "command": "node \"orchestration/validation/RS-002-rules-spec-20260913T131948Z-6e6af8-audit.mjs\" \"<checkout-at-containing-submission-commit>\" \"<new-output-json>\"",
+    "runtime": "Node.js 24.19.0 with built-in stripTypeScriptTypes",
+    "procedure": "Use an isolated checkout of this experiment submission. The audit defaults to read-only source operation, compiles into an OS temporary directory and checks generation in an LF-normalized temporary mirror. Supply a new output path to preserve this report. --generate was used only during authorized authoring; it regenerates the assigned derived file.",
+    "generator": "Pinned src/data/generate.ts and src/data/validation.ts; built-in type stripping executes them without package installation. Existing generic validator printed Data certified; that message is not independent certification.",
+    "type_check": "Not run; this task changes data/contracts/fixtures and does not claim engine type-check or production build validation.",
+    "report_exit_code": "Zero means content assertions passed. Runtime failures remain explicit FAIL in the report and are not converted to PASS.",
+    "authoring_observation": "An initial audit stopped before generation at the default child-process buffer limit while reading the 23 MB pinned PDF. A 64 MB read limit was used for the successful runs; no source or game behavior was changed to address it."
+  },
+  "recommended_next_action": "PM review the canonical submission, promote its seven exact artifact pins and regenerated subtree, route the explicitly remaining engine/validator implementation scope, and release independent revalidation against those versions. Keep RS-002 submitted and success gates closed until verified."
+}

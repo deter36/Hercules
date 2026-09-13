@@ -8,11 +8,11 @@
     "remote_commit_read": "d241f9d53d2a1c52702f263d82442b528a3b0954"
   },
   "blocking_issue_ids": [],
-  "handoff_path": null,
+  "handoff_path": "orchestration/handoffs/RS-002-rules-spec-20260913T131948Z-6e6af8.json",
   "pm_review": null,
   "id": "RS-002",
   "role": "rules_spec",
-  "status": "in_progress",
+  "status": "submitted",
   "objective": "Convert the accepted RS-001 findings into explicit corrected canonical artifacts and regression expectations, preserving source provenance and proposing exact manifest pins.",
   "dependencies": [
     "RS-001 accepted",
@@ -75,6 +75,19 @@
       "Preserve the unavailable historical checksum as historical evidence.",
       "Do not import later-branch corrections.",
       "Propose exact new pins for PM promotion and independent validation."
+    ]
+  },
+  "submission": {
+    "run_id": "rules-spec-20260913T131948Z-6e6af8",
+    "content_revision": "RS-002.1",
+    "proposed_manifest_revision": "e1-m0002",
+    "content_checks": "PASS",
+    "runtime_regressions": "FAIL_known_engine_gaps",
+    "independent_validation": "NOT_RUN",
+    "engine_issues_requiring_separate_authorization": [
+      "ISS-RS-RS-001-002",
+      "ISS-RS-RS-001-003",
+      "ISS-RS-RS-001-004"
     ]
   }
 }

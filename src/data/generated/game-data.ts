@@ -1,6 +1,6 @@
 // Generated from src/data/raw/GAME_DATA_v4.json. Do not edit.
-export const GAME_DATA_SOURCE_HASH = "356bb6b4554c8872cc853986362c572e8601f8b0c0ffbfc6c69d9505f4102303" as const;
-export const GAME_DATA_CONTENT_HASH = "d731fd0dfdf7ff9dfb27fe25f5f61c6e4274a73bab7854ed0085fc76e804052e" as const;
+export const GAME_DATA_SOURCE_HASH = "b32c1e902d200e25e59d475c9453c97e4687603aaecf3f948250fe1bec844ac4" as const;
+export const GAME_DATA_CONTENT_HASH = "35c222d502f747272c0a16a43e9756449001f72d60a29da99237d8fc2fad35b9" as const;
 export const GAME_DATA = {
   "schema_version": "hercules_game_data_v4",
   "game_id": "hercules_12_labors",
@@ -374,7 +374,9 @@ export const GAME_DATA = {
             {
               "id": "L01.n3",
               "effect": {
-                "heal": 1
+                "heal": 1,
+                "heal_scope": "source_labor_die",
+                "heal_cap": "source_start_health"
               }
             },
             {
@@ -464,48 +466,62 @@ export const GAME_DATA = {
               "id": "L02.n1",
               "effect": {
                 "spirit_delta": -1,
-                "heal": 1
+                "heal": 1,
+                "heal_scope": "source_labor_die",
+                "heal_cap": "source_start_health"
               }
             },
             {
               "id": "L02.n2",
               "effect": {
                 "spirit_delta": -1,
-                "heal": 1
+                "heal": 1,
+                "heal_scope": "source_labor_die",
+                "heal_cap": "source_start_health"
               }
             },
             {
               "id": "L02.n3",
               "effect": {
                 "spirit_delta": -1,
-                "heal": 1
+                "heal": 1,
+                "heal_scope": "source_labor_die",
+                "heal_cap": "source_start_health"
               }
             },
             {
               "id": "L02.n4",
               "effect": {
-                "heal": 2
+                "heal": 2,
+                "heal_scope": "source_labor_die",
+                "heal_cap": "source_start_health"
               }
             },
             {
               "id": "L02.n5",
               "effect": {
                 "spirit_delta": -1,
-                "heal": 1
+                "heal": 1,
+                "heal_scope": "source_labor_die",
+                "heal_cap": "source_start_health"
               }
             },
             {
               "id": "L02.n6",
               "effect": {
                 "spirit_delta": -1,
-                "heal": 1
+                "heal": 1,
+                "heal_scope": "source_labor_die",
+                "heal_cap": "source_start_health"
               }
             },
             {
               "id": "L02.n7",
               "effect": {
                 "spirit_delta": -1,
-                "heal": 1
+                "heal": 1,
+                "heal_scope": "source_labor_die",
+                "heal_cap": "source_start_health"
               }
             },
             {
@@ -580,7 +596,9 @@ export const GAME_DATA = {
             {
               "id": "L03.n1",
               "effect": {
-                "heal": 1
+                "heal": 1,
+                "heal_scope": "source_labor_die",
+                "heal_cap": "source_start_health"
               },
               "next": [
                 "L03.n2"
@@ -598,7 +616,9 @@ export const GAME_DATA = {
             {
               "id": "L03.n3",
               "effect": {
-                "heal": 1
+                "heal": 1,
+                "heal_scope": "source_labor_die",
+                "heal_cap": "source_start_health"
               },
               "next": [
                 "L03.n4"
@@ -719,7 +739,9 @@ export const GAME_DATA = {
             {
               "id": "L04L.n5",
               "effect": {
-                "heal": 1
+                "heal": 1,
+                "heal_scope": "source_labor_die",
+                "heal_cap": "source_start_health"
               }
             },
             {
@@ -746,7 +768,9 @@ export const GAME_DATA = {
             {
               "id": "L04R.n2",
               "effect": {
-                "heal": 1
+                "heal": 1,
+                "heal_scope": "source_labor_die",
+                "heal_cap": "source_start_health"
               }
             },
             {
@@ -897,7 +921,9 @@ export const GAME_DATA = {
               "id": "L05A.n3",
               "effect": {
                 "spirit_delta": -1,
-                "heal": 1
+                "heal": 1,
+                "heal_scope": "source_labor_die",
+                "heal_cap": "source_start_health"
               }
             },
             {
@@ -942,7 +968,9 @@ export const GAME_DATA = {
             {
               "id": "L05B.n2",
               "effect": {
-                "heal": 1
+                "heal": 1,
+                "heal_scope": "source_labor_die",
+                "heal_cap": "source_start_health"
               }
             },
             {
@@ -1369,7 +1397,9 @@ export const GAME_DATA = {
             },
             "L07.R2": {
               "effect": {
-                "heal": 1
+                "heal": 1,
+                "heal_scope": "source_labor_die",
+                "heal_cap": "source_start_health"
               },
               "next": [
                 "L07.R3"
@@ -1386,7 +1416,9 @@ export const GAME_DATA = {
             },
             "L07.RR1": {
               "effect": {
-                "heal": 1
+                "heal": 1,
+                "heal_scope": "source_labor_die",
+                "heal_cap": "source_start_health"
               },
               "next": [
                 "L07.RR2"
@@ -1434,7 +1466,9 @@ export const GAME_DATA = {
             },
             "L07.RL2": {
               "effect": {
-                "heal": 1
+                "heal": 1,
+                "heal_scope": "source_labor_die",
+                "heal_cap": "source_start_health"
               },
               "next": [
                 "L07.M1"
@@ -1451,7 +1485,9 @@ export const GAME_DATA = {
             "L07.L2": {
               "effect": {
                 "spirit_delta": -1,
-                "heal": 1
+                "heal": 1,
+                "heal_scope": "source_labor_die",
+                "heal_cap": "source_start_health"
               },
               "next": [
                 "L07.L3"
@@ -1460,7 +1496,9 @@ export const GAME_DATA = {
             "L07.L3": {
               "effect": {
                 "spirit_delta": -1,
-                "heal": 1
+                "heal": 1,
+                "heal_scope": "source_labor_die",
+                "heal_cap": "source_start_health"
               },
               "next": [
                 "L07.L4"
@@ -1468,7 +1506,9 @@ export const GAME_DATA = {
             },
             "L07.L4": {
               "effect": {
-                "heal": 2
+                "heal": 2,
+                "heal_scope": "source_labor_die",
+                "heal_cap": "source_start_health"
               },
               "next": [
                 "L07.L5"
@@ -1492,7 +1532,9 @@ export const GAME_DATA = {
             },
             "L07.M2": {
               "effect": {
-                "heal": 2
+                "heal": 2,
+                "heal_scope": "source_labor_die",
+                "heal_cap": "source_start_health"
               },
               "next": [
                 "L07.M3"
@@ -1623,7 +1665,7 @@ export const GAME_DATA = {
         }
       ],
       "attack": {
-        "scope": "all_active_targets",
+        "scope": "target",
         "requirement": {
           "type": "fixed_straight",
           "values": [
@@ -1632,7 +1674,22 @@ export const GAME_DATA = {
             3
           ]
         },
-        "damage": 1
+        "damage": 1,
+        "requirement_scope": "shared_by_listed_targets",
+        "eligible_target_ids": [
+          "labor.L08.A",
+          "labor.L08.B"
+        ],
+        "damage_scope": "single_selected_target",
+        "target_selection": {
+          "owner": "player",
+          "count": 1,
+          "timing": "attack_allocation",
+          "allowed_statuses": [
+            "active"
+          ]
+        },
+        "correction_ref": "RS-002-L08-ATTACK"
       },
       "tracks": {
         "track.L08.A": {
@@ -1657,7 +1714,9 @@ export const GAME_DATA = {
             {
               "id": "L08A.n3",
               "effect": {
-                "heal": 1
+                "heal": 1,
+                "heal_scope": "source_labor_die",
+                "heal_cap": "source_start_health"
               }
             },
             {
@@ -1696,7 +1755,9 @@ export const GAME_DATA = {
             {
               "id": "L08B.n1",
               "effect": {
-                "heal": 1
+                "heal": 1,
+                "heal_scope": "source_labor_die",
+                "heal_cap": "source_start_health"
               }
             },
             {
@@ -1708,7 +1769,9 @@ export const GAME_DATA = {
             {
               "id": "L08B.n3",
               "effect": {
-                "heal": 1
+                "heal": 1,
+                "heal_scope": "source_labor_die",
+                "heal_cap": "source_start_health"
               }
             },
             {
@@ -1721,7 +1784,9 @@ export const GAME_DATA = {
               "id": "L08B.n5",
               "effect": {
                 "spirit_delta": -1,
-                "heal": 1
+                "heal": 1,
+                "heal_scope": "source_labor_die",
+                "heal_cap": "source_start_health"
               }
             },
             {
@@ -1868,7 +1933,9 @@ export const GAME_DATA = {
               "id": "L09L.n4",
               "effect": {
                 "spirit_delta": -1,
-                "heal": 1
+                "heal": 1,
+                "heal_scope": "source_labor_die",
+                "heal_cap": "source_start_health"
               }
             },
             {
@@ -1920,7 +1987,9 @@ export const GAME_DATA = {
               "id": "L09R.n4",
               "effect": {
                 "spirit_delta": -1,
-                "heal": 1
+                "heal": 1,
+                "heal_scope": "source_labor_die",
+                "heal_cap": "source_start_health"
               }
             },
             {
@@ -2141,7 +2210,9 @@ export const GAME_DATA = {
               "id": "L10LO.n7",
               "effect": {
                 "spirit_delta": -1,
-                "heal": 1
+                "heal": 1,
+                "heal_scope": "source_labor_die",
+                "heal_cap": "source_start_health"
               }
             },
             {
@@ -2277,7 +2348,9 @@ export const GAME_DATA = {
               "id": "L10RO.n7",
               "effect": {
                 "spirit_delta": -1,
-                "heal": 1
+                "heal": 1,
+                "heal_scope": "source_labor_die",
+                "heal_cap": "source_start_health"
               }
             },
             {
@@ -2429,7 +2502,9 @@ export const GAME_DATA = {
             },
             "A2": {
               "effect": {
-                "heal": 1
+                "heal": 1,
+                "heal_scope": "source_labor_die",
+                "heal_cap": "source_start_health"
               },
               "next": [
                 "B2",
@@ -2448,7 +2523,9 @@ export const GAME_DATA = {
             },
             "B1": {
               "effect": {
-                "heal": 1
+                "heal": 1,
+                "heal_scope": "source_labor_die",
+                "heal_cap": "source_start_health"
               },
               "next": [
                 "B2"
@@ -2465,7 +2542,9 @@ export const GAME_DATA = {
             "B3": {
               "effect": {
                 "spirit_delta": -1,
-                "heal": 1
+                "heal": 1,
+                "heal_scope": "source_labor_die",
+                "heal_cap": "source_start_health"
               },
               "next": [
                 "B2",
@@ -2486,7 +2565,9 @@ export const GAME_DATA = {
             "C1": {
               "effect": {
                 "spirit_delta": -1,
-                "heal": 1
+                "heal": 1,
+                "heal_scope": "source_labor_die",
+                "heal_cap": "source_start_health"
               },
               "next": [
                 "C2",
@@ -2495,7 +2576,9 @@ export const GAME_DATA = {
             },
             "C2": {
               "effect": {
-                "heal": 2
+                "heal": 2,
+                "heal_scope": "source_labor_die",
+                "heal_cap": "source_start_health"
               },
               "next": [
                 "D2",
@@ -2515,7 +2598,9 @@ export const GAME_DATA = {
             "C4": {
               "effect": {
                 "spirit_delta": -1,
-                "heal": 1
+                "heal": 1,
+                "heal_scope": "source_labor_die",
+                "heal_cap": "source_start_health"
               },
               "next": [
                 "D4"
@@ -2531,7 +2616,9 @@ export const GAME_DATA = {
             },
             "D2": {
               "effect": {
-                "heal": 1
+                "heal": 1,
+                "heal_scope": "source_labor_die",
+                "heal_cap": "source_start_health"
               },
               "next": [
                 "D1",
@@ -2595,7 +2682,9 @@ export const GAME_DATA = {
             "F1": {
               "effect": {
                 "spirit_delta": -1,
-                "heal": 1
+                "heal": 1,
+                "heal_scope": "source_labor_die",
+                "heal_cap": "source_start_health"
               },
               "next": [
                 "F2"
@@ -2603,7 +2692,9 @@ export const GAME_DATA = {
             },
             "F2": {
               "effect": {
-                "heal": 2
+                "heal": 2,
+                "heal_scope": "source_labor_die",
+                "heal_cap": "source_start_health"
               },
               "next": [
                 "SKULL"
@@ -2825,7 +2916,9 @@ export const GAME_DATA = {
             {
               "id": "L12A.n7",
               "effect": {
-                "heal": 1
+                "heal": 1,
+                "heal_scope": "source_labor_die",
+                "heal_cap": "source_start_health"
               }
             },
             {
@@ -2843,7 +2936,9 @@ export const GAME_DATA = {
             {
               "id": "L12A.n10",
               "effect": {
-                "heal": 2
+                "heal": 2,
+                "heal_scope": "source_labor_die",
+                "heal_cap": "source_start_health"
               }
             },
             {
@@ -2877,14 +2972,18 @@ export const GAME_DATA = {
               "id": "L12B.n3",
               "effect": {
                 "spirit_delta": -1,
-                "heal": 1
+                "heal": 1,
+                "heal_scope": "source_labor_die",
+                "heal_cap": "source_start_health"
               }
             },
             {
               "id": "L12B.n4",
               "effect": {
                 "spirit_delta": -1,
-                "heal": 1
+                "heal": 1,
+                "heal_scope": "source_labor_die",
+                "heal_cap": "source_start_health"
               }
             },
             {
@@ -2902,13 +3001,17 @@ export const GAME_DATA = {
             {
               "id": "L12B.n7",
               "effect": {
-                "heal": 1
+                "heal": 1,
+                "heal_scope": "source_labor_die",
+                "heal_cap": "source_start_health"
               }
             },
             {
               "id": "L12B.n8",
               "effect": {
-                "heal": 1
+                "heal": 1,
+                "heal_scope": "source_labor_die",
+                "heal_cap": "source_start_health"
               }
             },
             {
@@ -2948,7 +3051,9 @@ export const GAME_DATA = {
               "id": "L12C.n4",
               "effect": {
                 "spirit_delta": -1,
-                "heal": 1
+                "heal": 1,
+                "heal_scope": "source_labor_die",
+                "heal_cap": "source_start_health"
               }
             },
             {
@@ -2978,7 +3083,9 @@ export const GAME_DATA = {
             {
               "id": "L12C.n9",
               "effect": {
-                "heal": 1
+                "heal": 1,
+                "heal_scope": "source_labor_die",
+                "heal_cap": "source_start_health"
               }
             },
             {
@@ -3039,5 +3146,141 @@ export const GAME_DATA = {
       "mood.ghost_abderus:lose_die_option"
     ],
     "note": "Implementation identity mapping only; Hercules dice have no persistent per-die gameplay traits."
-  }
+  },
+  "content_revision": "RS-002.1",
+  "source_corrections": [
+    {
+      "id": "RS-002-L08-ATTACK",
+      "issue_id": "ISS-RS-RS-001-001",
+      "status": "verified",
+      "applies_to": "/labors/7/attack",
+      "previous_status": "source_conflicted",
+      "original_reference_statement": "• Attack scope: **labor-wide** fixed `1-2-3` straight; applies to both Labor dice.",
+      "original_raw_scope": "all_active_targets",
+      "interpretation": "Labor-wide/applies to both establishes the same fixed 1-2-3 requirement for either active Mares die. Each valid set deals exactly 1 damage to one player-selected eligible die. It does not duplicate damage across the two dice.",
+      "source_refs": [
+        {
+          "artifact_id": "official-rulebook",
+          "path": "src/data/raw/sources/Hercules_Rules_104x155.pdf",
+          "git_object": "bb1662bbede6a183bfe5b5548a126d20099a496b",
+          "source_commit": null,
+          "section": "printed/PDF pp. 8, 12, 17: one damage per attack result; fixed straight; player allocation",
+          "status": "verified",
+          "verification_basis": "Review of the pinned repository artifact; no fresh physical-component verification."
+        },
+        {
+          "artifact_id": "verified-reference",
+          "path": "src/data/raw/sources/Hercules_Verified_Gameplay_Reference_v12.md",
+          "git_object": "9b806258acc2a7daa60224d66e27c83baa2e6a0c",
+          "source_commit": null,
+          "section": "Labor VIII; Important generic execution notes",
+          "status": "source_conflicted",
+          "verification_basis": "Review of the pinned repository artifact; no fresh physical-component verification."
+        },
+        {
+          "artifact_id": "execution-spec",
+          "path": "src/data/raw/hercules_engine_execution_spec_v0_13.md",
+          "git_object": "190f0c2e57932251a8ef5f54eb9f1d7cb653f9ba",
+          "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+          "section": "Baseline sections 10 and 12: player distribution; reduce the target Labor die",
+          "status": "verified",
+          "verification_basis": "Review of the pinned repository artifact; no fresh physical-component verification."
+        }
+      ],
+      "authority_ref": {
+        "issue_id": "ISS-PM-SETUP-001",
+        "path": "orchestration/issues/ISS-PM-SETUP-001.json",
+        "recorded_at_commit": "d241f9d53d2a1c52702f263d82442b528a3b0954",
+        "decision": {
+          "issue_id": "ISS-PM-SETUP-001",
+          "decision": "Re-establish corrected canon from the pinned rulebook, v12 gameplay reference, and execution specification review.",
+          "source": "User response in the Project Manager task on 2026-09-13: 'yes it should.'",
+          "constraints": [
+            "Preserve the unavailable historical checksum as historical evidence.",
+            "Do not import later-branch corrections.",
+            "Propose exact new pins for PM promotion and independent validation."
+          ]
+        }
+      }
+    },
+    {
+      "id": "RS-002-HEALING",
+      "issue_id": "ISS-RS-RS-001-002",
+      "status": "verified",
+      "applies_to": "Every numeric heal effect on a Labor track node in this artifact",
+      "previous_representation": "Numeric heal amount with implicit recipient and cap",
+      "interpretation": "Only the active Labor die whose entry into this node produced the effect gains health, up to that same die's start_health. Healing never moves a node, affects another die, or reactivates an inactive die.",
+      "source_refs": [
+        {
+          "artifact_id": "official-rulebook",
+          "path": "src/data/raw/sources/Hercules_Rules_104x155.pdf",
+          "git_object": "bb1662bbede6a183bfe5b5548a126d20099a496b",
+          "source_commit": null,
+          "section": "printed/PDF pp. 13 and 17: add to the Labor die; triggering die starting-value cap",
+          "status": "verified",
+          "verification_basis": "Review of the pinned repository artifact; no fresh physical-component verification."
+        },
+        {
+          "artifact_id": "verified-reference",
+          "path": "src/data/raw/sources/Hercules_Verified_Gameplay_Reference_v12.md",
+          "git_object": "9b806258acc2a7daa60224d66e27c83baa2e6a0c",
+          "source_commit": null,
+          "section": "Important generic execution notes; Labor VIII track effects",
+          "status": "owner_designer_verified",
+          "verification_basis": "Review of the pinned repository artifact; no fresh physical-component verification."
+        },
+        {
+          "artifact_id": "execution-spec",
+          "path": "src/data/raw/hercules_engine_execution_spec_v0_13.md",
+          "git_object": "190f0c2e57932251a8ef5f54eb9f1d7cb653f9ba",
+          "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+          "section": "Baseline sections 13 and 15: inactive exclusion; healing and cap",
+          "status": "verified",
+          "verification_basis": "Review of the pinned repository artifact; no fresh physical-component verification."
+        }
+      ],
+      "authority_ref": {
+        "issue_id": "ISS-PM-SETUP-001",
+        "path": "orchestration/issues/ISS-PM-SETUP-001.json",
+        "recorded_at_commit": "d241f9d53d2a1c52702f263d82442b528a3b0954",
+        "decision": {
+          "issue_id": "ISS-PM-SETUP-001",
+          "decision": "Re-establish corrected canon from the pinned rulebook, v12 gameplay reference, and execution specification review.",
+          "source": "User response in the Project Manager task on 2026-09-13: 'yes it should.'",
+          "constraints": [
+            "Preserve the unavailable historical checksum as historical evidence.",
+            "Do not import later-branch corrections.",
+            "Propose exact new pins for PM promotion and independent validation."
+          ]
+        }
+      }
+    },
+    {
+      "id": "RS-002-REESTABLISH-CANON",
+      "issue_id": "ISS-PM-SETUP-001",
+      "status": "owner_verified",
+      "meaning": "Owner authorized a new source-backed candidate inventory; the historical checksum preimage is not recovered and unrelated content is not newly verified.",
+      "historical_checksum_path": "src/data/raw/SHA256SUMS.json",
+      "historical_expected_sha256": "15313bbc55a4cec400b04a99f862de70fc545009ec5efaaf32c5fc861e88b5b7",
+      "baseline_git_blob": "2ec9fc341d53c509a7a0148fc1d26582c0e87c17",
+      "baseline_sha256": "356bb6b4554c8872cc853986362c572e8601f8b0c0ffbfc6c69d9505f4102303",
+      "historical_preimage_status": "unavailable",
+      "authority_ref": {
+        "issue_id": "ISS-PM-SETUP-001",
+        "path": "orchestration/issues/ISS-PM-SETUP-001.json",
+        "recorded_at_commit": "d241f9d53d2a1c52702f263d82442b528a3b0954",
+        "decision": {
+          "issue_id": "ISS-PM-SETUP-001",
+          "decision": "Re-establish corrected canon from the pinned rulebook, v12 gameplay reference, and execution specification review.",
+          "source": "User response in the Project Manager task on 2026-09-13: 'yes it should.'",
+          "constraints": [
+            "Preserve the unavailable historical checksum as historical evidence.",
+            "Do not import later-branch corrections.",
+            "Propose exact new pins for PM promotion and independent validation."
+          ]
+        }
+      },
+      "verification_scope": "recorded_authorization_only; not recovery of the historical checksum preimage"
+    }
+  ]
 } as const;
