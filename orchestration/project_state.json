@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "experiment_id": "HERC-ORCH-E1",
-  "phase": "human_review_required",
-  "updated_at": "2026-09-13T18:13:22.981000+00:00",
+  "phase": "active",
+  "updated_at": "2026-09-13T18:45:00.000000+00:00",
   "repository": "https://github.com/deter36/Hercules",
   "branch": "codex/hercules-orchestration-e1",
   "baseline_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
@@ -327,7 +327,9 @@
     "RS-001",
     "RS-002",
     "VAL-001",
-    "VAL-002"
+    "VAL-002",
+    "IMP-001",
+    "VAL-003"
   ],
   "issues": [
     "ISS-PM-SETUP-001",
@@ -349,6 +351,11 @@
       "status": "active_waiting_for_task_claim",
       "first_claim": "validation-20260913T142211Z-7fd36a",
       "schedule_verified": true
+    },
+    "implementation": {
+      "status": "awaiting_human_instantiation_and_claim",
+      "first_claim": null,
+      "schedule_verified": false
     }
   },
   "pm_schedule": {
@@ -356,7 +363,7 @@
     "status": "ACTIVE",
     "automation_id": "hercules-experiment-pm",
     "destination": "current PM task",
-    "confirmation": "Codex automation tool confirmed resumption after publication approval"
+    "confirmation": "Human explicitly authorized continuation after the checkpoint pause; PM schedule resumed through the Codex automation tool."
   },
   "gates": {
     "golden_ready_for_validation": {
@@ -382,8 +389,14 @@
       ]
     },
     "ready_for_revalidation": {
-      "status": "not_applicable",
-      "evidence": []
+      "status": "blocked",
+      "evidence": [
+        "orchestration/human_checkpoint.md"
+      ],
+      "pending": [
+        "IMP-001 implementation submission",
+        "PM promotion of exact corrected engine, replay, and test pins"
+      ]
     },
     "ready_for_human_checkpoint": {
       "status": "met_failure_checkpoint",
@@ -405,10 +418,24 @@
     }
   ],
   "human_checkpoint": {
-    "status": "awaiting_human_decision",
-    "recommendation": "not_recommended",
+    "status": "remediation_authorized",
+    "recommendation": "scoped_implementation_and_revalidation",
     "decision_packet": "orchestration/human_checkpoint.md",
-    "human_decision_evidence": null,
+    "human_decision_evidence": {
+      "decision": "Authorize a scoped implementation-and-revalidation phase.",
+      "source": "User responses in the PM task on 2026-09-13: 'Oh, yes. I authorize revising the engine then validating' followed, after a temporary wait, by 'OK, you may continue'.",
+      "rule_clarifications": [
+        "Cannot Block applies only when a Labor die starts the turn on that node; entering it during the turn has no immediate effect.",
+        "Healing applies only to the Labor die that moves onto and triggers the healing node."
+      ],
+      "scope": [
+        "ISS-RS-RS-001-002",
+        "ISS-RS-RS-001-003",
+        "ISS-RS-RS-001-004",
+        "ISS-VAL-VAL-001-002",
+        "independent reruns after exact implementation pins are promoted"
+      ]
+    },
     "implementation_spec_generation_authorized": false
   },
   "validation_results": [
@@ -508,6 +535,14 @@
       "type": "failure_checkpoint_reached_with_implementation_scope_required",
       "decision_packet": "orchestration/human_checkpoint.md",
       "recommendation": "not_recommended",
+      "counts_as_worker_validation": false
+    },
+    {
+      "stage": "human_checkpoint_decision",
+      "type": "scoped_implementation_and_revalidation_authorized",
+      "task_released": "IMP-001",
+      "next_validation_task": "VAL-003",
+      "implementation_spec_generation_authorized": false,
       "counts_as_worker_validation": false
     }
   ],

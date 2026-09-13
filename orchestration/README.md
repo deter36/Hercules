@@ -2,7 +2,7 @@
 
 ## Scope and durable context
 
-The [experiment contract](experiment_contract.md) defines the three roles. This
+The [experiment contract](experiment_contract.md) defines the initial three roles. This
 file adapts it to this repository. Read `project_state.json`, `current_manifest.md`,
 your task and its exact input artifacts on every run. Conversation history is not
 an input. Do not generate/finalize an implementation-ready specification before
@@ -13,6 +13,8 @@ Keep coordination here: `tasks/`, `issues/`, `handoffs/`, `validation/`. Keep ca
 at its existing `src/data/raw/` paths. `src/data/generated/` is derived content.
 Only PM edits policy, the current manifest, project gates or human-checkpoint state.
 Rules/Spec owns assigned canonical edits. Validation owns execution evidence and
+reruns. Following the recorded human checkpoint, Implementation owns only the
+engine, replay, and regression changes explicitly listed in its ready task.
 findings, and never silently repairs the inputs it is testing.
 
 ## Authority

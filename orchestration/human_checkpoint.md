@@ -1,7 +1,7 @@
 # Hercules orchestration experiment 1 — human checkpoint
 
-Status: **failure checkpoint; human decision required**  
-Recommendation: **do not generate the final implementation-ready spec yet**
+Status: **remediation authorized; implementation pending**
+Decision: **proceed with scoped implementation and independent revalidation**
 
 ## Starting point
 
@@ -82,3 +82,13 @@ Choose one:
 
 Implementation-spec generation remains unauthorized until the selected decision
 is recorded in the repository.
+
+## Recorded human decision
+
+On 2026-09-13 the human selected option 1 and authorized revising the engine and
+then validating it. After a temporary instruction to wait, the human explicitly
+said to continue. The human also confirmed that Cannot Block is determined by the
+die's position at turn start and that healing affects only the die entering the
+healing node. `IMP-001` is the sole released task; `VAL-003` remains blocked until
+the PM reviews and pins its implementation output. Final implementation-spec
+generation remains unauthorized.

@@ -1,0 +1,40 @@
+{
+  "manifest_revision": "pending_post_implementation_revision",
+  "claim": null,
+  "blocking_issue_ids": [],
+  "handoff_path": null,
+  "pm_review": null,
+  "id": "VAL-003",
+  "role": "validation",
+  "status": "blocked",
+  "objective": "Independently rerun Golden Run 0001 and the constructed Labor VIII scenario against PM-pinned corrected implementation artifacts, including terminal and replay-method assertions.",
+  "dependencies": [
+    "IMP-001 submitted and accepted by PM",
+    "Exact corrected engine, replay, and test artifacts promoted into a new manifest revision"
+  ],
+  "input_artifact_ids": [],
+  "required_additional_inputs": [
+    "IMP-001 structured handoff",
+    "PM-pinned corrected implementation tree IDs",
+    "Unchanged e1-m0004 canonical and scenario inputs"
+  ],
+  "allowed_changes": [
+    "orchestration/validation/VAL-003-*",
+    "orchestration/issues/ISS-VAL-VAL-003-*",
+    "orchestration/handoffs/VAL-003-*",
+    "orchestration/tasks/VAL-003.json"
+  ],
+  "deliverables": [
+    "Fresh Golden and Labor VIII results from complete pinned starts",
+    "Intermediate checkpoint and RNG evidence",
+    "Terminal failed-die verification",
+    "Structured revalidation handoff"
+  ],
+  "acceptance_criteria": [
+    "Verify every promoted input pin before execution.",
+    "Run both scenarios to their specified stop unless the first unsafe divergence requires an earlier stop.",
+    "Verify Cannot Block turn-start behavior, source-local healing, terminal failure identity/status, full expected checkpoints, and reusable replay fail-fast checks.",
+    "Create an issue for every discrepancy and never repair implementation or canon."
+  ],
+  "blocked_reason": "Awaiting IMP-001 submission and PM promotion of exact corrected implementation artifacts."
+}

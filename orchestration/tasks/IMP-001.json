@@ -1,0 +1,65 @@
+{
+  "manifest_revision": "e1-m0004",
+  "claim": null,
+  "blocking_issue_ids": [],
+  "handoff_path": null,
+  "pm_review": {
+    "decision": "released_by_human_authority",
+    "evidence": "The human authorized revising the engine and then validating on 2026-09-13, paused the action temporarily, and then explicitly said to continue.",
+    "scope_limit": "Implementation only. Canonical rules/data and historical evidence are immutable inputs."
+  },
+  "id": "IMP-001",
+  "role": "implementation",
+  "status": "ready",
+  "objective": "Correct the four independently identified engine/replay defects without changing canonical outcomes, and add focused implementation tests suitable for later independent validation.",
+  "dependencies": [
+    "Human checkpoint option 1 recorded",
+    "RS-002 corrected canon pinned in manifest e1-m0004",
+    "VAL-001 and VAL-002 fail investigations accepted"
+  ],
+  "assigned_issue_ids": [
+    "ISS-RS-RS-001-002",
+    "ISS-RS-RS-001-003",
+    "ISS-RS-RS-001-004",
+    "ISS-VAL-VAL-001-002"
+  ],
+  "input_artifact_ids": [
+    "game-data", "data-schema", "rules-spec", "execution-spec",
+    "test-fixtures", "historical-engine", "replay-implementation",
+    "existing-tests", "golden-script", "golden-start-state",
+    "l08-scenario", "val-001-result", "val-001-handoff"
+  ],
+  "allowed_changes": [
+    "src/engine/**",
+    "src/replay/**",
+    "test/**",
+    "orchestration/implementation/IMP-001-*",
+    "orchestration/handoffs/IMP-001-*",
+    "orchestration/tasks/IMP-001.json"
+  ],
+  "forbidden_changes": [
+    "src/data/raw/**", "src/data/generated/**",
+    "orchestration/project_state.json", "orchestration/current_manifest.md",
+    "orchestration/issues/**", "orchestration/validation/VAL-*"
+  ],
+  "requirements": [
+    "Cannot Block is snapshotted from each Labor die's node at turn start and is not changed by entering a Cannot Block node later that turn.",
+    "A healing node affects only the Labor die that entered and triggered it, capped at that die's starting health.",
+    "A terminal failed Labor die retains status active_failure_terminal and the exact failing die identity/state without cleanup or additional RNG.",
+    "The reusable Golden replay consumes and validates every recorded approval/action, checks legal phase and from/to state, asserts intermediate checkpoints, and stops at first divergence rather than relying on final RNG position."
+  ],
+  "deliverables": [
+    "Minimal engine and replay implementation corrections",
+    "Focused tests for all four assigned defects",
+    "Tool-produced test results and exact before/after Git object IDs",
+    "Structured IMP-001 handoff proposing implementation pins for PM review"
+  ],
+  "acceptance_criteria": [
+    "Do not change canonical data, specifications, expected outcomes, recorded choices, or RNG policy to make tests pass.",
+    "Demonstrate failing-before and passing-after behavior for Cannot Block, source-local healing, and terminal status with focused tests.",
+    "Demonstrate replay rejection for skipped approvals, illegal phase/from state, intermediate state divergence, and RNG mismatch.",
+    "Run the relevant existing test suite and report all failures without suppressing or rewriting unrelated expectations.",
+    "Do not declare gameplay validation passed; submit implementation evidence for PM pinning and independent VAL-003 execution."
+  ],
+  "blocked_reason": null
+}

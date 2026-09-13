@@ -7,8 +7,8 @@
   "severity": "S2",
   "blocking": true,
   "blocking_scope": "Generic Cannot Block invariant used by Golden; isolated diagnostic shows a localized loss error",
-  "status": "accepted_deferred_implementation",
-  "owner": "project_manager",
+  "status": "assigned",
+  "owner": "implementation",
   "manifest_revision": "e1-m0001",
   "input_versions": [
     {
@@ -336,7 +336,7 @@
     "orchestration/validation/VAL-001-validation-20260913T152213Z-30ff45-result.json",
     "orchestration/handoffs/VAL-001-validation-20260913T152213Z-30ff45.json"
   ],
-  "verification_task_id": "VAL-002",
+  "verification_task_id": "VAL-003",
   "closure": null,
   "authority_note": "VAL-001 independently reproduced the historical-engine failure. The experiment defines no implementation worker, so engine correction is preserved for the human checkpoint and a later explicitly scoped implementation task. No human rules authority is required."
 }

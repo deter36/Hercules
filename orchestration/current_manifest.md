@@ -29,5 +29,7 @@ validation tasks are accepted fail-fast investigations. `VAL-001` reproduced the
 historical Cannot Block snapshot mutation at Labor IV. `VAL-002` independently
 verified the corrected Labor VIII shared requirement, selected damage, and
 advancement, then reproduced incorrect cross-die healing. The experiment is at
-the failure checkpoint in `orchestration/human_checkpoint.md`; no worker task is
-ready, and implementation-spec generation remains unauthorized.
+the checkpoint recorded in `orchestration/human_checkpoint.md`. The human has now
+authorized scoped engine/replay remediation followed by independent validation.
+`IMP-001` is the sole ready task; `VAL-003` is blocked until PM promotes exact
+implementation pins. Implementation-spec generation remains unauthorized.

@@ -7,8 +7,8 @@
   "severity": "S2",
   "blocking": true,
   "blocking_scope": "Golden terminal canonical state after input 112",
-  "status": "accepted_deferred_implementation",
-  "owner": "project_manager",
+  "status": "assigned",
+  "owner": "implementation",
   "manifest_revision": "e1-m0001",
   "input_versions": [
     {
@@ -339,7 +339,7 @@
     ]
   },
   "resolution_artifacts": [],
-  "verification_task_id": "VAL-001",
+  "verification_task_id": "VAL-003",
   "closure": null,
   "authority_note": "The canonical terminal expectation is source-backed and retained. VAL-001 stopped earlier at the required first divergence, so terminal runtime verification was not reached. Engine correction and rerun require a later explicitly scoped implementation task; no human rules authority is required."
 }
