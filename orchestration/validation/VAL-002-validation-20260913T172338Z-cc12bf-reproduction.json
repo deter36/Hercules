@@ -1,0 +1,15 @@
+{
+  "task_id": "VAL-002",
+  "run_id": "validation-20260913T172338Z-cc12bf",
+  "tested_commit": "20ef2654433cd7dc0b8c77878679f264b1891e34",
+  "command": "node orchestration/validation/VAL-002-validation-20260913T172338Z-cc12bf-runner.mjs --check",
+  "performed": true,
+  "exit_code": 0,
+  "status": "EXACT_MATCH",
+  "evidence_sha256": "0a1b322e28c39f0e763418a6d680582a3d2959f5b63d360443a30b7fa34289f6",
+  "ledger_sha256": "9c01cbe5cebfed68370156415a1825bb54a4ea9b23d72f4ec92c2b95401666e3",
+  "procedure_file_sha256": "512267b70d2e38027125507826b804e67710757a85564328cd43bda9c5827840",
+  "checked": "Every complete state, expected state, observed state, input-consumption status and operation matched. Full RNG state stayed at index 0 with empty ledger.",
+  "files_written_by_check": false,
+  "continuation_after_divergence": false
+}

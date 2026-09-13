@@ -7,8 +7,10 @@
     "expires_at": "2026-09-13T19:23:38.9307953+00:00",
     "remote_commit_read": "3f63cdd10e6dea2b05b549d8c485c5efafe9b8e5"
   },
-  "blocking_issue_ids": [],
-  "handoff_path": null,
+  "blocking_issue_ids": [
+    "ISS-RS-RS-001-002"
+  ],
+  "handoff_path": "orchestration/handoffs/VAL-002-validation-20260913T172338Z-cc12bf.json",
   "pm_review": {
     "decision": "released_after_val_001_disposition",
     "evidence": "VAL-001 was accepted as a successful fail-fast investigation. Manifest e1-m0004 pins the constructed L08 scenario and the exact VAL-001 result and handoff.",
@@ -16,7 +18,7 @@
   },
   "id": "VAL-002",
   "role": "validation",
-  "status": "in_progress",
+  "status": "submitted",
   "objective": "Execute the PM-approved constructed Labor VIII scenario from pinned canonical artifacts, comparing the explicit transition/state interpretation with the historical engine where the assigned method permits.",
   "dependencies": [
     "RS-001 scoped L08 readiness accepted by PM",

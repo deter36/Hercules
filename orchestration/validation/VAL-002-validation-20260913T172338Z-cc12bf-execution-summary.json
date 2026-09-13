@@ -1,0 +1,42 @@
+{
+  "task_id": "VAL-002",
+  "run_id": "validation-20260913T172338Z-cc12bf",
+  "pass_fail": "FAIL",
+  "canonical_contract_checks": 24,
+  "canonical_contract_checks_passed": 24,
+  "pins_matched": 31,
+  "checkpoints": [
+    "after placement",
+    "after damage, before advancement",
+    "after advancement"
+  ],
+  "stop": {
+    "action_seq": 2,
+    "action": {
+      "seq": 2,
+      "command": "RESOLVE_ASSIGNMENTS",
+      "authority": "scripted constructed control",
+      "expected_confirmation": null,
+      "reason": "Unused H4=5 and H5=6 cannot form another 1-2-3 straight; no owned gold abilities."
+    },
+    "code": "CANONICAL_STATE_DIVERGENCE",
+    "detail": [
+      {
+        "path": "/currentLabor/laborDice/labor.L08.A/health",
+        "expected": 5,
+        "observed": 6
+      }
+    ],
+    "operation_index": 6,
+    "operation_label": "Resolve B.n1 healing on source B only, capped at 6",
+    "phase": "IMPACT_RESOLUTION",
+    "spirit": 10,
+    "divinity": 0,
+    "next_rng_event": "0"
+  },
+  "operation_count": 7,
+  "matched_operations": 6,
+  "rng_events": 0,
+  "evidence_sha256": "0a1b322e28c39f0e763418a6d680582a3d2959f5b63d360443a30b7fa34289f6",
+  "ledger_sha256": "9c01cbe5cebfed68370156415a1825bb54a4ea9b23d72f4ec92c2b95401666e3"
+}

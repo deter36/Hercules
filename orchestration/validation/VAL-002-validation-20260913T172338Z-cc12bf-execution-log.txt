@@ -1,0 +1,63 @@
+VAL-002 validation-20260913T172338Z-cc12bf; tested 20ef2654433cd7dc0b8c77878679f264b1891e34; manifest e1-m0004.
+Clean independent checkout, 31 pins/source commits/Git-byte hashes/tree membership verified.
+pnpm install --frozen-lockfile: exit 0. pnpm exec tsc -p tsconfig.json: exit 0. No data generation.
+Node v24.19.0; pnpm 11.19.0; TypeScript 5.9.3.
+Complete fixed start state independently matches the corrected F046 regression context. No RNG initialization/roll/shuffle/draw occurred.
+Expected states are separate assertions from source-backed scope and scenario inputs; they are never substituted into runtime state.
+0: Recorded ASSIGN_ATTACK to A with H1/H2/H3: MATCH
+1: Recorded RESOLVE_ASSIGNMENTS; no unused meaningful set or gold ability: MATCH
+2: Apply the single allocated damage to A only: MATCH
+3: Begin mandatory Labor advancement: MATCH
+4: Advance each active Labor die once along its unique edge: MATCH
+5: Queue A.n1 Spirit loss -3: MATCH
+6: Resolve B.n1 healing on source B only, capped at 6: DIVERGED
+{
+  "task_id": "VAL-002",
+  "run_id": "validation-20260913T172338Z-cc12bf",
+  "pass_fail": "FAIL",
+  "canonical_contract_checks": 24,
+  "canonical_contract_checks_passed": 24,
+  "pins_matched": 31,
+  "checkpoints": [
+    "after placement",
+    "after damage, before advancement",
+    "after advancement"
+  ],
+  "stop": {
+    "action_seq": 2,
+    "action": {
+      "seq": 2,
+      "command": "RESOLVE_ASSIGNMENTS",
+      "authority": "scripted constructed control",
+      "expected_confirmation": null,
+      "reason": "Unused H4=5 and H5=6 cannot form another 1-2-3 straight; no owned gold abilities."
+    },
+    "code": "CANONICAL_STATE_DIVERGENCE",
+    "detail": [
+      {
+        "path": "/currentLabor/laborDice/labor.L08.A/health",
+        "expected": 5,
+        "observed": 6
+      }
+    ],
+    "operation_index": 6,
+    "operation_label": "Resolve B.n1 healing on source B only, capped at 6",
+    "phase": "IMPACT_RESOLUTION",
+    "spirit": 10,
+    "divinity": 0,
+    "next_rng_event": "0"
+  },
+  "operation_count": 7,
+  "matched_operations": 6,
+  "rng_events": 0,
+  "evidence_sha256": "0a1b322e28c39f0e763418a6d680582a3d2959f5b63d360443a30b7fa34289f6",
+  "ledger_sha256": "9c01cbe5cebfed68370156415a1825bb54a4ea9b23d72f4ec92c2b95401666e3"
+}
+
+Reproduction: node orchestration/validation/VAL-002-validation-20260913T172338Z-cc12bf-runner.mjs --check
+Exit 0: EXACT_MATCH for full states, inputs, operations and zero-RNG ledger; no files written.
+Evidence SHA256 (compact serialization): 0a1b322e28c39f0e763418a6d680582a3d2959f5b63d360443a30b7fa34289f6
+Ledger SHA256 (compact serialization): 9c01cbe5cebfed68370156415a1825bb54a4ea9b23d72f4ec92c2b95401666e3
+Direct rulebook read: pypdf extraction of complete pages 8, 12, 13 and 17 confirms attack-result damage, fixed 1/2/3 straight, player allocation and triggering-die healing cap.
+Full post-impact resource settlement and cleanup NOT_REACHED. Stopped at Spirit 10, Divinity 0, queued Spirit -3.
+Fresh remote claim/input commit verified: 20ef2654433cd7dc0b8c77878679f264b1891e34; lease unexpired.

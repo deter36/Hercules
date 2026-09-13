@@ -1,0 +1,22 @@
+{
+  "task_id": "VAL-002",
+  "run_id": "validation-20260913T172338Z-cc12bf",
+  "algorithm": "SHA256_COUNTER_V1",
+  "policy": "HERC-RNG-v3",
+  "seed": "RS-001-L08-FIXED",
+  "mode": "zero_rng_boundary",
+  "start_index": 0,
+  "end_index": 0,
+  "events": [],
+  "orphaned_ranges": [],
+  "fixed_faces_are_random_outcomes": false,
+  "random_operations_performed": 0,
+  "full_rng_unchanged": true,
+  "forbidden_operations": [
+    "roll",
+    "reroll",
+    "shuffle",
+    "draw",
+    "Labor transition"
+  ]
+}
