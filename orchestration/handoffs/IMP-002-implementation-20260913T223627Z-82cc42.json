@@ -1,0 +1,37 @@
+{
+  "task_id": "IMP-002",
+  "run_id": "implementation-20260913T223627Z-82cc42",
+  "role": "implementation",
+  "status": "submitted",
+  "manifest_revision": "e1-m0004",
+  "inputs": [
+    {"id":"game-data","path":"src/data/raw/GAME_DATA_v4.json","kind":"blob","git_object":"9407bd9cb58eae1d8cd7a1495a65275e3ef644e1","source_commit":"6bffa094431d84429ed93339d48f839bcc5a2302","sha256_git_bytes":"b32c1e902d200e25e59d475c9453c97e4687603aaecf3f948250fe1bec844ac4"},
+    {"id":"rules-spec","path":"src/data/raw/GAME_RULES_SPEC.md","kind":"blob","git_object":"07cea77200d58483e39eed0d702efd022dc840a0","source_commit":"6bffa094431d84429ed93339d48f839bcc5a2302","sha256_git_bytes":"34ddfe22914b78e6e479e236e5e063b962839efccc88ae93b508230b10f51893"},
+    {"id":"test-fixtures","path":"src/data/raw/TEST_FIXTURES_v4.json","kind":"blob","git_object":"cadae99fd2c7205d29f17375a36bc70df3e629b3","source_commit":"6bffa094431d84429ed93339d48f839bcc5a2302","sha256_git_bytes":"31459edf0c79ad29bfe3a02b40a4b4a7ec1b6676ed11b7e4f69b7fa14439d14e"},
+    {"id":"historical-engine","path":"src/engine","kind":"tree","git_object":"dac7a33b4fea961c4ba10fed79eda3da5f719211","source_commit":"70b33a0e81c63c5317550bb81da4b9799b02a91b","current_candidate_git_object":"8b39d43a90b71729d56b45fa03aaf6cd357e5e9e"},
+    {"id":"existing-tests","path":"test","kind":"tree","git_object":"953f11900a4467a8f7807b5b437c677f3b12ea22","source_commit":"70b33a0e81c63c5317550bb81da4b9799b02a91b","current_candidate_git_object":"3a28f763dab57c5a2a8261eee31f61f0613b1642"},
+    {"id":"imp-001-handoff","path":"orchestration/handoffs/IMP-001-implementation-20260913T213517Z-b680db.json","kind":"blob","git_object":"09e257c948952535287fddc6383f6bdf7bd27705","source_commit":"f474d66249edf96f209257b0a9418990cdb3edf0"},
+    {"id":"imp-001-test-results","path":"orchestration/implementation/IMP-001-implementation-20260913T213517Z-b680db-test-results.json","kind":"blob","git_object":"13bc8abc02ad4fa6897482f30e92909f64b075d4","source_commit":"f474d66249edf96f209257b0a9418990cdb3edf0"}
+  ],
+  "changed_artifacts": [
+    {"path":"test/engine/api.test.ts","kind":"blob","before_git_object":"7729c3c9397be14f4ff986d889f99cef2316adc5","after_git_object":"979ca9728188f7b25f201d1501c907b38c76d71c"},
+    {"path":"test","kind":"tree","before_git_object":"3a28f763dab57c5a2a8261eee31f61f0613b1642","after_git_object":"120159a44de8b10b6d2993cbfcaa8e4843649bed"}
+  ],
+  "unchanged_candidate_artifacts": [
+    {"path":"src/engine","git_object":"8b39d43a90b71729d56b45fa03aaf6cd357e5e9e"},
+    {"path":"src/replay","git_object":"c287d247e4bb2b550aabc77bc29074772319d5e3"},
+    {"path":"src/data/generated","git_object":"a9238f5f4600fd0f5d7ad5f27590bf8833734605"},
+    {"path":"test/implementation","git_object":"4cf56c56548d65a83242853ff0899d11ba126f2a"},
+    {"path":"test/rng","git_object":"9d31c75f563eb0e9ab3fe89a1ded6d07d65a27ba"}
+  ],
+  "issue_ids": ["ISS-PM-IMP-001-001"],
+  "issue_dispositions": [{"issue_id":"ISS-PM-IMP-001-001","proposal":"resolution_submitted","evidence":"The sole stale display assertion now matches selected-target wording and pnpm test passes 90/90."}],
+  "decisions": ["Removed only the superseded all-active-target suffix from the two Labor VIII display expectations."],
+  "authority_refs": ["orchestration/tasks/IMP-002.json","orchestration/issues/ISS-PM-IMP-001-001.json","orchestration/handoffs/IMP-001-implementation-20260913T213517Z-b680db.json"],
+  "assumptions": [],
+  "unresolved_items": [],
+  "deliverable_paths": ["test/engine/api.test.ts","orchestration/implementation/IMP-002-implementation-20260913T223627Z-82cc42-test-results.json","orchestration/handoffs/IMP-002-implementation-20260913T223627Z-82cc42.json","orchestration/tasks/IMP-002.json"],
+  "validation_required": "PM must verify and promote the exact engine, replay, and updated test pins before releasing independent VAL-003. This submission does not declare gameplay validation passed.",
+  "regression_implications": ["Complete implementation suite now passes 90/90.","Independent VAL-003 remains required for Golden and Labor VIII gameplay revalidation."],
+  "recommended_next_action": "PM verify this containing commit, promote the exact accepted implementation and test objects in a new manifest revision, resolve ISS-PM-IMP-001-001 as supported, and release VAL-003."
+}

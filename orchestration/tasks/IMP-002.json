@@ -8,7 +8,7 @@
     "remote_commit_read": "4091949ef9fd6b11d34941448e65a7810dd4f8b8"
   },
   "blocking_issue_ids": [],
-  "handoff_path": null,
+  "handoff_path": "orchestration/handoffs/IMP-002-implementation-20260913T223627Z-82cc42.json",
   "pm_review": {
     "decision": "released_after_imp_001_review",
     "evidence": "IMP-001 focused corrections passed 17/17 tests, but the complete suite retained one superseded Labor VIII all-target display expectation.",
@@ -16,7 +16,7 @@
   },
   "id": "IMP-002",
   "role": "implementation",
-  "status": "in_progress",
+  "status": "submitted",
   "objective": "Align the historical API display test with the already corrected and independently confirmed Labor VIII selected-target semantics, then demonstrate a clean complete suite.",
   "dependencies": [
     "IMP-001 candidate accepted by PM",

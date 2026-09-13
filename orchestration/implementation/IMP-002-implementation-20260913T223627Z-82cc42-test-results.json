@@ -1,0 +1,53 @@
+{
+  "task_id": "IMP-002",
+  "run_id": "implementation-20260913T223627Z-82cc42",
+  "manifest_revision": "e1-m0004",
+  "tested_claim_commit": "997a4e21d413d751d1617334f062576b76ae3bf9",
+  "runtime": {
+    "node": "v24.19.0",
+    "pnpm": "11.19.0",
+    "typescript": "5.9.3",
+    "git": "2.54.0.windows.1"
+  },
+  "input_verification": {
+    "manifest_pins_matched_at_source": 5,
+    "accepted_imp_001_candidate": {
+      "engine_tree": "8b39d43a90b71729d56b45fa03aaf6cd357e5e9e",
+      "replay_tree": "c287d247e4bb2b550aabc77bc29074772319d5e3",
+      "test_tree": "3a28f763dab57c5a2a8261eee31f61f0613b1642",
+      "matched_imp_001_handoff": true
+    },
+    "required_additional_inputs": {
+      "orchestration/handoffs/IMP-001-implementation-20260913T213517Z-b680db.json": "09e257c948952535287fddc6383f6bdf7bd27705",
+      "orchestration/implementation/IMP-001-implementation-20260913T213517Z-b680db-test-results.json": "13bc8abc02ad4fa6897482f30e92909f64b075d4"
+    }
+  },
+  "change": {
+    "path": "test/engine/api.test.ts",
+    "before_git_object": "7729c3c9397be14f4ff986d889f99cef2316adc5",
+    "after_git_object": "979ca9728188f7b25f201d1501c907b38c76d71c",
+    "before_expectation": ["fixed 1-2-3 straight · hits every active Labor die", "fixed 1-2-3 straight · hits every active Labor die"],
+    "after_expectation": ["fixed 1-2-3 straight", "fixed 1-2-3 straight"]
+  },
+  "complete_suite": {
+    "command": "pnpm test",
+    "exit_code": 0,
+    "build": "PASS",
+    "tests": 90,
+    "passed": 90,
+    "failed": 0,
+    "duration_ms": 31000.3798,
+    "data_content_hash": "35c222d502f747272c0a16a43e9756449001f72d60a29da99237d8fc2fad35b9"
+  },
+  "scope_check": {
+    "implementation_changed": false,
+    "canonical_raw_changed": false,
+    "canonical_generated_changed": false,
+    "imp_001_focused_tests_changed": false,
+    "rng_tests_changed": false,
+    "pm_state_changed": false,
+    "issues_changed": false,
+    "validation_evidence_changed": false
+  },
+  "validation_claim": "No gameplay validation is declared. This is complete-suite implementation evidence for PM promotion and independent VAL-003."
+}
