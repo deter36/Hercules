@@ -2,7 +2,7 @@
   "task_id": "PM-SETUP",
   "run_id": "PM-SETUP-20260913",
   "role": "project_manager",
-  "status": "prepared",
+  "status": "prepared_publication_blocked",
   "manifest_revision": "e1-m0001",
   "baseline_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
   "decisions": [
@@ -40,9 +40,10 @@
   "unresolved_items": [
     "Exact historical export timestamps for recovered external sources are not independently established.",
     "Worker source/authority review and L08 constructed preconditions remain pending.",
-    "ISS-PM-SETUP-001: 12 of 13 legacy checksum entries match; GAME_DATA_v4 does not. Routed to Rules/Spec without changing canon."
+    "ISS-PM-SETUP-001: 12 of 13 legacy checksum entries match; GAME_DATA_v4 does not. Routed to Rules/Spec without changing canon.",
+    "Public publication explicitly blocked by automatic approval review; local setup complete, PM schedule paused, no workers started."
   ],
-  "recommended_next_action": "Human instantiates the two workers using repository onboarding; Rules/Spec claims RS-001; PM reviews its handoff on scheduled passes.",
+  "recommended_next_action": "Obtain explicit publication approval for this public payload or a private destination; publish and verify remote branch, resume PM schedule, ready RS-001, then human instantiates workers.",
   "inputs": [
     {
       "path": "orchestration/project_state.json",
@@ -58,7 +59,8 @@
     "src/data/raw/sources/"
   ],
   "issue_ids": [
-    "ISS-PM-SETUP-001"
+    "ISS-PM-SETUP-001",
+    "ISS-PM-SETUP-002"
   ],
   "issue_dispositions": [
     {
@@ -66,6 +68,12 @@
       "status": "assigned",
       "owner": "rules_spec",
       "disposition": null
+    },
+    {
+      "id": "ISS-PM-SETUP-002",
+      "status": "human_review_required",
+      "owner": "project_manager",
+      "disposition": "human_escalation"
     }
   ],
   "authority_refs": [
@@ -80,9 +88,9 @@
   ],
   "pm_schedule": {
     "cadence": "hourly",
-    "status": "ACTIVE",
+    "status": "PAUSED",
     "automation_id": "hercules-experiment-pm",
     "destination": "current PM task",
-    "confirmation": "Codex automation tool confirmed creation"
+    "confirmation": "Codex automation tool confirmed pause pending public-publication approval"
   }
 }

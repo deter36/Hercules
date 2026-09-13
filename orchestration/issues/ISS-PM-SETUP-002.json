@@ -1,0 +1,37 @@
+{
+  "id": "ISS-PM-SETUP-002",
+  "task_id": "PM-SETUP",
+  "run_id": "PM-SETUP-20260913",
+  "category": "coordination_infrastructure",
+  "origin": "automatic_approval_review",
+  "severity": "S1",
+  "blocking": true,
+  "status": "human_review_required",
+  "owner": "project_manager",
+  "manifest_revision": "e1-m0001",
+  "input_versions": [
+    {
+      "commit": "6c2315a5feb1c61089ad3870c5a690a3224ce404"
+    }
+  ],
+  "affected_artifacts": [
+    "experiment branch publication",
+    "PM hourly schedule"
+  ],
+  "evidence": {
+    "expected": "Publish the prepared experiment branch to existing GitHub repository.",
+    "observed": "git push was rejected before execution by automatic approval review.",
+    "reason": "The payload includes local orchestration materials and copied source documents; explicit permission to expose that specific payload to the public GitHub destination was not established.",
+    "source_refs": [
+      "automatic approval review of git push --set-upstream origin codex/hercules-orchestration-e1"
+    ]
+  },
+  "canonical_update_required": false,
+  "regression_required": false,
+  "human_authority_required": true,
+  "disposition": "human_escalation",
+  "resolution_artifacts": [],
+  "verification_task_id": null,
+  "closure": null,
+  "resolution_needed": "User explicitly approves publishing this branch including recovered rulebook, gameplay reference, RNG spec and orchestration instructions to the public repository, or directs an appropriate private destination. After approval publish, verify remote commit, then resume PM schedule and ready RS-001."
+}

@@ -2,7 +2,8 @@
 
 No game-validation findings have been produced by the workers yet. PM setup
 found `ISS-PM-SETUP-001`, a historical package checksum mismatch assigned to
-Rules/Spec. Setup checks do not count as an independent validation pass. Store
+Rules/Spec, and `ISS-PM-SETUP-002`, a public-publication approval block. Setup
+checks do not count as an independent validation pass. Store
 each finding as JSON using this shape; replace example nulls with evidence before
 submission.
 

@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "experiment_id": "HERC-ORCH-E1",
-  "phase": "prepared",
-  "updated_at": "2026-09-13T04:53:35.962261+00:00",
+  "phase": "blocked",
+  "updated_at": "2026-09-13T04:58:06.854712+00:00",
   "repository": "https://github.com/deter36/Hercules",
   "branch": "codex/hercules-orchestration-e1",
   "baseline_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
@@ -275,7 +275,8 @@
     "VAL-002"
   ],
   "issues": [
-    "ISS-PM-SETUP-001"
+    "ISS-PM-SETUP-001",
+    "ISS-PM-SETUP-002"
   ],
   "workers": {
     "rules_spec": {
@@ -291,10 +292,10 @@
   },
   "pm_schedule": {
     "cadence": "hourly",
-    "status": "ACTIVE",
+    "status": "PAUSED",
     "automation_id": "hercules-experiment-pm",
     "destination": "current PM task",
-    "confirmation": "Codex automation tool confirmed creation"
+    "confirmation": "Codex automation tool confirmed pause pending public-publication approval"
   },
   "gates": {
     "golden_ready_for_validation": {
@@ -346,5 +347,19 @@
     "implementation_spec_generation_authorized": false
   },
   "validation_results": [],
-  "experiment_observations": []
+  "experiment_observations": [
+    {
+      "stage": "setup_preflight",
+      "type": "publication_approval_block",
+      "issue_id": "ISS-PM-SETUP-002",
+      "counts_as_worker_validation": false
+    }
+  ],
+  "publication": {
+    "status": "blocked_by_automatic_approval_review",
+    "destination_visibility": "public",
+    "prepared_commit": "6c2315a5feb1c61089ad3870c5a690a3224ce404",
+    "approval_required": "Explicit permission to publish orchestration materials and copied local rulebook/gameplay-reference/RNG sources to deter36/Hercules.",
+    "remote_branch_created": false
+  }
 }

@@ -119,6 +119,8 @@ Use `ISS-<role>-<task>-<NNN>` for new issue IDs; find existing same-cause issues
 before opening a duplicate. Classify as `source_data_defect`, `state_schema_gap`,
 `execution_spec_defect`, `missing_ambiguous_rule`, `execution_agent_error`,
 `rng_replay_problem`, `display_interaction_issue`, or `product_ux_issue`.
+Use `coordination_infrastructure` for operational publication/scheduling failures;
+these are not game-rule findings.
 For engine implementation defects use `execution_agent_error` with
 `origin=historical_engine`; distinguish these from validator execution mistakes.
 
@@ -213,6 +215,8 @@ the experiment; do not quietly repair the evidence away. Coordination stays in
 Git. Do not invoke, message or delegate to another agent directly.
 
 The PM checks hourly. Worker startup prompts describe independent hourly passes.
+The current schedule status is in `project_state.json`; a publication/operational
+block pauses scheduled work and prevents worker claims until resolved.
 The human instantiates the two worker tasks after setup, as specified by the
 experiment contract. A worker's first pushed claim proves it exists; a schedule
 must not be marked active without tool/UI confirmation. Keep the local machine
