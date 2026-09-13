@@ -1,0 +1,2176 @@
+{
+  "task_id": "VAL-001",
+  "run_id": "validation-20260913T152213Z-30ff45",
+  "algorithm": "SHA256_COUNTER_V1",
+  "policy": "HERC-RNG-v3",
+  "seed": "HERC-GOLDEN-RUN-0001",
+  "start_index": 0,
+  "end_index": 101,
+  "expected_end_index": 174,
+  "events": [
+    {
+      "eventIndex": "0",
+      "purpose": "setup_mood_shuffle:swap_i=8",
+      "attempt": 0,
+      "raw64": "15104737069758500505",
+      "result": {
+        "i": 8,
+        "j": 6,
+        "bound": 9
+      },
+      "status": "committed"
+    },
+    {
+      "eventIndex": "1",
+      "purpose": "setup_mood_shuffle:swap_i=7",
+      "attempt": 0,
+      "raw64": "910760281268162670",
+      "result": {
+        "i": 7,
+        "j": 6,
+        "bound": 8
+      },
+      "status": "committed"
+    },
+    {
+      "eventIndex": "2",
+      "purpose": "setup_mood_shuffle:swap_i=6",
+      "attempt": 0,
+      "raw64": "18320071744433060810",
+      "result": {
+        "i": 6,
+        "j": 5,
+        "bound": 7
+      },
+      "status": "committed"
+    },
+    {
+      "eventIndex": "3",
+      "purpose": "setup_mood_shuffle:swap_i=5",
+      "attempt": 0,
+      "raw64": "3062297280379293275",
+      "result": {
+        "i": 5,
+        "j": 5,
+        "bound": 6
+      },
+      "status": "committed"
+    },
+    {
+      "eventIndex": "4",
+      "purpose": "setup_mood_shuffle:swap_i=4",
+      "attempt": 0,
+      "raw64": "15330511226994222968",
+      "result": {
+        "i": 4,
+        "j": 3,
+        "bound": 5
+      },
+      "status": "committed"
+    },
+    {
+      "eventIndex": "5",
+      "purpose": "setup_mood_shuffle:swap_i=3",
+      "attempt": 0,
+      "raw64": "5102270399262715879",
+      "result": {
+        "i": 3,
+        "j": 3,
+        "bound": 4
+      },
+      "status": "committed"
+    },
+    {
+      "eventIndex": "6",
+      "purpose": "setup_mood_shuffle:swap_i=2",
+      "attempt": 0,
+      "raw64": "4516965462110952376",
+      "result": {
+        "i": 2,
+        "j": 1,
+        "bound": 3
+      },
+      "status": "committed"
+    },
+    {
+      "eventIndex": "7",
+      "purpose": "setup_mood_shuffle:swap_i=1",
+      "attempt": 0,
+      "raw64": "18353318331086443089",
+      "result": {
+        "i": 1,
+        "j": 1,
+        "bound": 2
+      },
+      "status": "committed"
+    },
+    {
+      "eventIndex": "8",
+      "purpose": "labor1:roll1:H1",
+      "attempt": 0,
+      "raw64": "2012768195517436764",
+      "result": 1,
+      "status": "committed"
+    },
+    {
+      "eventIndex": "9",
+      "purpose": "labor1:roll1:H2",
+      "attempt": 0,
+      "raw64": "11524712400063872820",
+      "result": 1,
+      "status": "committed"
+    },
+    {
+      "eventIndex": "10",
+      "purpose": "labor1:roll1:H3",
+      "attempt": 0,
+      "raw64": "4454691218872821287",
+      "result": 6,
+      "status": "committed"
+    },
+    {
+      "eventIndex": "11",
+      "purpose": "labor1:roll1:H4",
+      "attempt": 0,
+      "raw64": "995309618101599779",
+      "result": 6,
+      "status": "committed"
+    },
+    {
+      "eventIndex": "12",
+      "purpose": "labor1:roll1:H5",
+      "attempt": 0,
+      "raw64": "6247760525954771922",
+      "result": 1,
+      "status": "committed"
+    },
+    {
+      "eventIndex": "13",
+      "purpose": "labor1:roll2:H1",
+      "attempt": 0,
+      "raw64": "1084219484235271072",
+      "result": 5,
+      "status": "committed"
+    },
+    {
+      "eventIndex": "14",
+      "purpose": "labor1:roll2:H2",
+      "attempt": 0,
+      "raw64": "1453391893470598015",
+      "result": 2,
+      "status": "committed"
+    },
+    {
+      "eventIndex": "15",
+      "purpose": "labor1:roll2:H3",
+      "attempt": 0,
+      "raw64": "13351481195047262777",
+      "result": 6,
+      "status": "committed"
+    },
+    {
+      "eventIndex": "16",
+      "purpose": "labor1:roll2:H4",
+      "attempt": 0,
+      "raw64": "7688910047240712063",
+      "result": 4,
+      "status": "committed"
+    },
+    {
+      "eventIndex": "17",
+      "purpose": "labor1:roll2:H5",
+      "attempt": 0,
+      "raw64": "16808404717663675559",
+      "result": 6,
+      "status": "committed"
+    },
+    {
+      "eventIndex": "18",
+      "purpose": null,
+      "attempt": null,
+      "raw64": null,
+      "result": null,
+      "status": "orphaned_execution_error",
+      "error": "Events were displayed as a Labor I transition shuffle without actual HERC-RNG computation. Golden-run reconciliation permanently abandoned these indices and resumed at event 26."
+    },
+    {
+      "eventIndex": "19",
+      "purpose": null,
+      "attempt": null,
+      "raw64": null,
+      "result": null,
+      "status": "orphaned_execution_error",
+      "error": "Events were displayed as a Labor I transition shuffle without actual HERC-RNG computation. Golden-run reconciliation permanently abandoned these indices and resumed at event 26."
+    },
+    {
+      "eventIndex": "20",
+      "purpose": null,
+      "attempt": null,
+      "raw64": null,
+      "result": null,
+      "status": "orphaned_execution_error",
+      "error": "Events were displayed as a Labor I transition shuffle without actual HERC-RNG computation. Golden-run reconciliation permanently abandoned these indices and resumed at event 26."
+    },
+    {
+      "eventIndex": "21",
+      "purpose": null,
+      "attempt": null,
+      "raw64": null,
+      "result": null,
+      "status": "orphaned_execution_error",
+      "error": "Events were displayed as a Labor I transition shuffle without actual HERC-RNG computation. Golden-run reconciliation permanently abandoned these indices and resumed at event 26."
+    },
+    {
+      "eventIndex": "22",
+      "purpose": null,
+      "attempt": null,
+      "raw64": null,
+      "result": null,
+      "status": "orphaned_execution_error",
+      "error": "Events were displayed as a Labor I transition shuffle without actual HERC-RNG computation. Golden-run reconciliation permanently abandoned these indices and resumed at event 26."
+    },
+    {
+      "eventIndex": "23",
+      "purpose": null,
+      "attempt": null,
+      "raw64": null,
+      "result": null,
+      "status": "orphaned_execution_error",
+      "error": "Events were displayed as a Labor I transition shuffle without actual HERC-RNG computation. Golden-run reconciliation permanently abandoned these indices and resumed at event 26."
+    },
+    {
+      "eventIndex": "24",
+      "purpose": null,
+      "attempt": null,
+      "raw64": null,
+      "result": null,
+      "status": "orphaned_execution_error",
+      "error": "Events were displayed as a Labor I transition shuffle without actual HERC-RNG computation. Golden-run reconciliation permanently abandoned these indices and resumed at event 26."
+    },
+    {
+      "eventIndex": "25",
+      "purpose": null,
+      "attempt": null,
+      "raw64": null,
+      "result": null,
+      "status": "orphaned_execution_error",
+      "error": "Events were displayed as a Labor I transition shuffle without actual HERC-RNG computation. Golden-run reconciliation permanently abandoned these indices and resumed at event 26."
+    },
+    {
+      "eventIndex": "26",
+      "purpose": "labor1:end_mood_shuffle:swap_i=8",
+      "attempt": 0,
+      "raw64": "1091339679190340528",
+      "result": {
+        "i": 8,
+        "j": 8,
+        "bound": 9
+      },
+      "status": "committed"
+    },
+    {
+      "eventIndex": "27",
+      "purpose": "labor1:end_mood_shuffle:swap_i=7",
+      "attempt": 0,
+      "raw64": "17303317307607359401",
+      "result": {
+        "i": 7,
+        "j": 1,
+        "bound": 8
+      },
+      "status": "committed"
+    },
+    {
+      "eventIndex": "28",
+      "purpose": "labor1:end_mood_shuffle:swap_i=6",
+      "attempt": 0,
+      "raw64": "6623255608142975391",
+      "result": {
+        "i": 6,
+        "j": 2,
+        "bound": 7
+      },
+      "status": "committed"
+    },
+    {
+      "eventIndex": "29",
+      "purpose": "labor1:end_mood_shuffle:swap_i=5",
+      "attempt": 0,
+      "raw64": "16597953553971495519",
+      "result": {
+        "i": 5,
+        "j": 3,
+        "bound": 6
+      },
+      "status": "committed"
+    },
+    {
+      "eventIndex": "30",
+      "purpose": "labor1:end_mood_shuffle:swap_i=4",
+      "attempt": 0,
+      "raw64": "15227978920440525888",
+      "result": {
+        "i": 4,
+        "j": 3,
+        "bound": 5
+      },
+      "status": "committed"
+    },
+    {
+      "eventIndex": "31",
+      "purpose": "labor1:end_mood_shuffle:swap_i=3",
+      "attempt": 0,
+      "raw64": "15006710303375183154",
+      "result": {
+        "i": 3,
+        "j": 2,
+        "bound": 4
+      },
+      "status": "committed"
+    },
+    {
+      "eventIndex": "32",
+      "purpose": "labor1:end_mood_shuffle:swap_i=2",
+      "attempt": 0,
+      "raw64": "2798466971804740211",
+      "result": {
+        "i": 2,
+        "j": 2,
+        "bound": 3
+      },
+      "status": "committed"
+    },
+    {
+      "eventIndex": "33",
+      "purpose": "labor1:end_mood_shuffle:swap_i=1",
+      "attempt": 0,
+      "raw64": "8184840572884556036",
+      "result": {
+        "i": 1,
+        "j": 0,
+        "bound": 2
+      },
+      "status": "committed"
+    },
+    {
+      "eventIndex": "34",
+      "purpose": "labor2:roll1:H1",
+      "attempt": 0,
+      "raw64": "3765295254815936164",
+      "result": 5,
+      "status": "committed"
+    },
+    {
+      "eventIndex": "35",
+      "purpose": "labor2:roll1:H2",
+      "attempt": 0,
+      "raw64": "83836526291685924",
+      "result": 1,
+      "status": "committed"
+    },
+    {
+      "eventIndex": "36",
+      "purpose": "labor2:roll1:H3",
+      "attempt": 0,
+      "raw64": "9932077282684107267",
+      "result": 4,
+      "status": "committed"
+    },
+    {
+      "eventIndex": "37",
+      "purpose": "labor2:roll1:H4",
+      "attempt": 0,
+      "raw64": "12571172227568380748",
+      "result": 3,
+      "status": "committed"
+    },
+    {
+      "eventIndex": "38",
+      "purpose": "labor2:roll1:H5",
+      "attempt": 0,
+      "raw64": "8778884896817108369",
+      "result": 6,
+      "status": "committed"
+    },
+    {
+      "eventIndex": "39",
+      "purpose": "labor2:roll2:H1",
+      "attempt": 0,
+      "raw64": "3794546984165449984",
+      "result": 5,
+      "status": "committed"
+    },
+    {
+      "eventIndex": "40",
+      "purpose": "labor2:roll2:H2",
+      "attempt": 0,
+      "raw64": "3579932484224442322",
+      "result": 5,
+      "status": "committed"
+    },
+    {
+      "eventIndex": "41",
+      "purpose": "labor2:roll2:H3",
+      "attempt": 0,
+      "raw64": "7047003861928725125",
+      "result": 6,
+      "status": "committed"
+    },
+    {
+      "eventIndex": "42",
+      "purpose": "labor2:roll2:H4",
+      "attempt": 0,
+      "raw64": "9462587903560978289",
+      "result": 6,
+      "status": "committed"
+    },
+    {
+      "eventIndex": "43",
+      "purpose": "labor2:roll2:H5",
+      "attempt": 0,
+      "raw64": "16963710614298169064",
+      "result": 3,
+      "status": "committed"
+    },
+    {
+      "eventIndex": "44",
+      "purpose": "labor2:end_mood_shuffle:swap_i=8",
+      "attempt": 0,
+      "raw64": "10419977111578867658",
+      "result": {
+        "i": 8,
+        "j": 2,
+        "bound": 9
+      },
+      "status": "committed"
+    },
+    {
+      "eventIndex": "45",
+      "purpose": "labor2:end_mood_shuffle:swap_i=7",
+      "attempt": 0,
+      "raw64": "1539163255775632851",
+      "result": {
+        "i": 7,
+        "j": 3,
+        "bound": 8
+      },
+      "status": "committed"
+    },
+    {
+      "eventIndex": "46",
+      "purpose": "labor2:end_mood_shuffle:swap_i=6",
+      "attempt": 0,
+      "raw64": "14486539428366657669",
+      "result": {
+        "i": 6,
+        "j": 3,
+        "bound": 7
+      },
+      "status": "committed"
+    },
+    {
+      "eventIndex": "47",
+      "purpose": "labor2:end_mood_shuffle:swap_i=5",
+      "attempt": 0,
+      "raw64": "5457549619066547973",
+      "result": {
+        "i": 5,
+        "j": 3,
+        "bound": 6
+      },
+      "status": "committed"
+    },
+    {
+      "eventIndex": "48",
+      "purpose": "labor2:end_mood_shuffle:swap_i=4",
+      "attempt": 0,
+      "raw64": "11946214851690199675",
+      "result": {
+        "i": 4,
+        "j": 0,
+        "bound": 5
+      },
+      "status": "committed"
+    },
+    {
+      "eventIndex": "49",
+      "purpose": "labor2:end_mood_shuffle:swap_i=3",
+      "attempt": 0,
+      "raw64": "9061762787200172984",
+      "result": {
+        "i": 3,
+        "j": 0,
+        "bound": 4
+      },
+      "status": "committed"
+    },
+    {
+      "eventIndex": "50",
+      "purpose": "labor2:end_mood_shuffle:swap_i=2",
+      "attempt": 0,
+      "raw64": "8991110441788933149",
+      "result": {
+        "i": 2,
+        "j": 0,
+        "bound": 3
+      },
+      "status": "committed"
+    },
+    {
+      "eventIndex": "51",
+      "purpose": "labor2:end_mood_shuffle:swap_i=1",
+      "attempt": 0,
+      "raw64": "15917694736275090949",
+      "result": {
+        "i": 1,
+        "j": 1,
+        "bound": 2
+      },
+      "status": "committed"
+    },
+    {
+      "eventIndex": "52",
+      "purpose": "labor3:roll1:H1",
+      "attempt": 0,
+      "raw64": "286920677336263568",
+      "result": 3,
+      "status": "committed"
+    },
+    {
+      "eventIndex": "53",
+      "purpose": "labor3:roll1:H2",
+      "attempt": 0,
+      "raw64": "14975412801826793216",
+      "result": 3,
+      "status": "committed"
+    },
+    {
+      "eventIndex": "54",
+      "purpose": "labor3:roll1:H3",
+      "attempt": 0,
+      "raw64": "14116919877617076649",
+      "result": 2,
+      "status": "committed"
+    },
+    {
+      "eventIndex": "55",
+      "purpose": "labor3:roll1:H4",
+      "attempt": 0,
+      "raw64": "5504742801695337749",
+      "result": 6,
+      "status": "committed"
+    },
+    {
+      "eventIndex": "56",
+      "purpose": "labor3:roll1:H5",
+      "attempt": 0,
+      "raw64": "5533508488918074385",
+      "result": 2,
+      "status": "committed"
+    },
+    {
+      "eventIndex": "57",
+      "purpose": "labor3:roll1:H6",
+      "attempt": 0,
+      "raw64": "15811255636985828372",
+      "result": 3,
+      "status": "committed"
+    },
+    {
+      "eventIndex": "58",
+      "purpose": "labor3:roll2:H1",
+      "attempt": 0,
+      "raw64": "13106210159245917350",
+      "result": 3,
+      "status": "committed"
+    },
+    {
+      "eventIndex": "59",
+      "purpose": "labor3:roll2:H2",
+      "attempt": 0,
+      "raw64": "4295642045721083933",
+      "result": 6,
+      "status": "committed"
+    },
+    {
+      "eventIndex": "60",
+      "purpose": "labor3:roll2:H3",
+      "attempt": 0,
+      "raw64": "14891688997740469187",
+      "result": 6,
+      "status": "committed"
+    },
+    {
+      "eventIndex": "61",
+      "purpose": "labor3:roll2:H4",
+      "attempt": 0,
+      "raw64": "2745276644687766195",
+      "result": 4,
+      "status": "committed"
+    },
+    {
+      "eventIndex": "62",
+      "purpose": "labor3:roll2:H5",
+      "attempt": 0,
+      "raw64": "13870974989224330529",
+      "result": 6,
+      "status": "committed"
+    },
+    {
+      "eventIndex": "63",
+      "purpose": "labor3:roll2:H6",
+      "attempt": 0,
+      "raw64": "1711562372037037643",
+      "result": 6,
+      "status": "committed"
+    },
+    {
+      "eventIndex": "64",
+      "purpose": "labor3:roll3:H1",
+      "attempt": 0,
+      "raw64": "3953594248515516755",
+      "result": 6,
+      "status": "committed"
+    },
+    {
+      "eventIndex": "65",
+      "purpose": "labor3:roll3:H2",
+      "attempt": 0,
+      "raw64": "5603050077516481254",
+      "result": 1,
+      "status": "committed"
+    },
+    {
+      "eventIndex": "66",
+      "purpose": "labor3:roll3:H3",
+      "attempt": 0,
+      "raw64": "3224897929071539613",
+      "result": 4,
+      "status": "committed"
+    },
+    {
+      "eventIndex": "67",
+      "purpose": "labor3:roll3:H4",
+      "attempt": 0,
+      "raw64": "15954888462960442182",
+      "result": 1,
+      "status": "committed"
+    },
+    {
+      "eventIndex": "68",
+      "purpose": "labor3:roll3:H5",
+      "attempt": 0,
+      "raw64": "6470999454318648038",
+      "result": 3,
+      "status": "committed"
+    },
+    {
+      "eventIndex": "69",
+      "purpose": "labor3:end_mood_shuffle:swap_i=8",
+      "attempt": 0,
+      "raw64": "7480903484733923692",
+      "result": {
+        "i": 8,
+        "j": 1,
+        "bound": 9
+      },
+      "status": "committed"
+    },
+    {
+      "eventIndex": "70",
+      "purpose": "labor3:end_mood_shuffle:swap_i=7",
+      "attempt": 0,
+      "raw64": "13227404284498496321",
+      "result": {
+        "i": 7,
+        "j": 1,
+        "bound": 8
+      },
+      "status": "committed"
+    },
+    {
+      "eventIndex": "71",
+      "purpose": "labor3:end_mood_shuffle:swap_i=6",
+      "attempt": 0,
+      "raw64": "7172837315448349506",
+      "result": {
+        "i": 6,
+        "j": 3,
+        "bound": 7
+      },
+      "status": "committed"
+    },
+    {
+      "eventIndex": "72",
+      "purpose": "labor3:end_mood_shuffle:swap_i=5",
+      "attempt": 0,
+      "raw64": "10705283683645559049",
+      "result": {
+        "i": 5,
+        "j": 3,
+        "bound": 6
+      },
+      "status": "committed"
+    },
+    {
+      "eventIndex": "73",
+      "purpose": "labor3:end_mood_shuffle:swap_i=4",
+      "attempt": 0,
+      "raw64": "11040927524581068918",
+      "result": {
+        "i": 4,
+        "j": 3,
+        "bound": 5
+      },
+      "status": "committed"
+    },
+    {
+      "eventIndex": "74",
+      "purpose": "labor3:end_mood_shuffle:swap_i=3",
+      "attempt": 0,
+      "raw64": "7562834611166744433",
+      "result": {
+        "i": 3,
+        "j": 1,
+        "bound": 4
+      },
+      "status": "committed"
+    },
+    {
+      "eventIndex": "75",
+      "purpose": "labor3:end_mood_shuffle:swap_i=2",
+      "attempt": 0,
+      "raw64": "4117577600136507098",
+      "result": {
+        "i": 2,
+        "j": 2,
+        "bound": 3
+      },
+      "status": "committed"
+    },
+    {
+      "eventIndex": "76",
+      "purpose": "labor3:end_mood_shuffle:swap_i=1",
+      "attempt": 0,
+      "raw64": "8425913530725745629",
+      "result": {
+        "i": 1,
+        "j": 1,
+        "bound": 2
+      },
+      "status": "committed"
+    },
+    {
+      "eventIndex": "77",
+      "purpose": "labor4:roll1:H1",
+      "attempt": 0,
+      "raw64": "15378359448237190458",
+      "result": 1,
+      "status": "committed"
+    },
+    {
+      "eventIndex": "78",
+      "purpose": "labor4:roll1:H2",
+      "attempt": 0,
+      "raw64": "1784704760661634405",
+      "result": 2,
+      "status": "committed"
+    },
+    {
+      "eventIndex": "79",
+      "purpose": "labor4:roll1:H3",
+      "attempt": 0,
+      "raw64": "17541961007902008585",
+      "result": 4,
+      "status": "committed"
+    },
+    {
+      "eventIndex": "80",
+      "purpose": "labor4:roll1:H4",
+      "attempt": 0,
+      "raw64": "18307885123748881359",
+      "result": 4,
+      "status": "committed"
+    },
+    {
+      "eventIndex": "81",
+      "purpose": "labor4:roll1:H5",
+      "attempt": 0,
+      "raw64": "4693360047828327207",
+      "result": 4,
+      "status": "committed"
+    },
+    {
+      "eventIndex": "82",
+      "purpose": "labor4:roll1:H6",
+      "attempt": 0,
+      "raw64": "12593278161682252563",
+      "result": 4,
+      "status": "committed"
+    },
+    {
+      "eventIndex": "83",
+      "purpose": "labor4:reroll1:H3",
+      "attempt": 0,
+      "raw64": "1339818951124611889",
+      "result": 2,
+      "status": "committed"
+    },
+    {
+      "eventIndex": "84",
+      "purpose": "labor4:reroll2:H4",
+      "attempt": 0,
+      "raw64": "16463790968603534714",
+      "result": 3,
+      "status": "committed"
+    },
+    {
+      "eventIndex": "85",
+      "purpose": "labor4:roll2:H1",
+      "attempt": 0,
+      "raw64": "3025831552306963532",
+      "result": 3,
+      "status": "committed"
+    },
+    {
+      "eventIndex": "86",
+      "purpose": "labor4:roll2:H2",
+      "attempt": 0,
+      "raw64": "4795532263826647042",
+      "result": 5,
+      "status": "committed"
+    },
+    {
+      "eventIndex": "87",
+      "purpose": "labor4:roll2:H3",
+      "attempt": 0,
+      "raw64": "10358828007659058128",
+      "result": 3,
+      "status": "committed"
+    },
+    {
+      "eventIndex": "88",
+      "purpose": "labor4:roll2:H4",
+      "attempt": 0,
+      "raw64": "13191498503141568380",
+      "result": 3,
+      "status": "committed"
+    },
+    {
+      "eventIndex": "89",
+      "purpose": "labor4:roll2:H5",
+      "attempt": 0,
+      "raw64": "15969931027803651980",
+      "result": 3,
+      "status": "committed"
+    },
+    {
+      "eventIndex": "90",
+      "purpose": "labor4:roll2:H6",
+      "attempt": 0,
+      "raw64": "10333512803499687240",
+      "result": 1,
+      "status": "committed"
+    },
+    {
+      "eventIndex": "91",
+      "purpose": "labor4:reroll3:H1",
+      "attempt": 0,
+      "raw64": "16283198806088691336",
+      "result": 1,
+      "status": "committed"
+    },
+    {
+      "eventIndex": "92",
+      "purpose": "labor4:reroll4:H3",
+      "attempt": 0,
+      "raw64": "18084255065693066293",
+      "result": 2,
+      "status": "committed"
+    },
+    {
+      "eventIndex": "93",
+      "purpose": "labor4:roll3:H1",
+      "attempt": 0,
+      "raw64": "13326544606524455802",
+      "result": 1,
+      "status": "committed"
+    },
+    {
+      "eventIndex": "94",
+      "purpose": "labor4:roll3:H2",
+      "attempt": 0,
+      "raw64": "1914810601392723393",
+      "result": 4,
+      "status": "committed"
+    },
+    {
+      "eventIndex": "95",
+      "purpose": "labor4:roll3:H3",
+      "attempt": 0,
+      "raw64": "6820908328059532197",
+      "result": 4,
+      "status": "committed"
+    },
+    {
+      "eventIndex": "96",
+      "purpose": "labor4:roll3:H4",
+      "attempt": 0,
+      "raw64": "11106946270943987168",
+      "result": 3,
+      "status": "committed"
+    },
+    {
+      "eventIndex": "97",
+      "purpose": "labor4:roll3:H5",
+      "attempt": 0,
+      "raw64": "11820604794171972890",
+      "result": 3,
+      "status": "committed"
+    },
+    {
+      "eventIndex": "98",
+      "purpose": "labor4:roll3:H6",
+      "attempt": 0,
+      "raw64": "11776325992163535841",
+      "result": 2,
+      "status": "committed"
+    },
+    {
+      "eventIndex": "99",
+      "purpose": "labor4:reroll5:H6",
+      "attempt": 0,
+      "raw64": "5951725613508006417",
+      "result": 4,
+      "status": "committed"
+    },
+    {
+      "eventIndex": "100",
+      "purpose": "labor4:reroll6:H5",
+      "attempt": 0,
+      "raw64": "1050352202916442491",
+      "result": 4,
+      "status": "committed"
+    }
+  ],
+  "independent_audit": [
+    {
+      "event_index": 0,
+      "status": "computed_and_matched",
+      "purpose": "setup_mood_shuffle:swap_i=8",
+      "attempt": 0,
+      "bound": 9,
+      "computed_sha256": "d19ece562ca14e99b0212729f582110f57e2f23b23efd04a70977ff707a976e7",
+      "computed_raw64": "15104737069758500505",
+      "result": {
+        "i": 8,
+        "j": 6,
+        "bound": 9
+      }
+    },
+    {
+      "event_index": 1,
+      "status": "computed_and_matched",
+      "purpose": "setup_mood_shuffle:swap_i=7",
+      "attempt": 0,
+      "bound": 8,
+      "computed_sha256": "0ca3aba68086106e8023c9549ab50624d58d9189ee0e66f939f311da3a53148e",
+      "computed_raw64": "910760281268162670",
+      "result": {
+        "i": 7,
+        "j": 6,
+        "bound": 8
+      }
+    },
+    {
+      "event_index": 2,
+      "status": "computed_and_matched",
+      "purpose": "setup_mood_shuffle:swap_i=6",
+      "attempt": 0,
+      "bound": 7,
+      "computed_sha256": "fe3df8300a9a7bcae4f57e74a41a5be4bfacec272a346167bf69af6a99a77652",
+      "computed_raw64": "18320071744433060810",
+      "result": {
+        "i": 6,
+        "j": 5,
+        "bound": 7
+      }
+    },
+    {
+      "event_index": 3,
+      "status": "computed_and_matched",
+      "purpose": "setup_mood_shuffle:swap_i=5",
+      "attempt": 0,
+      "bound": 6,
+      "computed_sha256": "2a7f7726d9a70e5bf8610ce0df3c0d17d80a3645428539d295af46c6e1394b32",
+      "computed_raw64": "3062297280379293275",
+      "result": {
+        "i": 5,
+        "j": 5,
+        "bound": 6
+      }
+    },
+    {
+      "event_index": 4,
+      "status": "computed_and_matched",
+      "purpose": "setup_mood_shuffle:swap_i=4",
+      "attempt": 0,
+      "bound": 5,
+      "computed_sha256": "d4c0eabc8620e77897c35fefe04a7173ac563b7e4fd28ea4a883f0134cae1c12",
+      "computed_raw64": "15330511226994222968",
+      "result": {
+        "i": 4,
+        "j": 3,
+        "bound": 5
+      }
+    },
+    {
+      "event_index": 5,
+      "status": "computed_and_matched",
+      "purpose": "setup_mood_shuffle:swap_i=3",
+      "attempt": 0,
+      "bound": 4,
+      "computed_sha256": "46cee7e5280b6fe7ea273d6e05f1c7a2848bf93ed8d5751aa45705745ab50015",
+      "computed_raw64": "5102270399262715879",
+      "result": {
+        "i": 3,
+        "j": 3,
+        "bound": 4
+      }
+    },
+    {
+      "event_index": 6,
+      "status": "computed_and_matched",
+      "purpose": "setup_mood_shuffle:swap_i=2",
+      "attempt": 0,
+      "bound": 3,
+      "computed_sha256": "3eaf7c27e7d4dbb89409e4f5fee54a7e2286cfb8a905c6291f0f648cbedc2559",
+      "computed_raw64": "4516965462110952376",
+      "result": {
+        "i": 2,
+        "j": 1,
+        "bound": 3
+      }
+    },
+    {
+      "event_index": 7,
+      "status": "computed_and_matched",
+      "purpose": "setup_mood_shuffle:swap_i=1",
+      "attempt": 0,
+      "bound": 2,
+      "computed_sha256": "feb415c836129251ebcf75573628c79c8530fb25ab3df952f85e7e31ea19becc",
+      "computed_raw64": "18353318331086443089",
+      "result": {
+        "i": 1,
+        "j": 1,
+        "bound": 2
+      }
+    },
+    {
+      "event_index": 8,
+      "status": "computed_and_matched",
+      "purpose": "labor1:roll1:H1",
+      "attempt": 0,
+      "bound": 6,
+      "computed_sha256": "1beeca027d05535c57b64ca8233068a06410f9a18f0c7484b3d177a1a2ee07f6",
+      "computed_raw64": "2012768195517436764",
+      "result": 1
+    },
+    {
+      "event_index": 9,
+      "status": "computed_and_matched",
+      "purpose": "labor1:roll1:H2",
+      "attempt": 0,
+      "bound": 6,
+      "computed_sha256": "9ff000de0858bf34e54b1e800efef205a9e2be96242ab03a319a61a173614b22",
+      "computed_raw64": "11524712400063872820",
+      "result": 1
+    },
+    {
+      "event_index": 10,
+      "status": "computed_and_matched",
+      "purpose": "labor1:roll1:H3",
+      "attempt": 0,
+      "bound": 6,
+      "computed_sha256": "3dd23e0fc4f76627c173ff25cdd093db3d417900aa9584bf039b1540b57c05e6",
+      "computed_raw64": "4454691218872821287",
+      "result": 6
+    },
+    {
+      "event_index": 11,
+      "status": "computed_and_matched",
+      "purpose": "labor1:roll1:H4",
+      "attempt": 0,
+      "bound": 6,
+      "computed_sha256": "0dd00cd30479be2366c21e13ab00034c9b955a0c8fdfea094f58e7836c54fb31",
+      "computed_raw64": "995309618101599779",
+      "result": 6
+    },
+    {
+      "event_index": 12,
+      "status": "computed_and_matched",
+      "purpose": "labor1:roll1:H5",
+      "attempt": 0,
+      "bound": 6,
+      "computed_sha256": "56b48118a73debd22b1176db9c1b1684d9aba504d4ec91d317b30d8a0e5b959f",
+      "computed_raw64": "6247760525954771922",
+      "result": 1
+    },
+    {
+      "event_index": 13,
+      "status": "computed_and_matched",
+      "purpose": "labor1:roll2:H1",
+      "attempt": 0,
+      "bound": 6,
+      "computed_sha256": "0f0bebe060668ba004d29f0deeb06d61efdd182bb8c52f3e8a9f3211d76909e3",
+      "computed_raw64": "1084219484235271072",
+      "result": 5
+    },
+    {
+      "event_index": 14,
+      "status": "computed_and_matched",
+      "purpose": "labor1:roll2:H2",
+      "attempt": 0,
+      "bound": 6,
+      "computed_sha256": "142b7c3a09bf537fab8d92fdf3c97c3f1c458754b8c1a0886435b0fadc89d9c5",
+      "computed_raw64": "1453391893470598015",
+      "result": 2
+    },
+    {
+      "event_index": 15,
+      "status": "computed_and_matched",
+      "purpose": "labor1:roll2:H3",
+      "attempt": 0,
+      "bound": 6,
+      "computed_sha256": "b949fd6860199a39883c917bb73a43b47de730d4768ed2113b12c72f5379b73f",
+      "computed_raw64": "13351481195047262777",
+      "result": 6
+    },
+    {
+      "event_index": 16,
+      "status": "computed_and_matched",
+      "purpose": "labor1:roll2:H4",
+      "attempt": 0,
+      "bound": 6,
+      "computed_sha256": "6ab47ef34bb6ef7fad6be68c4b1c7ab1c929616b2bc0ccc7c498db7ddc20f8d7",
+      "computed_raw64": "7688910047240712063",
+      "result": 4
+    },
+    {
+      "event_index": 17,
+      "status": "computed_and_matched",
+      "purpose": "labor1:roll2:H5",
+      "attempt": 0,
+      "bound": 6,
+      "computed_sha256": "e94373093557e4a74569426aaec30e9cfac6a5fcc5c152aaec035b69b8a4eef0",
+      "computed_raw64": "16808404717663675559",
+      "result": 6
+    },
+    {
+      "event_index": 18,
+      "status": "historical_orphan_preserved",
+      "generated": false,
+      "source_record": {
+        "event_index": 18,
+        "status": "orphaned_execution_error",
+        "purpose": null,
+        "operation": "invalid_prose_generated_labor1_transition_shuffle",
+        "attempt": null,
+        "raw64": null,
+        "sha256": null,
+        "interpreted_result": {
+          "displayed_i": 8,
+          "displayed_j": 0
+        },
+        "reason": "Events were displayed as a Labor I transition shuffle without actual HERC-RNG computation. Golden-run reconciliation permanently abandoned these indices and resumed at event 26."
+      }
+    },
+    {
+      "event_index": 19,
+      "status": "historical_orphan_preserved",
+      "generated": false,
+      "source_record": {
+        "event_index": 19,
+        "status": "orphaned_execution_error",
+        "purpose": null,
+        "operation": "invalid_prose_generated_labor1_transition_shuffle",
+        "attempt": null,
+        "raw64": null,
+        "sha256": null,
+        "interpreted_result": {
+          "displayed_i": 7,
+          "displayed_j": 0
+        },
+        "reason": "Events were displayed as a Labor I transition shuffle without actual HERC-RNG computation. Golden-run reconciliation permanently abandoned these indices and resumed at event 26."
+      }
+    },
+    {
+      "event_index": 20,
+      "status": "historical_orphan_preserved",
+      "generated": false,
+      "source_record": {
+        "event_index": 20,
+        "status": "orphaned_execution_error",
+        "purpose": null,
+        "operation": "invalid_prose_generated_labor1_transition_shuffle",
+        "attempt": null,
+        "raw64": null,
+        "sha256": null,
+        "interpreted_result": {
+          "displayed_i": 6,
+          "displayed_j": 6
+        },
+        "reason": "Events were displayed as a Labor I transition shuffle without actual HERC-RNG computation. Golden-run reconciliation permanently abandoned these indices and resumed at event 26."
+      }
+    },
+    {
+      "event_index": 21,
+      "status": "historical_orphan_preserved",
+      "generated": false,
+      "source_record": {
+        "event_index": 21,
+        "status": "orphaned_execution_error",
+        "purpose": null,
+        "operation": "invalid_prose_generated_labor1_transition_shuffle",
+        "attempt": null,
+        "raw64": null,
+        "sha256": null,
+        "interpreted_result": {
+          "displayed_i": 5,
+          "displayed_j": 5
+        },
+        "reason": "Events were displayed as a Labor I transition shuffle without actual HERC-RNG computation. Golden-run reconciliation permanently abandoned these indices and resumed at event 26."
+      }
+    },
+    {
+      "event_index": 22,
+      "status": "historical_orphan_preserved",
+      "generated": false,
+      "source_record": {
+        "event_index": 22,
+        "status": "orphaned_execution_error",
+        "purpose": null,
+        "operation": "invalid_prose_generated_labor1_transition_shuffle",
+        "attempt": null,
+        "raw64": null,
+        "sha256": null,
+        "interpreted_result": {
+          "displayed_i": 4,
+          "displayed_j": 4
+        },
+        "reason": "Events were displayed as a Labor I transition shuffle without actual HERC-RNG computation. Golden-run reconciliation permanently abandoned these indices and resumed at event 26."
+      }
+    },
+    {
+      "event_index": 23,
+      "status": "historical_orphan_preserved",
+      "generated": false,
+      "source_record": {
+        "event_index": 23,
+        "status": "orphaned_execution_error",
+        "purpose": null,
+        "operation": "invalid_prose_generated_labor1_transition_shuffle",
+        "attempt": null,
+        "raw64": null,
+        "sha256": null,
+        "interpreted_result": {
+          "displayed_i": 3,
+          "displayed_j": 3
+        },
+        "reason": "Events were displayed as a Labor I transition shuffle without actual HERC-RNG computation. Golden-run reconciliation permanently abandoned these indices and resumed at event 26."
+      }
+    },
+    {
+      "event_index": 24,
+      "status": "historical_orphan_preserved",
+      "generated": false,
+      "source_record": {
+        "event_index": 24,
+        "status": "orphaned_execution_error",
+        "purpose": null,
+        "operation": "invalid_prose_generated_labor1_transition_shuffle",
+        "attempt": null,
+        "raw64": null,
+        "sha256": null,
+        "interpreted_result": {
+          "displayed_i": 2,
+          "displayed_j": 1
+        },
+        "reason": "Events were displayed as a Labor I transition shuffle without actual HERC-RNG computation. Golden-run reconciliation permanently abandoned these indices and resumed at event 26."
+      }
+    },
+    {
+      "event_index": 25,
+      "status": "historical_orphan_preserved",
+      "generated": false,
+      "source_record": {
+        "event_index": 25,
+        "status": "orphaned_execution_error",
+        "purpose": null,
+        "operation": "invalid_prose_generated_labor1_transition_shuffle",
+        "attempt": null,
+        "raw64": null,
+        "sha256": null,
+        "interpreted_result": {
+          "displayed_i": 1,
+          "displayed_j": 0
+        },
+        "reason": "Events were displayed as a Labor I transition shuffle without actual HERC-RNG computation. Golden-run reconciliation permanently abandoned these indices and resumed at event 26."
+      }
+    },
+    {
+      "event_index": 26,
+      "status": "computed_and_matched",
+      "purpose": "labor1:end_mood_shuffle:swap_i=8",
+      "attempt": 0,
+      "bound": 9,
+      "computed_sha256": "0f2537a7f36dd3b0414dac9e66fa70d9a29f929137027b1c4ae0309900b10b00",
+      "computed_raw64": "1091339679190340528",
+      "result": {
+        "i": 8,
+        "j": 8,
+        "bound": 9
+      }
+    },
+    {
+      "event_index": 27,
+      "status": "computed_and_matched",
+      "purpose": "labor1:end_mood_shuffle:swap_i=7",
+      "attempt": 0,
+      "bound": 8,
+      "computed_sha256": "f021bb6a13ce1fa99519fac57a989193dc42bf2e36d9263de3300daf81279e74",
+      "computed_raw64": "17303317307607359401",
+      "result": {
+        "i": 7,
+        "j": 1,
+        "bound": 8
+      }
+    },
+    {
+      "event_index": 28,
+      "status": "computed_and_matched",
+      "purpose": "labor1:end_mood_shuffle:swap_i=6",
+      "attempt": 0,
+      "bound": 7,
+      "computed_sha256": "5bea87e253f9d19ffd1c1107cbf839187717d6f7a4a832ccbab2f670a3ef60ca",
+      "computed_raw64": "6623255608142975391",
+      "result": {
+        "i": 6,
+        "j": 2,
+        "bound": 7
+      }
+    },
+    {
+      "event_index": 29,
+      "status": "computed_and_matched",
+      "purpose": "labor1:end_mood_shuffle:swap_i=5",
+      "attempt": 0,
+      "bound": 6,
+      "computed_sha256": "e657c6d14ee7425fa378e3033df8e5516e9d0cf3cff0168aea5e73da59c969be",
+      "computed_raw64": "16597953553971495519",
+      "result": {
+        "i": 5,
+        "j": 3,
+        "bound": 6
+      }
+    },
+    {
+      "event_index": 30,
+      "status": "computed_and_matched",
+      "purpose": "labor1:end_mood_shuffle:swap_i=4",
+      "attempt": 0,
+      "bound": 5,
+      "computed_sha256": "d354a62597fe7440f0ecb743c26f4bc0fc72b544d08ba3a938b90e4b24b8c851",
+      "computed_raw64": "15227978920440525888",
+      "result": {
+        "i": 4,
+        "j": 3,
+        "bound": 5
+      }
+    },
+    {
+      "event_index": 31,
+      "status": "computed_and_matched",
+      "purpose": "labor1:end_mood_shuffle:swap_i=3",
+      "attempt": 0,
+      "bound": 4,
+      "computed_sha256": "d0428b830fdf4d32b8cb68e970660b7b12f0355d7416d845e1e359de3645a042",
+      "computed_raw64": "15006710303375183154",
+      "result": {
+        "i": 3,
+        "j": 2,
+        "bound": 4
+      }
+    },
+    {
+      "event_index": 32,
+      "status": "computed_and_matched",
+      "purpose": "labor1:end_mood_shuffle:swap_i=2",
+      "attempt": 0,
+      "bound": 3,
+      "computed_sha256": "26d626e24a15aa73afa077dc6be3b7c6a934339aaf14e700455d3b907a87127c",
+      "computed_raw64": "2798466971804740211",
+      "result": {
+        "i": 2,
+        "j": 2,
+        "bound": 3
+      }
+    },
+    {
+      "event_index": 33,
+      "status": "computed_and_matched",
+      "purpose": "labor1:end_mood_shuffle:swap_i=1",
+      "attempt": 0,
+      "bound": 2,
+      "computed_sha256": "71966522c9fd1904d56e1255bd5d9f61ed061fecd3a55c4567ef5020c41bd2c2",
+      "computed_raw64": "8184840572884556036",
+      "result": {
+        "i": 1,
+        "j": 0,
+        "bound": 2
+      }
+    },
+    {
+      "event_index": 34,
+      "status": "computed_and_matched",
+      "purpose": "labor2:roll1:H1",
+      "attempt": 0,
+      "bound": 6,
+      "computed_sha256": "34410415b9c48ea4c5b47fe1077fcb1ccae9c9c82b2cf2f12f42e1366ee6335a",
+      "computed_raw64": "3765295254815936164",
+      "result": 5
+    },
+    {
+      "event_index": 35,
+      "status": "computed_and_matched",
+      "purpose": "labor2:roll1:H2",
+      "attempt": 0,
+      "bound": 6,
+      "computed_sha256": "0129d8e060d192249791bbe11f3abd0cf0f68c1ad6655661ee750d6abb9f89ea",
+      "computed_raw64": "83836526291685924",
+      "result": 1
+    },
+    {
+      "event_index": 36,
+      "status": "computed_and_matched",
+      "purpose": "labor2:roll1:H3",
+      "attempt": 0,
+      "bound": 6,
+      "computed_sha256": "89d5d3aa8c1cfa03a6f1af8f59b7961cfc55881d1cd7bcd1366fc6c635e870c7",
+      "computed_raw64": "9932077282684107267",
+      "result": 4
+    },
+    {
+      "event_index": 37,
+      "status": "computed_and_matched",
+      "purpose": "labor2:roll1:H4",
+      "attempt": 0,
+      "bound": 6,
+      "computed_sha256": "ae75c6893a782b4cf8d5191e9676ba88c16e8efc6fba81f3916e0d4ab2e28179",
+      "computed_raw64": "12571172227568380748",
+      "result": 3
+    },
+    {
+      "event_index": 38,
+      "status": "computed_and_matched",
+      "purpose": "labor2:roll1:H5",
+      "attempt": 0,
+      "bound": 6,
+      "computed_sha256": "79d4dd4d16d35591f0477ab7b2a2b2fc3109cff5bb4a67af3a5794f086720f1d",
+      "computed_raw64": "8778884896817108369",
+      "result": 6
+    },
+    {
+      "event_index": 39,
+      "status": "computed_and_matched",
+      "purpose": "labor2:roll2:H1",
+      "attempt": 0,
+      "bound": 6,
+      "computed_sha256": "34a8f060b2b62100ce1563bd61f646363e881b05a5c464668689e136531622f4",
+      "computed_raw64": "3794546984165449984",
+      "result": 5
+    },
+    {
+      "event_index": 40,
+      "status": "computed_and_matched",
+      "purpose": "labor2:roll2:H2",
+      "attempt": 0,
+      "bound": 6,
+      "computed_sha256": "31ae79a08a145fd23670467aa3c9290cf98666f40352cdda6ff616774ed42417",
+      "computed_raw64": "3579932484224442322",
+      "result": 5
+    },
+    {
+      "event_index": 41,
+      "status": "computed_and_matched",
+      "purpose": "labor2:roll2:H3",
+      "attempt": 0,
+      "bound": 6,
+      "computed_sha256": "61cbfcad01114a85cb20e64419fb1b9d3e5370f036f738a4cbd7cde786d5609e",
+      "computed_raw64": "7047003861928725125",
+      "result": 6
+    },
+    {
+      "event_index": 42,
+      "status": "computed_and_matched",
+      "purpose": "labor2:roll2:H4",
+      "attempt": 0,
+      "bound": 6,
+      "computed_sha256": "8351dd9037a90f712677a2e16ee2482dc9a778eb9113a714891ce4ff78a08a86",
+      "computed_raw64": "9462587903560978289",
+      "result": 6
+    },
+    {
+      "event_index": 43,
+      "status": "computed_and_matched",
+      "purpose": "labor2:roll2:H5",
+      "attempt": 0,
+      "bound": 6,
+      "computed_sha256": "eb6b34ed15c40ee843f464fc8bdecb235ce531ed952dcef0097165d7058915ec",
+      "computed_raw64": "16963710614298169064",
+      "result": 3
+    },
+    {
+      "event_index": 44,
+      "status": "computed_and_matched",
+      "purpose": "labor2:end_mood_shuffle:swap_i=8",
+      "attempt": 0,
+      "bound": 9,
+      "computed_sha256": "909b31f9bf5bf7caa4d1b66b94ad829b4c5a4b6ef97f9b3e058fef0557282e5e",
+      "computed_raw64": "10419977111578867658",
+      "result": {
+        "i": 8,
+        "j": 2,
+        "bound": 9
+      }
+    },
+    {
+      "event_index": 45,
+      "status": "computed_and_matched",
+      "purpose": "labor2:end_mood_shuffle:swap_i=7",
+      "attempt": 0,
+      "bound": 8,
+      "computed_sha256": "155c34d387d71dd39ea95043adb7ef2ea0febe5a3c6adf42b3dae17f87a6b23e",
+      "computed_raw64": "1539163255775632851",
+      "result": {
+        "i": 7,
+        "j": 3,
+        "bound": 8
+      }
+    },
+    {
+      "event_index": 46,
+      "status": "computed_and_matched",
+      "purpose": "labor2:end_mood_shuffle:swap_i=6",
+      "attempt": 0,
+      "bound": 7,
+      "computed_sha256": "c90a86db6c7c2885c7ef93d52518a8a584a59df8a63869cb3d401f2258d24449",
+      "computed_raw64": "14486539428366657669",
+      "result": {
+        "i": 6,
+        "j": 3,
+        "bound": 7
+      }
+    },
+    {
+      "event_index": 47,
+      "status": "computed_and_matched",
+      "purpose": "labor2:end_mood_shuffle:swap_i=5",
+      "attempt": 0,
+      "bound": 6,
+      "computed_sha256": "4bbd1c769487af05241ed4768771639478b4669ef365a4baac919bc099988891",
+      "computed_raw64": "5457549619066547973",
+      "result": {
+        "i": 5,
+        "j": 3,
+        "bound": 6
+      }
+    },
+    {
+      "event_index": 48,
+      "status": "computed_and_matched",
+      "purpose": "labor2:end_mood_shuffle:swap_i=4",
+      "attempt": 0,
+      "bound": 5,
+      "computed_sha256": "a5c97b1d257d7a7bc14c2697e5ad58b00e4ced223066f06e7ebea14613676f64",
+      "computed_raw64": "11946214851690199675",
+      "result": {
+        "i": 4,
+        "j": 0,
+        "bound": 5
+      }
+    },
+    {
+      "event_index": 49,
+      "status": "computed_and_matched",
+      "purpose": "labor2:end_mood_shuffle:swap_i=3",
+      "attempt": 0,
+      "bound": 4,
+      "computed_sha256": "7dc1d93e61eb83b8eddb1ab294fd04b756ff82be31c4d3938d13115f443e1a08",
+      "computed_raw64": "9061762787200172984",
+      "result": {
+        "i": 3,
+        "j": 0,
+        "bound": 4
+      }
+    },
+    {
+      "event_index": 50,
+      "status": "computed_and_matched",
+      "purpose": "labor2:end_mood_shuffle:swap_i=2",
+      "attempt": 0,
+      "bound": 3,
+      "computed_sha256": "7cc6d74f5322841dca9c324b91b06fff8d4ce44d608c6c8c7d4088a319af484b",
+      "computed_raw64": "8991110441788933149",
+      "result": {
+        "i": 2,
+        "j": 0,
+        "bound": 3
+      }
+    },
+    {
+      "event_index": 51,
+      "status": "computed_and_matched",
+      "purpose": "labor2:end_mood_shuffle:swap_i=1",
+      "attempt": 0,
+      "bound": 2,
+      "computed_sha256": "dce70306eec82e0519498d5713e8d883a2d41583497d3ea74f1884d1fe08b43b",
+      "computed_raw64": "15917694736275090949",
+      "result": {
+        "i": 1,
+        "j": 1,
+        "bound": 2
+      }
+    },
+    {
+      "event_index": 52,
+      "status": "computed_and_matched",
+      "purpose": "labor3:roll1:H1",
+      "attempt": 0,
+      "bound": 6,
+      "computed_sha256": "03fb58d5fb57ab90a4094f0aad2f717773e59bf4b5b4343f205dcf7122cfc283",
+      "computed_raw64": "286920677336263568",
+      "result": 3
+    },
+    {
+      "event_index": 53,
+      "status": "computed_and_matched",
+      "purpose": "labor3:roll1:H2",
+      "attempt": 0,
+      "bound": 6,
+      "computed_sha256": "cfd35a99a1b927004a0be64d320b99d425cf754261118e8a76888f1f63dd31bb",
+      "computed_raw64": "14975412801826793216",
+      "result": 3
+    },
+    {
+      "event_index": 54,
+      "status": "computed_and_matched",
+      "purpose": "labor3:roll1:H3",
+      "attempt": 0,
+      "bound": 6,
+      "computed_sha256": "c3e95fd5840449a9fd1289ffb220bfec23c862d4bf13baa2baacac8e8c21504b",
+      "computed_raw64": "14116919877617076649",
+      "result": 2
+    },
+    {
+      "event_index": 55,
+      "status": "computed_and_matched",
+      "purpose": "labor3:roll1:H4",
+      "attempt": 0,
+      "bound": 6,
+      "computed_sha256": "4c64c669aaf06d15c9ebd9d2a97841adf98c0c3ac328d0989696681717911d0d",
+      "computed_raw64": "5504742801695337749",
+      "result": 6
+    },
+    {
+      "event_index": 56,
+      "status": "computed_and_matched",
+      "purpose": "labor3:roll1:H5",
+      "attempt": 0,
+      "bound": 6,
+      "computed_sha256": "4ccaf8a72392041156671aa8d74903e545f6a9c32a041ae4244b9baebaf1dbf6",
+      "computed_raw64": "5533508488918074385",
+      "result": 2
+    },
+    {
+      "event_index": 57,
+      "status": "computed_and_matched",
+      "purpose": "labor3:roll1:H6",
+      "attempt": 0,
+      "bound": 6,
+      "computed_sha256": "db6cdd3aef6ed41443f4368502aeb2cb1293d006df4c4409d70fb37a622f4632",
+      "computed_raw64": "15811255636985828372",
+      "result": 3
+    },
+    {
+      "event_index": 58,
+      "status": "computed_and_matched",
+      "purpose": "labor3:roll2:H1",
+      "attempt": 0,
+      "bound": 6,
+      "computed_sha256": "b5e29cb33d77fca62f671c8426bf04ace05f6fcc8b8ea12b2a1854874e4369a8",
+      "computed_raw64": "13106210159245917350",
+      "result": 3
+    },
+    {
+      "event_index": 59,
+      "status": "computed_and_matched",
+      "purpose": "labor3:roll2:H2",
+      "attempt": 0,
+      "bound": 6,
+      "computed_sha256": "3b9d2fae6970001d5dd61fd2dc438ab246f8e591c5e4059cd4e9c6a071b57d6a",
+      "computed_raw64": "4295642045721083933",
+      "result": 6
+    },
+    {
+      "event_index": 60,
+      "status": "computed_and_matched",
+      "purpose": "labor3:roll2:H3",
+      "attempt": 0,
+      "bound": 6,
+      "computed_sha256": "cea9e83e6fe9dbc39f1c6f5481584eb7f8de1f6c39df17781302ed3a47307b87",
+      "computed_raw64": "14891688997740469187",
+      "result": 6
+    },
+    {
+      "event_index": 61,
+      "status": "computed_and_matched",
+      "purpose": "labor3:roll2:H4",
+      "attempt": 0,
+      "bound": 6,
+      "computed_sha256": "26192e9030ca62b332d211e2132eb627412768f8c1e7fb9596cbcbafbbaafacc",
+      "computed_raw64": "2745276644687766195",
+      "result": 4
+    },
+    {
+      "event_index": 62,
+      "status": "computed_and_matched",
+      "purpose": "labor3:roll2:H5",
+      "attempt": 0,
+      "bound": 6,
+      "computed_sha256": "c07f9a42d90b4521038fcc3c21b559dcad3215af64ff89bd45c71c959a3a264e",
+      "computed_raw64": "13870974989224330529",
+      "result": 6
+    },
+    {
+      "event_index": 63,
+      "status": "computed_and_matched",
+      "purpose": "labor3:roll2:H6",
+      "attempt": 0,
+      "bound": 6,
+      "computed_sha256": "17c0b0e8bc314e4b9a8ec8ed6d7fd22cd01f111b5c2465dfd69756149113ebe9",
+      "computed_raw64": "1711562372037037643",
+      "result": 6
+    },
+    {
+      "event_index": 64,
+      "status": "computed_and_matched",
+      "purpose": "labor3:roll3:H1",
+      "attempt": 0,
+      "bound": 6,
+      "computed_sha256": "36ddfd05a0cb7953408bec2ee2a89a118e4d66096c29efe09e1a01dbb4fd47d0",
+      "computed_raw64": "3953594248515516755",
+      "result": 6
+    },
+    {
+      "event_index": 65,
+      "status": "computed_and_matched",
+      "purpose": "labor3:roll3:H2",
+      "attempt": 0,
+      "bound": 6,
+      "computed_sha256": "4dc2085bf91842e6fa600b8af722363113ab917aeca4e3a9755d37e106810183",
+      "computed_raw64": "5603050077516481254",
+      "result": 1
+    },
+    {
+      "event_index": 66,
+      "status": "computed_and_matched",
+      "purpose": "labor3:roll3:H3",
+      "attempt": 0,
+      "bound": 6,
+      "computed_sha256": "2cc123948b33b59d7e415f607153323e06695745657d9c60b1d24c154c2ab7d2",
+      "computed_raw64": "3224897929071539613",
+      "result": 4
+    },
+    {
+      "event_index": 67,
+      "status": "computed_and_matched",
+      "purpose": "labor3:roll3:H4",
+      "attempt": 0,
+      "bound": 6,
+      "computed_sha256": "dd6b268641bc3b46cf52818ad164aeaac2b699353285cc893a198f5607957dc5",
+      "computed_raw64": "15954888462960442182",
+      "result": 1
+    },
+    {
+      "event_index": 68,
+      "status": "computed_and_matched",
+      "purpose": "labor3:roll3:H5",
+      "attempt": 0,
+      "bound": 6,
+      "computed_sha256": "59cd9bb80868dae6ee0eb78cff9638f8e076449fd9d728190c6fb961ecea1a8a",
+      "computed_raw64": "6470999454318648038",
+      "result": 3
+    },
+    {
+      "event_index": 69,
+      "status": "computed_and_matched",
+      "purpose": "labor3:end_mood_shuffle:swap_i=8",
+      "attempt": 0,
+      "bound": 9,
+      "computed_sha256": "67d18215768c216c2b2f11984cc1f64d08af66f3af3492d1f763cef1983814dc",
+      "computed_raw64": "7480903484733923692",
+      "result": {
+        "i": 8,
+        "j": 1,
+        "bound": 9
+      }
+    },
+    {
+      "event_index": 70,
+      "status": "computed_and_matched",
+      "purpose": "labor3:end_mood_shuffle:swap_i=7",
+      "attempt": 0,
+      "bound": 8,
+      "computed_sha256": "b7912e1d6e034b41ed9f6fdad5da734856af781648b9443f659ad34cd9fb2446",
+      "computed_raw64": "13227404284498496321",
+      "result": {
+        "i": 7,
+        "j": 1,
+        "bound": 8
+      }
+    },
+    {
+      "event_index": 71,
+      "status": "computed_and_matched",
+      "purpose": "labor3:end_mood_shuffle:swap_i=6",
+      "attempt": 0,
+      "bound": 7,
+      "computed_sha256": "638b0988faf72342471e1950e2165ddf66632330e82f4d440a0095bae2dcd323",
+      "computed_raw64": "7172837315448349506",
+      "result": {
+        "i": 6,
+        "j": 3,
+        "bound": 7
+      }
+    },
+    {
+      "event_index": 72,
+      "status": "computed_and_matched",
+      "purpose": "labor3:end_mood_shuffle:swap_i=5",
+      "attempt": 0,
+      "bound": 6,
+      "computed_sha256": "9490ceca8f7a91094ddc863a6b13f10fcab64f3301f5a219f1d801dc6005c2c2",
+      "computed_raw64": "10705283683645559049",
+      "result": {
+        "i": 5,
+        "j": 3,
+        "bound": 6
+      }
+    },
+    {
+      "event_index": 73,
+      "status": "computed_and_matched",
+      "purpose": "labor3:end_mood_shuffle:swap_i=4",
+      "attempt": 0,
+      "bound": 5,
+      "computed_sha256": "99394116157cd076befaf500e168ab016594f347f69e428b7af52c7f967763b6",
+      "computed_raw64": "11040927524581068918",
+      "result": {
+        "i": 4,
+        "j": 3,
+        "bound": 5
+      }
+    },
+    {
+      "event_index": 74,
+      "status": "computed_and_matched",
+      "purpose": "labor3:end_mood_shuffle:swap_i=3",
+      "attempt": 0,
+      "bound": 4,
+      "computed_sha256": "68f496025d9f8f71f2df6b8cb06bd8c9b200d651d4179f3f5c35c1a33e33749d",
+      "computed_raw64": "7562834611166744433",
+      "result": {
+        "i": 3,
+        "j": 1,
+        "bound": 4
+      }
+    },
+    {
+      "event_index": 75,
+      "status": "computed_and_matched",
+      "purpose": "labor3:end_mood_shuffle:swap_i=2",
+      "attempt": 0,
+      "bound": 3,
+      "computed_sha256": "39249302ef3deedaa3858f92ee5fffb915b1b6873901580954ff941ef490bca5",
+      "computed_raw64": "4117577600136507098",
+      "result": {
+        "i": 2,
+        "j": 2,
+        "bound": 3
+      }
+    },
+    {
+      "event_index": 76,
+      "status": "computed_and_matched",
+      "purpose": "labor3:end_mood_shuffle:swap_i=1",
+      "attempt": 0,
+      "bound": 2,
+      "computed_sha256": "74eedbb6bb10c3ddd64a6b7af1de9dd39baefe746094e0cf48645228f35d3551",
+      "computed_raw64": "8425913530725745629",
+      "result": {
+        "i": 1,
+        "j": 1,
+        "bound": 2
+      }
+    },
+    {
+      "event_index": 77,
+      "status": "computed_and_matched",
+      "purpose": "labor4:roll1:H1",
+      "attempt": 0,
+      "bound": 6,
+      "computed_sha256": "d56ae870ac732d3ab7c87d6ca95ab4f374f27805f67bb9901c51796181be17f5",
+      "computed_raw64": "15378359448237190458",
+      "result": 1
+    },
+    {
+      "event_index": 78,
+      "status": "computed_and_matched",
+      "purpose": "labor4:roll1:H2",
+      "attempt": 0,
+      "bound": 6,
+      "computed_sha256": "18c48b86282f6d656bbcabdeb8cb254e320fe640237f1f2297b257679e193b97",
+      "computed_raw64": "1784704760661634405",
+      "result": 2
+    },
+    {
+      "event_index": 79,
+      "status": "computed_and_matched",
+      "purpose": "labor4:roll1:H3",
+      "attempt": 0,
+      "bound": 6,
+      "computed_sha256": "f37190986bc0a509d0ef4b531cb8b8dd7928d795c55943f1e34ff7702557077e",
+      "computed_raw64": "17541961007902008585",
+      "result": 4
+    },
+    {
+      "event_index": 80,
+      "status": "computed_and_matched",
+      "purpose": "labor4:roll1:H4",
+      "attempt": 0,
+      "bound": 6,
+      "computed_sha256": "fe12ac854db5e3cf8a3363514ffeb3a692f6d05fce822c7463a764db36a73194",
+      "computed_raw64": "18307885123748881359",
+      "result": 4
+    },
+    {
+      "event_index": 81,
+      "status": "computed_and_matched",
+      "purpose": "labor4:roll1:H5",
+      "attempt": 0,
+      "bound": 6,
+      "computed_sha256": "41222a18d5d15b27a17321108e52b76441b06234ed6fd63ce100876cd66f6a7c",
+      "computed_raw64": "4693360047828327207",
+      "result": 4
+    },
+    {
+      "event_index": 82,
+      "status": "computed_and_matched",
+      "purpose": "labor4:roll1:H6",
+      "attempt": 0,
+      "bound": 6,
+      "computed_sha256": "aec44fc418c14313368dbaa76e990928af35c01c55925d357243396862b722f2",
+      "computed_raw64": "12593278161682252563",
+      "result": 4
+    },
+    {
+      "event_index": 83,
+      "status": "computed_and_matched",
+      "purpose": "labor4:reroll1:H3",
+      "attempt": 0,
+      "bound": 6,
+      "computed_sha256": "1297fe3cc51e73316ec20855d00e68607e1fad23b996e5996150585e3d6f5795",
+      "computed_raw64": "1339818951124611889",
+      "result": 2
+    },
+    {
+      "event_index": 84,
+      "status": "computed_and_matched",
+      "purpose": "labor4:reroll2:H4",
+      "attempt": 0,
+      "bound": 6,
+      "computed_sha256": "e47b22a833e5e57aa3cb0d8830e35db1830f8d4d7650973a6dc3467e0cbd2bc3",
+      "computed_raw64": "16463790968603534714",
+      "result": 3
+    },
+    {
+      "event_index": 85,
+      "status": "computed_and_matched",
+      "purpose": "labor4:roll2:H1",
+      "attempt": 0,
+      "bound": 6,
+      "computed_sha256": "29fde9c3e96ce44cdcd14bef2a572e59ca11f17e74404cf9b0214404630d7a8c",
+      "computed_raw64": "3025831552306963532",
+      "result": 3
+    },
+    {
+      "event_index": 86,
+      "status": "computed_and_matched",
+      "purpose": "labor4:roll2:H2",
+      "attempt": 0,
+      "bound": 6,
+      "computed_sha256": "428d272fa64fe80297d15866a73220c6335a8895c2329d4d1c101564860195c0",
+      "computed_raw64": "4795532263826647042",
+      "result": 5
+    },
+    {
+      "event_index": 87,
+      "status": "computed_and_matched",
+      "purpose": "labor4:roll2:H3",
+      "attempt": 0,
+      "bound": 6,
+      "computed_sha256": "8fc1f33085e2b3d0294e68cb1032f14f12cfb00e0c5140bb7807bb179288dc97",
+      "computed_raw64": "10358828007659058128",
+      "result": 3
+    },
+    {
+      "event_index": 88,
+      "status": "computed_and_matched",
+      "purpose": "labor4:roll2:H4",
+      "attempt": 0,
+      "bound": 6,
+      "computed_sha256": "b7119dff3ed9af7c358ef3916a28ea4069b5873f204a644791c06a3d779a1452",
+      "computed_raw64": "13191498503141568380",
+      "result": 3
+    },
+    {
+      "event_index": 89,
+      "status": "computed_and_matched",
+      "purpose": "labor4:roll2:H5",
+      "attempt": 0,
+      "bound": 6,
+      "computed_sha256": "dda097a84fb9bf8c54951079143c1201015588416588bc74ad33e905cbaef15a",
+      "computed_raw64": "15969931027803651980",
+      "result": 3
+    },
+    {
+      "event_index": 90,
+      "status": "computed_and_matched",
+      "purpose": "labor4:roll2:H6",
+      "attempt": 0,
+      "bound": 6,
+      "computed_sha256": "8f6803253e8cbd48ffb156ba1ba8aefc039cff7344cfae2f3330d7509a83a101",
+      "computed_raw64": "10333512803499687240",
+      "result": 1
+    },
+    {
+      "event_index": 91,
+      "status": "computed_and_matched",
+      "purpose": "labor4:reroll3:H1",
+      "attempt": 0,
+      "bound": 6,
+      "computed_sha256": "e1f98b0ac3fb2e881666a7930fecd0e56f8b35e6ccc6386a80caa92bdbe2047a",
+      "computed_raw64": "16283198806088691336",
+      "result": 1
+    },
+    {
+      "event_index": 92,
+      "status": "computed_and_matched",
+      "purpose": "labor4:reroll4:H3",
+      "attempt": 0,
+      "bound": 6,
+      "computed_sha256": "faf82e2af2319435025836447aea080b62f0f7ac79c9f0cc943562c141fab7e4",
+      "computed_raw64": "18084255065693066293",
+      "result": 2
+    },
+    {
+      "event_index": 93,
+      "status": "computed_and_matched",
+      "purpose": "labor4:roll3:H1",
+      "attempt": 0,
+      "bound": 6,
+      "computed_sha256": "b8f165b66b49bb7a852f856b0c94426a861e1e539b0ff7ef586758237dd4ff02",
+      "computed_raw64": "13326544606524455802",
+      "result": 1
+    },
+    {
+      "event_index": 94,
+      "status": "computed_and_matched",
+      "purpose": "labor4:roll3:H2",
+      "attempt": 0,
+      "bound": 6,
+      "computed_sha256": "1a92c618cc2a55c13465923cd4bd606c23ae052238e2022591b1662586df62d3",
+      "computed_raw64": "1914810601392723393",
+      "result": 4
+    },
+    {
+      "event_index": 95,
+      "status": "computed_and_matched",
+      "purpose": "labor4:roll3:H3",
+      "attempt": 0,
+      "bound": 6,
+      "computed_sha256": "5ea8bbfc537df3a51321d1db02af3232e0fa3879454b0c24e4fda6fd81726f09",
+      "computed_raw64": "6820908328059532197",
+      "result": 4
+    },
+    {
+      "event_index": 96,
+      "status": "computed_and_matched",
+      "purpose": "labor4:roll3:H4",
+      "attempt": 0,
+      "bound": 6,
+      "computed_sha256": "9a23ccc94af745e0c356e06cec17fc476184a86dc72dd545b9412a132d1fb97d",
+      "computed_raw64": "11106946270943987168",
+      "result": 3
+    },
+    {
+      "event_index": 97,
+      "status": "computed_and_matched",
+      "purpose": "labor4:roll3:H5",
+      "attempt": 0,
+      "bound": 6,
+      "computed_sha256": "a40b396e9ae65d1a636f703935ffbe086293f1f88e00bf018a17749cf4bc210a",
+      "computed_raw64": "11820604794171972890",
+      "result": 3
+    },
+    {
+      "event_index": 98,
+      "status": "computed_and_matched",
+      "purpose": "labor4:roll3:H6",
+      "attempt": 0,
+      "bound": 6,
+      "computed_sha256": "a36dea18a21b6be192b63f370cb2b21e61450ee8dfd7e2dcc7c9d90f88a378c6",
+      "computed_raw64": "11776325992163535841",
+      "result": 2
+    },
+    {
+      "event_index": 99,
+      "status": "computed_and_matched",
+      "purpose": "labor4:reroll5:H6",
+      "attempt": 0,
+      "bound": 6,
+      "computed_sha256": "5298c6e971bd12112090508578a2869eaed6374c0e29a9f400551f706bf90902",
+      "computed_raw64": "5951725613508006417",
+      "result": 4
+    },
+    {
+      "event_index": 100,
+      "status": "computed_and_matched",
+      "purpose": "labor4:reroll6:H5",
+      "attempt": 0,
+      "bound": 6,
+      "computed_sha256": "0e9399c377e2317b6c7ae11d0e02d13112ca2cfd9ff75238a0c29fd97c26eeb6",
+      "computed_raw64": "1050352202916442491",
+      "result": 4
+    }
+  ],
+  "computed_committed_events": 93,
+  "orphaned_events": 8,
+  "unreached_indices": [
+    101,
+    173
+  ],
+  "source_ledger": "src/data/raw/golden/HERC-GOLDEN-RUN-0001_golden_run_record.json#/rng_event_ledger",
+  "note": "Orphan entries have null random material and retain source records separately. No future events are generated or replayed after stop."
+}

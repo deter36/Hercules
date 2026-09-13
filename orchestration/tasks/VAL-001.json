@@ -7,8 +7,11 @@
     "expires_at": "2026-09-13T17:22:13.5309223Z",
     "remote_commit_read": "447d11a08dbf5e8c04d981e02df88b509880387b"
   },
-  "blocking_issue_ids": [],
-  "handoff_path": null,
+  "blocking_issue_ids": [
+    "ISS-RS-RS-001-004",
+    "ISS-VAL-VAL-001-002"
+  ],
+  "handoff_path": "orchestration/handoffs/VAL-001-validation-20260913T152213Z-30ff45.json",
   "pm_review": {
     "decision": "blocked_preflight_accepted_and_requeued",
     "run_id": "validation-20260913T142211Z-7fd36a",
@@ -17,7 +20,7 @@
   },
   "id": "VAL-001",
   "role": "validation",
-  "status": "in_progress",
+  "status": "submitted",
   "objective": "Execute Golden Run 0001 from current pinned canonical artifacts and the unchanged normalized human-choice script; independently record state, RNG and findings.",
   "dependencies": [
     "RS-001 scoped golden readiness accepted by PM"

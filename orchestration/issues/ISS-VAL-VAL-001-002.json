@@ -1,0 +1,454 @@
+{
+  "id": "ISS-VAL-VAL-001-002",
+  "task_id": "VAL-001",
+  "run_id": "validation-20260913T152213Z-30ff45",
+  "title": "Historical replay helper skips recorded approval and lacks fail-fast script/state validation",
+  "category": "rng_replay_problem",
+  "origin": "historical_replay_adapter",
+  "severity": "S2",
+  "blocking": true,
+  "blocking_scope": "Using replayGoldenRunTrace alone as proof of exact-input, first-divergence validation",
+  "status": "open",
+  "owner": null,
+  "suggested_owner": "project_manager_to_route_replay_method_scope",
+  "manifest_revision": "e1-m0003",
+  "input_versions": [
+    {
+      "id": "game-data",
+      "path": "src/data/raw/GAME_DATA_v4.json",
+      "source_commit": "6bffa094431d84429ed93339d48f839bcc5a2302",
+      "observed_commit": "ee9df725aecf386a2af5135fe2c23b606284cbc4",
+      "kind": "blob",
+      "git_object": "9407bd9cb58eae1d8cd7a1495a65275e3ef644e1",
+      "sha256_git_bytes": "b32c1e902d200e25e59d475c9453c97e4687603aaecf3f948250fe1bec844ac4",
+      "pin_match": true
+    },
+    {
+      "id": "data-schema",
+      "path": "src/data/raw/GAME_DATA_SCHEMA.md",
+      "source_commit": "6bffa094431d84429ed93339d48f839bcc5a2302",
+      "observed_commit": "ee9df725aecf386a2af5135fe2c23b606284cbc4",
+      "kind": "blob",
+      "git_object": "d9300f6ae1d04cb6772a901a1ed15af34ba814ea",
+      "sha256_git_bytes": "7b857d72ed6982c94d9e2fd1bae7d3b1187065b57ec9fe1bab95ef9a5d9e9d97",
+      "pin_match": true
+    },
+    {
+      "id": "rules-spec",
+      "path": "src/data/raw/GAME_RULES_SPEC.md",
+      "source_commit": "6bffa094431d84429ed93339d48f839bcc5a2302",
+      "observed_commit": "ee9df725aecf386a2af5135fe2c23b606284cbc4",
+      "kind": "blob",
+      "git_object": "07cea77200d58483e39eed0d702efd022dc840a0",
+      "sha256_git_bytes": "34ddfe22914b78e6e479e236e5e063b962839efccc88ae93b508230b10f51893",
+      "pin_match": true
+    },
+    {
+      "id": "execution-spec",
+      "path": "src/data/raw/hercules_engine_execution_spec_v0_13.md",
+      "source_commit": "6bffa094431d84429ed93339d48f839bcc5a2302",
+      "observed_commit": "ee9df725aecf386a2af5135fe2c23b606284cbc4",
+      "kind": "blob",
+      "git_object": "da5f94c4437cdff2366efc161eac1f187aca1a87",
+      "sha256_git_bytes": "5b2c52c9862db8ce3573bed12af891b2cfb94cca450fc789d7f7bc9a38565492",
+      "pin_match": true
+    },
+    {
+      "id": "test-scenarios",
+      "path": "src/data/raw/TEST_SCENARIOS.md",
+      "source_commit": "6bffa094431d84429ed93339d48f839bcc5a2302",
+      "observed_commit": "ee9df725aecf386a2af5135fe2c23b606284cbc4",
+      "kind": "blob",
+      "git_object": "0b51c516eb5c287c7d39bfbf2f50b9cd92128b86",
+      "sha256_git_bytes": "0bb3f1d88778f4ceea906e5911e68d0d97f97ac7658781e79d362e261e2cdae7",
+      "pin_match": true
+    },
+    {
+      "id": "test-fixtures",
+      "path": "src/data/raw/TEST_FIXTURES_v4.json",
+      "source_commit": "6bffa094431d84429ed93339d48f839bcc5a2302",
+      "observed_commit": "ee9df725aecf386a2af5135fe2c23b606284cbc4",
+      "kind": "blob",
+      "git_object": "cadae99fd2c7205d29f17375a36bc70df3e629b3",
+      "sha256_git_bytes": "31459edf0c79ad29bfe3a02b40a4b4a7ec1b6676ed11b7e4f69b7fa14439d14e",
+      "pin_match": true
+    },
+    {
+      "id": "package-manifest",
+      "path": "src/data/raw/HANDOFF_MANIFEST.json",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "observed_commit": "ee9df725aecf386a2af5135fe2c23b606284cbc4",
+      "kind": "blob",
+      "git_object": "766c18906cc20578ef5fc7d11c5e6a82bc4d9d54",
+      "sha256_git_bytes": "c249e816d87bb2f7c2e715caddf7a0d3d27bef83434b6f91b86652be60548078",
+      "pin_match": true
+    },
+    {
+      "id": "package-checksums",
+      "path": "src/data/raw/SHA256SUMS.json",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "observed_commit": "ee9df725aecf386a2af5135fe2c23b606284cbc4",
+      "kind": "blob",
+      "git_object": "aebdce242d075b500df9f8624f0b471c9f5d040f",
+      "sha256_git_bytes": "47b5b40c7d7265f35eee89ae36001dace681ebc2ff2b1f4b2bdaf47691059094",
+      "pin_match": true
+    },
+    {
+      "id": "implementation-brief",
+      "path": "src/data/raw/IMPLEMENTATION_BRIEF.md",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "observed_commit": "ee9df725aecf386a2af5135fe2c23b606284cbc4",
+      "kind": "blob",
+      "git_object": "7abba014243ce1e5cd68c922018fed5c5a383ba1",
+      "sha256_git_bytes": "cf7696152ecefd32ff2307eb2137da0df6e3ff5cebcfa519b917e6621fe7fad4",
+      "pin_match": true
+    },
+    {
+      "id": "presentation-flow",
+      "path": "src/data/raw/PRESENTATION_FLOW.md",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "observed_commit": "ee9df725aecf386a2af5135fe2c23b606284cbc4",
+      "kind": "blob",
+      "git_object": "2bcb04974b018a50dc4f481fc8c35c5e44d52e04",
+      "sha256_git_bytes": "5cc092125143bf6c2296df42b51b609e3599948587a3c0c09d18cb8d44ec6d4b",
+      "pin_match": true
+    },
+    {
+      "id": "golden-record",
+      "path": "src/data/raw/golden/HERC-GOLDEN-RUN-0001_golden_run_record.json",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "observed_commit": "ee9df725aecf386a2af5135fe2c23b606284cbc4",
+      "kind": "blob",
+      "git_object": "8d4dd7d3e8137d28d1e931be514ba8bfe4c1474d",
+      "sha256_git_bytes": "2c7264dd7a1baa8f2907c013bf195986df6b0aebc2319dc9bee95a82ec1b9061",
+      "pin_match": true
+    },
+    {
+      "id": "golden-script",
+      "path": "src/data/raw/golden/HERC-GOLDEN-RUN-0001_replay_script_v2_normalized.json",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "observed_commit": "ee9df725aecf386a2af5135fe2c23b606284cbc4",
+      "kind": "blob",
+      "git_object": "da24321337d3c297d858d58b8e2c292fad937eb1",
+      "sha256_git_bytes": "e342e1891616ebb319f3a355515af97709ab560eac7192fb98c349b4e8a7da59",
+      "pin_match": true
+    },
+    {
+      "id": "golden-prior-report",
+      "path": "src/data/raw/golden/HERC-GOLDEN-RUN-0001_replay_validation_report.json",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "observed_commit": "ee9df725aecf386a2af5135fe2c23b606284cbc4",
+      "kind": "blob",
+      "git_object": "866da0a2c60aac30545e6cdbbf2f8a532f0cc82b",
+      "sha256_git_bytes": "b27ab485c2791f61b97173d63756bb6e24b10ff78d1ccb49baa60475fe0814e1",
+      "pin_match": true
+    },
+    {
+      "id": "historical-engine",
+      "path": "src/engine",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "observed_commit": "ee9df725aecf386a2af5135fe2c23b606284cbc4",
+      "kind": "tree",
+      "git_object": "dac7a33b4fea961c4ba10fed79eda3da5f719211",
+      "sha256_git_bytes": null,
+      "pin_match": true
+    },
+    {
+      "id": "rng-implementation",
+      "path": "src/rng",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "observed_commit": "ee9df725aecf386a2af5135fe2c23b606284cbc4",
+      "kind": "tree",
+      "git_object": "574ad2efc0e8fb67c3e38ebbd0f56c41755a6cdf",
+      "sha256_git_bytes": null,
+      "pin_match": true
+    },
+    {
+      "id": "replay-implementation",
+      "path": "src/replay",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "observed_commit": "ee9df725aecf386a2af5135fe2c23b606284cbc4",
+      "kind": "tree",
+      "git_object": "8df5cbcbd7e2733e829c5c0abea0005381ba7433",
+      "sha256_git_bytes": null,
+      "pin_match": true
+    },
+    {
+      "id": "generated-data",
+      "path": "src/data/generated",
+      "source_commit": "6bffa094431d84429ed93339d48f839bcc5a2302",
+      "observed_commit": "ee9df725aecf386a2af5135fe2c23b606284cbc4",
+      "kind": "tree",
+      "git_object": "a9238f5f4600fd0f5d7ad5f27590bf8833734605",
+      "sha256_git_bytes": null,
+      "pin_match": true
+    },
+    {
+      "id": "existing-tests",
+      "path": "test",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "observed_commit": "ee9df725aecf386a2af5135fe2c23b606284cbc4",
+      "kind": "tree",
+      "git_object": "953f11900a4467a8f7807b5b437c677f3b12ea22",
+      "sha256_git_bytes": null,
+      "pin_match": true
+    },
+    {
+      "id": "package",
+      "path": "package.json",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "observed_commit": "ee9df725aecf386a2af5135fe2c23b606284cbc4",
+      "kind": "blob",
+      "git_object": "ec00f499a965e96db2ca4d0b8e4cda50e7bea805",
+      "sha256_git_bytes": "57309a5e04e6b3368f5edaaac040d86680442d7abae76f5567d793e96a1e1fd9",
+      "pin_match": true
+    },
+    {
+      "id": "lockfile",
+      "path": "pnpm-lock.yaml",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "observed_commit": "ee9df725aecf386a2af5135fe2c23b606284cbc4",
+      "kind": "blob",
+      "git_object": "f974b55ecfee5f821216dd2ee26e6a4cb85e1737",
+      "sha256_git_bytes": "fe4a0dac8359a8b6252c5e3e4d02a2f8158ada9b7f6189f8e6c0f7e1f653c28e",
+      "pin_match": true
+    },
+    {
+      "id": "tsconfig",
+      "path": "tsconfig.json",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "observed_commit": "ee9df725aecf386a2af5135fe2c23b606284cbc4",
+      "kind": "blob",
+      "git_object": "e10045c9619b6c3d47281654d968c7dfb8217c48",
+      "sha256_git_bytes": "1e0f0d23494bc5e21924b2f287bfa8f1f734579037fa6355db4be2fde3528545",
+      "pin_match": true
+    },
+    {
+      "id": "tools-tsconfig",
+      "path": "tsconfig.tools.json",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "observed_commit": "ee9df725aecf386a2af5135fe2c23b606284cbc4",
+      "kind": "blob",
+      "git_object": "874248bd29f4521f9fa3e14e9356639ed800847a",
+      "sha256_git_bytes": "dc70f5b95f167083c3cf9e2223c5b5fe929876736b9ea549b556a4fb5c670e80",
+      "pin_match": true
+    },
+    {
+      "id": "data-generator",
+      "path": "src/data/generate.ts",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "observed_commit": "ee9df725aecf386a2af5135fe2c23b606284cbc4",
+      "kind": "blob",
+      "git_object": "c018bb23e59239d6873d6f7cd0d4aa6482e1acd2",
+      "sha256_git_bytes": "8b1809a8119a16da7eeae0dc38484135a025675849e1a86b77c71fec597dcbf3",
+      "pin_match": true
+    },
+    {
+      "id": "data-validator",
+      "path": "src/data/validation.ts",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "observed_commit": "ee9df725aecf386a2af5135fe2c23b606284cbc4",
+      "kind": "blob",
+      "git_object": "df88d2d5aa065f8de8ef653924ed8a1704315415",
+      "sha256_git_bytes": "62671ac1f74e16970d8956556b11b8c72ad53db083a3989588ec25c515bc4ab1",
+      "pin_match": true
+    },
+    {
+      "id": "official-rulebook",
+      "path": "src/data/raw/sources/Hercules_Rules_104x155.pdf",
+      "source_commit": null,
+      "observed_commit": "ee9df725aecf386a2af5135fe2c23b606284cbc4",
+      "kind": "blob",
+      "git_object": "bb1662bbede6a183bfe5b5548a126d20099a496b",
+      "sha256_git_bytes": "de7d479426b40fd94935be85ef09e37ef30f2d00c5f8fcd4b20ab39b6720ef4a",
+      "pin_match": true
+    },
+    {
+      "id": "verified-reference",
+      "path": "src/data/raw/sources/Hercules_Verified_Gameplay_Reference_v12.md",
+      "source_commit": null,
+      "observed_commit": "ee9df725aecf386a2af5135fe2c23b606284cbc4",
+      "kind": "blob",
+      "git_object": "9b806258acc2a7daa60224d66e27c83baa2e6a0c",
+      "sha256_git_bytes": "d3cc41b91fb32440c6970cad0d148222ffa9e9e08c277c361fd1f0ce6082ffde",
+      "pin_match": true
+    },
+    {
+      "id": "rng-spec",
+      "path": "src/data/raw/sources/Hercules_RNG_Spec_v3.md",
+      "source_commit": null,
+      "observed_commit": "ee9df725aecf386a2af5135fe2c23b606284cbc4",
+      "kind": "blob",
+      "git_object": "c1b70237e259cacf7a913f7ffccb1344a01189ac",
+      "sha256_git_bytes": "6e735e6eee584d2c0ac754d620e6b46c35dd40883ccfc843a6aa289bc7b7d988",
+      "pin_match": true
+    },
+    {
+      "id": "rs-001-readiness",
+      "path": "orchestration/validation/RS-001-readiness.json",
+      "source_commit": "3c9c8e4e15eaf287b5fec6e9a9a00cbd5d76272f",
+      "observed_commit": "ee9df725aecf386a2af5135fe2c23b606284cbc4",
+      "kind": "blob",
+      "git_object": "6fd8a445afc98455a252f74a0eccbf62a0e8c2af",
+      "sha256_git_bytes": "f795dc3782f89c390436567c051273855ef3bc7959fb8d528b2fcfe58a8ab374",
+      "pin_match": true
+    },
+    {
+      "id": "golden-start-state",
+      "path": "orchestration/validation/RS-001-golden-start-state.json",
+      "source_commit": "3c9c8e4e15eaf287b5fec6e9a9a00cbd5d76272f",
+      "observed_commit": "ee9df725aecf386a2af5135fe2c23b606284cbc4",
+      "kind": "blob",
+      "git_object": "2c1d1b69692c3e38edba8bd42adf2bd42fe5826c",
+      "sha256_git_bytes": "3c4f8de10b411a612ab04b860750886c360e25d7056fcc7890dcdda28f6eb289",
+      "pin_match": true
+    },
+    {
+      "id": "rs-002-handoff",
+      "path": "orchestration/handoffs/RS-002-rules-spec-20260913T131948Z-6e6af8.json",
+      "source_commit": "6bffa094431d84429ed93339d48f839bcc5a2302",
+      "observed_commit": "ee9df725aecf386a2af5135fe2c23b606284cbc4",
+      "kind": "blob",
+      "git_object": "ec4b9e65909a9f6ce98081ca0bf1a1e30ba7f11b",
+      "sha256_git_bytes": "ce9ed7f73f197b813b286d484fcfdbcfa44cb4e7eaf41cf29a1489455f813944",
+      "pin_match": true
+    }
+  ],
+  "affected_artifacts": [
+    "src/replay/golden-run.ts",
+    "orchestration/onboarding/validation.md"
+  ],
+  "evidence": {
+    "expected": "Consume and verify every required input and its current phase/state, and preserve a stopped state at the first unsafe divergence. A final RNG counter cannot certify the whole tactical/state trace.",
+    "observed": {
+      "basis": "Static inspection of pinned helper plus independently executed guarded replay; the original helper was not executed past the stop.",
+      "source_lines": [
+        {
+          "line": 36,
+          "behavior": "approve_initial_mood_input_order is silently skipped after initializeGame already used its own deck."
+        },
+        {
+          "line": 38,
+          "behavior": "finalize_blue_phase directly sets placement without checking the prior phase."
+        },
+        {
+          "line": 40,
+          "behavior": "Blue operation.from is used for a Bow delta but is not checked against the current die face."
+        },
+        {
+          "line": 51,
+          "behavior": "Final nextEvent is checked; checkpoint and frozen-state assertions are absent."
+        }
+      ],
+      "concrete_relevance": "The guarded runner stops at input 54 when Cannot Block changes false to true, with RNG still 101. The helper provides no assertion/callback at that impact boundary.",
+      "guarded_run": {
+        "input_seq": 54,
+        "input": {
+          "seq": 54,
+          "labor": 4,
+          "roll": 3,
+          "action": "resolve_assignments",
+          "migration_derived": true,
+          "derivation_reason": "Historical golden-run transcript advanced after assignment. Normalized to current v0.8 explicit Resolve Assignments semantics."
+        },
+        "code": "ROUND_START_CANNOT_BLOCK_MUTATED",
+        "message": "ROUND_START_CANNOT_BLOCK_MUTATED",
+        "detail": {
+          "expected": false,
+          "observed": true,
+          "round_start": {
+            "laborId": "labor.L04",
+            "roll": 3,
+            "value": false,
+            "nodes": [
+              {
+                "id": "labor.L04.left",
+                "status": "defeated_inactive",
+                "nodeId": "L04L.n1"
+              },
+              {
+                "id": "labor.L04.right",
+                "status": "active",
+                "nodeId": "L04R.n2"
+              }
+            ]
+          },
+          "label": "Apply entered node L04R.n3 to labor.L04.right"
+        },
+        "trace_index": 161,
+        "phase": "IMPACT_RESOLUTION",
+        "labor": "labor.L04",
+        "roll": 3,
+        "next_rng_event": "101"
+      }
+    },
+    "source_refs": [
+      "orchestration/onboarding/validation.md#operating-contract",
+      "orchestration/tasks/VAL-001.json#acceptance_criteria",
+      "src/replay/golden-run.ts:28",
+      "src/replay/golden-run.ts:36",
+      "src/replay/golden-run.ts:38",
+      "src/replay/golden-run.ts:40",
+      "src/replay/golden-run.ts:51"
+    ],
+    "result_path": "orchestration/validation/VAL-001-validation-20260913T152213Z-30ff45-result.json",
+    "checkpoint": {
+      "input_seq": 54,
+      "input": {
+        "seq": 54,
+        "labor": 4,
+        "roll": 3,
+        "action": "resolve_assignments",
+        "migration_derived": true,
+        "derivation_reason": "Historical golden-run transcript advanced after assignment. Normalized to current v0.8 explicit Resolve Assignments semantics."
+      },
+      "code": "ROUND_START_CANNOT_BLOCK_MUTATED",
+      "message": "ROUND_START_CANNOT_BLOCK_MUTATED",
+      "detail": {
+        "expected": false,
+        "observed": true,
+        "round_start": {
+          "laborId": "labor.L04",
+          "roll": 3,
+          "value": false,
+          "nodes": [
+            {
+              "id": "labor.L04.left",
+              "status": "defeated_inactive",
+              "nodeId": "L04L.n1"
+            },
+            {
+              "id": "labor.L04.right",
+              "status": "active",
+              "nodeId": "L04R.n2"
+            }
+          ]
+        },
+        "label": "Apply entered node L04R.n3 to labor.L04.right"
+      },
+      "trace_index": 161,
+      "phase": "IMPACT_RESOLUTION",
+      "labor": "labor.L04",
+      "roll": 3,
+      "next_rng_event": "101"
+    }
+  },
+  "canonical_update_required": false,
+  "regression_required": true,
+  "human_authority_required": false,
+  "disposition": null,
+  "resolution_artifacts": [],
+  "verification_task_id": null,
+  "closure": null,
+  "proposed_mitigation": "The run-specific guarded driver verifies approval, sequence/Labor/roll, pending choices, phase, blue from/to, invariant state and independently computed RNG. PM should review this method and assign any reusable helper change explicitly; no historical helper or canonical file was changed.",
+  "method_limitations": [
+    "This run exercises unchanged engine operations through a guarded historical-script driver, not the typed command dispatcher or UI.",
+    "Compound damage/impact and Labor-transition schedulers are expanded in their pinned source order so checks can stop between public engine operations; engine content and effects are unchanged.",
+    "Initial approval is consumed by four-way equality. Historical first placement implies finishing Blue only from the legal Blue phase; every such no-RNG translation is recorded in the operation trace.",
+    "Undo uses same-RNG external snapshots matching the historical adapter with extra assertions; neither recorded undo is reached because the stop is earlier.",
+    "Historical completed-Labor die labels are coarse. This run compares resources, rewards/removals, full deck order, completed Labors, RNG index, persistent dice count and broken identities; complete bookkeeping flags are recorded and checked for runtime invariants, not independently certified against a missing full historical checkpoint.",
+    "Stop occurs before Labor IV resource-queue settlement/cleanup; queued Divinity +1 remains unapplied. Spirit is 8 and Divinity 0 at this partial boundary. No Spirit discrepancy or later checkpoint outcome is inferred.",
+    "Existing full-run preparation diagnostics and historical PASS reports remain comparison evidence; they are not this validation result.",
+    "Known healing and terminal-status issues are not cleared. Inputs 55-112, RNG indices 101-173, completed-Labor IV/V checkpoints and Labor VI terminal state are not reached."
+  ]
+}

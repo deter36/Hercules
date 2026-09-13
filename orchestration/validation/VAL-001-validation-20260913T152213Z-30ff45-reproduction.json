@@ -1,0 +1,15 @@
+{
+  "task_id": "VAL-001",
+  "run_id": "validation-20260913T152213Z-30ff45",
+  "tested_commit": "ee9df725aecf386a2af5135fe2c23b606284cbc4",
+  "command": "node orchestration/validation/VAL-001-validation-20260913T152213Z-30ff45-replay.mjs --check",
+  "performed": true,
+  "exit_code": 0,
+  "result": "Exact saved states, input consumption, ledger and operation trace reproduced in memory; no files written by the check.",
+  "evidence_sha256": "8063968051abac4eb5198310c2e98fe03f633b89acd1d3b162d1902cabd720e1",
+  "ledger_sha256": "2baf69dee144490063be670641de73d8515d9a4209769e282849b8fae526a2e4",
+  "trace_sha256": "d62166f80cacf3a29fcfd296e3539e86c8e184320dcb2c946d89cf542d87ac3c",
+  "procedure_file_sha256": "d8252c893354c2496dc99eb03850cc2950d1f75fc870ac9fd3abdabd48b41ed8",
+  "future_gameplay_executed": false,
+  "note": "This is a separate fresh initialization from event 0 for reproducibility, not continuation of the stopped timeline or reuse of orphan indices."
+}

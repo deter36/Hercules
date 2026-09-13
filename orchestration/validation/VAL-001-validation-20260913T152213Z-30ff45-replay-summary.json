@@ -1,0 +1,66 @@
+{
+  "pass_fail": "FAIL",
+  "stop": {
+    "input_seq": 54,
+    "input": {
+      "seq": 54,
+      "labor": 4,
+      "roll": 3,
+      "action": "resolve_assignments",
+      "migration_derived": true,
+      "derivation_reason": "Historical golden-run transcript advanced after assignment. Normalized to current v0.8 explicit Resolve Assignments semantics."
+    },
+    "code": "ROUND_START_CANNOT_BLOCK_MUTATED",
+    "message": "ROUND_START_CANNOT_BLOCK_MUTATED",
+    "detail": {
+      "expected": false,
+      "observed": true,
+      "round_start": {
+        "laborId": "labor.L04",
+        "roll": 3,
+        "value": false,
+        "nodes": [
+          {
+            "id": "labor.L04.left",
+            "status": "defeated_inactive",
+            "nodeId": "L04L.n1"
+          },
+          {
+            "id": "labor.L04.right",
+            "status": "active",
+            "nodeId": "L04R.n2"
+          }
+        ]
+      },
+      "label": "Apply entered node L04R.n3 to labor.L04.right"
+    },
+    "trace_index": 161,
+    "phase": "IMPACT_RESOLUTION",
+    "labor": "labor.L04",
+    "roll": 3,
+    "next_rng_event": "101"
+  },
+  "accepted_inputs": 53,
+  "attempted_inputs": 54,
+  "checkpoints": [
+    {
+      "labor": 1,
+      "status": "MATCH"
+    },
+    {
+      "labor": 2,
+      "status": "MATCH"
+    },
+    {
+      "labor": 3,
+      "status": "MATCH"
+    }
+  ],
+  "next_rng_event": "101",
+  "computed_events": 93,
+  "orphans": 8,
+  "trace_operations": 162,
+  "evidence_sha256": "8063968051abac4eb5198310c2e98fe03f633b89acd1d3b162d1902cabd720e1",
+  "ledger_sha256": "2baf69dee144490063be670641de73d8515d9a4209769e282849b8fae526a2e4",
+  "trace_sha256": "d62166f80cacf3a29fcfd296e3539e86c8e184320dcb2c946d89cf542d87ac3c"
+}

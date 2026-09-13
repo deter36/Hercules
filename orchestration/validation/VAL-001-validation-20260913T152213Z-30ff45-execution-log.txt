@@ -1,0 +1,139 @@
+Run validation-20260913T152213Z-30ff45
+Tested commit ee9df725aecf386a2af5135fe2c23b606284cbc4
+Manifest e1-m0003
+Node v24.19.0
+Git git version 2.54.0.windows.1
+Locked dependency installation: pnpm install --frozen-lockfile (exit 0).
+Pinned TypeScript compilation only: pnpm exec tsc -p tsconfig.json (exit 0); no data generation.
+Tool versions: pnpm 11.19.0; TypeScript 5.9.3.
+30/30 exact inputs match including Git-byte SHA256 and complete tree membership.
+Input 2 roll: accepted; labor.L01/BLUE_ABILITY_WINDOW; Spirit 17; Divinity 0; next RNG 13
+Input 3 use_blue: accepted; labor.L01/BLUE_ABILITY_WINDOW; Spirit 16; Divinity 0; next RNG 13
+Input 4 assign_attack: accepted; labor.L01/GOLD_AND_ATTACK_PLACEMENT; Spirit 16; Divinity 0; next RNG 13
+Input 5 resolve_assignments: accepted; labor.L01/READY_TO_ROLL; Spirit 15; Divinity 0; next RNG 13
+Input 6 roll: accepted; labor.L01/BLUE_ABILITY_WINDOW; Spirit 15; Divinity 0; next RNG 18
+Input 7 use_blue: accepted; labor.L01/BLUE_ABILITY_WINDOW; Spirit 14; Divinity 0; next RNG 18
+Input 8 assign_attack: accepted; labor.L01/GOLD_AND_ATTACK_PLACEMENT; Spirit 14; Divinity 0; next RNG 18
+Checkpoint Labor 1: MATCH; Spirit 16; Divinity 0; next RNG 34
+Input 9 resolve_assignments: accepted; labor.L02/READY_TO_ROLL; Spirit 15; Divinity 0; next RNG 34
+Input 10 roll: accepted; labor.L02/BLUE_ABILITY_WINDOW; Spirit 15; Divinity 0; next RNG 39
+Input 11 use_blue: accepted; labor.L02/BLUE_ABILITY_WINDOW; Spirit 14; Divinity 0; next RNG 39
+Input 12 use_blue: accepted; labor.L02/BLUE_ABILITY_WINDOW; Spirit 14; Divinity 0; next RNG 39
+Input 13 assign_attack: accepted; labor.L02/GOLD_AND_ATTACK_PLACEMENT; Spirit 14; Divinity 0; next RNG 39
+Input 14 place_gold: accepted; labor.L02/GOLD_AND_ATTACK_PLACEMENT; Spirit 14; Divinity 0; next RNG 39
+Input 15 resolve_assignments: accepted; labor.L02/READY_TO_ROLL; Spirit 14; Divinity 0; next RNG 39
+Input 16 roll: accepted; labor.L02/BLUE_ABILITY_WINDOW; Spirit 14; Divinity 0; next RNG 44
+Input 17 use_blue: accepted; labor.L02/BLUE_ABILITY_WINDOW; Spirit 13; Divinity 0; next RNG 44
+Input 18 use_blue: accepted; labor.L02/BLUE_ABILITY_WINDOW; Spirit 13; Divinity 0; next RNG 44
+Input 19 assign_attack: accepted; labor.L02/GOLD_AND_ATTACK_PLACEMENT; Spirit 13; Divinity 0; next RNG 44
+Checkpoint Labor 2: MATCH; Spirit 13; Divinity 0; next RNG 52
+Input 20 resolve_assignments: accepted; labor.L03/READY_TO_ROLL; Spirit 12; Divinity 0; next RNG 52
+Input 21 roll: accepted; labor.L03/BLUE_ABILITY_WINDOW; Spirit 12; Divinity 0; next RNG 58
+Input 22 use_blue: accepted; labor.L03/BLUE_ABILITY_WINDOW; Spirit 12; Divinity 0; next RNG 58
+Input 23 finalize_blue_phase: accepted; labor.L03/GOLD_AND_ATTACK_PLACEMENT; Spirit 12; Divinity 0; next RNG 58
+Input 24 assign_attack_sets: accepted; labor.L03/GOLD_AND_ATTACK_PLACEMENT; Spirit 12; Divinity 0; next RNG 58
+Input 25 resolve_assignments: accepted; labor.L03/READY_TO_ROLL; Spirit 12; Divinity 0; next RNG 58
+Input 26 roll: accepted; labor.L03/BLUE_ABILITY_WINDOW; Spirit 12; Divinity 0; next RNG 64
+Input 27 use_blue: accepted; labor.L03/BLUE_ABILITY_WINDOW; Spirit 11; Divinity 0; next RNG 64
+Input 28 finalize_blue_phase: accepted; labor.L03/GOLD_AND_ATTACK_PLACEMENT; Spirit 11; Divinity 0; next RNG 64
+Input 29 assign_attack_sets: accepted; labor.L03/GOLD_AND_ATTACK_PLACEMENT; Spirit 11; Divinity 0; next RNG 64
+Input 30 resolve_assignments: accepted; labor.L03/IMPACT_RESOLUTION; Spirit 11; Divinity 0; next RNG 64
+Input 31 choose_broken_die: accepted; labor.L03/READY_TO_ROLL; Spirit 11; Divinity 0; next RNG 64
+Input 32 roll: accepted; labor.L03/BLUE_ABILITY_WINDOW; Spirit 11; Divinity 0; next RNG 69
+Input 33 finalize_blue_phase: accepted; labor.L03/GOLD_AND_ATTACK_PLACEMENT; Spirit 11; Divinity 0; next RNG 69
+Input 34 assign_attack_sets: accepted; labor.L03/GOLD_AND_ATTACK_PLACEMENT; Spirit 11; Divinity 0; next RNG 69
+Checkpoint Labor 3: MATCH; Spirit 14; Divinity 0; next RNG 77
+Input 35 resolve_assignments: accepted; labor.L04/READY_TO_ROLL; Spirit 11; Divinity 0; next RNG 77
+Input 36 roll: accepted; labor.L04/BLUE_ABILITY_WINDOW; Spirit 11; Divinity 0; next RNG 83
+Input 37 reroll: accepted; labor.L04/BLUE_ABILITY_WINDOW; Spirit 11; Divinity 0; next RNG 84
+Input 38 reroll: accepted; labor.L04/BLUE_ABILITY_WINDOW; Spirit 11; Divinity 0; next RNG 85
+Input 39 finalize_blue_phase: accepted; labor.L04/GOLD_AND_ATTACK_PLACEMENT; Spirit 11; Divinity 0; next RNG 85
+Input 40 assign_attack_sets: accepted; labor.L04/GOLD_AND_ATTACK_PLACEMENT; Spirit 11; Divinity 0; next RNG 85
+Input 41 resolve_assignments: accepted; labor.L04/READY_TO_ROLL; Spirit 8; Divinity 0; next RNG 85
+Input 42 roll: accepted; labor.L04/BLUE_ABILITY_WINDOW; Spirit 8; Divinity 0; next RNG 91
+Input 43 reroll: accepted; labor.L04/BLUE_ABILITY_WINDOW; Spirit 8; Divinity 0; next RNG 92
+Input 44 reroll: accepted; labor.L04/BLUE_ABILITY_WINDOW; Spirit 8; Divinity 0; next RNG 93
+Input 45 finalize_blue_phase: accepted; labor.L04/GOLD_AND_ATTACK_PLACEMENT; Spirit 8; Divinity 0; next RNG 93
+Input 46 assign_attack_sets: accepted; labor.L04/GOLD_AND_ATTACK_PLACEMENT; Spirit 8; Divinity 0; next RNG 93
+Input 47 resolve_assignments: accepted; labor.L04/READY_TO_ROLL; Spirit 8; Divinity 0; next RNG 93
+Input 48 roll: accepted; labor.L04/BLUE_ABILITY_WINDOW; Spirit 8; Divinity 0; next RNG 99
+Input 49 reroll: accepted; labor.L04/BLUE_ABILITY_WINDOW; Spirit 8; Divinity 0; next RNG 100
+Input 50 reroll: accepted; labor.L04/BLUE_ABILITY_WINDOW; Spirit 8; Divinity 0; next RNG 101
+Input 51 finalize_blue_phase: accepted; labor.L04/GOLD_AND_ATTACK_PLACEMENT; Spirit 8; Divinity 0; next RNG 101
+Input 52 place_gold: accepted; labor.L04/GOLD_AND_ATTACK_PLACEMENT; Spirit 8; Divinity 0; next RNG 101
+Input 53 assign_attack: accepted; labor.L04/GOLD_AND_ATTACK_PLACEMENT; Spirit 8; Divinity 0; next RNG 101
+STOP {"input_seq":54,"input":{"seq":54,"labor":4,"roll":3,"action":"resolve_assignments","migration_derived":true,"derivation_reason":"Historical golden-run transcript advanced after assignment. Normalized to current v0.8 explicit Resolve Assignments semantics."},"code":"ROUND_START_CANNOT_BLOCK_MUTATED","message":"ROUND_START_CANNOT_BLOCK_MUTATED","detail":{"expected":false,"observed":true,"round_start":{"laborId":"labor.L04","roll":3,"value":false,"nodes":[{"id":"labor.L04.left","status":"defeated_inactive","nodeId":"L04L.n1"},{"id":"labor.L04.right","status":"active","nodeId":"L04R.n2"}]},"label":"Apply entered node L04R.n3 to labor.L04.right"},"trace_index":161,"phase":"IMPACT_RESOLUTION","labor":"labor.L04","roll":3,"next_rng_event":"101"}
+{
+  "pass_fail": "FAIL",
+  "stop": {
+    "input_seq": 54,
+    "input": {
+      "seq": 54,
+      "labor": 4,
+      "roll": 3,
+      "action": "resolve_assignments",
+      "migration_derived": true,
+      "derivation_reason": "Historical golden-run transcript advanced after assignment. Normalized to current v0.8 explicit Resolve Assignments semantics."
+    },
+    "code": "ROUND_START_CANNOT_BLOCK_MUTATED",
+    "message": "ROUND_START_CANNOT_BLOCK_MUTATED",
+    "detail": {
+      "expected": false,
+      "observed": true,
+      "round_start": {
+        "laborId": "labor.L04",
+        "roll": 3,
+        "value": false,
+        "nodes": [
+          {
+            "id": "labor.L04.left",
+            "status": "defeated_inactive",
+            "nodeId": "L04L.n1"
+          },
+          {
+            "id": "labor.L04.right",
+            "status": "active",
+            "nodeId": "L04R.n2"
+          }
+        ]
+      },
+      "label": "Apply entered node L04R.n3 to labor.L04.right"
+    },
+    "trace_index": 161,
+    "phase": "IMPACT_RESOLUTION",
+    "labor": "labor.L04",
+    "roll": 3,
+    "next_rng_event": "101"
+  },
+  "accepted_inputs": 53,
+  "attempted_inputs": 54,
+  "checkpoints": [
+    {
+      "labor": 1,
+      "status": "MATCH"
+    },
+    {
+      "labor": 2,
+      "status": "MATCH"
+    },
+    {
+      "labor": 3,
+      "status": "MATCH"
+    }
+  ],
+  "next_rng_event": "101",
+  "computed_events": 93,
+  "orphans": 8,
+  "trace_operations": 162,
+  "evidence_sha256": "8063968051abac4eb5198310c2e98fe03f633b89acd1d3b162d1902cabd720e1",
+  "ledger_sha256": "2baf69dee144490063be670641de73d8515d9a4209769e282849b8fae526a2e4",
+  "trace_sha256": "d62166f80cacf3a29fcfd296e3539e86c8e184320dcb2c946d89cf542d87ac3c"
+}
+
+Reproducibility check: node orchestration/validation/VAL-001-validation-20260913T152213Z-30ff45-replay.mjs --check
+Exit 0: Exact saved states, input consumption, ledger and operation trace match; no files written.
+Evidence SHA256 (compact serialization): 8063968051abac4eb5198310c2e98fe03f633b89acd1d3b162d1902cabd720e1
+Ledger SHA256 (compact serialization): 2baf69dee144490063be670641de73d8515d9a4209769e282849b8fae526a2e4
+Trace SHA256: d62166f80cacf3a29fcfd296e3539e86c8e184320dcb2c946d89cf542d87ac3c
+Fresh remote check: HEAD and origin experiment branch both ee9df725aecf386a2af5135fe2c23b606284cbc4; same manifest/claim/input pins; lease unexpired.
+Observed operation changes only currentLabor.cannotBlockThisRound false -> true. No resource settlement, cleanup, next choice, or new RNG after divergence.
