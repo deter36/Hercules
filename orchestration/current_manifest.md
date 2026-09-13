@@ -24,10 +24,10 @@ historical `GAME_DATA_v4.json` checksum preimage could not be recovered. Histori
 evidence must remain preserved, and no later-branch correction may be imported.
 
 Manifest `e1-m0004` carries the RS-002 corrected canonical candidate from commit
-`6bffa094431d84429ed93339d48f839bcc5a2302` for independent validation. `VAL-001`
-is accepted as a successful fail-fast investigation: the replay reached Labor IV
-and reproduced the historical Cannot Block snapshot mutation before consuming any
-later state or RNG. `VAL-002` is now the sole ready task. Its exact inputs include
-the constructed Labor VIII scenario, corrected canon, and the accepted VAL-001
-evidence. Historical engine and reusable replay-helper corrections remain tracked
-for explicit implementation scope at the human checkpoint.
+`6bffa094431d84429ed93339d48f839bcc5a2302` for independent validation. Both
+validation tasks are accepted fail-fast investigations. `VAL-001` reproduced the
+historical Cannot Block snapshot mutation at Labor IV. `VAL-002` independently
+verified the corrected Labor VIII shared requirement, selected damage, and
+advancement, then reproduced incorrect cross-die healing. The experiment is at
+the failure checkpoint in `orchestration/human_checkpoint.md`; no worker task is
+ready, and implementation-spec generation remains unauthorized.

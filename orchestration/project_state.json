@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "experiment_id": "HERC-ORCH-E1",
-  "phase": "active",
-  "updated_at": "2026-09-13T17:12:51.895000+00:00",
+  "phase": "human_review_required",
+  "updated_at": "2026-09-13T18:13:22.981000+00:00",
   "repository": "https://github.com/deter36/Hercules",
   "branch": "codex/hercules-orchestration-e1",
   "baseline_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
@@ -371,25 +371,28 @@
       ]
     },
     "l08_ready_for_validation": {
-      "status": "ready",
+      "status": "failed_first_divergence",
       "evidence": [
         "orchestration/handoffs/RS-001-rules-spec-20260913T051344Z-26d973.json",
         "orchestration/validation/RS-001-L08-scenario.json"
       ],
-      "pending": []
+      "pending": [
+        "Historical engine correction for ISS-RS-RS-001-002",
+        "Complete-round and wider healing regressions after correction"
+      ]
     },
     "ready_for_revalidation": {
       "status": "not_applicable",
       "evidence": []
     },
     "ready_for_human_checkpoint": {
-      "status": "not_met",
-      "evidence": [],
-      "pending": [
-        "VAL-002 targeted validation",
-        "issue dispositions",
-        "canonical propagation and independent verification"
-      ]
+      "status": "met_failure_checkpoint",
+      "evidence": [
+        "orchestration/validation/VAL-001-validation-20260913T152213Z-30ff45-result.json",
+        "orchestration/validation/VAL-002-validation-20260913T172338Z-cc12bf-result.json",
+        "orchestration/human_checkpoint.md"
+      ],
+      "pending": []
     }
   },
   "known_provisional_conditions": [
@@ -402,9 +405,9 @@
     }
   ],
   "human_checkpoint": {
-    "status": "not_reached",
-    "recommendation": null,
-    "decision_packet": null,
+    "status": "awaiting_human_decision",
+    "recommendation": "not_recommended",
+    "decision_packet": "orchestration/human_checkpoint.md",
     "human_decision_evidence": null,
     "implementation_spec_generation_authorized": false
   },
@@ -428,6 +431,19 @@
       ],
       "gameplay_executed": true,
       "first_divergence": "Labor IV input 54: Cannot Block round-start snapshot mutated false to true"
+    },
+    {
+      "task_id": "VAL-002",
+      "run_id": "validation-20260913T172338Z-cc12bf",
+      "status": "FAIL_INVESTIGATION_ACCEPTED",
+      "result": "orchestration/validation/VAL-002-validation-20260913T172338Z-cc12bf-result.json",
+      "findings": [
+        "ISS-RS-RS-001-001",
+        "ISS-RS-RS-001-002"
+      ],
+      "gameplay_executed": true,
+      "verified": "Labor VIII shared requirement, selected damage target, damage amount, and advancement",
+      "first_divergence": "B.n1 source-local heal incorrectly changed die A from 5 to 6"
     }
   ],
   "experiment_observations": [
@@ -478,6 +494,21 @@
       "first_divergence": "Labor IV input 54: Cannot Block round-start snapshot mutated false to true",
       "next_task_released": "VAL-002",
       "counts_as_worker_validation": true
+    },
+    {
+      "stage": "targeted_validation",
+      "type": "canonical_targeting_verified_then_engine_healing_divergence_reproduced",
+      "task_id": "VAL-002",
+      "run_id": "validation-20260913T172338Z-cc12bf",
+      "first_divergence": "B.n1 source-local heal incorrectly changed die A from 5 to 6",
+      "counts_as_worker_validation": true
+    },
+    {
+      "stage": "human_checkpoint",
+      "type": "failure_checkpoint_reached_with_implementation_scope_required",
+      "decision_packet": "orchestration/human_checkpoint.md",
+      "recommendation": "not_recommended",
+      "counts_as_worker_validation": false
     }
   ],
   "publication": {

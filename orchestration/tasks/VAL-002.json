@@ -12,13 +12,14 @@
   ],
   "handoff_path": "orchestration/handoffs/VAL-002-validation-20260913T172338Z-cc12bf.json",
   "pm_review": {
-    "decision": "released_after_val_001_disposition",
-    "evidence": "VAL-001 was accepted as a successful fail-fast investigation. Manifest e1-m0004 pins the constructed L08 scenario and the exact VAL-001 result and handoff.",
-    "scope": "Validate the corrected canonical Labor VIII requirement, damage, and source-local healing semantics. Report historical-engine comparisons as findings; do not repair implementation."
+    "decision": "fail_investigation_accepted",
+    "run_id": "validation-20260913T172338Z-cc12bf",
+    "evidence": "All 31 exact inputs matched. The corrected shared-requirement and selected-damage behavior passed through advancement, then the unchanged historical engine healed die A when B.n1 was the source. The validator stopped before settlement, cleanup, or RNG consumption.",
+    "resolution": "Retain the corrected canonical source-local healing rule. Preserve the reproduced engine defect under ISS-RS-RS-001-002 for a separately authorized implementation task. No current worker is authorized to repair src/engine."
   },
   "id": "VAL-002",
   "role": "validation",
-  "status": "submitted",
+  "status": "accepted_fail",
   "objective": "Execute the PM-approved constructed Labor VIII scenario from pinned canonical artifacts, comparing the explicit transition/state interpretation with the historical engine where the assigned method permits.",
   "dependencies": [
     "RS-001 scoped L08 readiness accepted by PM",
