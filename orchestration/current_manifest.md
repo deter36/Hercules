@@ -23,9 +23,11 @@ pinned rulebook, v12 gameplay reference, and execution specification because the
 historical `GAME_DATA_v4.json` checksum preimage could not be recovered. Historical
 evidence must remain preserved, and no later-branch correction may be imported.
 
-Manifest `e1-m0003` carries the RS-002 corrected canonical candidate from commit
+Manifest `e1-m0004` carries the RS-002 corrected canonical candidate from commit
 `6bffa094431d84429ed93339d48f839bcc5a2302` for independent validation. `VAL-001`
-is the sole ready task. It now pins the RS-001 readiness report, complete Golden
-start state, and RS-002 handoff after the first validation preflight correctly
-stopped before gameplay. This promotion is not acceptance of the candidate or a
-claim that the known historical engine discrepancies are fixed.
+is accepted as a successful fail-fast investigation: the replay reached Labor IV
+and reproduced the historical Cannot Block snapshot mutation before consuming any
+later state or RNG. `VAL-002` is now the sole ready task. Its exact inputs include
+the constructed Labor VIII scenario, corrected canon, and the accepted VAL-001
+evidence. Historical engine and reusable replay-helper corrections remain tracked
+for explicit implementation scope at the human checkpoint.

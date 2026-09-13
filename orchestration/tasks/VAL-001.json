@@ -13,14 +13,14 @@
   ],
   "handoff_path": "orchestration/handoffs/VAL-001-validation-20260913T152213Z-30ff45.json",
   "pm_review": {
-    "decision": "blocked_preflight_accepted_and_requeued",
-    "run_id": "validation-20260913T142211Z-7fd36a",
-    "evidence": "The worker correctly stopped before consuming a command or RNG event. All 27 then-current canonical pins matched, and it supplied exact observed identities for the three missing PM-controlled inputs.",
-    "resolution": "Manifest e1-m0003 pins those inputs and binds the complete start state. A fresh run is required."
+    "decision": "fail_investigation_accepted",
+    "run_id": "validation-20260913T152213Z-30ff45",
+    "evidence": "The guarded deterministic replay matched all 30 e1-m0003 pins, reached the first three completed-Labor checkpoints, and stopped at the first unsafe divergence at Labor IV input 54 before further state or RNG consumption.",
+    "resolution": "The historical engine mutates the false round-start Cannot Block snapshot to true when L04R.n3 is entered. The reusable replay-helper limitation is separately tracked. Both implementation findings are preserved for explicit future implementation scope; VAL-002 is released for the remaining canonical Labor VIII check."
   },
   "id": "VAL-001",
   "role": "validation",
-  "status": "submitted",
+  "status": "accepted_fail",
   "objective": "Execute Golden Run 0001 from current pinned canonical artifacts and the unchanged normalized human-choice script; independently record state, RNG and findings.",
   "dependencies": [
     "RS-001 scoped golden readiness accepted by PM"

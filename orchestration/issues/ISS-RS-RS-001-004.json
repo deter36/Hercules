@@ -7,8 +7,8 @@
   "severity": "S2",
   "blocking": true,
   "blocking_scope": "Generic Cannot Block invariant used by Golden; isolated diagnostic shows a localized loss error",
-  "status": "assigned",
-  "owner": "rules_spec",
+  "status": "accepted_deferred_implementation",
+  "owner": "project_manager",
   "manifest_revision": "e1-m0001",
   "input_versions": [
     {
@@ -321,7 +321,7 @@
   "human_authority_required": false,
   "disposition": {
     "type": "no_change",
-    "state": "proposed_for_canon",
+    "state": "canon_confirmed_engine_failure_reproduced",
     "action": "Retain the existing nonretroactive rule; route an engine correction plus regression addition that actually enters Cannot Block during impacts. Existing F004/F005 test checks only roll-time snapshots, not subsequent entry."
   },
   "regression_expectation": {
@@ -332,8 +332,11 @@
     ],
     "scope_limit": "This isolated helper diagnosis is not a second released gameplay scenario, and does not claim the Golden resource checkpoints diverge."
   },
-  "resolution_artifacts": [],
+  "resolution_artifacts": [
+    "orchestration/validation/VAL-001-validation-20260913T152213Z-30ff45-result.json",
+    "orchestration/handoffs/VAL-001-validation-20260913T152213Z-30ff45.json"
+  ],
   "verification_task_id": "VAL-002",
   "closure": null,
-  "authority_note": "This preparation task reports a source-backed proposed disposition. PM assigns correction/engine work and independent validation; no canon or engine was changed."
+  "authority_note": "VAL-001 independently reproduced the historical-engine failure. The experiment defines no implementation worker, so engine correction is preserved for the human checkpoint and a later explicitly scoped implementation task. No human rules authority is required."
 }

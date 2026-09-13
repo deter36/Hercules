@@ -8,8 +8,8 @@
   "severity": "S2",
   "blocking": true,
   "blocking_scope": "Using replayGoldenRunTrace alone as proof of exact-input, first-divergence validation",
-  "status": "open",
-  "owner": null,
+  "status": "accepted_deferred_implementation",
+  "owner": "project_manager",
   "suggested_owner": "project_manager_to_route_replay_method_scope",
   "manifest_revision": "e1-m0003",
   "input_versions": [
@@ -436,9 +436,13 @@
   "canonical_update_required": false,
   "regression_required": true,
   "human_authority_required": false,
-  "disposition": null,
+  "disposition": {
+    "type": "implementation_scope_deferred",
+    "state": "validation_method_accepted_with_limitation",
+    "action": "Use the guarded run evidence for this experiment and carry a reusable replay-helper correction into the human checkpoint. No current role is authorized to modify src/replay."
+  },
   "resolution_artifacts": [],
-  "verification_task_id": null,
+  "verification_task_id": "future_explicit_implementation_task",
   "closure": null,
   "proposed_mitigation": "The run-specific guarded driver verifies approval, sequence/Labor/roll, pending choices, phase, blue from/to, invariant state and independently computed RNG. PM should review this method and assign any reusable helper change explicitly; no historical helper or canonical file was changed.",
   "method_limitations": [

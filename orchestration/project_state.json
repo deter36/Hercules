@@ -2,12 +2,12 @@
   "schema_version": 1,
   "experiment_id": "HERC-ORCH-E1",
   "phase": "active",
-  "updated_at": "2026-09-13T04:58:06.854712+00:00",
+  "updated_at": "2026-09-13T17:12:51.895000+00:00",
   "repository": "https://github.com/deter36/Hercules",
   "branch": "codex/hercules-orchestration-e1",
   "baseline_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
-  "manifest_revision": "e1-m0003",
-  "manifest_supersedes": "e1-m0002",
+  "manifest_revision": "e1-m0004",
+  "manifest_supersedes": "e1-m0003",
   "canonical_artifacts": [
     {
       "id": "game-data",
@@ -294,6 +294,33 @@
       "source_commit": "6bffa094431d84429ed93339d48f839bcc5a2302",
       "sha256_git_bytes": "ce9ed7f73f197b813b286d484fcfdbcfa44cb4e7eaf41cf29a1489455f813944",
       "role": "validation_precondition"
+    },
+    {
+      "id": "l08-scenario",
+      "path": "orchestration/validation/RS-001-L08-scenario.json",
+      "kind": "blob",
+      "git_object": "26274cbd8d42ebb23de206545e32c1d72728c35a",
+      "source_commit": "3c9c8e4e15eaf287b5fec6e9a9a00cbd5d76272f",
+      "sha256_git_bytes": "ed12d6c59322497317ead04cd3b2d33294e9e3c1899a3737d2619d99fc60dfc7",
+      "role": "validation_start_state"
+    },
+    {
+      "id": "val-001-result",
+      "path": "orchestration/validation/VAL-001-validation-20260913T152213Z-30ff45-result.json",
+      "kind": "blob",
+      "git_object": "2e980948749145ad132761336f63b7bbfdcdc8d6",
+      "source_commit": "5483df904f2c841b35a41f7faca7ad65b01b0173",
+      "sha256_git_bytes": "d4ed8a40d191f0ee803f37e5744b2f45ca9ce13321a92c3e2dfe4f7392ca81a3",
+      "role": "validation_evidence"
+    },
+    {
+      "id": "val-001-handoff",
+      "path": "orchestration/handoffs/VAL-001-validation-20260913T152213Z-30ff45.json",
+      "kind": "blob",
+      "git_object": "f77fc4f96f8e520b3931cd74a49086907e1bbff3",
+      "source_commit": "5483df904f2c841b35a41f7faca7ad65b01b0173",
+      "sha256_git_bytes": "56f1b408398160742342a04a584906d944b9fbe5e1b7bb122db06d647a81b785",
+      "role": "validation_evidence"
     }
   ],
   "tasks": [
@@ -309,7 +336,8 @@
     "ISS-RS-RS-001-002",
     "ISS-RS-RS-001-003",
     "ISS-RS-RS-001-004",
-    "ISS-VAL-VAL-001-001"
+    "ISS-VAL-VAL-001-001",
+    "ISS-VAL-VAL-001-002"
   ],
   "workers": {
     "rules_spec": {
@@ -319,8 +347,8 @@
     },
     "validation": {
       "status": "active_waiting_for_task_claim",
-      "first_claim": null,
-      "schedule_verified": false
+      "first_claim": "validation-20260913T142211Z-7fd36a",
+      "schedule_verified": true
     }
   },
   "pm_schedule": {
@@ -332,23 +360,23 @@
   },
   "gates": {
     "golden_ready_for_validation": {
-      "status": "ready",
+      "status": "failed_first_divergence",
       "evidence": [
         "orchestration/handoffs/RS-001-rules-spec-20260913T051344Z-26d973.json",
         "orchestration/validation/RS-001-readiness.json"
       ],
-      "pending": []
+      "pending": [
+        "Historical engine correction for ISS-RS-RS-001-004",
+        "Explicit replay-helper implementation scope for ISS-VAL-VAL-001-002"
+      ]
     },
     "l08_ready_for_validation": {
-      "status": "blocked",
+      "status": "ready",
       "evidence": [
         "orchestration/handoffs/RS-001-rules-spec-20260913T051344Z-26d973.json",
         "orchestration/validation/RS-001-L08-scenario.json"
       ],
-      "pending": [
-        "RS-002 canonical requirement/damage and healing-scope correction",
-        "Manifest promotion of corrected raw and generated content"
-      ]
+      "pending": []
     },
     "ready_for_revalidation": {
       "status": "not_applicable",
@@ -358,7 +386,7 @@
       "status": "not_met",
       "evidence": [],
       "pending": [
-        "assigned validation",
+        "VAL-002 targeted validation",
         "issue dispositions",
         "canonical propagation and independent verification"
       ]
@@ -388,6 +416,18 @@
       "result": "orchestration/validation/VAL-001-validation-20260913T142211Z-7fd36a-result.json",
       "finding": "ISS-VAL-VAL-001-001",
       "gameplay_executed": false
+    },
+    {
+      "task_id": "VAL-001",
+      "run_id": "validation-20260913T152213Z-30ff45",
+      "status": "FAIL_INVESTIGATION_ACCEPTED",
+      "result": "orchestration/validation/VAL-001-validation-20260913T152213Z-30ff45-result.json",
+      "findings": [
+        "ISS-RS-RS-001-004",
+        "ISS-VAL-VAL-001-002"
+      ],
+      "gameplay_executed": true,
+      "first_divergence": "Labor IV input 54: Cannot Block round-start snapshot mutated false to true"
     }
   ],
   "experiment_observations": [
@@ -428,6 +468,15 @@
       "blocked_run": "validation-20260913T142211Z-7fd36a",
       "manifest_revision": "e1-m0003",
       "gameplay_executed": false,
+      "counts_as_worker_validation": true
+    },
+    {
+      "stage": "golden_validation",
+      "type": "first_unsafe_divergence_reproduced_and_accepted",
+      "task_id": "VAL-001",
+      "run_id": "validation-20260913T152213Z-30ff45",
+      "first_divergence": "Labor IV input 54: Cannot Block round-start snapshot mutated false to true",
+      "next_task_released": "VAL-002",
       "counts_as_worker_validation": true
     }
   ],
