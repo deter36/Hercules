@@ -1,0 +1,80 @@
+{
+  "manifest_revision": "e1-m0001",
+  "claim": null,
+  "blocking_issue_ids": [],
+  "handoff_path": null,
+  "pm_review": null,
+  "id": "VAL-002",
+  "role": "validation",
+  "status": "blocked",
+  "objective": "Execute the PM-approved constructed Labor VIII scenario from pinned canonical artifacts, comparing the explicit transition/state interpretation with the historical engine where the assigned method permits.",
+  "dependencies": [
+    "RS-001 scoped L08 readiness accepted by PM",
+    "PM disposition of VAL-001 findings and sequential-task release"
+  ],
+  "blocked_reason": "Constructed scenario, state, choices and expectations have not been produced or reviewed.",
+  "input_artifact_ids": [
+    "game-data",
+    "data-schema",
+    "rules-spec",
+    "execution-spec",
+    "test-scenarios",
+    "test-fixtures",
+    "package-manifest",
+    "package-checksums",
+    "implementation-brief",
+    "presentation-flow",
+    "golden-record",
+    "golden-script",
+    "golden-prior-report",
+    "historical-engine",
+    "rng-implementation",
+    "replay-implementation",
+    "generated-data",
+    "existing-tests",
+    "package",
+    "lockfile",
+    "tsconfig",
+    "tools-tsconfig",
+    "data-generator",
+    "data-validator",
+    "official-rulebook",
+    "verified-reference",
+    "rng-spec"
+  ],
+  "required_additional_inputs": [
+    "PM-pinned RS-001-L08-scenario.json",
+    "PM-pinned readiness and authority decisions"
+  ],
+  "allowed_changes": [
+    "orchestration/validation/VAL-002-*",
+    "orchestration/issues/ISS-VAL-VAL-002-*",
+    "orchestration/handoffs/VAL-002-*",
+    "orchestration/tasks/VAL-002.json"
+  ],
+  "validation_mode": "targeted_regression",
+  "scenario_id": "HERC-ORCH-E1-L08",
+  "scenario_kind": "constructed_initial_characterization; not yet a post-correction regression",
+  "start_state_path": null,
+  "rng": null,
+  "player_choice_source": null,
+  "expected_state_source": null,
+  "stop_rule": "Stop after the assigned attack/advancement checkpoints or the first unsupported semantic, unsafe divergence or illegal scripted action.",
+  "continuation_under_provisional_conditions": {
+    "allowed": [],
+    "all_other_conditions": "stop and report"
+  },
+  "deliverables": [
+    "orchestration/validation/VAL-002-<run-id>-result.json",
+    "orchestration/validation/VAL-002-<run-id>-checkpoints.json",
+    "orchestration/validation/VAL-002-<run-id>-execution-log.txt",
+    "orchestration/handoffs/VAL-002-<run-id>.json"
+  ],
+  "acceptance_criteria": [
+    "All constructed inputs, including RNG or explicit zero-RNG boundary, are complete and PM-pinned before execution.",
+    "Execute exactly the approved actions, track complete state and compare source-backed transitions/checkpoints.",
+    "Separate canonical insufficiency/conflict, engine implementation error and validator execution error; never silently fix any of them.",
+    "Record each discrepancy as an issue with evidence, authority, affected artifact, blocking effect and rerun recommendation.",
+    "Submit a structured handoff and reproducible run evidence."
+  ]
+}

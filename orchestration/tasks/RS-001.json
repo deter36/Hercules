@@ -1,0 +1,74 @@
+{
+  "manifest_revision": "e1-m0001",
+  "claim": null,
+  "blocking_issue_ids": [],
+  "handoff_path": null,
+  "pm_review": null,
+  "id": "RS-001",
+  "role": "rules_spec",
+  "status": "ready",
+  "objective": "Assess the exact historical canonical inputs for Golden Run 0001 and prepare a small constructed Labor VIII validation scenario. Report readiness per scenario with authority and provenance.",
+  "dependencies": [],
+  "input_artifact_ids": [
+    "game-data",
+    "data-schema",
+    "rules-spec",
+    "execution-spec",
+    "test-scenarios",
+    "test-fixtures",
+    "package-manifest",
+    "package-checksums",
+    "implementation-brief",
+    "presentation-flow",
+    "golden-record",
+    "golden-script",
+    "golden-prior-report",
+    "historical-engine",
+    "rng-implementation",
+    "replay-implementation",
+    "generated-data",
+    "existing-tests",
+    "package",
+    "lockfile",
+    "tsconfig",
+    "tools-tsconfig",
+    "data-generator",
+    "data-validator",
+    "official-rulebook",
+    "verified-reference",
+    "rng-spec"
+  ],
+  "allowed_changes": [
+    "orchestration/validation/RS-001-*",
+    "orchestration/issues/ISS-RS-RS-001-*",
+    "orchestration/handoffs/RS-001-*",
+    "orchestration/tasks/RS-001.json",
+    "orchestration/issues/ISS-PM-SETUP-001.json"
+  ],
+  "deliverables": [
+    "orchestration/validation/RS-001-readiness.json",
+    "orchestration/validation/RS-001-L08-scenario.json",
+    "orchestration/handoffs/RS-001-<run-id>.json"
+  ],
+  "acceptance_criteria": [
+    "Verify actual content IDs for every inspected input; identify missing or stale artifacts.",
+    "Independently check authoritative sources and execution-critical fields for each scenario; represent conflicts and provisional rules explicitly.",
+    "For the golden scenario identify exact initial state construction, ordered Mood input, algorithm/policy/seed/start index, permanent orphan range, exact player script, checkpoints and stopping rule.",
+    "Explain how the historical replay adapter handles the script; flag skipped/unsupported decisions or differences from canonical execution rather than accepting a prior PASS.",
+    "Construct an explicit L08 start-state fixture covering an ordinary attack and subsequent advancement/impacts with two active Labor dice. Declare fixed dice, selected actions, phase, health, track nodes, available rewards/mood, resources, hidden ordering, RNG boundary and stopping rule.",
+    "Label L08 choices as scripted constructed test inputs, never prerecorded human play. Include the authority basis for expected transitions and states; unsupported expectations stay unresolved.",
+    "Return ready/blocked separately for each scenario with all relevant issue IDs. Do not silently repair canon during readiness; propose an owner task when correction is needed.",
+    "Use the required structured handoff so PM can release, split or route work without conversation history.",
+    "Investigate ISS-PM-SETUP-001 and submit a source-backed disposition plus hash-regression expectation. An unresolved substantive source mismatch blocks validation; do not confuse raw checkout CRLF with Git blob bytes."
+  ],
+  "not_authorized": [
+    "final implementation spec",
+    "engine changes",
+    "canonical corrections during this preparation task",
+    "editing orchestration policy or the manifest",
+    "reading later versions/branches or other chats"
+  ],
+  "assigned_issue_ids": [
+    "ISS-PM-SETUP-001"
+  ]
+}

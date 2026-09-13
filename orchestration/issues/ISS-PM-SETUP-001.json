@@ -1,0 +1,57 @@
+{
+  "id": "ISS-PM-SETUP-001",
+  "task_id": "RS-001",
+  "discovered_by_task": "PM-SETUP",
+  "run_id": "PM-SETUP-20260913",
+  "category": "source_data_defect",
+  "origin": "historical_package_checksum",
+  "severity": "S2",
+  "blocking": true,
+  "blocking_scope": "source/provenance readiness; must receive PM-reviewed disposition before validation release",
+  "status": "assigned",
+  "owner": "rules_spec",
+  "manifest_revision": "e1-m0001",
+  "input_versions": [
+    {
+      "id": "game-data",
+      "path": "src/data/raw/GAME_DATA_v4.json",
+      "kind": "blob",
+      "git_object": "2ec9fc341d53c509a7a0148fc1d26582c0e87c17",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "role": "canonical_content",
+      "sha256_git_bytes": "356bb6b4554c8872cc853986362c572e8601f8b0c0ffbfc6c69d9505f4102303"
+    },
+    {
+      "id": "package-checksums",
+      "path": "src/data/raw/SHA256SUMS.json",
+      "kind": "blob",
+      "git_object": "aebdce242d075b500df9f8624f0b471c9f5d040f",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "role": "historical_checksums",
+      "sha256_git_bytes": "47b5b40c7d7265f35eee89ae36001dace681ebc2ff2b1f4b2bdaf47691059094"
+    }
+  ],
+  "affected_artifacts": [
+    "src/data/raw/SHA256SUMS.json",
+    "src/data/raw/GAME_DATA_v4.json"
+  ],
+  "evidence": {
+    "expected": "Historical SHA256SUMS entry: 15313bbc55a4cec400b04a99f862de70fc545009ec5efaaf32c5fc861e88b5b7",
+    "observed": "SHA-256 of Git blob at selected historical commit: 356bb6b4554c8872cc853986362c572e8601f8b0c0ffbfc6c69d9505f4102303",
+    "source_refs": [
+      "70b33a0e81c63c5317550bb81da4b9799b02a91b:src/data/raw/SHA256SUMS.json",
+      "70b33a0e81c63c5317550bb81da4b9799b02a91b:src/data/raw/GAME_DATA_v4.json"
+    ],
+    "method": "Compute SHA-256 of git cat-file blob bytes, excluding Windows line-ending conversion. Other 12 historical checksum entries match.",
+    "result_path": "orchestration/handoffs/PM-SETUP.json",
+    "checkpoint": "repository preparation; no gameplay execution"
+  },
+  "canonical_update_required": null,
+  "regression_required": true,
+  "human_authority_required": false,
+  "disposition": null,
+  "resolution_artifacts": [],
+  "verification_task_id": null,
+  "closure": null,
+  "assigned_action": "Investigate the mismatch and report whether this is stale checksum metadata or substantive canonical/provenance divergence. Verify the pinned content against historical authority. Propose a canonical update or evidence-backed no-change decision; do not silently rewrite historical checksums."
+}

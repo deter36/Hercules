@@ -1,0 +1,94 @@
+{
+  "manifest_revision": "e1-m0001",
+  "claim": null,
+  "blocking_issue_ids": [],
+  "handoff_path": null,
+  "pm_review": null,
+  "id": "VAL-001",
+  "role": "validation",
+  "status": "blocked",
+  "objective": "Execute Golden Run 0001 from current pinned canonical artifacts and the unchanged normalized human-choice script; independently record state, RNG and findings.",
+  "dependencies": [
+    "RS-001 scoped golden readiness accepted by PM"
+  ],
+  "blocked_reason": "PM has not accepted readiness or pinned the readiness deliverable.",
+  "input_artifact_ids": [
+    "game-data",
+    "data-schema",
+    "rules-spec",
+    "execution-spec",
+    "test-scenarios",
+    "test-fixtures",
+    "package-manifest",
+    "package-checksums",
+    "implementation-brief",
+    "presentation-flow",
+    "golden-record",
+    "golden-script",
+    "golden-prior-report",
+    "historical-engine",
+    "rng-implementation",
+    "replay-implementation",
+    "generated-data",
+    "existing-tests",
+    "package",
+    "lockfile",
+    "tsconfig",
+    "tools-tsconfig",
+    "data-generator",
+    "data-validator",
+    "official-rulebook",
+    "verified-reference",
+    "rng-spec"
+  ],
+  "required_additional_inputs": [
+    "PM-pinned RS-001 scoped readiness and initial-state procedure"
+  ],
+  "allowed_changes": [
+    "orchestration/validation/VAL-001-*",
+    "orchestration/issues/ISS-VAL-VAL-001-*",
+    "orchestration/handoffs/VAL-001-*",
+    "orchestration/tasks/VAL-001.json"
+  ],
+  "validation_mode": "deterministic_replay",
+  "scenario_id": "HERC-GOLDEN-RUN-0001",
+  "rng": {
+    "algorithm": "SHA256_COUNTER_V1",
+    "policy": "HERC-RNG-v3",
+    "seed": "HERC-GOLDEN-RUN-0001",
+    "start_event_index": 0,
+    "permanent_orphaned_event_range": [
+      18,
+      25
+    ],
+    "expected_final_next_event": 174
+  },
+  "player_choice_authority": "recorded human tactical inputs; existing normalized script only",
+  "start_state": {
+    "boundary": "before initial Mood shuffle",
+    "complete_state_path": null,
+    "hidden_order_source": "src/data/raw/golden/HERC-GOLDEN-RUN-0001_replay_script_v2_normalized.json#/inputs/0/order"
+  },
+  "stop_rule": "Stop at the recorded Labor VI terminal state or the first unsafe divergence, unsupported rule, missing prerequisite or illegal scripted action.",
+  "continuation_under_provisional_conditions": {
+    "allowed": [
+      "inherited owner-approved Hind testing rule with status preserved"
+    ],
+    "all_other_conditions": "stop and report unless PM explicitly authorizes a scoped continuation"
+  },
+  "deliverables": [
+    "orchestration/validation/VAL-001-<run-id>-result.json",
+    "orchestration/validation/VAL-001-<run-id>-checkpoints.json",
+    "orchestration/validation/VAL-001-<run-id>-rng-ledger.json",
+    "orchestration/validation/VAL-001-<run-id>-execution-log.txt",
+    "orchestration/handoffs/VAL-001-<run-id>.json"
+  ],
+  "acceptance_criteria": [
+    "All required preconditions actually exist and match the PM-pinned versions before execution.",
+    "Record tool-computed randomness, complete starting state, consumed choices, checkpoints and terminal/stopped state.",
+    "Compare five completed-Labor checkpoints and terminal expectations where reached; report reached/not reached separately.",
+    "Record RNG indices, permanent orphans, mismatches and exact divergence; do not reuse events.",
+    "Do not optimize human moves, repair inputs or treat ledger-only verification as tactical replay.",
+    "Create an issue for every meaningful discrepancy, including method/adapter limitations; provide a structured reproducibility handoff."
+  ]
+}

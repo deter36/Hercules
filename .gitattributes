@@ -1,0 +1,3 @@
+/orchestration/** text eol=lf
+/README.md text eol=lf
+/src/data/raw/sources/** -text

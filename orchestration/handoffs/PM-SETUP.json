@@ -1,0 +1,88 @@
+{
+  "task_id": "PM-SETUP",
+  "run_id": "PM-SETUP-20260913",
+  "role": "project_manager",
+  "status": "prepared",
+  "manifest_revision": "e1-m0001",
+  "baseline_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+  "decisions": [
+    "Use existing raw/generated/test locations; place all coordination under orchestration.",
+    "Use one experiment branch with one eligible worker task and pushed Git claims.",
+    "Use recorded Golden Run 0001 plus a constructed L08 scenario after specialist readiness.",
+    "Recover historically referenced sources into one canonical source directory; withhold later corrections from workers.",
+    "Keep implementation-ready spec generation behind explicit human approval."
+  ],
+  "deliverables": [
+    "orchestration/project_state.json",
+    "orchestration/README.md",
+    "orchestration/onboarding/rules-spec.md",
+    "orchestration/onboarding/validation.md",
+    "orchestration/onboarding/project-manager.md",
+    "orchestration/tasks/RS-001.json",
+    "orchestration/tasks/VAL-001.json",
+    "orchestration/tasks/VAL-002.json"
+  ],
+  "validation_required": true,
+  "checks_performed": [
+    "Historical Git history and candidate artifact availability inspected.",
+    "Remote main commit matched inspected source checkout at setup.",
+    "Existing normalized replay has concrete seed, ordering, choice script and ledger.",
+    "Current validation gates left unevaluated/closed; no inherited PASS was promoted.",
+    "Coordination QA passed: all 27 manifest content IDs/hashes, JSON records and local links verified; staged changes restricted to coordination and recovered sources; historical game files unchanged.",
+    "Existing golden inputs: 112 normalized choices, 174 ledger entries; no tactical replay executed."
+  ],
+  "not_performed": [
+    "specialist readiness review",
+    "deterministic tactical replay",
+    "constructed scenario execution",
+    "worker instantiation"
+  ],
+  "unresolved_items": [
+    "Exact historical export timestamps for recovered external sources are not independently established.",
+    "Worker source/authority review and L08 constructed preconditions remain pending.",
+    "ISS-PM-SETUP-001: 12 of 13 legacy checksum entries match; GAME_DATA_v4 does not. Routed to Rules/Spec without changing canon."
+  ],
+  "recommended_next_action": "Human instantiates the two workers using repository onboarding; Rules/Spec claims RS-001; PM reviews its handoff on scheduled passes.",
+  "inputs": [
+    {
+      "path": "orchestration/project_state.json",
+      "manifest_revision": "e1-m0001",
+      "baseline_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "artifact_count": 27
+    }
+  ],
+  "changed_artifacts": [
+    ".gitattributes",
+    "README.md",
+    "orchestration/",
+    "src/data/raw/sources/"
+  ],
+  "issue_ids": [
+    "ISS-PM-SETUP-001"
+  ],
+  "issue_dispositions": [
+    {
+      "id": "ISS-PM-SETUP-001",
+      "status": "assigned",
+      "owner": "rules_spec",
+      "disposition": null
+    }
+  ],
+  "authority_refs": [
+    "orchestration/experiment_contract.md"
+  ],
+  "assumptions": [
+    "Hourly PM polling is a conservative initial cadence; no idle commits."
+  ],
+  "regression_implications": [
+    "No game data, game code or existing replay file changed.",
+    "New validation results are required; historical PASS is not reused."
+  ],
+  "pm_schedule": {
+    "cadence": "hourly",
+    "status": "ACTIVE",
+    "automation_id": "hercules-experiment-pm",
+    "destination": "current PM task",
+    "confirmation": "Codex automation tool confirmed creation"
+  }
+}
