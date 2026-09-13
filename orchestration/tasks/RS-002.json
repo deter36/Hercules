@@ -1,12 +1,18 @@
 {
   "manifest_revision": "e1-m0001",
-  "claim": null,
+  "claim": {
+    "role": "rules_spec",
+    "run_id": "rules-spec-20260913T131948Z-6e6af8",
+    "claimed_at": "2026-09-13T13:19:48.972835+00:00",
+    "expires_at": "2026-09-13T15:19:48.972835+00:00",
+    "remote_commit_read": "d241f9d53d2a1c52702f263d82442b528a3b0954"
+  },
   "blocking_issue_ids": [],
   "handoff_path": null,
   "pm_review": null,
   "id": "RS-002",
   "role": "rules_spec",
-  "status": "ready",
+  "status": "in_progress",
   "objective": "Convert the accepted RS-001 findings into explicit corrected canonical artifacts and regression expectations, preserving source provenance and proposing exact manifest pins.",
   "dependencies": [
     "RS-001 accepted",
