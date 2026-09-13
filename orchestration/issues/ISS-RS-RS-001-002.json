@@ -354,7 +354,7 @@
     "orchestration/validation/RS-002-rules-spec-20260913T131948Z-6e6af8-audit.json",
     "orchestration/handoffs/RS-002-rules-spec-20260913T131948Z-6e6af8.json"
   ],
-  "verification_task_id": null,
+  "verification_task_id": "VAL-002",
   "closure": null,
   "authority_note": "This preparation task reports a source-backed proposed disposition. PM assigns correction/engine work and independent validation; no canon or engine was changed.",
   "canonical_correction_submission": {

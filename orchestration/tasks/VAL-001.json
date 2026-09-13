@@ -1,17 +1,17 @@
 {
-  "manifest_revision": "e1-m0001",
+  "manifest_revision": "e1-m0002",
   "claim": null,
   "blocking_issue_ids": [],
   "handoff_path": null,
   "pm_review": null,
   "id": "VAL-001",
   "role": "validation",
-  "status": "blocked",
+  "status": "ready",
   "objective": "Execute Golden Run 0001 from current pinned canonical artifacts and the unchanged normalized human-choice script; independently record state, RNG and findings.",
   "dependencies": [
     "RS-001 scoped golden readiness accepted by PM"
   ],
-  "blocked_reason": "PM has not accepted readiness or pinned the readiness deliverable.",
+  "blocked_reason": null,
   "input_artifact_ids": [
     "game-data",
     "data-schema",
@@ -42,7 +42,9 @@
     "rng-spec"
   ],
   "required_additional_inputs": [
-    "PM-pinned RS-001 scoped readiness and initial-state procedure"
+    "orchestration/validation/RS-001-readiness.json",
+    "orchestration/validation/RS-001-golden-start-state.json",
+    "orchestration/handoffs/RS-002-rules-spec-20260913T131948Z-6e6af8.json"
   ],
   "allowed_changes": [
     "orchestration/validation/VAL-001-*",

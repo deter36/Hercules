@@ -339,7 +339,7 @@
     ]
   },
   "resolution_artifacts": [],
-  "verification_task_id": null,
+  "verification_task_id": "VAL-001",
   "closure": null,
   "authority_note": "This preparation task reports a source-backed proposed disposition. PM assigns correction/engine work and independent validation; no canon or engine was changed."
 }

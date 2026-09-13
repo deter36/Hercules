@@ -20,6 +20,10 @@ are withheld from worker context. Existing game artifacts are not duplicated.
 
 On 2026-09-13, the human authorized re-establishing corrected canon from the
 pinned rulebook, v12 gameplay reference, and execution specification because the
-historical `GAME_DATA_v4.json` checksum preimage could not be recovered. `RS-002`
-is the sole ready worker task. Historical evidence must remain preserved, and no
-later-branch correction may be imported.
+historical `GAME_DATA_v4.json` checksum preimage could not be recovered. Historical
+evidence must remain preserved, and no later-branch correction may be imported.
+
+Manifest `e1-m0002` promotes the RS-002 corrected canonical candidate from commit
+`6bffa094431d84429ed93339d48f839bcc5a2302` for independent validation. `VAL-001`
+is the sole ready task. This promotion is not acceptance of the candidate or a
+claim that the known historical engine discrepancies are fixed.

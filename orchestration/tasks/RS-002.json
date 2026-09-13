@@ -1,5 +1,5 @@
 {
-  "manifest_revision": "e1-m0001",
+  "manifest_revision": "e1-m0002",
   "claim": {
     "role": "rules_spec",
     "run_id": "rules-spec-20260913T131948Z-6e6af8",
@@ -9,7 +9,11 @@
   },
   "blocking_issue_ids": [],
   "handoff_path": "orchestration/handoffs/RS-002-rules-spec-20260913T131948Z-6e6af8.json",
-  "pm_review": null,
+  "pm_review": {
+    "decision": "canonical_candidate_promoted_for_independent_validation",
+    "evidence": "Exact before/after objects were supplied; all authorized canonical, generated and regression artifacts changed atomically; content audit passed while runtime failures were preserved and routed.",
+    "gate_effect": "RS-002 remains submitted until independent validation. Manifest e1-m0002 pins the candidate and VAL-001 is released first."
+  },
   "id": "RS-002",
   "role": "rules_spec",
   "status": "submitted",

@@ -6,62 +6,62 @@
   "repository": "https://github.com/deter36/Hercules",
   "branch": "codex/hercules-orchestration-e1",
   "baseline_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
-  "manifest_revision": "e1-m0001",
-  "manifest_supersedes": null,
+  "manifest_revision": "e1-m0002",
+  "manifest_supersedes": "e1-m0001",
   "canonical_artifacts": [
     {
       "id": "game-data",
       "path": "src/data/raw/GAME_DATA_v4.json",
       "kind": "blob",
-      "git_object": "2ec9fc341d53c509a7a0148fc1d26582c0e87c17",
-      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "git_object": "9407bd9cb58eae1d8cd7a1495a65275e3ef644e1",
+      "source_commit": "6bffa094431d84429ed93339d48f839bcc5a2302",
       "role": "canonical_content",
-      "sha256_git_bytes": "356bb6b4554c8872cc853986362c572e8601f8b0c0ffbfc6c69d9505f4102303"
+      "sha256_git_bytes": "b32c1e902d200e25e59d475c9453c97e4687603aaecf3f948250fe1bec844ac4"
     },
     {
       "id": "data-schema",
       "path": "src/data/raw/GAME_DATA_SCHEMA.md",
       "kind": "blob",
-      "git_object": "b6ea85ce7cbf2553a0f9337babff3786199510b9",
-      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "git_object": "d9300f6ae1d04cb6772a901a1ed15af34ba814ea",
+      "source_commit": "6bffa094431d84429ed93339d48f839bcc5a2302",
       "role": "representation_contract",
-      "sha256_git_bytes": "77a6c0e40f2e85441693b112b0299aa601515b36dbf70fcb6785dee9afe6408b"
+      "sha256_git_bytes": "7b857d72ed6982c94d9e2fd1bae7d3b1187065b57ec9fe1bab95ef9a5d9e9d97"
     },
     {
       "id": "rules-spec",
       "path": "src/data/raw/GAME_RULES_SPEC.md",
       "kind": "blob",
-      "git_object": "1e4d80a805be60fe7a031417df224c3a96d1894b",
-      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "git_object": "07cea77200d58483e39eed0d702efd022dc840a0",
+      "source_commit": "6bffa094431d84429ed93339d48f839bcc5a2302",
       "role": "execution_semantics",
-      "sha256_git_bytes": "a0b57360c50e5765ba3f698dc29e7fa42af2675c2269adfded0b19690f0a3b61"
+      "sha256_git_bytes": "34ddfe22914b78e6e479e236e5e063b962839efccc88ae93b508230b10f51893"
     },
     {
       "id": "execution-spec",
       "path": "src/data/raw/hercules_engine_execution_spec_v0_13.md",
       "kind": "blob",
-      "git_object": "190f0c2e57932251a8ef5f54eb9f1d7cb653f9ba",
-      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "git_object": "da5f94c4437cdff2366efc161eac1f187aca1a87",
+      "source_commit": "6bffa094431d84429ed93339d48f839bcc5a2302",
       "role": "execution_semantics",
-      "sha256_git_bytes": "5b848484b817a96556a8459e2e0d61ec9a6b25d4c46e2f84a0ea90726e9ea91e"
+      "sha256_git_bytes": "5b2c52c9862db8ce3573bed12af891b2cfb94cca450fc789d7f7bc9a38565492"
     },
     {
       "id": "test-scenarios",
       "path": "src/data/raw/TEST_SCENARIOS.md",
       "kind": "blob",
-      "git_object": "93e9df18135e323db64af9e89ce3e5fed2e9abd3",
-      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "git_object": "0b51c516eb5c287c7d39bfbf2f50b9cd92128b86",
+      "source_commit": "6bffa094431d84429ed93339d48f839bcc5a2302",
       "role": "historical_expectations",
-      "sha256_git_bytes": "a02e0a16d7f137ba26af79ff06431c4bd2cc6e92d05db5144d57f9c80611e9af"
+      "sha256_git_bytes": "0bb3f1d88778f4ceea906e5911e68d0d97f97ac7658781e79d362e261e2cdae7"
     },
     {
       "id": "test-fixtures",
       "path": "src/data/raw/TEST_FIXTURES_v4.json",
       "kind": "blob",
-      "git_object": "49b55a701c2e3f13c22a98140c72265736fe5c71",
-      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "git_object": "cadae99fd2c7205d29f17375a36bc70df3e629b3",
+      "source_commit": "6bffa094431d84429ed93339d48f839bcc5a2302",
       "role": "historical_expectations",
-      "sha256_git_bytes": "20cef9c252173031a65b6cf88e3290a52216d560b6513b53392132aad3cbc8b1"
+      "sha256_git_bytes": "31459edf0c79ad29bfe3a02b40a4b4a7ec1b6676ed11b7e4f69b7fa14439d14e"
     },
     {
       "id": "package-manifest",
@@ -154,8 +154,8 @@
       "id": "generated-data",
       "path": "src/data/generated",
       "kind": "tree",
-      "git_object": "6b17d0f311730bf28b41e331bd0da3151439216c",
-      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "git_object": "a9238f5f4600fd0f5d7ad5f27590bf8833734605",
+      "source_commit": "6bffa094431d84429ed93339d48f839bcc5a2302",
       "role": "historical_implementation_or_tests"
     },
     {
@@ -286,7 +286,7 @@
       "schedule_verified": true
     },
     "validation": {
-      "status": "awaiting_human_instantiation",
+      "status": "active_waiting_for_task_claim",
       "first_claim": null,
       "schedule_verified": false
     }
@@ -300,15 +300,12 @@
   },
   "gates": {
     "golden_ready_for_validation": {
-      "status": "blocked",
+      "status": "ready",
       "evidence": [
         "orchestration/handoffs/RS-001-rules-spec-20260913T051344Z-26d973.json",
         "orchestration/validation/RS-001-readiness.json"
       ],
-      "pending": [
-        "Promoted exact corrected inputs from RS-002",
-        "Independent validation of known terminal-state and Cannot Block discrepancies"
-      ]
+      "pending": []
     },
     "l08_ready_for_validation": {
       "status": "blocked",
@@ -372,6 +369,15 @@
       "issue_id": "ISS-PM-SETUP-001",
       "task_released": "RS-002",
       "date": "2026-09-13",
+      "counts_as_worker_validation": false
+    },
+    {
+      "stage": "canonical_promotion",
+      "type": "rs_002_candidate_promoted_for_independent_validation",
+      "task_id": "RS-002",
+      "manifest_revision": "e1-m0002",
+      "source_commit": "6bffa094431d84429ed93339d48f839bcc5a2302",
+      "validation_task_released": "VAL-001",
       "counts_as_worker_validation": false
     }
   ],

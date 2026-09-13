@@ -1,5 +1,5 @@
 {
-  "manifest_revision": "e1-m0001",
+  "manifest_revision": "e1-m0002",
   "claim": null,
   "blocking_issue_ids": [],
   "handoff_path": null,
@@ -12,7 +12,7 @@
     "RS-001 scoped L08 readiness accepted by PM",
     "PM disposition of VAL-001 findings and sequential-task release"
   ],
-  "blocked_reason": "Constructed scenario, state, choices and expectations have not been produced or reviewed.",
+  "blocked_reason": "VAL-001 is the sole ready worker task. Release VAL-002 only after PM disposition of the Golden replay and exact implementation-scope findings.",
   "input_artifact_ids": [
     "game-data",
     "data-schema",
@@ -43,8 +43,10 @@
     "rng-spec"
   ],
   "required_additional_inputs": [
-    "PM-pinned RS-001-L08-scenario.json",
-    "PM-pinned readiness and authority decisions"
+    "orchestration/validation/RS-001-L08-scenario.json",
+    "orchestration/handoffs/RS-002-rules-spec-20260913T131948Z-6e6af8.json",
+    "manifest e1-m0002 corrected canon and regression expectations",
+    "PM disposition of VAL-001"
   ],
   "allowed_changes": [
     "orchestration/validation/VAL-002-*",
