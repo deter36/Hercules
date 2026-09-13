@@ -2,7 +2,7 @@
   "schema_version": 1,
   "experiment_id": "HERC-ORCH-E1",
   "phase": "active",
-  "updated_at": "2026-09-13T18:45:00.000000+00:00",
+  "updated_at": "2026-09-13T21:59:55.899000+00:00",
   "repository": "https://github.com/deter36/Hercules",
   "branch": "codex/hercules-orchestration-e1",
   "baseline_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
@@ -329,6 +329,7 @@
     "VAL-001",
     "VAL-002",
     "IMP-001",
+    "IMP-002",
     "VAL-003"
   ],
   "issues": [
@@ -339,7 +340,8 @@
     "ISS-RS-RS-001-003",
     "ISS-RS-RS-001-004",
     "ISS-VAL-VAL-001-001",
-    "ISS-VAL-VAL-001-002"
+    "ISS-VAL-VAL-001-002",
+    "ISS-PM-IMP-001-001"
   ],
   "workers": {
     "rules_spec": {
@@ -353,9 +355,9 @@
       "schedule_verified": true
     },
     "implementation": {
-      "status": "awaiting_human_instantiation_and_claim",
-      "first_claim": null,
-      "schedule_verified": false
+      "status": "active",
+      "first_claim": "implementation-20260913T213517Z-b680db",
+      "schedule_verified": true
     }
   },
   "pm_schedule": {
@@ -394,7 +396,7 @@
         "orchestration/human_checkpoint.md"
       ],
       "pending": [
-        "IMP-001 implementation submission",
+        "IMP-002 stale display-test expectation correction and clean full suite",
         "PM promotion of exact corrected engine, replay, and test pins"
       ]
     },
@@ -543,6 +545,17 @@
       "task_released": "IMP-001",
       "next_validation_task": "VAL-003",
       "implementation_spec_generation_authorized": false,
+      "counts_as_worker_validation": false
+    },
+    {
+      "stage": "implementation_candidate",
+      "type": "four_scoped_fixes_accepted_with_stale_test_followup",
+      "task_id": "IMP-001",
+      "run_id": "implementation-20260913T213517Z-b680db",
+      "focused_tests": "17/17 pass",
+      "full_suite": "89/90; superseded Labor VIII display expectation retained",
+      "finding": "ISS-PM-IMP-001-001",
+      "next_task_released": "IMP-002",
       "counts_as_worker_validation": false
     }
   ],

@@ -1,0 +1,52 @@
+{
+  "manifest_revision": "e1-m0004",
+  "claim": null,
+  "blocking_issue_ids": [],
+  "handoff_path": null,
+  "pm_review": {
+    "decision": "released_after_imp_001_review",
+    "evidence": "IMP-001 focused corrections passed 17/17 tests, but the complete suite retained one superseded Labor VIII all-target display expectation.",
+    "scope_limit": "Correct the single stale assertion and verify the complete suite. Do not alter the accepted engine/replay candidate or canon."
+  },
+  "id": "IMP-002",
+  "role": "implementation",
+  "status": "ready",
+  "objective": "Align the historical API display test with the already corrected and independently confirmed Labor VIII selected-target semantics, then demonstrate a clean complete suite.",
+  "dependencies": [
+    "IMP-001 candidate accepted by PM",
+    "ISS-PM-IMP-001-001 assigned"
+  ],
+  "assigned_issue_ids": [
+    "ISS-PM-IMP-001-001"
+  ],
+  "input_artifact_ids": [
+    "game-data", "rules-spec", "test-fixtures", "historical-engine", "existing-tests"
+  ],
+  "required_additional_inputs": [
+    "orchestration/handoffs/IMP-001-implementation-20260913T213517Z-b680db.json",
+    "orchestration/implementation/IMP-001-implementation-20260913T213517Z-b680db-test-results.json"
+  ],
+  "allowed_changes": [
+    "test/engine/api.test.ts",
+    "orchestration/implementation/IMP-002-*",
+    "orchestration/handoffs/IMP-002-*",
+    "orchestration/tasks/IMP-002.json"
+  ],
+  "forbidden_changes": [
+    "src/**", "test/implementation/**", "test/rng/**",
+    "orchestration/project_state.json", "orchestration/current_manifest.md",
+    "orchestration/issues/**", "orchestration/validation/**"
+  ],
+  "deliverables": [
+    "One corrected API display assertion",
+    "Complete-suite test evidence",
+    "Structured IMP-002 handoff with exact object IDs"
+  ],
+  "acceptance_criteria": [
+    "Change only the stale all-target display expectation and assigned task evidence files.",
+    "Do not modify implementation or canonical artifacts.",
+    "Run pnpm test and report the complete result without suppression.",
+    "Submit exact before/after objects for PM promotion and later independent VAL-003 execution."
+  ],
+  "blocked_reason": null
+}

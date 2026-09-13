@@ -31,5 +31,8 @@ verified the corrected Labor VIII shared requirement, selected damage, and
 advancement, then reproduced incorrect cross-die healing. The experiment is at
 the checkpoint recorded in `orchestration/human_checkpoint.md`. The human has now
 authorized scoped engine/replay remediation followed by independent validation.
-`IMP-001` is the sole ready task; `VAL-003` is blocked until PM promotes exact
-implementation pins. Implementation-spec generation remains unauthorized.
+`IMP-001` supplied the four scoped correction candidates with 17/17 focused tests
+passing. Its full suite exposed one stale Labor VIII display expectation, now
+routed as `ISS-PM-IMP-001-001`. `IMP-002` is the sole ready task. `VAL-003` stays
+blocked until the follow-up passes and PM promotes exact implementation pins.
+Implementation-spec generation remains unauthorized.

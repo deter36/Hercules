@@ -1,0 +1,35 @@
+{
+  "id": "ISS-PM-IMP-001-001",
+  "task_id": "IMP-001",
+  "run_id": "implementation-20260913T213517Z-b680db",
+  "title": "Historical API display test retains superseded Labor VIII all-target wording",
+  "category": "stale_test_expectation",
+  "origin": "historical_test",
+  "severity": "S1",
+  "blocking": true,
+  "blocking_scope": "Clean implementation suite required before promoting corrected test pins for VAL-003",
+  "status": "assigned",
+  "owner": "implementation",
+  "manifest_revision": "e1-m0004",
+  "evidence": {
+    "command": "pnpm test",
+    "tests": 90,
+    "passed": 89,
+    "failed": 1,
+    "path": "test/engine/api.test.ts",
+    "test": "fixed-straight attacks display their required faces",
+    "expected_historical": "fixed 1-2-3 straight · hits every active Labor die",
+    "observed_corrected": "fixed 1-2-3 straight",
+    "canonical_basis": "RS-002 and accepted VAL-002 evidence establish one selected damage recipient rather than all active Labor dice."
+  },
+  "canonical_update_required": false,
+  "regression_required": true,
+  "human_authority_required": false,
+  "disposition": {
+    "type": "test_expectation_update",
+    "action": "Update only the obsolete display expectation to the corrected canonical wording, run the complete suite, and preserve the engine/replay candidate unchanged."
+  },
+  "resolution_artifacts": [],
+  "verification_task_id": "IMP-002",
+  "closure": null
+}

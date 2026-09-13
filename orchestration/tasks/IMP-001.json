@@ -10,13 +10,13 @@
   "blocking_issue_ids": [],
   "handoff_path": "orchestration/handoffs/IMP-001-implementation-20260913T213517Z-b680db.json",
   "pm_review": {
-    "decision": "released_by_human_authority",
-    "evidence": "The human authorized revising the engine and then validating on 2026-09-13, paused the action temporarily, and then explicitly said to continue.",
-    "scope_limit": "Implementation only. Canonical rules/data and historical evidence are immutable inputs."
+    "decision": "scoped_candidate_accepted_with_followup",
+    "evidence": "All 13 inputs matched; three engine defects failed before and passed after; 17 focused engine/replay/RNG tests passed. Exact changed objects and reproduction evidence were supplied without canonical or validation edits.",
+    "scope_limit": "The four assigned implementation corrections are accepted as a candidate, not independently validated. The full suite remains 89/90 because test/engine/api.test.ts retains superseded Labor VIII display wording; IMP-002 is released before promotion and VAL-003."
   },
   "id": "IMP-001",
   "role": "implementation",
-  "status": "submitted",
+  "status": "accepted_candidate",
   "objective": "Correct the four independently identified engine/replay defects without changing canonical outcomes, and add focused implementation tests suitable for later independent validation.",
   "dependencies": [
     "Human checkpoint option 1 recorded",
