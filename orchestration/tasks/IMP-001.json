@@ -1,6 +1,12 @@
 {
   "manifest_revision": "e1-m0004",
-  "claim": null,
+  "claim": {
+    "role": "implementation",
+    "run_id": "implementation-20260913T213517Z-b680db",
+    "claimed_at": "2026-09-13T16:35:17.8965000-05:00",
+    "expires_at": "2026-09-13T18:35:17.8965000-05:00",
+    "remote_commit_read": "8c6952f44b5eaefbd7c4309ff1a67cb7dadabe7d"
+  },
   "blocking_issue_ids": [],
   "handoff_path": null,
   "pm_review": {
@@ -10,7 +16,7 @@
   },
   "id": "IMP-001",
   "role": "implementation",
-  "status": "ready",
+  "status": "in_progress",
   "objective": "Correct the four independently identified engine/replay defects without changing canonical outcomes, and add focused implementation tests suitable for later independent validation.",
   "dependencies": [
     "Human checkpoint option 1 recorded",
