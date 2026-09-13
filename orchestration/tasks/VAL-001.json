@@ -1,12 +1,18 @@
 {
   "manifest_revision": "e1-m0002",
-  "claim": null,
+  "claim": {
+    "role": "validation",
+    "run_id": "validation-20260913T142211Z-7fd36a",
+    "claimed_at": "2026-09-13T14:22:11.3615267Z",
+    "expires_at": "2026-09-13T16:22:11.3615267Z",
+    "remote_commit_read": "793d2bcbd1cf6f357378180456ff1b014bab30ef"
+  },
   "blocking_issue_ids": [],
   "handoff_path": null,
   "pm_review": null,
   "id": "VAL-001",
   "role": "validation",
-  "status": "ready",
+  "status": "in_progress",
   "objective": "Execute Golden Run 0001 from current pinned canonical artifacts and the unchanged normalized human-choice script; independently record state, RNG and findings.",
   "dependencies": [
     "RS-001 scoped golden readiness accepted by PM"
