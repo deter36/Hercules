@@ -1,6 +1,12 @@
 {
   "manifest_revision": "e1-m0004",
-  "claim": null,
+  "claim": {
+    "role": "implementation",
+    "run_id": "implementation-20260913T223627Z-82cc42",
+    "claimed_at": "2026-09-13T17:36:27.2551515-05:00",
+    "expires_at": "2026-09-13T19:36:27.2551515-05:00",
+    "remote_commit_read": "4091949ef9fd6b11d34941448e65a7810dd4f8b8"
+  },
   "blocking_issue_ids": [],
   "handoff_path": null,
   "pm_review": {
@@ -10,7 +16,7 @@
   },
   "id": "IMP-002",
   "role": "implementation",
-  "status": "ready",
+  "status": "in_progress",
   "objective": "Align the historical API display test with the already corrected and independently confirmed Labor VIII selected-target semantics, then demonstrate a clean complete suite.",
   "dependencies": [
     "IMP-001 candidate accepted by PM",
