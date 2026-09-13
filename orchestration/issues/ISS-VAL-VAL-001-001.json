@@ -6,9 +6,9 @@
   "category": "coordination_infrastructure",
   "origin": "task_manifest_input_binding",
   "severity": "S1",
-  "blocking": true,
-  "status": "open",
-  "owner": null,
+  "blocking": false,
+  "status": "closed",
+  "owner": "project_manager",
   "suggested_owner": "project_manager",
   "manifest_revision": "e1-m0002",
   "input_versions": [
@@ -364,10 +364,21 @@
   "regression_required": false,
   "replay_rerun_required": true,
   "human_authority_required": false,
-  "disposition": null,
-  "resolution_artifacts": [],
+  "disposition": {
+    "type": "manifest_update",
+    "state": "completed",
+    "action": "Manifest e1-m0003 pins all three required preparation inputs and VAL-001 binds the complete start-state path."
+  },
+  "resolution_artifacts": [
+    "orchestration/project_state.json#e1-m0003",
+    "orchestration/tasks/VAL-001.json"
+  ],
   "verification_task_id": null,
-  "closure": null,
+  "closure": {
+    "decision": "requeue_with_exact_input_pins",
+    "replay_rerun_required": true,
+    "prior_run_gameplay_executed": false
+  },
   "blocking_impact": "No replay command or RNG event may be consumed until required input identity is bound by PM.",
   "partial_run_usefulness": "All 27 canonical artifacts match their designated Git objects/source commits and Git-byte SHA256 pins, including complete clean tree coverage. The three available preparation files have observed hashes for PM review.",
   "recommended_next_action": "PM pin the three observed additional inputs or their reviewed replacements, bind the selected complete start state, and requeue VAL-001 with renewed exact inputs. Then perform the full assigned replay."

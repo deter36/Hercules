@@ -6,8 +6,8 @@
   "repository": "https://github.com/deter36/Hercules",
   "branch": "codex/hercules-orchestration-e1",
   "baseline_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
-  "manifest_revision": "e1-m0002",
-  "manifest_supersedes": "e1-m0001",
+  "manifest_revision": "e1-m0003",
+  "manifest_supersedes": "e1-m0002",
   "canonical_artifacts": [
     {
       "id": "game-data",
@@ -267,6 +267,33 @@
         "historical_basis": "named by historical handoff authority chain; version identity checked",
         "export_timestamp_verified": false
       }
+    },
+    {
+      "id": "rs-001-readiness",
+      "path": "orchestration/validation/RS-001-readiness.json",
+      "kind": "blob",
+      "git_object": "6fd8a445afc98455a252f74a0eccbf62a0e8c2af",
+      "source_commit": "3c9c8e4e15eaf287b5fec6e9a9a00cbd5d76272f",
+      "sha256_git_bytes": "f795dc3782f89c390436567c051273855ef3bc7959fb8d528b2fcfe58a8ab374",
+      "role": "validation_precondition"
+    },
+    {
+      "id": "golden-start-state",
+      "path": "orchestration/validation/RS-001-golden-start-state.json",
+      "kind": "blob",
+      "git_object": "2c1d1b69692c3e38edba8bd42adf2bd42fe5826c",
+      "source_commit": "3c9c8e4e15eaf287b5fec6e9a9a00cbd5d76272f",
+      "sha256_git_bytes": "3c4f8de10b411a612ab04b860750886c360e25d7056fcc7890dcdda28f6eb289",
+      "role": "validation_start_state"
+    },
+    {
+      "id": "rs-002-handoff",
+      "path": "orchestration/handoffs/RS-002-rules-spec-20260913T131948Z-6e6af8.json",
+      "kind": "blob",
+      "git_object": "ec4b9e65909a9f6ce98081ca0bf1a1e30ba7f11b",
+      "source_commit": "6bffa094431d84429ed93339d48f839bcc5a2302",
+      "sha256_git_bytes": "ce9ed7f73f197b813b286d484fcfdbcfa44cb4e7eaf41cf29a1489455f813944",
+      "role": "validation_precondition"
     }
   ],
   "tasks": [
@@ -277,7 +304,12 @@
   ],
   "issues": [
     "ISS-PM-SETUP-001",
-    "ISS-PM-SETUP-002"
+    "ISS-PM-SETUP-002",
+    "ISS-RS-RS-001-001",
+    "ISS-RS-RS-001-002",
+    "ISS-RS-RS-001-003",
+    "ISS-RS-RS-001-004",
+    "ISS-VAL-VAL-001-001"
   ],
   "workers": {
     "rules_spec": {
@@ -348,7 +380,16 @@
     "human_decision_evidence": null,
     "implementation_spec_generation_authorized": false
   },
-  "validation_results": [],
+  "validation_results": [
+    {
+      "task_id": "VAL-001",
+      "run_id": "validation-20260913T142211Z-7fd36a",
+      "status": "BLOCKED_PREFLIGHT_ACCEPTED",
+      "result": "orchestration/validation/VAL-001-validation-20260913T142211Z-7fd36a-result.json",
+      "finding": "ISS-VAL-VAL-001-001",
+      "gameplay_executed": false
+    }
+  ],
   "experiment_observations": [
     {
       "stage": "setup_preflight",
@@ -379,6 +420,15 @@
       "source_commit": "6bffa094431d84429ed93339d48f839bcc5a2302",
       "validation_task_released": "VAL-001",
       "counts_as_worker_validation": false
+    },
+    {
+      "stage": "validation_preflight",
+      "type": "missing_exact_preparation_input_pins_corrected_by_pm",
+      "task_id": "VAL-001",
+      "blocked_run": "validation-20260913T142211Z-7fd36a",
+      "manifest_revision": "e1-m0003",
+      "gameplay_executed": false,
+      "counts_as_worker_validation": true
     }
   ],
   "publication": {

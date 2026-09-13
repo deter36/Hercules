@@ -1,25 +1,22 @@
 {
-  "manifest_revision": "e1-m0002",
-  "claim": {
-    "role": "validation",
+  "manifest_revision": "e1-m0003",
+  "claim": null,
+  "blocking_issue_ids": [],
+  "handoff_path": null,
+  "pm_review": {
+    "decision": "blocked_preflight_accepted_and_requeued",
     "run_id": "validation-20260913T142211Z-7fd36a",
-    "claimed_at": "2026-09-13T14:22:11.3615267Z",
-    "expires_at": "2026-09-13T16:22:11.3615267Z",
-    "remote_commit_read": "793d2bcbd1cf6f357378180456ff1b014bab30ef"
+    "evidence": "The worker correctly stopped before consuming a command or RNG event. All 27 then-current canonical pins matched, and it supplied exact observed identities for the three missing PM-controlled inputs.",
+    "resolution": "Manifest e1-m0003 pins those inputs and binds the complete start state. A fresh run is required."
   },
-  "blocking_issue_ids": [
-    "ISS-VAL-VAL-001-001"
-  ],
-  "handoff_path": "orchestration/handoffs/VAL-001-validation-20260913T142211Z-7fd36a.json",
-  "pm_review": null,
   "id": "VAL-001",
   "role": "validation",
-  "status": "blocked",
+  "status": "ready",
   "objective": "Execute Golden Run 0001 from current pinned canonical artifacts and the unchanged normalized human-choice script; independently record state, RNG and findings.",
   "dependencies": [
     "RS-001 scoped golden readiness accepted by PM"
   ],
-  "blocked_reason": "Required preparation inputs lack exact PM-controlled version pins; see ISS-VAL-VAL-001-001. No replay commands or RNG events were consumed.",
+  "blocked_reason": null,
   "input_artifact_ids": [
     "game-data",
     "data-schema",
@@ -48,6 +45,10 @@
     "official-rulebook",
     "verified-reference",
     "rng-spec"
+    ,
+    "rs-001-readiness",
+    "golden-start-state",
+    "rs-002-handoff"
   ],
   "required_additional_inputs": [
     "orchestration/validation/RS-001-readiness.json",
@@ -76,7 +77,7 @@
   "player_choice_authority": "recorded human tactical inputs; existing normalized script only",
   "start_state": {
     "boundary": "before initial Mood shuffle",
-    "complete_state_path": null,
+    "complete_state_path": "orchestration/validation/RS-001-golden-start-state.json",
     "hidden_order_source": "src/data/raw/golden/HERC-GOLDEN-RUN-0001_replay_script_v2_normalized.json#/inputs/0/order"
   },
   "stop_rule": "Stop at the recorded Labor VI terminal state or the first unsafe divergence, unsupported rule, missing prerequisite or illegal scripted action.",
