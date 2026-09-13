@@ -1,0 +1,63 @@
+{
+  "task_id": "IMP-001",
+  "run_id": "implementation-20260913T213517Z-b680db",
+  "role": "implementation",
+  "status": "submitted",
+  "manifest_revision": "e1-m0004",
+  "inputs": [
+    {"id":"game-data","path":"src/data/raw/GAME_DATA_v4.json","kind":"blob","git_object":"9407bd9cb58eae1d8cd7a1495a65275e3ef644e1","source_commit":"6bffa094431d84429ed93339d48f839bcc5a2302","sha256_git_bytes":"b32c1e902d200e25e59d475c9453c97e4687603aaecf3f948250fe1bec844ac4"},
+    {"id":"data-schema","path":"src/data/raw/GAME_DATA_SCHEMA.md","kind":"blob","git_object":"d9300f6ae1d04cb6772a901a1ed15af34ba814ea","source_commit":"6bffa094431d84429ed93339d48f839bcc5a2302","sha256_git_bytes":"7b857d72ed6982c94d9e2fd1bae7d3b1187065b57ec9fe1bab95ef9a5d9e9d97"},
+    {"id":"rules-spec","path":"src/data/raw/GAME_RULES_SPEC.md","kind":"blob","git_object":"07cea77200d58483e39eed0d702efd022dc840a0","source_commit":"6bffa094431d84429ed93339d48f839bcc5a2302","sha256_git_bytes":"34ddfe22914b78e6e479e236e5e063b962839efccc88ae93b508230b10f51893"},
+    {"id":"execution-spec","path":"src/data/raw/hercules_engine_execution_spec_v0_13.md","kind":"blob","git_object":"da5f94c4437cdff2366efc161eac1f187aca1a87","source_commit":"6bffa094431d84429ed93339d48f839bcc5a2302","sha256_git_bytes":"5b2c52c9862db8ce3573bed12af891b2cfb94cca450fc789d7f7bc9a38565492"},
+    {"id":"test-fixtures","path":"src/data/raw/TEST_FIXTURES_v4.json","kind":"blob","git_object":"cadae99fd2c7205d29f17375a36bc70df3e629b3","source_commit":"6bffa094431d84429ed93339d48f839bcc5a2302","sha256_git_bytes":"31459edf0c79ad29bfe3a02b40a4b4a7ec1b6676ed11b7e4f69b7fa14439d14e"},
+    {"id":"historical-engine","path":"src/engine","kind":"tree","git_object":"dac7a33b4fea961c4ba10fed79eda3da5f719211","source_commit":"70b33a0e81c63c5317550bb81da4b9799b02a91b"},
+    {"id":"replay-implementation","path":"src/replay","kind":"tree","git_object":"8df5cbcbd7e2733e829c5c0abea0005381ba7433","source_commit":"70b33a0e81c63c5317550bb81da4b9799b02a91b"},
+    {"id":"existing-tests","path":"test","kind":"tree","git_object":"953f11900a4467a8f7807b5b437c677f3b12ea22","source_commit":"70b33a0e81c63c5317550bb81da4b9799b02a91b"},
+    {"id":"golden-script","path":"src/data/raw/golden/HERC-GOLDEN-RUN-0001_replay_script_v2_normalized.json","kind":"blob","git_object":"da24321337d3c297d858d58b8e2c292fad937eb1","source_commit":"70b33a0e81c63c5317550bb81da4b9799b02a91b","sha256_git_bytes":"e342e1891616ebb319f3a355515af97709ab560eac7192fb98c349b4e8a7da59"},
+    {"id":"golden-start-state","path":"orchestration/validation/RS-001-golden-start-state.json","kind":"blob","git_object":"2c1d1b69692c3e38edba8bd42adf2bd42fe5826c","source_commit":"3c9c8e4e15eaf287b5fec6e9a9a00cbd5d76272f","sha256_git_bytes":"3c4f8de10b411a612ab04b860750886c360e25d7056fcc7890dcdda28f6eb289"},
+    {"id":"l08-scenario","path":"orchestration/validation/RS-001-L08-scenario.json","kind":"blob","git_object":"26274cbd8d42ebb23de206545e32c1d72728c35a","source_commit":"3c9c8e4e15eaf287b5fec6e9a9a00cbd5d76272f","sha256_git_bytes":"ed12d6c59322497317ead04cd3b2d33294e9e3c1899a3737d2619d99fc60dfc7"},
+    {"id":"val-001-result","path":"orchestration/validation/VAL-001-validation-20260913T152213Z-30ff45-result.json","kind":"blob","git_object":"2e980948749145ad132761336f63b7bbfdcdc8d6","source_commit":"5483df904f2c841b35a41f7faca7ad65b01b0173","sha256_git_bytes":"d4ed8a40d191f0ee803f37e5744b2f45ca9ce13321a92c3e2dfe4f7392ca81a3"},
+    {"id":"val-001-handoff","path":"orchestration/handoffs/VAL-001-validation-20260913T152213Z-30ff45.json","kind":"blob","git_object":"f77fc4f96f8e520b3931cd74a49086907e1bbff3","source_commit":"5483df904f2c841b35a41f7faca7ad65b01b0173","sha256_git_bytes":"56f1b408398160742342a04a584906d944b9fbe5e1b7bb122db06d647a81b785"}
+  ],
+  "changed_artifacts": [
+    {"path":"src/engine/effects/content.ts","kind":"blob","before_git_object":"4445549d39b190dc3ce72d9e360d25031dbfe691","after_git_object":"74ad4a47481a2422c5a962077aadaab3909ce4d1"},
+    {"path":"src/engine/round/progress.ts","kind":"blob","before_git_object":"b845d25aefbb8e9deda8d5b1c8aa040715fb220e","after_git_object":"63be3129d6c4155e92b9192471243ce8bad41bc7"},
+    {"path":"src/engine","kind":"tree","before_git_object":"dac7a33b4fea961c4ba10fed79eda3da5f719211","after_git_object":"8b39d43a90b71729d56b45fa03aaf6cd357e5e9e"},
+    {"path":"src/replay/golden-run.ts","kind":"blob","before_git_object":"2a7181f9eee2f37e3458330d96106460eb05dcf4","after_git_object":"a5aa0322ee7429a91e3ac39222314884a068b0ee"},
+    {"path":"src/replay","kind":"tree","before_git_object":"8df5cbcbd7e2733e829c5c0abea0005381ba7433","after_git_object":"c287d247e4bb2b550aabc77bc29074772319d5e3"},
+    {"path":"test/rng/herc-rng.test.ts","kind":"blob","before_git_object":"21e367132ee41ea1e7f515e2f8a8039d1d688f3f","after_git_object":"0e3f08b2b74a1b28b0e518f0821f4da97d9f262e"},
+    {"path":"test/implementation/imp-001-engine.test.ts","kind":"blob","before_git_object":null,"after_git_object":"4f52928833fed5c34488c43fe44627f8a5bada82"},
+    {"path":"test/implementation/imp-001-replay.test.ts","kind":"blob","before_git_object":null,"after_git_object":"b4e784251cd312b4b3a944cd29d26950384840a9"},
+    {"path":"test","kind":"tree","before_git_object":"953f11900a4467a8f7807b5b437c677f3b12ea22","after_git_object":"3a28f763dab57c5a2a8261eee31f61f0613b1642"}
+  ],
+  "issue_ids": ["ISS-RS-RS-001-002","ISS-RS-RS-001-003","ISS-RS-RS-001-004","ISS-VAL-VAL-001-002"],
+  "issue_dispositions": [
+    {"issue_id":"ISS-RS-RS-001-002","proposal":"resolution_submitted","evidence":"Source-local healing focused regression passes."},
+    {"issue_id":"ISS-RS-RS-001-003","proposal":"resolution_submitted","evidence":"Chained terminal advance retains active_failure_terminal and exact die without RNG."},
+    {"issue_id":"ISS-RS-RS-001-004","proposal":"resolution_submitted","evidence":"Cannot Block remains the turn-start snapshot after later entry."},
+    {"issue_id":"ISS-VAL-VAL-001-002","proposal":"resolution_submitted","evidence":"Reusable replay rejects missing/illegal/divergent inputs incrementally and completes the recorded run only with the full record."}
+  ],
+  "decisions": [
+    "Removed entered-node mutation of the roll-start Cannot Block snapshot.",
+    "Applied numeric healing only to the active source Labor die, capped at its own starting health.",
+    "Marked the exact die entering a failure node active_failure_terminal before returning DEFEAT, including recursive advance-all effects.",
+    "Made the Golden replay record a required input and fail fast on approval, sequence, Labor/roll, phase, decision, from/to, RNG, checkpoint, invariant, and terminal mismatches."
+  ],
+  "authority_refs": ["orchestration/human_checkpoint.md","orchestration/onboarding/implementation.md","orchestration/tasks/IMP-001.json"],
+  "assumptions": [],
+  "unresolved_items": ["The unchanged full-suite display test test/engine/api.test.ts still expects superseded Labor VIII all-target wording; 89/90 tests pass. PM/appropriate owner must route that separate expectation."],
+  "deliverable_paths": [
+    "src/engine/effects/content.ts",
+    "src/engine/round/progress.ts",
+    "src/replay/golden-run.ts",
+    "test/implementation/imp-001-engine.test.ts",
+    "test/implementation/imp-001-replay.test.ts",
+    "test/rng/herc-rng.test.ts",
+    "orchestration/implementation/IMP-001-implementation-20260913T213517Z-b680db-test-results.json",
+    "orchestration/handoffs/IMP-001-implementation-20260913T213517Z-b680db.json",
+    "orchestration/tasks/IMP-001.json"
+  ],
+  "validation_required": "PM must verify/promote exact implementation pins and release independent VAL-003; this submission does not declare gameplay validation passed.",
+  "regression_implications": ["Rerun complete Golden Run 0001 from its pinned start.","Rerun the complete constructed Labor VIII scenario and wider healing cases.","Verify terminal failure, all recorded checkpoints, command consumption, and RNG fail-fast behavior independently."],
+  "recommended_next_action": "PM review this containing commit, verify exact objects and the reported unrelated test failure, promote accepted implementation pins in a new manifest revision, and release VAL-003."
+}

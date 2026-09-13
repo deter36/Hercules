@@ -37,8 +37,10 @@ export function applyContentEffect(state: GameState, effect: Effect, sourceId: s
     if (!Number.isInteger(total) || total < 1 || total > Object.keys(next.herculesDice).length) throw new Error("Persistent Hercules die adjustment exceeds the certified physical die inventory.");
     next.player.persistentHerculesDice = total;
   }
-  if (typeof effect.heal === "number" && next.currentLabor) for (const die of Object.values(next.currentLabor.laborDice)) if (die.status === "active") die.health = Math.min(die.startingHealth, die.health + effect.heal);
-  if (effect.cannot_block === true && next.currentLabor) next.currentLabor.cannotBlockThisRound = true;
+  if (typeof effect.heal === "number" && next.currentLabor && sourceLaborDieId) {
+    const sourceDie = next.currentLabor.laborDice[sourceLaborDieId];
+    if (sourceDie?.status === "active") sourceDie.health = Math.min(sourceDie.startingHealth, sourceDie.health + effect.heal);
+  }
   if (typeof effect.advance_all_other_active_labor_dice === "number" && next.currentLabor && sourceLaborDieId) {
     const targets = Object.values(next.currentLabor!.laborDice).filter((die) => die.status === "active" && die.id !== sourceLaborDieId).map((die) => die.id);
     for (const targetId of targets) {
@@ -49,7 +51,7 @@ export function applyContentEffect(state: GameState, effect: Effect, sourceId: s
         die.nodeId = node.next[0];
       }
       const entered = getNode(next.currentLabor!.laborId, die.trackId, die.nodeId);
-      if (entered.effect?.failure !== undefined) { next.game.phase = "DEFEAT"; next.game.result = "defeat"; return next; }
+      if (entered.effect?.failure !== undefined) { die.status = "active_failure_terminal"; next.game.phase = "DEFEAT"; next.game.result = "defeat"; return next; }
       if (entered.effect) next = applyContentEffect(next, entered.effect, entered.id, targetId, queueResources);
       if (next.pendingDecision || next.game.phase === "DEFEAT") return next;
     }

@@ -1,0 +1,76 @@
+{
+  "task_id": "IMP-001",
+  "run_id": "implementation-20260913T213517Z-b680db",
+  "manifest_revision": "e1-m0004",
+  "tested_claim_commit": "0f240d4768a4727bfbb3710127072e9e9412a7b8",
+  "runtime": {
+    "node": "v24.19.0",
+    "pnpm": "11.19.0",
+    "typescript": "5.9.3",
+    "git": "2.54.0.windows.1"
+  },
+  "locked_dependency_install": {
+    "command": "pnpm install --frozen-lockfile",
+    "exit_code": 0,
+    "summary": "25 packages restored from the local content-addressable store; lockfile unchanged."
+  },
+  "input_pin_verification": {
+    "count": 13,
+    "matched": 13,
+    "method": "For every IMP-001 input artifact, compare manifest git_object with both HEAD:path and source_commit:path where source_commit exists.",
+    "result": "PASS"
+  },
+  "failing_before": {
+    "command": "node --test dist/test/implementation/imp-001-engine.test.js",
+    "exit_code": 1,
+    "tests": 3,
+    "passed": 0,
+    "failed": 3,
+    "observed_boundaries": [
+      "Entering L04R.n3 changed cannotBlockThisRound from false to true.",
+      "B entering L08B.n1 healed A from 5 to 6 as well as B from 5 to 6.",
+      "The chained advance into L06C17.n3 ended in DEFEAT but retained status active instead of active_failure_terminal."
+    ]
+  },
+  "focused_after": {
+    "commands": [
+      "node_modules/.bin/tsc.CMD -p tsconfig.json --noEmit",
+      "node_modules/.bin/tsc.CMD -p tsconfig.json",
+      "node --test dist/test/implementation/imp-001-engine.test.js dist/test/implementation/imp-001-replay.test.js dist/test/rng/herc-rng.test.js"
+    ],
+    "exit_code": 0,
+    "tests": 17,
+    "passed": 17,
+    "failed": 0,
+    "assertions": [
+      "Cannot Block remains the roll-start snapshot after later node entry.",
+      "Healing changes only the source Labor die and respects its starting-health cap.",
+      "A direct or chained failure preserves the exact terminal die and consumes no RNG.",
+      "Golden replay rejects a missing approval, illegal phase, false operation.from, first checkpoint divergence, and first RNG mismatch.",
+      "The complete recorded Golden script consumes 112 contiguous inputs and 174 RNG ledger entries, verifies five intermediate checkpoints, and reaches the recorded terminal state."
+    ]
+  },
+  "full_existing_suite": {
+    "command": "pnpm test",
+    "exit_code": 1,
+    "build": "PASS",
+    "tests": 90,
+    "passed": 89,
+    "failed": 1,
+    "failure": {
+      "test": "fixed-straight attacks display their required faces",
+      "path": "test/engine/api.test.ts",
+      "expected": "fixed 1-2-3 straight · hits every active Labor die",
+      "observed": "fixed 1-2-3 straight",
+      "assessment": "Unrelated pre-existing display expectation for the superseded Labor VIII all-target wording; preserved unchanged as required."
+    }
+  },
+  "scope_check": {
+    "canonical_raw_changed": false,
+    "canonical_generated_changed": false,
+    "project_manager_state_changed": false,
+    "issue_files_changed": false,
+    "validation_evidence_changed": false
+  },
+  "validation_claim": "No gameplay validation is declared. Results are implementation regression evidence for PM review and later independent VAL-003 execution."
+}

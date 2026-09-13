@@ -27,7 +27,7 @@ export function resolveEnteredImpacts(state: GameState): GameState {
   for (const die of Object.values(labor.laborDice).filter((entry) => entry.status === "active")) {
     const node = getNode(labor.laborId, die.trackId, die.nodeId);
     const effect = node.effect;
-    if (effect?.failure !== undefined) { next.game.phase = "DEFEAT"; next.game.result = "defeat"; return next; }
+    if (effect?.failure !== undefined) { die.status = "active_failure_terminal"; next.game.phase = "DEFEAT"; next.game.result = "defeat"; return next; }
     if (effect) next = applyContentEffect(next, effect, node.id, die.id, true);
     if (next.pendingDecision) return next;
   }

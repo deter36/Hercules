@@ -8,7 +8,7 @@
     "remote_commit_read": "8c6952f44b5eaefbd7c4309ff1a67cb7dadabe7d"
   },
   "blocking_issue_ids": [],
-  "handoff_path": null,
+  "handoff_path": "orchestration/handoffs/IMP-001-implementation-20260913T213517Z-b680db.json",
   "pm_review": {
     "decision": "released_by_human_authority",
     "evidence": "The human authorized revising the engine and then validating on 2026-09-13, paused the action temporarily, and then explicitly said to continue.",
@@ -16,7 +16,7 @@
   },
   "id": "IMP-001",
   "role": "implementation",
-  "status": "in_progress",
+  "status": "submitted",
   "objective": "Correct the four independently identified engine/replay defects without changing canonical outcomes, and add focused implementation tests suitable for later independent validation.",
   "dependencies": [
     "Human checkpoint option 1 recorded",
