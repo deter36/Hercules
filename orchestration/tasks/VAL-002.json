@@ -1,6 +1,12 @@
 {
   "manifest_revision": "e1-m0004",
-  "claim": null,
+  "claim": {
+    "role": "validation",
+    "run_id": "validation-20260913T172338Z-cc12bf",
+    "claimed_at": "2026-09-13T17:23:38.9307953+00:00",
+    "expires_at": "2026-09-13T19:23:38.9307953+00:00",
+    "remote_commit_read": "3f63cdd10e6dea2b05b549d8c485c5efafe9b8e5"
+  },
   "blocking_issue_ids": [],
   "handoff_path": null,
   "pm_review": {
@@ -10,7 +16,7 @@
   },
   "id": "VAL-002",
   "role": "validation",
-  "status": "ready",
+  "status": "in_progress",
   "objective": "Execute the PM-approved constructed Labor VIII scenario from pinned canonical artifacts, comparing the explicit transition/state interpretation with the historical engine where the assigned method permits.",
   "dependencies": [
     "RS-001 scoped L08 readiness accepted by PM",
