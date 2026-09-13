@@ -1,12 +1,18 @@
 {
   "manifest_revision": "e1-m0001",
-  "claim": null,
+  "claim": {
+    "role": "rules_spec",
+    "run_id": "rules-spec-20260913T051344Z-26d973",
+    "claimed_at": "2026-09-13T05:13:44.545378+00:00",
+    "expires_at": "2026-09-13T07:13:44.545378+00:00",
+    "remote_commit_read": "f713a323b35f9e8f6aa20c48095cfb1195690b08"
+  },
   "blocking_issue_ids": [],
   "handoff_path": null,
   "pm_review": null,
   "id": "RS-001",
   "role": "rules_spec",
-  "status": "ready",
+  "status": "in_progress",
   "objective": "Assess the exact historical canonical inputs for Golden Run 0001 and prepare a small constructed Labor VIII validation scenario. Report readiness per scenario with authority and provenance.",
   "dependencies": [],
   "input_artifact_ids": [
