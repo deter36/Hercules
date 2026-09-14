@@ -10,13 +10,13 @@
   "blocking_issue_ids": [],
   "handoff_path": "orchestration/handoffs/IMP-003-implementation-20260914T034832Z-e1b1db.json",
   "pm_review": {
-    "decision": "released_after_val_003_partial_pass",
-    "evidence": "VAL-003 passed both complete gameplay scenarios but reproduced a reusable replay terminal-evidence acceptance gap and retained a static healing invalid-source enforcement gap.",
-    "scope_limit": "Correct only terminal replay evidence comparison and invalid healing source-context rejection. Preserve the gameplay behavior already independently passed."
+    "decision": "accepted_and_promoted_for_independent_validation",
+    "evidence": "All ten inputs matched. The terminal-face acceptance was reproduced before correction; five focused residual tests and the complete 95-test suite pass after correction. Canonical, PM and prior validation artifacts are unchanged.",
+    "gate_effect": "Manifest e1-m0007 pins exact residual engine, replay, test and implementation-evidence objects. VAL-004 is released."
   },
   "id": "IMP-003",
   "role": "implementation",
-  "status": "submitted",
+  "status": "accepted_candidate",
   "objective": "Close the two residual implementation gaps found by VAL-003 without altering passed gameplay outcomes or canonical artifacts.",
   "dependencies": [
     "VAL-003 partial-pass investigation accepted",

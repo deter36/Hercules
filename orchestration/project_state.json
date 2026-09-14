@@ -2,12 +2,12 @@
   "schema_version": 1,
   "experiment_id": "HERC-ORCH-E1",
   "phase": "active",
-  "updated_at": "2026-09-14T02:46:54.449000+00:00",
+  "updated_at": "2026-09-14T04:48:56.224000+00:00",
   "repository": "https://github.com/deter36/Hercules",
   "branch": "codex/hercules-orchestration-e1",
   "baseline_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
-  "manifest_revision": "e1-m0006",
-  "manifest_supersedes": "e1-m0005",
+  "manifest_revision": "e1-m0007",
+  "manifest_supersedes": "e1-m0006",
   "canonical_artifacts": [
     {
       "id": "game-data",
@@ -417,6 +417,48 @@
       "source_commit": "ce274602ea3145c1d8855e54c23afd48357782ec",
       "sha256_git_bytes": "f403c0b2c7595091994c3128ec3f2f97b8e5eceb02749ddb9c0b2ce973ed1421",
       "role": "implementation_reproduction_input"
+    },
+    {
+      "id": "residual-corrected-engine",
+      "path": "src/engine",
+      "kind": "tree",
+      "git_object": "2872f15d3d6c8448f75518bfd431e87e0f9bf6f5",
+      "source_commit": "c8599a5d72a730710cb6c8c8bebd8407923c638b",
+      "role": "candidate_implementation_for_independent_validation"
+    },
+    {
+      "id": "residual-corrected-replay",
+      "path": "src/replay",
+      "kind": "tree",
+      "git_object": "d80db607146f2092b685729135d70ee60e890501",
+      "source_commit": "c8599a5d72a730710cb6c8c8bebd8407923c638b",
+      "role": "candidate_implementation_for_independent_validation"
+    },
+    {
+      "id": "residual-corrected-tests",
+      "path": "test",
+      "kind": "tree",
+      "git_object": "fd07b3e414843a0648b5fa2d6b761bcd4e57eb6c",
+      "source_commit": "c8599a5d72a730710cb6c8c8bebd8407923c638b",
+      "role": "candidate_regression_suite_for_independent_validation"
+    },
+    {
+      "id": "imp-003-handoff",
+      "path": "orchestration/handoffs/IMP-003-implementation-20260914T034832Z-e1b1db.json",
+      "kind": "blob",
+      "git_object": "79652d37c60a49575b4eaabea374ccc5bad20c7d",
+      "source_commit": "c8599a5d72a730710cb6c8c8bebd8407923c638b",
+      "sha256_git_bytes": "8ed2b32cb5a0718ee11e70a9f362b92e986b3b8f2456d6bf0f118ab4dfaa4c96",
+      "role": "implementation_evidence"
+    },
+    {
+      "id": "imp-003-test-results",
+      "path": "orchestration/implementation/IMP-003-implementation-20260914T034832Z-e1b1db-test-results.json",
+      "kind": "blob",
+      "git_object": "b562603e6162024442eeb10353ef66e9524c3a74",
+      "source_commit": "c8599a5d72a730710cb6c8c8bebd8407923c638b",
+      "sha256_git_bytes": "8ee6fe3eb2cbc622909aca98cc6ce99402c48043dfb2669e17fdce1f5eda354a",
+      "role": "implementation_evidence"
     }
   ],
   "tasks": [
@@ -489,14 +531,11 @@
       ]
     },
     "ready_for_revalidation": {
-      "status": "partial_pass_blocked",
+      "status": "ready",
       "evidence": [
         "orchestration/human_checkpoint.md"
       ],
-      "pending": [
-        "IMP-003 replay terminal-evidence and healing source-context corrections",
-        "VAL-004 independent residual revalidation"
-      ]
+      "pending": []
     },
     "ready_for_human_checkpoint": {
       "status": "met_failure_checkpoint",
@@ -687,6 +726,16 @@
       "reusable_replay": "FAIL",
       "next_task_released": "IMP-003",
       "counts_as_worker_validation": true
+    },
+    {
+      "stage": "residual_implementation_promotion",
+      "type": "imp_003_candidate_promoted_for_independent_validation",
+      "manifest_revision": "e1-m0007",
+      "source_commit": "c8599a5d72a730710cb6c8c8bebd8407923c638b",
+      "focused_tests": "5/5 pass",
+      "full_suite": "95/95 pass",
+      "validation_task_released": "VAL-004",
+      "counts_as_worker_validation": false
     }
   ],
   "publication": {

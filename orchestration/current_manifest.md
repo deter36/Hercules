@@ -40,6 +40,8 @@ including the corrected Cannot Block, source-local healing, terminal status and
 all assigned checkpoints. Its replay negative controls found one remaining gap:
 the reusable helper accepted a terminal Hercules-face evidence mismatch, and the
 healing invalid-source guard also remains under-enforced. Manifest `e1-m0006` pins
-that exact evidence. `IMP-003` is the sole ready task; `VAL-004` is blocked for
+that exact evidence. `IMP-003` corrected both residuals with 5/5 focused and 95/95
+complete tests passing. Manifest `e1-m0007` pins the exact residual engine, replay,
+test, handoff and test-result objects. `VAL-004` is the sole ready task for final
 independent residual verification. Implementation-spec generation remains
 unauthorized.

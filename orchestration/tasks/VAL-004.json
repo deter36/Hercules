@@ -1,17 +1,29 @@
 {
-  "manifest_revision": "pending_post_imp_003_revision",
+  "manifest_revision": "e1-m0007",
   "claim": null,
   "blocking_issue_ids": [],
   "handoff_path": null,
-  "pm_review": null,
+  "pm_review": {
+    "decision": "released_after_exact_residual_promotion",
+    "evidence": "IMP-003 reproduced the residual failure, passed five focused controls and the complete 95-test suite. Manifest e1-m0007 pins all corrected and evidence objects.",
+    "scope": "Independently verify residual negative controls and confirm the accepted Golden and Labor VIII outputs remain unchanged."
+  },
   "id": "VAL-004",
   "role": "validation",
-  "status": "blocked",
+  "status": "ready",
   "objective": "Independently verify the residual replay terminal-evidence and healing invalid-source corrections while confirming the passed Golden and Labor VIII outcomes remain unchanged.",
   "dependencies": [
     "IMP-003 accepted and exact corrected artifacts promoted by PM"
   ],
-  "input_artifact_ids": [],
+  "input_artifact_ids": [
+    "game-data", "data-schema", "rules-spec", "execution-spec",
+    "test-scenarios", "test-fixtures", "golden-record", "golden-script",
+    "rng-spec", "golden-start-state", "l08-scenario",
+    "residual-corrected-engine", "residual-corrected-replay",
+    "residual-corrected-tests", "val-003-result", "val-003-handoff",
+    "val-003-replay-evidence", "val-003-implementation-evidence",
+    "imp-003-handoff", "imp-003-test-results"
+  ],
   "allowed_changes": [
     "orchestration/validation/VAL-004-*",
     "orchestration/issues/ISS-VAL-VAL-004-*",
@@ -25,5 +37,5 @@
     "Golden and complete Labor VIII scenario outputs must remain identical to the accepted VAL-003 PASS evidence.",
     "Record every discrepancy and stop at the first unsafe divergence."
   ],
-  "blocked_reason": "Awaiting IMP-003 submission and PM promotion of exact residual implementation pins."
+  "blocked_reason": null
 }
