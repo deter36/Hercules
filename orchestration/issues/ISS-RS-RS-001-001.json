@@ -7,7 +7,7 @@
   "severity": "S1",
   "blocking": true,
   "blocking_scope": "Labor VIII attack interpretation; golden L05 uses target scope and is not affected by this L08 field",
-  "status": "accepted_partial_validation",
+  "status": "closed",
   "owner": "project_manager",
   "manifest_revision": "e1-m0001",
   "input_versions": [
@@ -440,5 +440,10 @@
     "independent_validation_required": true,
     "diagnostic_result": "F046/F047 preserve chosen A/B IDs and pass distinct pre-advance damage checks; F048 handles two disjoint allocations. Full F046 still fails due to issue -002 healing.",
     "closure_condition": "PM promotion of exact candidate canon and generated pins, followed by independent chosen-target and complete-round verification."
+  },
+  "pm_closure": {
+    "decision": "accepted",
+    "evidence": "VAL-003 independently passed the complete constructed Labor VIII scenario through settlement and cleanup under the corrected selected-target canon.",
+    "manifest_revision": "e1-m0006"
   }
 }

@@ -7,8 +7,8 @@
   "severity": "S2",
   "blocking": true,
   "blocking_scope": "Golden terminal canonical state after input 112",
-  "status": "resolution_submitted",
-  "owner": "implementation",
+  "status": "closed",
+  "owner": "project_manager",
   "manifest_revision": "e1-m0001",
   "input_versions": [
     {
@@ -340,6 +340,10 @@
   },
   "resolution_artifacts": [],
   "verification_task_id": "VAL-003",
-  "closure": null,
+  "closure": {
+    "decision": "accepted",
+    "evidence": "VAL-003 Golden terminal matched all 32 assertions, including exact die labor.L06.C17 at L06C17.n3 with active_failure_terminal and no post-defeat RNG.",
+    "manifest_revision": "e1-m0006"
+  },
   "authority_note": "The canonical terminal expectation is source-backed and retained. VAL-001 stopped earlier at the required first divergence, so terminal runtime verification was not reached. Engine correction and rerun require a later explicitly scoped implementation task; no human rules authority is required."
 }

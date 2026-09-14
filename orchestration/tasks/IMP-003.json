@@ -1,0 +1,59 @@
+{
+  "manifest_revision": "e1-m0006",
+  "claim": null,
+  "blocking_issue_ids": [],
+  "handoff_path": null,
+  "pm_review": {
+    "decision": "released_after_val_003_partial_pass",
+    "evidence": "VAL-003 passed both complete gameplay scenarios but reproduced a reusable replay terminal-evidence acceptance gap and retained a static healing invalid-source enforcement gap.",
+    "scope_limit": "Correct only terminal replay evidence comparison and invalid healing source-context rejection. Preserve the gameplay behavior already independently passed."
+  },
+  "id": "IMP-003",
+  "role": "implementation",
+  "status": "ready",
+  "objective": "Close the two residual implementation gaps found by VAL-003 without altering passed gameplay outcomes or canonical artifacts.",
+  "dependencies": [
+    "VAL-003 partial-pass investigation accepted",
+    "Manifest e1-m0006 pins exact failure evidence"
+  ],
+  "assigned_issue_ids": [
+    "ISS-VAL-VAL-001-002",
+    "ISS-RS-RS-001-002"
+  ],
+  "input_artifact_ids": [
+    "corrected-engine", "corrected-replay", "corrected-tests",
+    "val-003-result", "val-003-handoff", "val-003-replay-evidence",
+    "val-003-implementation-evidence", "rules-spec", "execution-spec", "test-fixtures"
+  ],
+  "allowed_changes": [
+    "src/engine/**", "src/replay/**", "test/**",
+    "orchestration/implementation/IMP-003-*",
+    "orchestration/handoffs/IMP-003-*",
+    "orchestration/tasks/IMP-003.json"
+  ],
+  "forbidden_changes": [
+    "src/data/raw/**", "src/data/generated/**",
+    "orchestration/project_state.json", "orchestration/current_manifest.md",
+    "orchestration/issues/**", "orchestration/validation/**"
+  ],
+  "requirements": [
+    "Reusable replay must reject terminal evidence when any Hercules die face differs from the resulting state.",
+    "Reusable replay must reject a terminal hidden-order mismatch and all other complete terminal evidence mismatches at the first differing field.",
+    "Healing execution must reject an invalid or stale source Labor-die context instead of applying or broadcasting the effect.",
+    "Previously passed Golden and Labor VIII gameplay states, checkpoints and RNG outcomes must remain unchanged."
+  ],
+  "deliverables": [
+    "Minimal residual engine/replay corrections",
+    "Focused terminal-evidence and invalid-source tests",
+    "Clean relevant and complete-suite results",
+    "Structured IMP-003 handoff with exact object IDs"
+  ],
+  "acceptance_criteria": [
+    "Reproduce the VAL-003 terminal-face acceptance before the change and rejection after it.",
+    "Add and pass a terminal hidden-order negative control.",
+    "Add and pass invalid/stale healing source-context rejection controls, including the F053 boundary.",
+    "Run existing implementation, replay, RNG and complete tests without changing expected gameplay outcomes.",
+    "Submit for PM promotion and independent VAL-004; do not declare validation passed."
+  ],
+  "blocked_reason": null
+}

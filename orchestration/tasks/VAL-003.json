@@ -12,13 +12,13 @@
   ],
   "handoff_path": "orchestration/handoffs/VAL-003-validation-20260914T015459Z-5daa2c.json",
   "pm_review": {
-    "decision": "released_after_exact_implementation_promotion",
-    "evidence": "IMP-001 focused tests passed 17/17 and IMP-002 completed the full suite at 90/90. Manifest e1-m0005 pins exact corrected engine, replay, test and implementation-evidence objects.",
-    "scope": "Independently rerun both complete scenarios and explicit replay fail-fast probes. Stop at the first unsafe divergence."
+    "decision": "partial_pass_investigation_accepted",
+    "evidence": "All 40 pins matched. Golden passed 112 inputs, five checkpoints and 32 terminal assertions at RNG 174. Labor VIII passed all ten operation boundaries and cleanup with A=5, B=6, Spirit=7 and zero RNG. Replay negative controls stopped when the helper accepted a terminal Hercules-face mismatch.",
+    "resolution": "Close the independently verified Cannot Block, terminal-status and L08 targeting findings. Retain replay terminal-evidence completeness and healing invalid-source enforcement as blocking residuals; release IMP-003 and keep VAL-004 blocked."
   },
   "id": "VAL-003",
   "role": "validation",
-  "status": "submitted",
+  "status": "accepted_partial_pass",
   "objective": "Independently rerun Golden Run 0001 and the constructed Labor VIII scenario against PM-pinned corrected implementation artifacts, including terminal and replay-method assertions.",
   "dependencies": [
     "IMP-001 submitted and accepted by PM",

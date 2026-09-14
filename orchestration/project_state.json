@@ -2,12 +2,12 @@
   "schema_version": 1,
   "experiment_id": "HERC-ORCH-E1",
   "phase": "active",
-  "updated_at": "2026-09-14T00:44:59.345000+00:00",
+  "updated_at": "2026-09-14T02:46:54.449000+00:00",
   "repository": "https://github.com/deter36/Hercules",
   "branch": "codex/hercules-orchestration-e1",
   "baseline_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
-  "manifest_revision": "e1-m0005",
-  "manifest_supersedes": "e1-m0004",
+  "manifest_revision": "e1-m0006",
+  "manifest_supersedes": "e1-m0005",
   "canonical_artifacts": [
     {
       "id": "game-data",
@@ -381,6 +381,42 @@
       "source_commit": "6491d1db65459e83bbe951e00dd91a51934e7ff0",
       "sha256_git_bytes": "5e2b94bc59e3384713235c95753354c9c4c03ef1904694688f12f69b9b61bb6e",
       "role": "implementation_evidence"
+    },
+    {
+      "id": "val-003-result",
+      "path": "orchestration/validation/VAL-003-validation-20260914T015459Z-5daa2c-result.json",
+      "kind": "blob",
+      "git_object": "d465643d2f9dbb9198521a093c05e8f97e5f1f71",
+      "source_commit": "ce274602ea3145c1d8855e54c23afd48357782ec",
+      "sha256_git_bytes": "0771140d3c6e0777fd827a4b2d917090ab4f7650e0cc0a5459d4c3b89dc995ca",
+      "role": "validation_evidence"
+    },
+    {
+      "id": "val-003-handoff",
+      "path": "orchestration/handoffs/VAL-003-validation-20260914T015459Z-5daa2c.json",
+      "kind": "blob",
+      "git_object": "7dce1f0a991c13d826343a971d12557e9af8dae1",
+      "source_commit": "ce274602ea3145c1d8855e54c23afd48357782ec",
+      "sha256_git_bytes": "f6f9aaa4aba38602dd60c178d36fe43752e3b16976c86bb4bc97fcb96f2928e5",
+      "role": "validation_evidence"
+    },
+    {
+      "id": "val-003-replay-evidence",
+      "path": "orchestration/validation/VAL-003-validation-20260914T015459Z-5daa2c-replay-issue-evidence.json",
+      "kind": "blob",
+      "git_object": "55083641e9562d1cf7096bd5f0a9b153e65afba3",
+      "source_commit": "ce274602ea3145c1d8855e54c23afd48357782ec",
+      "sha256_git_bytes": "83c8972a906f172c024c1dc6dfbf8e39422d2b28fd30d5214badf439742cc973",
+      "role": "implementation_reproduction_input"
+    },
+    {
+      "id": "val-003-implementation-evidence",
+      "path": "orchestration/validation/VAL-003-validation-20260914T015459Z-5daa2c-implementation-evidence.json",
+      "kind": "blob",
+      "git_object": "d0f3e3998090edb36f5d50c5ea68e4ba1edc440b",
+      "source_commit": "ce274602ea3145c1d8855e54c23afd48357782ec",
+      "sha256_git_bytes": "f403c0b2c7595091994c3128ec3f2f97b8e5eceb02749ddb9c0b2ce973ed1421",
+      "role": "implementation_reproduction_input"
     }
   ],
   "tasks": [
@@ -390,7 +426,9 @@
     "VAL-002",
     "IMP-001",
     "IMP-002",
-    "VAL-003"
+    "VAL-003",
+    "IMP-003",
+    "VAL-004"
   ],
   "issues": [
     "ISS-PM-SETUP-001",
@@ -451,11 +489,14 @@
       ]
     },
     "ready_for_revalidation": {
-      "status": "ready",
+      "status": "partial_pass_blocked",
       "evidence": [
         "orchestration/human_checkpoint.md"
       ],
-      "pending": []
+      "pending": [
+        "IMP-003 replay terminal-evidence and healing source-context corrections",
+        "VAL-004 independent residual revalidation"
+      ]
     },
     "ready_for_human_checkpoint": {
       "status": "met_failure_checkpoint",
@@ -530,6 +571,17 @@
       "gameplay_executed": true,
       "verified": "Labor VIII shared requirement, selected damage target, damage amount, and advancement",
       "first_divergence": "B.n1 source-local heal incorrectly changed die A from 5 to 6"
+    },
+    {
+      "task_id": "VAL-003",
+      "run_id": "validation-20260914T015459Z-5daa2c",
+      "status": "PARTIAL_PASS_INVESTIGATION_ACCEPTED",
+      "result": "orchestration/validation/VAL-003-validation-20260914T015459Z-5daa2c-result.json",
+      "golden": "PASS",
+      "l08": "PASS",
+      "reusable_replay": "FAIL",
+      "finding": "ISS-VAL-VAL-001-002",
+      "residual": "Terminal Hercules-face evidence mismatch was accepted; hidden-order negative control not reached. Healing invalid-source context remains statically under-enforced."
     }
   ],
   "experiment_observations": [
@@ -624,6 +676,17 @@
       "full_suite": "90/90 pass",
       "validation_task_released": "VAL-003",
       "counts_as_worker_validation": false
+    },
+    {
+      "stage": "independent_revalidation",
+      "type": "gameplay_scenarios_passed_replay_control_failed",
+      "task_id": "VAL-003",
+      "run_id": "validation-20260914T015459Z-5daa2c",
+      "golden": "PASS",
+      "l08": "PASS",
+      "reusable_replay": "FAIL",
+      "next_task_released": "IMP-003",
+      "counts_as_worker_validation": true
     }
   ],
   "publication": {

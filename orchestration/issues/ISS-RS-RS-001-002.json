@@ -7,7 +7,7 @@
   "severity": "S2",
   "blocking": true,
   "blocking_scope": "Labor VIII impact/healing; shared helper requires scoped regression outside this scenario",
-  "status": "resolution_submitted",
+  "status": "assigned_residual",
   "owner": "implementation",
   "manifest_revision": "e1-m0001",
   "input_versions": [
@@ -354,7 +354,7 @@
     "orchestration/validation/RS-002-rules-spec-20260913T131948Z-6e6af8-audit.json",
     "orchestration/handoffs/RS-002-rules-spec-20260913T131948Z-6e6af8.json"
   ],
-  "verification_task_id": "VAL-003",
+  "verification_task_id": "VAL-004",
   "closure": null,
   "authority_note": "This preparation task reports a source-backed proposed disposition. PM assigns correction/engine work and independent validation; no canon or engine was changed.",
   "canonical_correction_submission": {

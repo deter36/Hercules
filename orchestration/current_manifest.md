@@ -35,5 +35,11 @@ authorized scoped engine/replay remediation followed by independent validation.
 passing. `IMP-002` corrected the sole stale Labor VIII display assertion and the
 complete suite passes 90/90. Manifest `e1-m0005` pins the exact corrected engine,
 replay and test trees plus both implementation handoffs and test reports.
-`VAL-003` is the sole ready task for independent Golden and Labor VIII revalidation.
-Implementation-spec generation remains unauthorized.
+`VAL-003` independently passed the complete Golden Run and Labor VIII scenarios,
+including the corrected Cannot Block, source-local healing, terminal status and
+all assigned checkpoints. Its replay negative controls found one remaining gap:
+the reusable helper accepted a terminal Hercules-face evidence mismatch, and the
+healing invalid-source guard also remains under-enforced. Manifest `e1-m0006` pins
+that exact evidence. `IMP-003` is the sole ready task; `VAL-004` is blocked for
+independent residual verification. Implementation-spec generation remains
+unauthorized.

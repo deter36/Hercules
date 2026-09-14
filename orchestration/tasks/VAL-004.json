@@ -1,0 +1,29 @@
+{
+  "manifest_revision": "pending_post_imp_003_revision",
+  "claim": null,
+  "blocking_issue_ids": [],
+  "handoff_path": null,
+  "pm_review": null,
+  "id": "VAL-004",
+  "role": "validation",
+  "status": "blocked",
+  "objective": "Independently verify the residual replay terminal-evidence and healing invalid-source corrections while confirming the passed Golden and Labor VIII outcomes remain unchanged.",
+  "dependencies": [
+    "IMP-003 accepted and exact corrected artifacts promoted by PM"
+  ],
+  "input_artifact_ids": [],
+  "allowed_changes": [
+    "orchestration/validation/VAL-004-*",
+    "orchestration/issues/ISS-VAL-VAL-004-*",
+    "orchestration/handoffs/VAL-004-*",
+    "orchestration/tasks/VAL-004.json"
+  ],
+  "acceptance_criteria": [
+    "Verify every promoted input pin before execution.",
+    "Replay terminal Hercules-face and hidden-order mismatches must fail at the first differing field.",
+    "Invalid and stale healing source contexts must be rejected without state or RNG mutation.",
+    "Golden and complete Labor VIII scenario outputs must remain identical to the accepted VAL-003 PASS evidence.",
+    "Record every discrepancy and stop at the first unsafe divergence."
+  ],
+  "blocked_reason": "Awaiting IMP-003 submission and PM promotion of exact residual implementation pins."
+}
