@@ -1,22 +1,31 @@
 {
-  "manifest_revision": "pending_post_implementation_revision",
+  "manifest_revision": "e1-m0005",
   "claim": null,
   "blocking_issue_ids": [],
   "handoff_path": null,
-  "pm_review": null,
+  "pm_review": {
+    "decision": "released_after_exact_implementation_promotion",
+    "evidence": "IMP-001 focused tests passed 17/17 and IMP-002 completed the full suite at 90/90. Manifest e1-m0005 pins exact corrected engine, replay, test and implementation-evidence objects.",
+    "scope": "Independently rerun both complete scenarios and explicit replay fail-fast probes. Stop at the first unsafe divergence."
+  },
   "id": "VAL-003",
   "role": "validation",
-  "status": "blocked",
+  "status": "ready",
   "objective": "Independently rerun Golden Run 0001 and the constructed Labor VIII scenario against PM-pinned corrected implementation artifacts, including terminal and replay-method assertions.",
   "dependencies": [
     "IMP-001 submitted and accepted by PM",
     "Exact corrected engine, replay, and test artifacts promoted into a new manifest revision"
   ],
-  "input_artifact_ids": [],
+  "input_artifact_ids": [
+    "game-data", "data-schema", "rules-spec", "execution-spec",
+    "test-scenarios", "test-fixtures", "golden-record", "golden-script",
+    "rng-spec", "golden-start-state", "l08-scenario",
+    "corrected-engine", "corrected-replay", "corrected-tests",
+    "imp-001-handoff", "imp-001-test-results",
+    "imp-002-handoff", "imp-002-test-results"
+  ],
   "required_additional_inputs": [
-    "IMP-001 structured handoff",
-    "PM-pinned corrected implementation tree IDs",
-    "Unchanged e1-m0004 canonical and scenario inputs"
+    "Unchanged e1-m0004 canonical and scenario inputs promoted unchanged into e1-m0005"
   ],
   "allowed_changes": [
     "orchestration/validation/VAL-003-*",
@@ -36,5 +45,5 @@
     "Verify Cannot Block turn-start behavior, source-local healing, terminal failure identity/status, full expected checkpoints, and reusable replay fail-fast checks.",
     "Create an issue for every discrepancy and never repair implementation or canon."
   ],
-  "blocked_reason": "Awaiting IMP-001 submission and PM promotion of exact corrected implementation artifacts."
+  "blocked_reason": null
 }

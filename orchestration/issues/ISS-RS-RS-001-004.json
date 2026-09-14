@@ -7,7 +7,7 @@
   "severity": "S2",
   "blocking": true,
   "blocking_scope": "Generic Cannot Block invariant used by Golden; isolated diagnostic shows a localized loss error",
-  "status": "assigned",
+  "status": "resolution_submitted",
   "owner": "implementation",
   "manifest_revision": "e1-m0001",
   "input_versions": [

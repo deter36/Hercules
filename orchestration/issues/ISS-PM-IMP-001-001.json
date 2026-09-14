@@ -8,8 +8,8 @@
   "severity": "S1",
   "blocking": true,
   "blocking_scope": "Clean implementation suite required before promoting corrected test pins for VAL-003",
-  "status": "assigned",
-  "owner": "implementation",
+  "status": "closed",
+  "owner": "project_manager",
   "manifest_revision": "e1-m0004",
   "evidence": {
     "command": "pnpm test",
@@ -29,7 +29,15 @@
     "type": "test_expectation_update",
     "action": "Update only the obsolete display expectation to the corrected canonical wording, run the complete suite, and preserve the engine/replay candidate unchanged."
   },
-  "resolution_artifacts": [],
+  "resolution_artifacts": [
+    "test/engine/api.test.ts",
+    "orchestration/implementation/IMP-002-implementation-20260913T223627Z-82cc42-test-results.json",
+    "orchestration/handoffs/IMP-002-implementation-20260913T223627Z-82cc42.json"
+  ],
   "verification_task_id": "IMP-002",
-  "closure": null
+  "closure": {
+    "decision": "accepted",
+    "evidence": "Only the obsolete display assertion changed; complete suite passes 90/90 and implementation/canonical objects are unchanged.",
+    "manifest_revision": "e1-m0005"
+  }
 }

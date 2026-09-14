@@ -10,13 +10,13 @@
   "blocking_issue_ids": [],
   "handoff_path": "orchestration/handoffs/IMP-002-implementation-20260913T223627Z-82cc42.json",
   "pm_review": {
-    "decision": "released_after_imp_001_review",
-    "evidence": "IMP-001 focused corrections passed 17/17 tests, but the complete suite retained one superseded Labor VIII all-target display expectation.",
-    "scope_limit": "Correct the single stale assertion and verify the complete suite. Do not alter the accepted engine/replay candidate or canon."
+    "decision": "accepted_and_promoted_for_independent_validation",
+    "evidence": "Only test/engine/api.test.ts changed, removing the two superseded all-target suffixes. The engine, replay, canon, focused tests and RNG tests retained their exact accepted objects; the complete suite passed 90/90.",
+    "gate_effect": "Manifest e1-m0005 pins the corrected engine, replay and final test tree plus both implementation handoffs/results. VAL-003 is released."
   },
   "id": "IMP-002",
   "role": "implementation",
-  "status": "submitted",
+  "status": "accepted",
   "objective": "Align the historical API display test with the already corrected and independently confirmed Labor VIII selected-target semantics, then demonstrate a clean complete suite.",
   "dependencies": [
     "IMP-001 candidate accepted by PM",

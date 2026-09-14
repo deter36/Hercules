@@ -7,7 +7,7 @@
   "severity": "S2",
   "blocking": true,
   "blocking_scope": "Golden terminal canonical state after input 112",
-  "status": "assigned",
+  "status": "resolution_submitted",
   "owner": "implementation",
   "manifest_revision": "e1-m0001",
   "input_versions": [
