@@ -16,6 +16,16 @@ export function resolveQueuedResources(state: GameState): GameState {
 }
 
 export function applyContentEffect(state: GameState, effect: Effect, sourceId: string, sourceLaborDieId?: string, queueResources = false): GameState {
+  if (typeof effect.heal === "number") {
+    const labor = state.currentLabor;
+    if (!labor || !sourceLaborDieId) throw new Error("Healing requires a source Labor die and entered-node context.");
+    const sourceDie = labor.laborDice[sourceLaborDieId];
+    if (!sourceDie) throw new Error(`Healing source Labor die ${sourceLaborDieId} is unknown.`);
+    if (sourceDie.status !== "active") throw new Error(`Healing source Labor die ${sourceLaborDieId} is not active.`);
+    if (sourceDie.nodeId !== sourceId) throw new Error(`Healing source Labor die ${sourceLaborDieId} is not on entered node ${sourceId}.`);
+    const sourceNode = getNode(labor.laborId, sourceDie.trackId, sourceId);
+    if (sourceNode.effect?.heal !== effect.heal) throw new Error(`Healing effect does not match entered node ${sourceId}.`);
+  }
   let next = structuredClone(state);
   if (typeof effect.spirit_delta === "number" && typeof next.player.spirit === "number") {
     const loss = effect.spirit_delta < 0 ? -effect.spirit_delta : 0;
@@ -37,9 +47,9 @@ export function applyContentEffect(state: GameState, effect: Effect, sourceId: s
     if (!Number.isInteger(total) || total < 1 || total > Object.keys(next.herculesDice).length) throw new Error("Persistent Hercules die adjustment exceeds the certified physical die inventory.");
     next.player.persistentHerculesDice = total;
   }
-  if (typeof effect.heal === "number" && next.currentLabor && sourceLaborDieId) {
-    const sourceDie = next.currentLabor.laborDice[sourceLaborDieId];
-    if (sourceDie?.status === "active") sourceDie.health = Math.min(sourceDie.startingHealth, sourceDie.health + effect.heal);
+  if (typeof effect.heal === "number") {
+    const sourceDie = next.currentLabor!.laborDice[sourceLaborDieId!];
+    sourceDie.health = Math.min(sourceDie.startingHealth, sourceDie.health + effect.heal);
   }
   if (typeof effect.advance_all_other_active_labor_dice === "number" && next.currentLabor && sourceLaborDieId) {
     const targets = Object.values(next.currentLabor!.laborDice).filter((die) => die.status === "active" && die.id !== sourceLaborDieId).map((die) => die.id);

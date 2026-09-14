@@ -8,7 +8,7 @@
     "remote_commit_read": "420d8b9bb62c95067a82980a84ab73bc6dede929"
   },
   "blocking_issue_ids": [],
-  "handoff_path": null,
+  "handoff_path": "orchestration/handoffs/IMP-003-implementation-20260914T034832Z-e1b1db.json",
   "pm_review": {
     "decision": "released_after_val_003_partial_pass",
     "evidence": "VAL-003 passed both complete gameplay scenarios but reproduced a reusable replay terminal-evidence acceptance gap and retained a static healing invalid-source enforcement gap.",
@@ -16,7 +16,7 @@
   },
   "id": "IMP-003",
   "role": "implementation",
-  "status": "in_progress",
+  "status": "submitted",
   "objective": "Close the two residual implementation gaps found by VAL-003 without altering passed gameplay outcomes or canonical artifacts.",
   "dependencies": [
     "VAL-003 partial-pass investigation accepted",

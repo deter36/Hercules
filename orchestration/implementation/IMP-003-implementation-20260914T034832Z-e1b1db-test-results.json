@@ -1,0 +1,67 @@
+{
+  "task_id": "IMP-003",
+  "run_id": "implementation-20260914T034832Z-e1b1db",
+  "manifest_revision": "e1-m0006",
+  "tested_claim_commit": "f1c0d50e89a23181b542cd112b0f28f2c0755f3a",
+  "runtime": {
+    "node": "v24.19.0",
+    "pnpm": "11.19.0",
+    "typescript": "5.9.3",
+    "git": "2.54.0.windows.1"
+  },
+  "input_pin_verification": {
+    "count": 10,
+    "matched": 10,
+    "method": "Compared every IMP-003 input artifact git_object with both HEAD:path and source_commit:path before the claim.",
+    "result": "PASS"
+  },
+  "failing_before": {
+    "command": "node --input-type=module -e <terminal Hercules-face probe>",
+    "exit_code": 0,
+    "observed": {
+      "accepted": true,
+      "actual_face": 1,
+      "modified_expected_face": 6
+    },
+    "assessment": "Reproduced the VAL-003 reusable replay acceptance gap before modification."
+  },
+  "focused_after": {
+    "commands": [
+      "pnpm typecheck",
+      "pnpm build",
+      "node --test dist/test/implementation/imp-003-residuals.test.js"
+    ],
+    "exit_code": 0,
+    "tests": 5,
+    "passed": 5,
+    "failed": 0,
+    "duration_ms": 756.9379,
+    "assertions": [
+      "A terminal H1 face mismatch is rejected at hercules_dice.H1.face.",
+      "A terminal hidden Mood order mismatch is rejected at ordered_hidden_mood_deck_top_to_bottom.",
+      "Other state-bearing terminal evidence is compared field-by-field and rejected at the first differing field.",
+      "All four F053 missing, unknown, wrong-track and wrong-node healing contexts are rejected without state or RNG mutation.",
+      "A stale defeated healing source is rejected without mutation."
+    ]
+  },
+  "complete_suite": {
+    "command": "pnpm test",
+    "exit_code": 0,
+    "build": "PASS",
+    "tests": 95,
+    "passed": 95,
+    "failed": 0,
+    "duration_ms": 8514.5089,
+    "data_content_hash": "35c222d502f747272c0a16a43e9756449001f72d60a29da99237d8fc2fad35b9"
+  },
+  "environment_note": "The first sandboxed build and focused test attempts encountered Windows spawn EPERM; the same commands passed outside the sandbox with approval.",
+  "scope_check": {
+    "canonical_raw_changed": false,
+    "canonical_generated_changed": false,
+    "project_manager_state_changed": false,
+    "issue_files_changed": false,
+    "validation_evidence_changed": false,
+    "passed_gameplay_expectations_changed": false
+  },
+  "validation_claim": "No gameplay validation is declared. Results are implementation regression evidence for PM review and independent VAL-004."
+}

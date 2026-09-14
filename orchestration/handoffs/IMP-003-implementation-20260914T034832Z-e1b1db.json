@@ -1,0 +1,63 @@
+{
+  "task_id": "IMP-003",
+  "run_id": "implementation-20260914T034832Z-e1b1db",
+  "role": "implementation",
+  "status": "submitted",
+  "manifest_revision": "e1-m0006",
+  "inputs": [
+    {"id":"corrected-engine","path":"src/engine","kind":"tree","git_object":"8b39d43a90b71729d56b45fa03aaf6cd357e5e9e","source_commit":"f474d66249edf96f209257b0a9418990cdb3edf0"},
+    {"id":"corrected-replay","path":"src/replay","kind":"tree","git_object":"c287d247e4bb2b550aabc77bc29074772319d5e3","source_commit":"f474d66249edf96f209257b0a9418990cdb3edf0"},
+    {"id":"corrected-tests","path":"test","kind":"tree","git_object":"120159a44de8b10b6d2993cbfcaa8e4843649bed","source_commit":"6491d1db65459e83bbe951e00dd91a51934e7ff0"},
+    {"id":"val-003-result","path":"orchestration/validation/VAL-003-validation-20260914T015459Z-5daa2c-result.json","kind":"blob","git_object":"d465643d2f9dbb9198521a093c05e8f97e5f1f71","source_commit":"ce274602ea3145c1d8855e54c23afd48357782ec","sha256_git_bytes":"0771140d3c6e0777fd827a4b2d917090ab4f7650e0cc0a5459d4c3b89dc995ca"},
+    {"id":"val-003-handoff","path":"orchestration/handoffs/VAL-003-validation-20260914T015459Z-5daa2c.json","kind":"blob","git_object":"7dce1f0a991c13d826343a971d12557e9af8dae1","source_commit":"ce274602ea3145c1d8855e54c23afd48357782ec","sha256_git_bytes":"f6f9aaa4aba38602dd60c178d36fe43752e3b16976c86bb4bc97fcb96f2928e5"},
+    {"id":"val-003-replay-evidence","path":"orchestration/validation/VAL-003-validation-20260914T015459Z-5daa2c-replay-issue-evidence.json","kind":"blob","git_object":"55083641e9562d1cf7096bd5f0a9b153e65afba3","source_commit":"ce274602ea3145c1d8855e54c23afd48357782ec","sha256_git_bytes":"83c8972a906f172c024c1dc6dfbf8e39422d2b28fd30d5214badf439742cc973"},
+    {"id":"val-003-implementation-evidence","path":"orchestration/validation/VAL-003-validation-20260914T015459Z-5daa2c-implementation-evidence.json","kind":"blob","git_object":"d0f3e3998090edb36f5d50c5ea68e4ba1edc440b","source_commit":"ce274602ea3145c1d8855e54c23afd48357782ec","sha256_git_bytes":"f403c0b2c7595091994c3128ec3f2f97b8e5eceb02749ddb9c0b2ce973ed1421"},
+    {"id":"rules-spec","path":"src/data/raw/GAME_RULES_SPEC.md","kind":"blob","git_object":"07cea77200d58483e39eed0d702efd022dc840a0","source_commit":"6bffa094431d84429ed93339d48f839bcc5a2302","sha256_git_bytes":"34ddfe22914b78e6e479e236e5e063b962839efccc88ae93b508230b10f51893"},
+    {"id":"execution-spec","path":"src/data/raw/hercules_engine_execution_spec_v0_13.md","kind":"blob","git_object":"da5f94c4437cdff2366efc161eac1f187aca1a87","source_commit":"6bffa094431d84429ed93339d48f839bcc5a2302","sha256_git_bytes":"5b2c52c9862db8ce3573bed12af891b2cfb94cca450fc789d7f7bc9a38565492"},
+    {"id":"test-fixtures","path":"src/data/raw/TEST_FIXTURES_v4.json","kind":"blob","git_object":"cadae99fd2c7205d29f17375a36bc70df3e629b3","source_commit":"6bffa094431d84429ed93339d48f839bcc5a2302","sha256_git_bytes":"31459edf0c79ad29bfe3a02b40a4b4a7ec1b6676ed11b7e4f69b7fa14439d14e"}
+  ],
+  "changed_artifacts": [
+    {"path":"src/engine/effects/content.ts","kind":"blob","before_git_object":"74ad4a47481a2422c5a962077aadaab3909ce4d1","after_git_object":"94a19a4788dd16d0987faded213d3c253632d5c4"},
+    {"path":"src/engine","kind":"tree","before_git_object":"8b39d43a90b71729d56b45fa03aaf6cd357e5e9e","after_git_object":"2872f15d3d6c8448f75518bfd431e87e0f9bf6f5"},
+    {"path":"src/replay/golden-run.ts","kind":"blob","before_git_object":"a5aa0322ee7429a91e3ac39222314884a068b0ee","after_git_object":"07d1371b4839c7bdf7b4128e72937cde8e916205"},
+    {"path":"src/replay","kind":"tree","before_git_object":"c287d247e4bb2b550aabc77bc29074772319d5e3","after_git_object":"d80db607146f2092b685729135d70ee60e890501"},
+    {"path":"test/labor/content-effects.test.ts","kind":"blob","before_git_object":"aff122c621d7e94cce982c4d535af83dc95414e9","after_git_object":"b7fa08c72570cbc79bd1dc0d52021fd9ed06be4c"},
+    {"path":"test/implementation/imp-003-residuals.test.ts","kind":"blob","before_git_object":null,"after_git_object":"0d7ce88ead4400ae4b40e0270a80993250d810f4"},
+    {"path":"test","kind":"tree","before_git_object":"120159a44de8b10b6d2993cbfcaa8e4843649bed","after_git_object":"fd07b3e414843a0648b5fa2d6b761bcd4e57eb6c"}
+  ],
+  "issue_ids": ["ISS-VAL-VAL-001-002", "ISS-RS-RS-001-002"],
+  "issue_dispositions": [
+    {"issue_id":"ISS-VAL-VAL-001-002","proposal":"resolution_submitted","evidence":"The reusable replay now rejects terminal Hercules-face, hidden-order and other state-bearing terminal mismatches field-by-field; focused and complete tests pass."},
+    {"issue_id":"ISS-RS-RS-001-002","proposal":"resolution_submitted","evidence":"Healing now rejects missing, unknown, wrong-track, wrong-node and stale inactive source context before mutation; F053 controls pass."}
+  ],
+  "decisions": [
+    "Validate healing source Labor, die identity, active status, track node, and node effect before cloning or applying any effect mutation.",
+    "Compare the recorded terminal state against state-bearing engine evidence field-by-field, including every recorded Hercules die and hidden Mood order.",
+    "Replace the superseded no-op missing-source healing test with the canonical F053 rejection expectation."
+  ],
+  "authority_refs": [
+    "orchestration/tasks/IMP-003.json",
+    "orchestration/validation/VAL-003-validation-20260914T015459Z-5daa2c-replay-issue-evidence.json",
+    "orchestration/validation/VAL-003-validation-20260914T015459Z-5daa2c-implementation-evidence.json",
+    "src/data/raw/hercules_engine_execution_spec_v0_13.md#15",
+    "src/data/raw/TEST_FIXTURES_v4.json#F053"
+  ],
+  "assumptions": [],
+  "unresolved_items": [],
+  "deliverable_paths": [
+    "src/engine/effects/content.ts",
+    "src/replay/golden-run.ts",
+    "test/implementation/imp-003-residuals.test.ts",
+    "test/labor/content-effects.test.ts",
+    "orchestration/implementation/IMP-003-implementation-20260914T034832Z-e1b1db-test-results.json",
+    "orchestration/handoffs/IMP-003-implementation-20260914T034832Z-e1b1db.json",
+    "orchestration/tasks/IMP-003.json"
+  ],
+  "validation_required": "PM must verify and promote the exact candidate engine, replay and test trees before releasing independent VAL-004. This submission does not declare validation passed.",
+  "regression_implications": [
+    "Independently rerun terminal Hercules-face and hidden-order negative controls against the promoted replay tree.",
+    "Independently execute F053 missing, unknown, mismatched and stale healing source controls against the promoted engine tree.",
+    "Confirm complete Golden and Labor VIII gameplay states and RNG outcomes remain unchanged."
+  ],
+  "recommended_next_action": "PM verify this containing commit, promote the exact IMP-003 candidate objects in a new manifest revision, retain issue closure authority, and release VAL-004 for independent residual verification."
+}

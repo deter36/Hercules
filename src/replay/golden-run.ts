@@ -12,7 +12,8 @@ import { resolveRoundDamage, rollFromRng } from "../engine/round/resolve.js";
 
 type GoldenEvent = { event_index: number; status: string; purpose: string | null; attempt: number | null; raw64: string | null; interpreted_result?: { face?: number; i?: number; j?: number; bound?: number } };
 type GoldenCheckpoint = { completed_labor: number; spirit: number; divinity: string; owned_rewards: string[]; removed_components?: string[]; hercules_dice: Record<string, string>; mood_deck_top_to_bottom: string[]; completed_labors: number[]; next_event: number };
-type GoldenTerminalState = { result: string; labor: number; phase: string; spirit: number; divinity: string; next_event: number; completed_labors: number[]; failure_cause: { labor_die_id: string; node_id: string }; birds_labor_dice: Record<string, { health: number; status: string; node_id: string }> };
+type GoldenTerminalHerculesDie = { face: number; blue_used: string | null; placement: string | null; locked: boolean; allocated: boolean; broken: boolean; history?: string[] };
+type GoldenTerminalState = { result: string; labor: number; labor_name: string; phase: string; spirit: number; divinity: string; next_event: number; completed_labors: number[]; failure_cause: { type: string; labor_die_id: string; node_id: string }; active_mood: { name: string }; ordered_hidden_mood_deck_top_to_bottom: string[]; owned_rewards: string[]; removed_components: string[]; round_start_restrictions: { cannot_block_this_round: boolean }; hercules_dice: Record<string, GoldenTerminalHerculesDie>; birds_labor_dice: Record<string, { health: number; status: string; node_id: string }>; pending_state_at_defeat: { pending_player_decision: unknown; pending_random_operation: unknown; pending_mandatory_trigger: unknown; round_cleanup_executed: boolean; reward_flow_started: boolean } };
 export interface GoldenRunRecord { seed: string; difficulty?: string; initial_mood_input_order_approved_for_run?: string[]; checkpoints?: GoldenCheckpoint[]; terminal_state?: GoldenTerminalState; rng_event_ledger: GoldenEvent[]; reproducibility: { status: string } }
 export interface ReplayVerification { passed: boolean; eventCount: number; orphanedEventCount: number; errors: string[] }
 
@@ -114,17 +115,74 @@ function assertCheckpoint(state: GameState, expected: GoldenCheckpoint | undefin
   const target = { completed_labor: expected.completed_labor, spirit: expected.spirit, divinity: expected.divinity, owned_rewards: expected.owned_rewards.map((id) => rewardId(script, id)), removed_components: (expected.removed_components ?? []).map((id) => rewardId(script, id)), hercules_dice: expected.hercules_dice, mood_deck_top_to_bottom: expected.mood_deck_top_to_bottom, completed_labors: expected.completed_labors, next_event: expected.next_event };
   expect(equal(actual, target), `Golden intermediate checkpoint ${expected.completed_labor} diverged.`);
 }
+function assertTerminalField(path: string, actual: unknown, expected: unknown): void {
+  expect(equal(actual, expected), `Golden terminal ${path} diverged.`);
+}
+function terminalBlueUses(state: GameState, script: ReplayScript): Record<string, string> {
+  const result: Record<string, string> = {};
+  const labor = Number(state.game.currentLaborId?.slice(-2));
+  for (const input of script.inputs.filter((entry) => entry.labor === labor && entry.roll === state.round.rollNumber)) {
+    if (!['use_blue', 'reroll', 'use_blue_cows_b_and_reroll'].includes(input.action)) continue;
+    const externalAbility = input.ability_id as string;
+    const [externalReward, suffix] = externalAbility.split(':');
+    const rewardName = script.id_map.rewards[externalReward];
+    expect(rewardName, `Golden terminal blue ability ${externalAbility} has no reward mapping.`);
+    const dieId = (input.action === 'use_blue_cows_b_and_reroll' ? input.source_die_id : input.die_id) as string;
+    result[dieId] = suffix === 'A' || suffix === 'B' ? `${rewardName} ${suffix}` : rewardName;
+  }
+  return result;
+}
+function terminalPlacement(state: GameState, script: ReplayScript, expected: string | null): unknown {
+  if (expected === null) return null;
+  if (expected.startsWith('attack:')) return { kind: 'attack', targetId: laborDieId(state, expected.slice('attack:'.length)) };
+  return { kind: 'gold', abilityId: abilityId(script, `${expected}:GOLD`) };
+}
 function assertTerminal(state: GameState, script: ReplayScript, record: GoldenRunRecord): void {
   const expected = record.terminal_state;
   expect(expected, "Golden terminal-state expectation is missing.");
-  expect(state.game.phase === expected.phase && state.game.result === expected.result, "Golden terminal phase/result diverged.");
-  expect(Number(state.game.currentLaborId?.slice(-2)) === expected.labor, "Golden terminal Labor diverged.");
-  expect(state.player.spirit === expected.spirit && `${state.player.divinity}/10` === expected.divinity, "Golden terminal resources diverged.");
-  expect(Number(state.rng.nextEvent) === expected.next_event && Number(state.rng.nextEvent) === script.expected_final_next_event, "Golden terminal RNG position diverged.");
-  expect(equal(state.game.completedLaborIds.map((id) => Number(id.slice(-2))), expected.completed_labors), "Golden terminal completed-Labor list diverged.");
+  assertTerminalField('phase', state.game.phase, expected.phase);
+  assertTerminalField('result', state.game.result, expected.result);
+  assertTerminalField('labor', Number(state.game.currentLaborId?.slice(-2)), expected.labor);
+  assertTerminalField('labor_name', GAME_DATA.labors.find((labor) => labor.id === state.game.currentLaborId)?.name, expected.labor_name);
+  assertTerminalField('spirit', state.player.spirit, expected.spirit);
+  assertTerminalField('divinity', `${state.player.divinity}/10`, expected.divinity);
+  assertTerminalField('next_event', Number(state.rng.nextEvent), expected.next_event);
+  assertTerminalField('script.next_event', Number(state.rng.nextEvent), script.expected_final_next_event);
+  assertTerminalField('completed_labors', state.game.completedLaborIds.map((id) => Number(id.slice(-2))), expected.completed_labors);
   const failed = state.currentLabor!.laborDice[laborDieId(state, expected.failure_cause.labor_die_id)];
-  expect(failed.nodeId === nodeId(expected.failure_cause.node_id) && failed.status === "active_failure_terminal", "Golden terminal failing die identity/state diverged.");
-  for (const [externalId, expectedDie] of Object.entries(expected.birds_labor_dice)) { const actual = state.currentLabor!.laborDice[laborDieId(state, externalId)]; expect(actual.health === expectedDie.health && actual.status === expectedDie.status && actual.nodeId === nodeId(expectedDie.node_id), `Golden terminal Labor die ${externalId} diverged.`); }
+  assertTerminalField('failure_cause.type', failed.status === 'active_failure_terminal' ? 'labor_die_reached_skull' : null, expected.failure_cause.type);
+  assertTerminalField('failure_cause.node_id', failed.nodeId, nodeId(expected.failure_cause.node_id));
+  assertTerminalField('active_mood.name', GAME_DATA.moods.find((mood) => mood.id === state.mood.activeMoodId)?.name, expected.active_mood.name);
+  assertTerminalField('ordered_hidden_mood_deck_top_to_bottom', moodNames(state), expected.ordered_hidden_mood_deck_top_to_bottom);
+  assertTerminalField('owned_rewards', state.player.ownedRewardIds, expected.owned_rewards.map((id) => rewardId(script, id)));
+  assertTerminalField('removed_components', state.player.removedRewardOrComponentIds, expected.removed_components.map((id) => rewardId(script, id)));
+  assertTerminalField('round_start_restrictions.cannot_block_this_round', state.currentLabor?.cannotBlockThisRound, expected.round_start_restrictions.cannot_block_this_round);
+  const blueUses = terminalBlueUses(state, script);
+  for (const [dieId, expectedDie] of Object.entries(expected.hercules_dice)) {
+    const actual = state.herculesDice[dieId];
+    expect(actual, `Golden terminal Hercules die ${dieId} is missing.`);
+    assertTerminalField(`hercules_dice.${dieId}.face`, actual.face, expectedDie.face);
+    assertTerminalField(`hercules_dice.${dieId}.blue_used`, actual.blueUsed ? blueUses[dieId] : null, expectedDie.blue_used);
+    assertTerminalField(`hercules_dice.${dieId}.placement`, actual.placement, terminalPlacement(state, script, expectedDie.placement));
+    assertTerminalField(`hercules_dice.${dieId}.locked`, actual.locked, expectedDie.locked);
+    assertTerminalField(`hercules_dice.${dieId}.allocated`, actual.allocated, expectedDie.allocated);
+    assertTerminalField(`hercules_dice.${dieId}.broken`, actual.broken, expectedDie.broken);
+    for (const entry of expectedDie.history ?? []) {
+      const hasCowsReroll = actual.history.some((item) => String(recordValue(item).purpose).includes(':cows_b:'));
+      assertTerminalField(`hercules_dice.${dieId}.history.${entry}`, hasCowsReroll ? 'rerolled_by_100_immortal_cows_B' : null, entry);
+    }
+  }
+  for (const [externalId, expectedDie] of Object.entries(expected.birds_labor_dice)) {
+    const actual = state.currentLabor!.laborDice[laborDieId(state, externalId)];
+    assertTerminalField(`birds_labor_dice.${externalId}.health`, actual.health, expectedDie.health);
+    assertTerminalField(`birds_labor_dice.${externalId}.status`, actual.status, expectedDie.status);
+    assertTerminalField(`birds_labor_dice.${externalId}.node_id`, actual.nodeId, nodeId(expectedDie.node_id));
+  }
+  assertTerminalField('pending_state_at_defeat.pending_player_decision', state.pendingDecision, expected.pending_state_at_defeat.pending_player_decision);
+  assertTerminalField('pending_state_at_defeat.pending_random_operation', null, expected.pending_state_at_defeat.pending_random_operation);
+  assertTerminalField('pending_state_at_defeat.pending_mandatory_trigger', state.pendingTriggers[0] ?? null, expected.pending_state_at_defeat.pending_mandatory_trigger);
+  assertTerminalField('pending_state_at_defeat.round_cleanup_executed', state.game.completedLaborIds.includes(state.game.currentLaborId!), expected.pending_state_at_defeat.round_cleanup_executed);
+  assertTerminalField('pending_state_at_defeat.reward_flow_started', state.game.phase === 'LABOR_TRANSITION', expected.pending_state_at_defeat.reward_flow_started);
 }
 
 /** Executes and fail-fast validates every normalized Golden input against its recorded evidence. */
