@@ -7,8 +7,10 @@
     "expires_at": "2026-09-14T03:54:59.1015696+00:00",
     "remote_commit_read": "b5b917f7896182e0fa101d156c7a720723e80c24"
   },
-  "blocking_issue_ids": [],
-  "handoff_path": null,
+  "blocking_issue_ids": [
+    "ISS-VAL-VAL-001-002"
+  ],
+  "handoff_path": "orchestration/handoffs/VAL-003-validation-20260914T015459Z-5daa2c.json",
   "pm_review": {
     "decision": "released_after_exact_implementation_promotion",
     "evidence": "IMP-001 focused tests passed 17/17 and IMP-002 completed the full suite at 90/90. Manifest e1-m0005 pins exact corrected engine, replay, test and implementation-evidence objects.",
@@ -16,7 +18,7 @@
   },
   "id": "VAL-003",
   "role": "validation",
-  "status": "in_progress",
+  "status": "submitted",
   "objective": "Independently rerun Golden Run 0001 and the constructed Labor VIII scenario against PM-pinned corrected implementation artifacts, including terminal and replay-method assertions.",
   "dependencies": [
     "IMP-001 submitted and accepted by PM",
@@ -63,5 +65,14 @@
     "Verify Cannot Block turn-start behavior, source-local healing, terminal failure identity/status, full expected checkpoints, and reusable replay fail-fast checks.",
     "Create an issue for every discrepancy and never repair implementation or canon."
   ],
-  "blocked_reason": null
+  "blocked_reason": null,
+  "validation_result": {
+    "run_id": "validation-20260914T015459Z-5daa2c",
+    "manifest_revision": "e1-m0005",
+    "pass_fail": "FAIL",
+    "golden": "PASS",
+    "l08": "PASS",
+    "reusable_replay": "FAIL",
+    "result_path": "orchestration/validation/VAL-003-validation-20260914T015459Z-5daa2c-result.json"
+  }
 }

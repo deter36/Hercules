@@ -1,0 +1,37 @@
+VAL-003 L08 validation-20260914T015459Z-5daa2c; tested 3172948a749eac19c17551b4e39624638f8835b6; manifest e1-m0005.
+Clean independent checkout, 40 pins/source commits/Git-byte hashes/tree membership verified (three superseded trees are historical only).
+pnpm install --frozen-lockfile: exit 0. pnpm exec tsc -p tsconfig.json: exit 0. No data generation.
+Node v24.19.0; pnpm 11.19.0; TypeScript 5.9.3.
+Complete fixed start state independently matches the corrected F046 regression context. No RNG initialization/roll/shuffle/draw occurred.
+Expected states are separate assertions from source-backed scope and scenario inputs; they are never substituted into runtime state.
+0: Recorded ASSIGN_ATTACK to A with H1/H2/H3: MATCH
+1: Recorded RESOLVE_ASSIGNMENTS; no unused meaningful set or gold ability: MATCH
+2: Apply the single allocated damage to A only: MATCH
+3: Begin mandatory Labor advancement: MATCH
+4: Advance each active Labor die once along its unique edge: MATCH
+5: Queue A.n1 Spirit loss -3: MATCH
+6: Resolve B.n1 healing on source B only, capped at 6: MATCH
+7: Settle queued impact resources: MATCH
+8: Complete failure check: MATCH
+9: Round cleanup: MATCH
+{
+  "task_id": "VAL-003",
+  "run_id": "validation-20260914T015459Z-5daa2c",
+  "pass_fail": "PASS",
+  "canonical_contract_checks": 24,
+  "canonical_contract_checks_passed": 24,
+  "pins_matched": 40,
+  "checkpoints": [
+    "after placement",
+    "after damage, before advancement",
+    "after advancement",
+    "after impacts",
+    "after failure check and cleanup"
+  ],
+  "stop": null,
+  "operation_count": 10,
+  "matched_operations": 10,
+  "rng_events": 0,
+  "evidence_sha256": "0db30cbfb9ecd2443aa6b033de6660372217ded3a38f7782a78d37859a5b0a84",
+  "ledger_sha256": "2ae1dfd3ca05c743447fe595683e9807b898f24fe506ae51877cd707e58f6ede"
+}

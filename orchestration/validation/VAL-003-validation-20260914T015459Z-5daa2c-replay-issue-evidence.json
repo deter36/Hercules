@@ -1,0 +1,114 @@
+{
+  "id": "ISS-VAL-VAL-001-002",
+  "task_id": "VAL-003",
+  "run_id": "validation-20260914T015459Z-5daa2c",
+  "category": "rng_replay_problem",
+  "origin": "promoted_replay_adapter",
+  "severity": "S2",
+  "blocking": true,
+  "status": "existing_issue_supplement",
+  "owner": "implementation",
+  "manifest_revision": "e1-m0005",
+  "input_versions": [
+    {
+      "id": "execution-spec",
+      "path": "src/data/raw/hercules_engine_execution_spec_v0_13.md",
+      "kind": "blob",
+      "git_object": "da5f94c4437cdff2366efc161eac1f187aca1a87",
+      "source_commit": "6bffa094431d84429ed93339d48f839bcc5a2302",
+      "sha256_git_bytes": "5b2c52c9862db8ce3573bed12af891b2cfb94cca450fc789d7f7bc9a38565492",
+      "verification_scope": "current promoted working input",
+      "observed_commit": "3172948a749eac19c17551b4e39624638f8835b6",
+      "pin_match": true
+    },
+    {
+      "id": "golden-record",
+      "path": "src/data/raw/golden/HERC-GOLDEN-RUN-0001_golden_run_record.json",
+      "kind": "blob",
+      "git_object": "8d4dd7d3e8137d28d1e931be514ba8bfe4c1474d",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "sha256_git_bytes": "2c7264dd7a1baa8f2907c013bf195986df6b0aebc2319dc9bee95a82ec1b9061",
+      "verification_scope": "current promoted working input",
+      "observed_commit": "3172948a749eac19c17551b4e39624638f8835b6",
+      "pin_match": true
+    },
+    {
+      "id": "golden-script",
+      "path": "src/data/raw/golden/HERC-GOLDEN-RUN-0001_replay_script_v2_normalized.json",
+      "kind": "blob",
+      "git_object": "da24321337d3c297d858d58b8e2c292fad937eb1",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "sha256_git_bytes": "e342e1891616ebb319f3a355515af97709ab560eac7192fb98c349b4e8a7da59",
+      "verification_scope": "current promoted working input",
+      "observed_commit": "3172948a749eac19c17551b4e39624638f8835b6",
+      "pin_match": true
+    },
+    {
+      "id": "corrected-engine",
+      "path": "src/engine",
+      "kind": "tree",
+      "git_object": "8b39d43a90b71729d56b45fa03aaf6cd357e5e9e",
+      "source_commit": "f474d66249edf96f209257b0a9418990cdb3edf0",
+      "sha256_git_bytes": null,
+      "verification_scope": "current promoted working input",
+      "observed_commit": "3172948a749eac19c17551b4e39624638f8835b6",
+      "pin_match": true
+    },
+    {
+      "id": "corrected-replay",
+      "path": "src/replay",
+      "kind": "tree",
+      "git_object": "c287d247e4bb2b550aabc77bc29074772319d5e3",
+      "source_commit": "f474d66249edf96f209257b0a9418990cdb3edf0",
+      "sha256_git_bytes": null,
+      "verification_scope": "current promoted working input",
+      "observed_commit": "3172948a749eac19c17551b4e39624638f8835b6",
+      "pin_match": true
+    }
+  ],
+  "affected_artifacts": [
+    "src/replay/golden-run.ts"
+  ],
+  "evidence": {
+    "expected": "Reusable tactical replay must reject a terminal expectation whose H1 face differs from the produced terminal state.",
+    "observed": {
+      "probe": "terminal_hercules_face",
+      "only_record_mutation": {
+        "json_pointer": "/terminal_state/hercules_dice/H1/face",
+        "original": 1,
+        "modified": 6
+      },
+      "input_script_mutated": false,
+      "returned_successfully": true,
+      "returned_H1_face": 1,
+      "modified_expected_H1_face": 6,
+      "returned_phase": "DEFEAT",
+      "next_event": "174"
+    },
+    "source_refs": [
+      "src/replay/golden-run.ts:15",
+      "src/replay/golden-run.ts:117",
+      "src/replay/golden-run.ts:127",
+      "orchestration/tasks/VAL-003.json#/acceptance_criteria/2",
+      "orchestration/onboarding/validation.md"
+    ],
+    "result_path": "orchestration/validation/VAL-003-validation-20260914T015459Z-5daa2c-result.json",
+    "checkpoint": "orchestration/validation/VAL-003-validation-20260914T015459Z-5daa2c-replay-probes.json#/operations/11",
+    "last_successful_control": "orchestration/validation/VAL-003-validation-20260914T015459Z-5daa2c-replay-probes.json#/operations/10",
+    "complete_modified_inputs_and_returned_states": "orchestration/validation/VAL-003-validation-20260914T015459Z-5daa2c-replay-probes.json",
+    "static_explanation": "GoldenTerminalState and assertTerminal omit terminal Hercules-die expectations; assertTerminal checks phase/result, Labor, resources, RNG index, completed Labors, failing-die identity/status and bird dice only."
+  },
+  "canonical_update_required": false,
+  "regression_required": true,
+  "human_authority_required": false,
+  "disposition": {
+    "type": "implementation_scope_deferred",
+    "state": "validation_method_accepted_with_limitation",
+    "action": "Use the guarded run evidence for this experiment and carry a reusable replay-helper correction into the human checkpoint. No current role is authorized to modify src/replay."
+  },
+  "resolution_artifacts": [],
+  "verification_task_id": "VAL-003",
+  "closure": null,
+  "stop_rule": "No further negative control executed. terminal_hidden_order remains NOT_REACHED; canonical script and expectation files remained unchanged.",
+  "reproduction": "Exact result reproduced by probes.mjs --check; the complete unmodified helper output also matches the independently observed Golden states."
+}

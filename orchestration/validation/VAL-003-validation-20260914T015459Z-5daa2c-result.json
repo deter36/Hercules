@@ -1,0 +1,285 @@
+{
+  "task_id": "VAL-003",
+  "run_id": "validation-20260914T015459Z-5daa2c",
+  "role": "validation",
+  "status": "submitted",
+  "manifest_revision": "e1-m0005",
+  "tested_commit": "3172948a749eac19c17551b4e39624638f8835b6",
+  "pass_fail": "FAIL",
+  "outcomes": {
+    "golden": {
+      "pass_fail": "PASS",
+      "accepted_inputs": 112,
+      "checkpoints_matched": 5,
+      "terminal_assertions_matched": 32,
+      "phase": "DEFEAT",
+      "spirit": 8,
+      "divinity": 3,
+      "next_event": 174,
+      "failed_die": "labor.L06.C17",
+      "failed_node": "L06C17.n3",
+      "failed_status": "active_failure_terminal",
+      "computed_rng_events": 166,
+      "preserved_orphans": 8
+    },
+    "l08": {
+      "pass_fail": "PASS",
+      "commands": 2,
+      "full_state_operations_matched": 10,
+      "checkpoints_matched": 5,
+      "health": {
+        "A": 5,
+        "B": 6
+      },
+      "spirit": 7,
+      "divinity": 0,
+      "phase": "READY_TO_ROLL",
+      "rng_events": 0
+    },
+    "reusable_replay": {
+      "pass_fail": "FAIL",
+      "controls_passed": 11,
+      "controls_attempted": 12,
+      "stop": {
+        "probe_id": "terminal_hercules_face",
+        "index": 11,
+        "reason": "Replay accepted evidence that disagrees with its resulting state",
+        "offending_evidence_index": 11
+      },
+      "not_reached": [
+        "terminal_hidden_order"
+      ]
+    }
+  },
+  "input_verification": {
+    "count": 40,
+    "matched": 40,
+    "active_working_inputs": 37,
+    "superseded_historical_trees": 3,
+    "evidence_paths": [
+      "orchestration/validation/VAL-003-validation-20260914T015459Z-5daa2c-golden-input-verification.json",
+      "orchestration/validation/VAL-003-validation-20260914T015459Z-5daa2c-l08-input-verification.json"
+    ]
+  },
+  "issue_ids": [
+    "ISS-RS-RS-001-002",
+    "ISS-RS-RS-001-003",
+    "ISS-RS-RS-001-004",
+    "ISS-VAL-VAL-001-002"
+  ],
+  "blocking_issue_ids": [
+    "ISS-VAL-VAL-001-002"
+  ],
+  "issue_dispositions": [
+    {
+      "issue_id": "ISS-RS-RS-001-002",
+      "existing_status": "resolution_submitted",
+      "disposition_preserved": {
+        "type": "canonical_update",
+        "state": "canonical_correction_accepted_engine_fix_authorized",
+        "action": "Explicit L08 requirement eligibility and selected damage recipient; numeric healing annotated with source scope and cap; schema/spec amendments; F046-F054; regenerated data.",
+        "scope": "Canonical portion only. Engine behavior is independently diagnosed and remains blocking where failing.",
+        "verification_required": true
+      },
+      "validation_evidence": "orchestration/validation/VAL-003-validation-20260914T015459Z-5daa2c-implementation-evidence.json",
+      "closure_by_validator": false
+    },
+    {
+      "issue_id": "ISS-RS-RS-001-003",
+      "existing_status": "resolution_submitted",
+      "disposition_preserved": {
+        "type": "no_change",
+        "state": "canon_confirmed_runtime_not_reached",
+        "action": "Preserve the correct recorded terminal expectation; route an explicitly authorized engine correction and independent replay assertion. Do not change active_failure_terminal to active to obtain PASS."
+      },
+      "validation_evidence": "orchestration/validation/VAL-003-validation-20260914T015459Z-5daa2c-implementation-evidence.json",
+      "closure_by_validator": false
+    },
+    {
+      "issue_id": "ISS-RS-RS-001-004",
+      "existing_status": "resolution_submitted",
+      "disposition_preserved": {
+        "type": "no_change",
+        "state": "canon_confirmed_engine_failure_reproduced",
+        "action": "Retain the existing nonretroactive rule; route an engine correction plus regression addition that actually enters Cannot Block during impacts. Existing F004/F005 test checks only roll-time snapshots, not subsequent entry."
+      },
+      "validation_evidence": "orchestration/validation/VAL-003-validation-20260914T015459Z-5daa2c-implementation-evidence.json",
+      "closure_by_validator": false
+    },
+    {
+      "issue_id": "ISS-VAL-VAL-001-002",
+      "existing_status": "resolution_submitted",
+      "disposition_preserved": {
+        "type": "implementation_scope_deferred",
+        "state": "validation_method_accepted_with_limitation",
+        "action": "Use the guarded run evidence for this experiment and carry a reusable replay-helper correction into the human checkpoint. No current role is authorized to modify src/replay."
+      },
+      "validation_evidence": "orchestration/validation/VAL-003-validation-20260914T015459Z-5daa2c-replay-issue-evidence.json",
+      "closure_by_validator": false
+    }
+  ],
+  "divergence_point": {
+    "probe_id": "terminal_hercules_face",
+    "index": 11,
+    "reason": "Replay accepted evidence that disagrees with its resulting state",
+    "offending_evidence_index": 11
+  },
+  "reproducibility_status": "REPRODUCED_EXACTLY",
+  "reproducibility_evidence_path": "orchestration/validation/VAL-003-validation-20260914T015459Z-5daa2c-reproduction.json",
+  "authority_refs": [
+    {
+      "id": "execution-spec",
+      "path": "src/data/raw/hercules_engine_execution_spec_v0_13.md",
+      "kind": "blob",
+      "git_object": "da5f94c4437cdff2366efc161eac1f187aca1a87",
+      "source_commit": "6bffa094431d84429ed93339d48f839bcc5a2302",
+      "role": "execution_semantics",
+      "sha256_git_bytes": "5b2c52c9862db8ce3573bed12af891b2cfb94cca450fc789d7f7bc9a38565492",
+      "observed_commit": "3172948a749eac19c17551b4e39624638f8835b6",
+      "observed_git_object": "da5f94c4437cdff2366efc161eac1f187aca1a87",
+      "observed_source_object": "da5f94c4437cdff2366efc161eac1f187aca1a87",
+      "observed_sha256_git_bytes": "5b2c52c9862db8ce3573bed12af891b2cfb94cca450fc789d7f7bc9a38565492",
+      "observed_working_object": "da5f94c4437cdff2366efc161eac1f187aca1a87",
+      "working_changes": "",
+      "verification_scope": "current promoted working input",
+      "matched": true,
+      "artifact_id": "execution-spec",
+      "section": "12 Attack Allocation; 15 Impact Resolution; 16 Failure Check; 17 Cleanup; 26 Golden Run; 28 Runtime",
+      "status": "current PM-promoted specification"
+    },
+    {
+      "id": "test-fixtures",
+      "path": "src/data/raw/TEST_FIXTURES_v4.json",
+      "kind": "blob",
+      "git_object": "cadae99fd2c7205d29f17375a36bc70df3e629b3",
+      "source_commit": "6bffa094431d84429ed93339d48f839bcc5a2302",
+      "role": "historical_expectations",
+      "sha256_git_bytes": "31459edf0c79ad29bfe3a02b40a4b4a7ec1b6676ed11b7e4f69b7fa14439d14e",
+      "observed_commit": "3172948a749eac19c17551b4e39624638f8835b6",
+      "observed_git_object": "cadae99fd2c7205d29f17375a36bc70df3e629b3",
+      "observed_source_object": "cadae99fd2c7205d29f17375a36bc70df3e629b3",
+      "observed_sha256_git_bytes": "31459edf0c79ad29bfe3a02b40a4b4a7ec1b6676ed11b7e4f69b7fa14439d14e",
+      "observed_working_object": "cadae99fd2c7205d29f17375a36bc70df3e629b3",
+      "working_changes": "",
+      "verification_scope": "current promoted working input",
+      "matched": true,
+      "artifact_id": "test-fixtures",
+      "section": "F046 full constructed scenario; F053 invalid-source expectations read but not executed",
+      "status": "current PM-promoted regression expectations"
+    },
+    {
+      "id": "rng-spec",
+      "path": "src/data/raw/sources/Hercules_RNG_Spec_v3.md",
+      "kind": "blob",
+      "git_object": "c1b70237e259cacf7a913f7ffccb1344a01189ac",
+      "source_commit": null,
+      "sha256_git_bytes": "6e735e6eee584d2c0ac754d620e6b46c35dd40883ccfc843a6aa289bc7b7d988",
+      "role": "deterministic_randomness_authority",
+      "provenance": {
+        "type": "recovered_historical_reference",
+        "source_filename": "Hercules_RNG_Spec_v3.md",
+        "verification": "byte_identical_local_export; substantive verification assigned to RS-001",
+        "historical_basis": "named by historical handoff authority chain; version identity checked",
+        "export_timestamp_verified": false
+      },
+      "observed_commit": "3172948a749eac19c17551b4e39624638f8835b6",
+      "observed_git_object": "c1b70237e259cacf7a913f7ffccb1344a01189ac",
+      "observed_source_object": null,
+      "observed_sha256_git_bytes": "6e735e6eee584d2c0ac754d620e6b46c35dd40883ccfc843a6aa289bc7b7d988",
+      "observed_working_object": "c1b70237e259cacf7a913f7ffccb1344a01189ac",
+      "working_changes": "",
+      "verification_scope": "current promoted working input",
+      "matched": true,
+      "artifact_id": "rng-spec",
+      "section": "SHA256_COUNTER_V1 byte encoding, bounded draws, Fisher-Yates, permanent orphan recovery",
+      "status": "pinned deterministic authority"
+    },
+    {
+      "id": "official-rulebook",
+      "path": "src/data/raw/sources/Hercules_Rules_104x155.pdf",
+      "kind": "blob",
+      "git_object": "bb1662bbede6a183bfe5b5548a126d20099a496b",
+      "source_commit": null,
+      "sha256_git_bytes": "de7d479426b40fd94935be85ef09e37ef30f2d00c5f8fcd4b20ab39b6720ef4a",
+      "role": "official_rules",
+      "provenance": {
+        "type": "recovered_historical_reference",
+        "source_filename": "Hercules_Rules_104x155.pdf",
+        "verification": "byte_identical_local_export; substantive verification assigned to RS-001",
+        "historical_basis": "named by historical handoff authority chain; version identity checked",
+        "export_timestamp_verified": false
+      },
+      "observed_commit": "3172948a749eac19c17551b4e39624638f8835b6",
+      "observed_git_object": "bb1662bbede6a183bfe5b5548a126d20099a496b",
+      "observed_source_object": null,
+      "observed_sha256_git_bytes": "de7d479426b40fd94935be85ef09e37ef30f2d00c5f8fcd4b20ab39b6720ef4a",
+      "observed_working_object": "bb1662bbede6a183bfe5b5548a126d20099a496b",
+      "working_changes": "",
+      "verification_scope": "current promoted working input",
+      "matched": true,
+      "artifact_id": "official-rulebook",
+      "section": "pp. 4-5 setup; 8-13 turns/attacks/impacts; 17 allocation and source-die healing",
+      "status": "pinned source; prior Rules/Spec source verification inherited, no fresh physical inspection"
+    },
+    {
+      "id": "verified-reference",
+      "path": "src/data/raw/sources/Hercules_Verified_Gameplay_Reference_v12.md",
+      "kind": "blob",
+      "git_object": "9b806258acc2a7daa60224d66e27c83baa2e6a0c",
+      "source_commit": null,
+      "sha256_git_bytes": "d3cc41b91fb32440c6970cad0d148222ffa9e9e08c277c361fd1f0ce6082ffde",
+      "role": "recorded_owner_verified_components",
+      "provenance": {
+        "type": "recovered_historical_reference",
+        "source_filename": "Hercules_Verified_Gameplay_Reference_v12.md",
+        "verification": "byte_identical_local_export; substantive verification assigned to RS-001",
+        "historical_basis": "named by historical handoff authority chain; version identity checked",
+        "export_timestamp_verified": false
+      },
+      "observed_commit": "3172948a749eac19c17551b4e39624638f8835b6",
+      "observed_git_object": "9b806258acc2a7daa60224d66e27c83baa2e6a0c",
+      "observed_source_object": null,
+      "observed_sha256_git_bytes": "d3cc41b91fb32440c6970cad0d148222ffa9e9e08c277c361fd1f0ce6082ffde",
+      "observed_working_object": "9b806258acc2a7daa60224d66e27c83baa2e6a0c",
+      "working_changes": "",
+      "verification_scope": "current promoted working input",
+      "matched": true,
+      "artifact_id": "verified-reference",
+      "section": "Global setup; Labors I-VI and VIII; generic healing notes",
+      "status": "recorded owner verification inherited; original wording preserved"
+    }
+  ],
+  "known_provisional_conditions": [
+    {
+      "id": "HIND-USABLE-DICE-BELOW-2",
+      "status": "provisional_owner_approved",
+      "source": "src/data/raw/TEST_SCENARIOS.md#f036",
+      "scope": "golden scenario when Labor III is undefeated",
+      "note": "Preserve the inherited owner-approved testing status; designer confirmation is not established."
+    }
+  ],
+  "method_limitations": [
+    "Golden follows all 112 pinned recorded/explicitly normalized inputs. Historical first placement implies finishing Blue only from its legal phase; each translation is recorded. Undo restores same-RNG external snapshots and both recorded undos execute.",
+    "The independent Golden driver expands damage and transition helpers at public boundaries and executes the promoted impact scheduler intact. Reusable-helper full states and all five checkpoint states match this driver after normalizing only explanatory orphan error text.",
+    "Historical completed-Labor die labels are coarse; listed checkpoint fields are compared and full runtime states are recorded. Missing independent historical bookkeeping fields are not invented.",
+    "Labor VIII is the complete assigned fixed post-roll F046 scenario, not a replay of preceding Labors. Full predicted and observed states match at ten operation boundaries; the unmodified compound round scheduler yields the same final state.",
+    "The 46 source-heal annotations are content metadata checks, not 46 runtime tests. F047-F054, generic shared-track healing and other direct/chained failure paths are not executed in this run.",
+    "The reusable helper exposes only an error string for rejected runs; private partial states cannot be recovered from that API. Modified inputs/records and exact first error messages are saved. The unexpected accepted run supplies complete returned state/checkpoints.",
+    "terminal_hidden_order negative control is NOT_REACHED after the terminal-H1 mismatch was accepted. No further scenario or probe executes after this task stop; reproduction reruns only the identical completed/stopped sequences.",
+    "Canonical healing context rejection remains a static implementation gap requiring separately scoped dynamic verification; F046 success does not establish every requirement of ISS-RS-RS-001-002.",
+    "No UI/typed command dispatcher test or full existing suite rerun is claimed. IMP-002 90/90 remains implementation evidence; this run compiled pinned code and performed independent scenario/probe execution.",
+    "The inherited Hind rule remains provisional_owner_approved, not designer confirmed. Existing scenario embedded revision/blocked labels are historical provenance; e1-m0005 pins explicitly govern this run."
+  ],
+  "publication_freshness": {
+    "remote_commit": "3172948a749eac19c17551b4e39624638f8835b6",
+    "same_claim": true,
+    "manifest_revision": "e1-m0005",
+    "manifest_and_input_pins_unchanged": true,
+    "expires_at": "2026-09-14T03:54:59.1015696+00:00",
+    "checked_at": "2026-09-14T02:11:40.766Z"
+  },
+  "recommended_next_action": "PM review and accept only the independently demonstrated scenario passes. Keep ISS-VAL-VAL-001-002 open: assign complete terminal replay assertions with negative controls, promote exact correction pins and release independent revalidation. Review the source-context validation gap under ISS-RS-RS-001-002 and assign F053 coverage before whole-helper closure. Gate decisions and issue closure remain PM-owned.",
+  "canonical_update_required": false,
+  "engine_or_canon_repaired": false,
+  "new_duplicate_issue_created": false
+}

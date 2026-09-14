@@ -1,0 +1,440 @@
+{
+  "task_id": "VAL-003",
+  "run_id": "validation-20260914T015459Z-5daa2c",
+  "tested_commit": "3172948a749eac19c17551b4e39624638f8835b6",
+  "manifest_revision": "e1-m0005",
+  "scope": "Independent evidence for PM disposition; no existing issue is closed by the validator.",
+  "findings": [
+    {
+      "issue_id": "ISS-RS-RS-001-004",
+      "validation": "PASS for all 16 recorded Golden round starts and each observed operation within those rounds",
+      "round_start_samples": [
+        {
+          "input_seq": 2,
+          "labor": "labor.L01",
+          "roll": 1,
+          "nodes_at_start": [
+            {
+              "id": "labor.L01.d1",
+              "node": "L01.start",
+              "status": "active"
+            }
+          ],
+          "snapshot": false,
+          "trace_index": 3
+        },
+        {
+          "input_seq": 6,
+          "labor": "labor.L01",
+          "roll": 2,
+          "nodes_at_start": [
+            {
+              "id": "labor.L01.d1",
+              "node": "L01.n1",
+              "status": "active"
+            }
+          ],
+          "snapshot": false,
+          "trace_index": 18
+        },
+        {
+          "input_seq": 10,
+          "labor": "labor.L02",
+          "roll": 1,
+          "nodes_at_start": [
+            {
+              "id": "labor.L02.d1",
+              "node": "L02.start",
+              "status": "active"
+            }
+          ],
+          "snapshot": false,
+          "trace_index": 36
+        },
+        {
+          "input_seq": 16,
+          "labor": "labor.L02",
+          "roll": 2,
+          "nodes_at_start": [
+            {
+              "id": "labor.L02.d1",
+              "node": "L02.n1",
+              "status": "active"
+            }
+          ],
+          "snapshot": false,
+          "trace_index": 53
+        },
+        {
+          "input_seq": 21,
+          "labor": "labor.L03",
+          "roll": 1,
+          "nodes_at_start": [
+            {
+              "id": "labor.L03.d1",
+              "node": "L03.start",
+              "status": "active"
+            }
+          ],
+          "snapshot": false,
+          "trace_index": 73
+        },
+        {
+          "input_seq": 26,
+          "labor": "labor.L03",
+          "roll": 2,
+          "nodes_at_start": [
+            {
+              "id": "labor.L03.d1",
+              "node": "L03.n1",
+              "status": "active"
+            }
+          ],
+          "snapshot": false,
+          "trace_index": 88
+        },
+        {
+          "input_seq": 32,
+          "labor": "labor.L03",
+          "roll": 3,
+          "nodes_at_start": [
+            {
+              "id": "labor.L03.d1",
+              "node": "L03.n2",
+              "status": "active"
+            }
+          ],
+          "snapshot": false,
+          "trace_index": 102
+        },
+        {
+          "input_seq": 36,
+          "labor": "labor.L04",
+          "roll": 1,
+          "nodes_at_start": [
+            {
+              "id": "labor.L04.left",
+              "node": "L04L.start",
+              "status": "active"
+            },
+            {
+              "id": "labor.L04.right",
+              "node": "L04R.start",
+              "status": "active"
+            }
+          ],
+          "snapshot": false,
+          "trace_index": 114
+        },
+        {
+          "input_seq": 42,
+          "labor": "labor.L04",
+          "roll": 2,
+          "nodes_at_start": [
+            {
+              "id": "labor.L04.left",
+              "node": "L04L.n1",
+              "status": "active"
+            },
+            {
+              "id": "labor.L04.right",
+              "node": "L04R.n1",
+              "status": "active"
+            }
+          ],
+          "snapshot": false,
+          "trace_index": 128
+        },
+        {
+          "input_seq": 48,
+          "labor": "labor.L04",
+          "roll": 3,
+          "nodes_at_start": [
+            {
+              "id": "labor.L04.left",
+              "node": "L04L.n1",
+              "status": "defeated_inactive"
+            },
+            {
+              "id": "labor.L04.right",
+              "node": "L04R.n2",
+              "status": "active"
+            }
+          ],
+          "snapshot": false,
+          "trace_index": 140
+        },
+        {
+          "input_seq": 55,
+          "labor": "labor.L04",
+          "roll": 4,
+          "nodes_at_start": [
+            {
+              "id": "labor.L04.left",
+              "node": "L04L.n1",
+              "status": "defeated_inactive"
+            },
+            {
+              "id": "labor.L04.right",
+              "node": "L04R.n3",
+              "status": "active"
+            }
+          ],
+          "snapshot": true,
+          "trace_index": 153
+        },
+        {
+          "input_seq": 63,
+          "labor": "labor.L05",
+          "roll": 1,
+          "nodes_at_start": [
+            {
+              "id": "labor.L05.A",
+              "node": "L05A.start",
+              "status": "active"
+            },
+            {
+              "id": "labor.L05.B",
+              "node": "L05B.start",
+              "status": "active"
+            }
+          ],
+          "snapshot": false,
+          "trace_index": 171
+        },
+        {
+          "input_seq": 72,
+          "labor": "labor.L05",
+          "roll": 2,
+          "nodes_at_start": [
+            {
+              "id": "labor.L05.A",
+              "node": "L05A.n1",
+              "status": "active"
+            },
+            {
+              "id": "labor.L05.B",
+              "node": "L05B.n1",
+              "status": "active"
+            }
+          ],
+          "snapshot": false,
+          "trace_index": 188
+        },
+        {
+          "input_seq": 84,
+          "labor": "labor.L05",
+          "roll": 3,
+          "nodes_at_start": [
+            {
+              "id": "labor.L05.A",
+              "node": "L05A.n2",
+              "status": "active"
+            },
+            {
+              "id": "labor.L05.B",
+              "node": "L05B.n1",
+              "status": "defeated_inactive"
+            }
+          ],
+          "snapshot": false,
+          "trace_index": 212
+        },
+        {
+          "input_seq": 96,
+          "labor": "labor.L06",
+          "roll": 1,
+          "nodes_at_start": [
+            {
+              "id": "labor.L06.C14",
+              "node": "L06C14.start",
+              "status": "active"
+            },
+            {
+              "id": "labor.L06.C15",
+              "node": "L06C15.start",
+              "status": "active"
+            },
+            {
+              "id": "labor.L06.C16",
+              "node": "L06C16.start",
+              "status": "active"
+            },
+            {
+              "id": "labor.L06.C17",
+              "node": "L06C17.start",
+              "status": "active"
+            }
+          ],
+          "snapshot": false,
+          "trace_index": 238
+        },
+        {
+          "input_seq": 104,
+          "labor": "labor.L06",
+          "roll": 2,
+          "nodes_at_start": [
+            {
+              "id": "labor.L06.C14",
+              "node": "L06C14.n1",
+              "status": "active"
+            },
+            {
+              "id": "labor.L06.C15",
+              "node": "L06C15.n1",
+              "status": "active"
+            },
+            {
+              "id": "labor.L06.C16",
+              "node": "L06C16.n1",
+              "status": "active"
+            },
+            {
+              "id": "labor.L06.C17",
+              "node": "L06C17.n1",
+              "status": "active"
+            }
+          ],
+          "snapshot": true,
+          "trace_index": 253
+        }
+      ],
+      "labor_iv_input54": [
+        {
+          "trace_index": 146,
+          "label": "Recorded explicit Resolve Assignments",
+          "before": false,
+          "after": false
+        },
+        {
+          "trace_index": 147,
+          "label": "Apply allocated damage labor.L04.right",
+          "before": false,
+          "after": false
+        },
+        {
+          "trace_index": 148,
+          "label": "Begin mandatory Labor advancement",
+          "before": false,
+          "after": false
+        },
+        {
+          "trace_index": 149,
+          "label": "Advance active Labor dice along pinned edges",
+          "before": false,
+          "after": false
+        },
+        {
+          "trace_index": 150,
+          "label": "Resolve entered impacts with promoted scheduler",
+          "before": false,
+          "after": false
+        },
+        {
+          "trace_index": 151,
+          "label": "Inherited provisional Hind usable-dice check",
+          "before": false,
+          "after": false
+        },
+        {
+          "trace_index": 152,
+          "label": "Round cleanup",
+          "before": false,
+          "after": false
+        }
+      ],
+      "evidence_path": "orchestration/validation/VAL-003-validation-20260914T015459Z-5daa2c-golden-trace.jsonl"
+    },
+    {
+      "issue_id": "ISS-RS-RS-001-002",
+      "validation": "PASS for assigned F046 source-local healing, cap, settlement and cleanup; general source-context rejection is not verified",
+      "heal_operation_index": 6,
+      "before": {
+        "A": 5,
+        "B": 6
+      },
+      "after": {
+        "A": 5,
+        "B": 6
+      },
+      "final": {
+        "phase": "READY_TO_ROLL",
+        "spirit": 7,
+        "divinity": 0,
+        "next_event": "0"
+      },
+      "evidence_path": "orchestration/validation/VAL-003-validation-20260914T015459Z-5daa2c-l08-checkpoints.json",
+      "remaining_static_gap": {
+        "basis": "Read-only inspection, not an executed F053 result. No further scenario run follows the failed replay probe.",
+        "expected": "Execution spec section 15 and F053 require missing, unknown or mismatched healing source context to be rejected before mutation.",
+        "observed": "content.ts lines 40-42 only condition on sourceLaborDieId and active status; the healing block does not validate sourceId against the source die track/node. Missing or unknown sources skip the heal without throwing.",
+        "source_refs": [
+          "src/engine/effects/content.ts:18",
+          "src/engine/effects/content.ts:40",
+          "src/data/raw/hercules_engine_execution_spec_v0_13.md:438",
+          "src/data/raw/TEST_FIXTURES_v4.json fixture F053"
+        ],
+        "recommendation": "PM retain this existing issue for scoped invalid-context regression and implementation review. No F047-F054 runtime pass or whole-helper certification is claimed."
+      }
+    },
+    {
+      "issue_id": "ISS-RS-RS-001-003",
+      "validation": "PASS for recorded Labor VI chained terminal path",
+      "failed_die": {
+        "id": "labor.L06.C17",
+        "health": 3,
+        "startingHealth": 3,
+        "trackId": "track.L06.C17",
+        "nodeId": "L06C17.n3",
+        "status": "active_failure_terminal"
+      },
+      "terminal": {
+        "phase": "DEFEAT",
+        "result": "defeat",
+        "spirit": 8,
+        "divinity": 3,
+        "next_event": "174"
+      },
+      "other_dice": {
+        "labor.L06.C14": {
+          "id": "labor.L06.C14",
+          "health": 0,
+          "startingHealth": 3,
+          "trackId": "track.L06.C14",
+          "nodeId": "L06C14.n1",
+          "status": "defeated_inactive"
+        },
+        "labor.L06.C15": {
+          "id": "labor.L06.C15",
+          "health": 4,
+          "startingHealth": 4,
+          "trackId": "track.L06.C15",
+          "nodeId": "L06C15.n3",
+          "status": "active"
+        },
+        "labor.L06.C16": {
+          "id": "labor.L06.C16",
+          "health": 3,
+          "startingHealth": 4,
+          "trackId": "track.L06.C16",
+          "nodeId": "L06C16.n2",
+          "status": "active"
+        },
+        "labor.L06.C17": {
+          "id": "labor.L06.C17",
+          "health": 3,
+          "startingHealth": 3,
+          "trackId": "track.L06.C17",
+          "nodeId": "L06C17.n3",
+          "status": "active_failure_terminal"
+        }
+      },
+      "pending_decision": null,
+      "pending_triggers": [],
+      "no_following_commands": true,
+      "last_operation": "Resolve entered impacts with promoted scheduler",
+      "evidence_path": "orchestration/validation/VAL-003-validation-20260914T015459Z-5daa2c-golden-checkpoints.json#/terminal_state",
+      "limits": "Direct failure paths outside the recorded scenario were not independently exercised."
+    }
+  ]
+}

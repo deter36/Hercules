@@ -1,0 +1,35 @@
+{
+  "pass_fail": "PASS",
+  "stop": null,
+  "accepted_inputs": 112,
+  "attempted_inputs": 112,
+  "checkpoints": [
+    {
+      "labor": 1,
+      "status": "MATCH"
+    },
+    {
+      "labor": 2,
+      "status": "MATCH"
+    },
+    {
+      "labor": 3,
+      "status": "MATCH"
+    },
+    {
+      "labor": 4,
+      "status": "MATCH"
+    },
+    {
+      "labor": 5,
+      "status": "MATCH"
+    }
+  ],
+  "next_rng_event": "174",
+  "computed_events": 166,
+  "orphans": 8,
+  "trace_operations": 270,
+  "evidence_sha256": "bc3784bda40769a08abbcda4199614c3b78bee95c3483064e92698530e00228c",
+  "ledger_sha256": "ddf4cdf476db5db7bbc541fba33090b5c88ef76bf5066856f7ef90c10d565d37",
+  "trace_sha256": "67c1b0f54783106b80710ddbe845b4465a3266a89efcbf67800b7ac3e66c5ee5"
+}

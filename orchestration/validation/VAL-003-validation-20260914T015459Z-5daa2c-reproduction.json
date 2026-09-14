@@ -1,0 +1,50 @@
+{
+  "task_id": "VAL-003",
+  "run_id": "validation-20260914T015459Z-5daa2c",
+  "checked_at": "2026-09-14T02:08:02.911Z",
+  "status": "EXACT_MATCH",
+  "scope": "Reproduce both completed scenarios and the identical stopped negative-control sequence. No probe after the first failure is executed.",
+  "commands": [
+    {
+      "command": "node orchestration/validation/VAL-003-validation-20260914T015459Z-5daa2c-l08.mjs --check",
+      "exit_code": 0,
+      "output": "{\n  \"task_id\": \"VAL-003\",\n  \"run_id\": \"validation-20260914T015459Z-5daa2c\",\n  \"pass_fail\": \"PASS\",\n  \"canonical_contract_checks\": 24,\n  \"canonical_contract_checks_passed\": 24,\n  \"pins_matched\": 40,\n  \"checkpoints\": [\n    \"after placement\",\n    \"after damage, before advancement\",\n    \"after advancement\",\n    \"after impacts\",\n    \"after failure check and cleanup\"\n  ],\n  \"stop\": null,\n  \"operation_count\": 10,\n  \"matched_operations\": 10,\n  \"rng_events\": 0,\n  \"evidence_sha256\": \"0db30cbfb9ecd2443aa6b033de6660372217ded3a38f7782a78d37859a5b0a84\",\n  \"ledger_sha256\": \"2ae1dfd3ca05c743447fe595683e9807b898f24fe506ae51877cd707e58f6ede\",\n  \"reproduction\": \"EXACT_MATCH; full states/actions/operations and zero-RNG ledger; no files written\"\n}\n"
+    },
+    {
+      "command": "node orchestration/validation/VAL-003-validation-20260914T015459Z-5daa2c-golden.mjs --check",
+      "exit_code": 0,
+      "output": "{\n  \"pass_fail\": \"PASS\",\n  \"stop\": null,\n  \"accepted_inputs\": 112,\n  \"attempted_inputs\": 112,\n  \"checkpoints\": [\n    {\n      \"labor\": 1,\n      \"status\": \"MATCH\"\n    },\n    {\n      \"labor\": 2,\n      \"status\": \"MATCH\"\n    },\n    {\n      \"labor\": 3,\n      \"status\": \"MATCH\"\n    },\n    {\n      \"labor\": 4,\n      \"status\": \"MATCH\"\n    },\n    {\n      \"labor\": 5,\n      \"status\": \"MATCH\"\n    }\n  ],\n  \"next_rng_event\": \"174\",\n  \"computed_events\": 166,\n  \"orphans\": 8,\n  \"trace_operations\": 270,\n  \"evidence_sha256\": \"bc3784bda40769a08abbcda4199614c3b78bee95c3483064e92698530e00228c\",\n  \"ledger_sha256\": \"ddf4cdf476db5db7bbc541fba33090b5c88ef76bf5066856f7ef90c10d565d37\",\n  \"trace_sha256\": \"67c1b0f54783106b80710ddbe845b4465a3266a89efcbf67800b7ac3e66c5ee5\",\n  \"reproduction\": \"Exact states, consumption, ledger and trace match; no files written.\"\n}\n"
+    },
+    {
+      "command": "node orchestration/validation/VAL-003-validation-20260914T015459Z-5daa2c-probes.mjs --check",
+      "exit_code": 0,
+      "output": "EXACT_MATCH: reusable replay probes and full returned states\n"
+    }
+  ],
+  "evidence_file_hashes": [
+    {
+      "path": "orchestration/validation/VAL-003-validation-20260914T015459Z-5daa2c-golden-checkpoints.json",
+      "sha256": "79f45a6fc0e2a46c27c5371311dcd91db450ea83c809784aa6d34ad10fc3c116"
+    },
+    {
+      "path": "orchestration/validation/VAL-003-validation-20260914T015459Z-5daa2c-golden-rng-ledger.json",
+      "sha256": "f5837ce1b4d07755db12393b282cb5c9729dff1b5982b7fbdf042b1116d7ec1e"
+    },
+    {
+      "path": "orchestration/validation/VAL-003-validation-20260914T015459Z-5daa2c-golden-trace.jsonl",
+      "sha256": "67c1b0f54783106b80710ddbe845b4465a3266a89efcbf67800b7ac3e66c5ee5"
+    },
+    {
+      "path": "orchestration/validation/VAL-003-validation-20260914T015459Z-5daa2c-l08-checkpoints.json",
+      "sha256": "c0a75c80872b11268adb31846b3279c6211de586721da2a6088206713ee24600"
+    },
+    {
+      "path": "orchestration/validation/VAL-003-validation-20260914T015459Z-5daa2c-l08-rng-ledger.json",
+      "sha256": "4974791813a1c0c284f4d10088e4ef780afcba7a0c048aa1339cb599c8c33493"
+    },
+    {
+      "path": "orchestration/validation/VAL-003-validation-20260914T015459Z-5daa2c-replay-probes.json",
+      "sha256": "27736eceaead3ffacda969bd8e888777b759a34cf2b9dc529a147194740cc664"
+    }
+  ]
+}
