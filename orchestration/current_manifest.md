@@ -42,6 +42,8 @@ the reusable helper accepted a terminal Hercules-face evidence mismatch, and the
 healing invalid-source guard also remains under-enforced. Manifest `e1-m0006` pins
 that exact evidence. `IMP-003` corrected both residuals with 5/5 focused and 95/95
 complete tests passing. Manifest `e1-m0007` pins the exact residual engine, replay,
-test, handoff and test-result objects. `VAL-004` is the sole ready task for final
-independent residual verification. Implementation-spec generation remains
-unauthorized.
+test, handoff and test-result objects. `VAL-004` passed all residual controls and
+reconfirmed exact Golden and Labor VIII outputs. Manifest `e1-m0008` pins the final
+result, handoff, residual and equivalence evidence. All assigned work is complete;
+the project is at its success checkpoint and final implementation-spec generation
+awaits explicit human authorization.

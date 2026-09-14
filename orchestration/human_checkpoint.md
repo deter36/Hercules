@@ -1,7 +1,7 @@
 # Hercules orchestration experiment 1 — human checkpoint
 
-Status: **remediation authorized; implementation pending**
-Decision: **proceed with scoped implementation and independent revalidation**
+Status: **success checkpoint; final human authorization required**
+Recommendation: **authorize final implementation-ready specification generation**
 
 ## Starting point
 
@@ -92,3 +92,27 @@ die's position at turn start and that healing affects only the die entering the
 healing node. `IMP-001` is the sole released task; `VAL-003` remains blocked until
 the PM reviews and pins its implementation output. Final implementation-spec
 generation remains unauthorized.
+
+## Final revalidation result
+
+The authorized remediation cycle is complete. `VAL-004` independently verified
+all 49 exact manifest inputs and reported no divergence:
+
+- Golden Run: all 112 inputs, five complete checkpoints, 270 trace operations,
+  32 terminal assertions, exact failed-die identity/status, and RNG event 174 pass.
+- Labor VIII: all ten operation states and five checkpoints pass through cleanup;
+  A remains at 5, B heals to 6, Spirit is 7, and no RNG is consumed.
+- Replay controls: 4/4 terminal evidence mismatches reject at the first differing
+  field, including Hercules face and hidden Mood order.
+- Healing source controls: 10/10 invalid or stale contexts reject with complete
+  state and RNG unchanged.
+- The implementation suite passes 95/95.
+
+All tracked blocking defects are now closed for the assigned experiment scope.
+The inherited Hind condition remains `provisional_owner_approved`, as it was at
+the start, and does not block the accepted Golden scenario.
+
+The orchestration loop now has reproducible evidence for corrected canon, engine,
+replay, regression tests, complete scenarios, and negative controls. The PM
+recommends proceeding to final implementation-ready Codex specification generation.
+That generation remains paused until the human explicitly authorizes it.

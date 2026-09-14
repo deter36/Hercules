@@ -1,13 +1,13 @@
 {
   "schema_version": 1,
   "experiment_id": "HERC-ORCH-E1",
-  "phase": "active",
-  "updated_at": "2026-09-14T04:48:56.224000+00:00",
+  "phase": "human_review_required",
+  "updated_at": "2026-09-14T06:50:27.738000+00:00",
   "repository": "https://github.com/deter36/Hercules",
   "branch": "codex/hercules-orchestration-e1",
   "baseline_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
-  "manifest_revision": "e1-m0007",
-  "manifest_supersedes": "e1-m0006",
+  "manifest_revision": "e1-m0008",
+  "manifest_supersedes": "e1-m0007",
   "canonical_artifacts": [
     {
       "id": "game-data",
@@ -459,6 +459,42 @@
       "source_commit": "c8599a5d72a730710cb6c8c8bebd8407923c638b",
       "sha256_git_bytes": "8ee6fe3eb2cbc622909aca98cc6ce99402c48043dfb2669e17fdce1f5eda354a",
       "role": "implementation_evidence"
+    },
+    {
+      "id": "val-004-result",
+      "path": "orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-result.json",
+      "kind": "blob",
+      "git_object": "e5d49957b45b53ebb622fc1d537a08cb18e46ceb",
+      "source_commit": "306f53106462a438306a38747f931e9519fb297e",
+      "sha256_git_bytes": "3a11d71ca8ad5c0475557fa49b46c389c0aabb7ba91c371431632857c8b4f379",
+      "role": "validation_evidence"
+    },
+    {
+      "id": "val-004-handoff",
+      "path": "orchestration/handoffs/VAL-004-validation-20260914T055055Z-b9a0bf.json",
+      "kind": "blob",
+      "git_object": "ca2ea2c1c6c2eb597fc12e6d325c3934c1b979de",
+      "source_commit": "306f53106462a438306a38747f931e9519fb297e",
+      "sha256_git_bytes": "07f88e1d0991892f7f5bcfd43b137add45074e71c17b7aee5fc1006f17444c15",
+      "role": "validation_evidence"
+    },
+    {
+      "id": "val-004-residuals",
+      "path": "orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-residuals.json",
+      "kind": "blob",
+      "git_object": "191a551969563ebbe7d99e1efe48882e658f1b3b",
+      "source_commit": "306f53106462a438306a38747f931e9519fb297e",
+      "sha256_git_bytes": "582af9b9d9ee32d914423f7797e5d7cf94988aa4ed2646da417e701001541678",
+      "role": "validation_evidence"
+    },
+    {
+      "id": "val-004-equivalence",
+      "path": "orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-equivalence.json",
+      "kind": "blob",
+      "git_object": "5f6c089cf9cad3bd9a9fdbce19e53dfe519f1035",
+      "source_commit": "306f53106462a438306a38747f931e9519fb297e",
+      "sha256_git_bytes": "3f5a7fa8fe402f6d67911a13b71377111f528c87ea0099ab8b273ce008cd9613",
+      "role": "validation_evidence"
     }
   ],
   "tasks": [
@@ -502,46 +538,41 @@
   },
   "pm_schedule": {
     "cadence": "hourly",
-    "status": "ACTIVE",
+    "status": "PAUSED",
     "automation_id": "hercules-experiment-pm",
     "destination": "current PM task",
-    "confirmation": "Human explicitly authorized continuation after the checkpoint pause; PM schedule resumed through the Codex automation tool."
+    "confirmation": "Paused at the final checkpoint under the user's standing authorization to pause this PM task's hourly checks."
   },
   "gates": {
     "golden_ready_for_validation": {
-      "status": "failed_first_divergence",
+      "status": "passed",
       "evidence": [
         "orchestration/handoffs/RS-001-rules-spec-20260913T051344Z-26d973.json",
         "orchestration/validation/RS-001-readiness.json"
       ],
-      "pending": [
-        "Historical engine correction for ISS-RS-RS-001-004",
-        "Explicit replay-helper implementation scope for ISS-VAL-VAL-001-002"
-      ]
+      "pending": []
     },
     "l08_ready_for_validation": {
-      "status": "failed_first_divergence",
+      "status": "passed",
       "evidence": [
         "orchestration/handoffs/RS-001-rules-spec-20260913T051344Z-26d973.json",
         "orchestration/validation/RS-001-L08-scenario.json"
       ],
-      "pending": [
-        "Historical engine correction for ISS-RS-RS-001-002",
-        "Complete-round and wider healing regressions after correction"
-      ]
+      "pending": []
     },
     "ready_for_revalidation": {
-      "status": "ready",
+      "status": "passed",
       "evidence": [
         "orchestration/human_checkpoint.md"
       ],
       "pending": []
     },
     "ready_for_human_checkpoint": {
-      "status": "met_failure_checkpoint",
+      "status": "met_success_checkpoint",
       "evidence": [
         "orchestration/validation/VAL-001-validation-20260913T152213Z-30ff45-result.json",
         "orchestration/validation/VAL-002-validation-20260913T172338Z-cc12bf-result.json",
+        "orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-result.json",
         "orchestration/human_checkpoint.md"
       ],
       "pending": []
@@ -557,8 +588,8 @@
     }
   ],
   "human_checkpoint": {
-    "status": "remediation_authorized",
-    "recommendation": "scoped_implementation_and_revalidation",
+    "status": "awaiting_final_spec_authorization",
+    "recommendation": "recommended",
     "decision_packet": "orchestration/human_checkpoint.md",
     "human_decision_evidence": {
       "decision": "Authorize a scoped implementation-and-revalidation phase.",
@@ -621,6 +652,18 @@
       "reusable_replay": "FAIL",
       "finding": "ISS-VAL-VAL-001-002",
       "residual": "Terminal Hercules-face evidence mismatch was accepted; hidden-order negative control not reached. Healing invalid-source context remains statically under-enforced."
+    },
+    {
+      "task_id": "VAL-004",
+      "run_id": "validation-20260914T055055Z-b9a0bf",
+      "status": "PASS_ACCEPTED",
+      "result": "orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-result.json",
+      "golden": "PASS",
+      "l08": "PASS",
+      "replay_negative_controls": "4/4 PASS",
+      "healing_invalid_source_controls": "10/10 PASS",
+      "divergence": null,
+      "rerun_required": false
     }
   ],
   "experiment_observations": [
@@ -735,6 +778,24 @@
       "focused_tests": "5/5 pass",
       "full_suite": "95/95 pass",
       "validation_task_released": "VAL-004",
+      "counts_as_worker_validation": false
+    },
+    {
+      "stage": "final_independent_revalidation",
+      "type": "all_assigned_scenarios_and_residual_controls_passed",
+      "task_id": "VAL-004",
+      "run_id": "validation-20260914T055055Z-b9a0bf",
+      "golden": "PASS",
+      "l08": "PASS",
+      "replay_controls": "4/4 PASS",
+      "healing_source_controls": "10/10 PASS",
+      "counts_as_worker_validation": true
+    },
+    {
+      "stage": "final_human_checkpoint",
+      "type": "success_checkpoint_reached",
+      "recommendation": "recommended",
+      "decision_requested": "Authorize final implementation-ready Codex specification generation",
       "counts_as_worker_validation": false
     }
   ],

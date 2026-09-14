@@ -8,8 +8,8 @@
   "severity": "S2",
   "blocking": true,
   "blocking_scope": "Using replayGoldenRunTrace alone as proof of exact-input, first-divergence validation",
-  "status": "resolution_submitted",
-  "owner": "implementation",
+  "status": "closed",
+  "owner": "project_manager",
   "suggested_owner": "project_manager_to_route_replay_method_scope",
   "manifest_revision": "e1-m0003",
   "input_versions": [
@@ -443,7 +443,11 @@
   },
   "resolution_artifacts": [],
   "verification_task_id": "VAL-004",
-  "closure": null,
+  "closure": {
+    "decision": "accepted",
+    "evidence": "VAL-004 passed all four terminal replay negative controls with first-field detection, including Hercules face and hidden Mood order, while the unmodified complete Golden replay matched exactly.",
+    "manifest_revision": "e1-m0008"
+  },
   "proposed_mitigation": "The run-specific guarded driver verifies approval, sequence/Labor/roll, pending choices, phase, blue from/to, invariant state and independently computed RNG. PM should review this method and assign any reusable helper change explicitly; no historical helper or canonical file was changed.",
   "method_limitations": [
     "This run exercises unchanged engine operations through a guarded historical-script driver, not the typed command dispatcher or UI.",
