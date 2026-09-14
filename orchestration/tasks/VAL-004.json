@@ -1,6 +1,12 @@
 {
   "manifest_revision": "e1-m0007",
-  "claim": null,
+  "claim": {
+    "role": "validation",
+    "run_id": "validation-20260914T055055Z-b9a0bf",
+    "claimed_at": "2026-09-14T05:50:55.9928238+00:00",
+    "expires_at": "2026-09-14T07:50:55.9928238+00:00",
+    "remote_commit_read": "79063a8f3439eb9d04b435a9796710dd04ae4864"
+  },
   "blocking_issue_ids": [],
   "handoff_path": null,
   "pm_review": {
@@ -10,19 +16,32 @@
   },
   "id": "VAL-004",
   "role": "validation",
-  "status": "ready",
+  "status": "in_progress",
   "objective": "Independently verify the residual replay terminal-evidence and healing invalid-source corrections while confirming the passed Golden and Labor VIII outcomes remain unchanged.",
   "dependencies": [
     "IMP-003 accepted and exact corrected artifacts promoted by PM"
   ],
   "input_artifact_ids": [
-    "game-data", "data-schema", "rules-spec", "execution-spec",
-    "test-scenarios", "test-fixtures", "golden-record", "golden-script",
-    "rng-spec", "golden-start-state", "l08-scenario",
-    "residual-corrected-engine", "residual-corrected-replay",
-    "residual-corrected-tests", "val-003-result", "val-003-handoff",
-    "val-003-replay-evidence", "val-003-implementation-evidence",
-    "imp-003-handoff", "imp-003-test-results"
+    "game-data",
+    "data-schema",
+    "rules-spec",
+    "execution-spec",
+    "test-scenarios",
+    "test-fixtures",
+    "golden-record",
+    "golden-script",
+    "rng-spec",
+    "golden-start-state",
+    "l08-scenario",
+    "residual-corrected-engine",
+    "residual-corrected-replay",
+    "residual-corrected-tests",
+    "val-003-result",
+    "val-003-handoff",
+    "val-003-replay-evidence",
+    "val-003-implementation-evidence",
+    "imp-003-handoff",
+    "imp-003-test-results"
   ],
   "allowed_changes": [
     "orchestration/validation/VAL-004-*",
