@@ -1,6 +1,12 @@
 {
   "manifest_revision": "e1-m0006",
-  "claim": null,
+  "claim": {
+    "role": "implementation",
+    "run_id": "implementation-20260914T034832Z-e1b1db",
+    "claimed_at": "2026-09-14T03:48:32Z",
+    "expires_at": "2026-09-14T05:48:32Z",
+    "remote_commit_read": "420d8b9bb62c95067a82980a84ab73bc6dede929"
+  },
   "blocking_issue_ids": [],
   "handoff_path": null,
   "pm_review": {
@@ -10,7 +16,7 @@
   },
   "id": "IMP-003",
   "role": "implementation",
-  "status": "ready",
+  "status": "in_progress",
   "objective": "Close the two residual implementation gaps found by VAL-003 without altering passed gameplay outcomes or canonical artifacts.",
   "dependencies": [
     "VAL-003 partial-pass investigation accepted",
