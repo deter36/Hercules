@@ -80,8 +80,8 @@ Choose one:
    requirements. This is not the PM recommendation because corrected runtime
    behavior has not been verified.
 
-Implementation-spec generation remains unauthorized until the selected decision
-is recorded in the repository.
+At this checkpoint, implementation-spec generation remained unauthorized until a
+human decision was recorded in the repository.
 
 ## Recorded human decision
 
@@ -89,9 +89,8 @@ On 2026-09-13 the human selected option 1 and authorized revising the engine and
 then validating it. After a temporary instruction to wait, the human explicitly
 said to continue. The human also confirmed that Cannot Block is determined by the
 die's position at turn start and that healing affects only the die entering the
-healing node. `IMP-001` is the sole released task; `VAL-003` remains blocked until
-the PM reviews and pins its implementation output. Final implementation-spec
-generation remains unauthorized.
+healing node. That decision released `IMP-001`, followed by the controlled
+implementation and revalidation sequence recorded below.
 
 ## Final revalidation result
 
@@ -115,4 +114,7 @@ the start, and does not block the accepted Golden scenario.
 The orchestration loop now has reproducible evidence for corrected canon, engine,
 replay, regression tests, complete scenarios, and negative controls. The PM
 recommends proceeding to final implementation-ready Codex specification generation.
-That generation remains paused until the human explicitly authorizes it.
+The human explicitly authorized generation by answering `Yes` in the PM task on
+2026-09-14. The resulting handoff is
+`orchestration/final_implementation_spec.md`. The experiment is complete and the
+PM hourly check remains paused.

@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "experiment_id": "HERC-ORCH-E1",
-  "phase": "human_review_required",
-  "updated_at": "2026-09-14T06:50:27.738000+00:00",
+  "phase": "complete",
+  "updated_at": "2026-09-14T11:10:38.592457+00:00",
   "repository": "https://github.com/deter36/Hercules",
   "branch": "codex/hercules-orchestration-e1",
   "baseline_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
@@ -588,7 +588,7 @@
     }
   ],
   "human_checkpoint": {
-    "status": "awaiting_final_spec_authorization",
+    "status": "approved_and_completed",
     "recommendation": "recommended",
     "decision_packet": "orchestration/human_checkpoint.md",
     "human_decision_evidence": {
@@ -606,7 +606,16 @@
         "independent reruns after exact implementation pins are promoted"
       ]
     },
-    "implementation_spec_generation_authorized": false
+    "implementation_spec_generation_authorized": true,
+    "final_spec_authorization_evidence": {
+      "decision": "Authorize generation of the final implementation-ready Codex specification.",
+      "source": "User response 'Yes' in the PM task on 2026-09-14."
+    },
+    "final_specification": {
+      "path": "orchestration/final_implementation_spec.md",
+      "generated_from_manifest": "e1-m0008",
+      "status": "complete"
+    }
   },
   "validation_results": [
     {
@@ -796,6 +805,14 @@
       "type": "success_checkpoint_reached",
       "recommendation": "recommended",
       "decision_requested": "Authorize final implementation-ready Codex specification generation",
+      "counts_as_worker_validation": false
+    },
+    {
+      "stage": "final_specification",
+      "type": "human_authorized_implementation_ready_specification_generated",
+      "authorization_date": "2026-09-14",
+      "generated_from_manifest": "e1-m0008",
+      "output": "orchestration/final_implementation_spec.md",
       "counts_as_worker_validation": false
     }
   ],

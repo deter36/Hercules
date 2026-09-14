@@ -44,6 +44,7 @@ that exact evidence. `IMP-003` corrected both residuals with 5/5 focused and 95/
 complete tests passing. Manifest `e1-m0007` pins the exact residual engine, replay,
 test, handoff and test-result objects. `VAL-004` passed all residual controls and
 reconfirmed exact Golden and Labor VIII outputs. Manifest `e1-m0008` pins the final
-result, handoff, residual and equivalence evidence. All assigned work is complete;
-the project is at its success checkpoint and final implementation-spec generation
-awaits explicit human authorization.
+result, handoff, residual and equivalence evidence. The human authorized final
+specification generation on 2026-09-14. The completed implementation-ready handoff
+is `orchestration/final_implementation_spec.md`; it is generated from the accepted
+`e1-m0008` foundation and does not expand the scope of its validation claims.
