@@ -1,6 +1,12 @@
 {
   "manifest_revision": "e1-m0005",
-  "claim": null,
+  "claim": {
+    "role": "validation",
+    "run_id": "validation-20260914T015459Z-5daa2c",
+    "claimed_at": "2026-09-14T01:54:59.1015696+00:00",
+    "expires_at": "2026-09-14T03:54:59.1015696+00:00",
+    "remote_commit_read": "b5b917f7896182e0fa101d156c7a720723e80c24"
+  },
   "blocking_issue_ids": [],
   "handoff_path": null,
   "pm_review": {
@@ -10,19 +16,31 @@
   },
   "id": "VAL-003",
   "role": "validation",
-  "status": "ready",
+  "status": "in_progress",
   "objective": "Independently rerun Golden Run 0001 and the constructed Labor VIII scenario against PM-pinned corrected implementation artifacts, including terminal and replay-method assertions.",
   "dependencies": [
     "IMP-001 submitted and accepted by PM",
     "Exact corrected engine, replay, and test artifacts promoted into a new manifest revision"
   ],
   "input_artifact_ids": [
-    "game-data", "data-schema", "rules-spec", "execution-spec",
-    "test-scenarios", "test-fixtures", "golden-record", "golden-script",
-    "rng-spec", "golden-start-state", "l08-scenario",
-    "corrected-engine", "corrected-replay", "corrected-tests",
-    "imp-001-handoff", "imp-001-test-results",
-    "imp-002-handoff", "imp-002-test-results"
+    "game-data",
+    "data-schema",
+    "rules-spec",
+    "execution-spec",
+    "test-scenarios",
+    "test-fixtures",
+    "golden-record",
+    "golden-script",
+    "rng-spec",
+    "golden-start-state",
+    "l08-scenario",
+    "corrected-engine",
+    "corrected-replay",
+    "corrected-tests",
+    "imp-001-handoff",
+    "imp-001-test-results",
+    "imp-002-handoff",
+    "imp-002-test-results"
   ],
   "required_additional_inputs": [
     "Unchanged e1-m0004 canonical and scenario inputs promoted unchanged into e1-m0005"
