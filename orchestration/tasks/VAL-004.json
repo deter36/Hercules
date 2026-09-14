@@ -8,7 +8,7 @@
     "remote_commit_read": "79063a8f3439eb9d04b435a9796710dd04ae4864"
   },
   "blocking_issue_ids": [],
-  "handoff_path": null,
+  "handoff_path": "orchestration/handoffs/VAL-004-validation-20260914T055055Z-b9a0bf.json",
   "pm_review": {
     "decision": "released_after_exact_residual_promotion",
     "evidence": "IMP-003 reproduced the residual failure, passed five focused controls and the complete 95-test suite. Manifest e1-m0007 pins all corrected and evidence objects.",
@@ -16,7 +16,7 @@
   },
   "id": "VAL-004",
   "role": "validation",
-  "status": "in_progress",
+  "status": "submitted",
   "objective": "Independently verify the residual replay terminal-evidence and healing invalid-source corrections while confirming the passed Golden and Labor VIII outcomes remain unchanged.",
   "dependencies": [
     "IMP-003 accepted and exact corrected artifacts promoted by PM"
@@ -56,5 +56,11 @@
     "Golden and complete Labor VIII scenario outputs must remain identical to the accepted VAL-003 PASS evidence.",
     "Record every discrepancy and stop at the first unsafe divergence."
   ],
-  "blocked_reason": null
+  "blocked_reason": null,
+  "validation_result": {
+    "run_id": "validation-20260914T055055Z-b9a0bf",
+    "manifest_revision": "e1-m0007",
+    "pass_fail": "PASS",
+    "result_path": "orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-result.json"
+  }
 }

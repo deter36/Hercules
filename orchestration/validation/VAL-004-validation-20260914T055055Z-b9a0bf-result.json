@@ -1,0 +1,256 @@
+{
+  "task_id": "VAL-004",
+  "run_id": "validation-20260914T055055Z-b9a0bf",
+  "role": "validation",
+  "status": "submitted",
+  "manifest_revision": "e1-m0007",
+  "tested_commit": "18440b2637c94807213483a73664d8a2a0f3f366",
+  "pass_fail": "PASS",
+  "divergence_point": null,
+  "outcomes": {
+    "replay_negative_controls": {
+      "pass_fail": "PASS",
+      "passed": 4,
+      "total": 4,
+      "first_field_detection_verified": true
+    },
+    "healing_invalid_source_controls": {
+      "pass_fail": "PASS",
+      "passed": 10,
+      "total": 10,
+      "all_full_states_unchanged": true,
+      "all_rng_unchanged": true
+    },
+    "golden": {
+      "pass_fail": "PASS",
+      "accepted_inputs": 112,
+      "checkpoints_matched": 5,
+      "trace_operations": 270,
+      "canonical_terminal_assertions": 32,
+      "prior_full_evidence_assertions": 4,
+      "phase": "DEFEAT",
+      "spirit": 8,
+      "divinity": 3,
+      "failed_die": {
+        "id": "labor.L06.C17",
+        "health": 3,
+        "startingHealth": 3,
+        "trackId": "track.L06.C17",
+        "nodeId": "L06C17.n3",
+        "status": "active_failure_terminal"
+      },
+      "rng_next_event": 174,
+      "computed_events": 166,
+      "permanent_orphans": 8
+    },
+    "l08": {
+      "pass_fail": "PASS",
+      "commands": 2,
+      "matched_full_state_operations": 10,
+      "checkpoints": 5,
+      "phase": "READY_TO_ROLL",
+      "spirit": 7,
+      "divinity": 0,
+      "labor_dice": {
+        "labor.L08.A": {
+          "id": "labor.L08.A",
+          "health": 5,
+          "startingHealth": 6,
+          "trackId": "track.L08.A",
+          "nodeId": "L08A.n1",
+          "status": "active"
+        },
+        "labor.L08.B": {
+          "id": "labor.L08.B",
+          "health": 6,
+          "startingHealth": 6,
+          "trackId": "track.L08.B",
+          "nodeId": "L08B.n1",
+          "status": "active"
+        }
+      },
+      "rng_next_event": 0
+    },
+    "entry_point_equivalence": {
+      "pass_fail": "PASS",
+      "checks": [
+        {
+          "id": "reusable_Golden_full_state_and_five_checkpoints",
+          "comparisons": {
+            "exact_prior_helper_match": true,
+            "independent_observed_states_match": true
+          }
+        },
+        {
+          "id": "L08_compound_scheduler_full_state",
+          "comparisons": {
+            "exact_prior_state_match": true,
+            "independent_observed_state_match": true
+          }
+        }
+      ]
+    }
+  },
+  "baseline_comparisons": {
+    "golden_full_terminal_state": true,
+    "golden_all_full_checkpoint_states": true,
+    "golden_command_consumption": true,
+    "golden_full_trace": true,
+    "l08_full_terminal_state": true,
+    "l08_full_operations": true,
+    "l08_command_consumption": true
+  },
+  "input_verification": {
+    "manifest_pins": 49,
+    "matched": 49,
+    "current_working_pins": 43,
+    "superseded_historical_trees": 6,
+    "prior_handoff_members": 23,
+    "path": "orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-input-verification.json"
+  },
+  "issue_ids": [
+    "ISS-VAL-VAL-001-002",
+    "ISS-RS-RS-001-002"
+  ],
+  "blocking_issue_ids": [],
+  "issue_dispositions": [
+    {
+      "issue_id": "ISS-VAL-VAL-001-002",
+      "status_before_validation": "resolution_submitted",
+      "owner": "implementation",
+      "existing_disposition_preserved": {
+        "type": "implementation_scope_deferred",
+        "state": "validation_method_accepted_with_limitation",
+        "action": "Use the guarded run evidence for this experiment and carry a reusable replay-helper correction into the human checkpoint. No current role is authorized to modify src/replay."
+      },
+      "independent_validation": "PASS within VAL-004 assigned scope",
+      "evidence_path": "orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-residuals.json",
+      "closure_by_validator": false
+    },
+    {
+      "issue_id": "ISS-RS-RS-001-002",
+      "status_before_validation": "resolution_submitted",
+      "owner": "implementation",
+      "existing_disposition_preserved": {
+        "type": "canonical_update",
+        "state": "canonical_correction_accepted_engine_fix_authorized",
+        "action": "Explicit L08 requirement eligibility and selected damage recipient; numeric healing annotated with source scope and cap; schema/spec amendments; F046-F054; regenerated data.",
+        "scope": "Canonical portion only. Engine behavior is independently diagnosed and remains blocking where failing.",
+        "verification_required": true
+      },
+      "independent_validation": "PASS within VAL-004 assigned scope",
+      "evidence_path": "orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-residuals.json",
+      "closure_by_validator": false
+    }
+  ],
+  "new_issue_ids": [],
+  "no_new_discrepancies": true,
+  "authority_refs": [
+    {
+      "id": "execution-spec",
+      "path": "src/data/raw/hercules_engine_execution_spec_v0_13.md",
+      "kind": "blob",
+      "git_object": "da5f94c4437cdff2366efc161eac1f187aca1a87",
+      "source_commit": "6bffa094431d84429ed93339d48f839bcc5a2302",
+      "sha256_git_bytes": "5b2c52c9862db8ce3573bed12af891b2cfb94cca450fc789d7f7bc9a38565492",
+      "observed_commit": "18440b2637c94807213483a73664d8a2a0f3f366",
+      "verification_scope": "current promoted working input",
+      "matched": true,
+      "section": "15 healing source context, 16 failure, 17 cleanup, 26 Golden record and reconciliation"
+    },
+    {
+      "id": "test-fixtures",
+      "path": "src/data/raw/TEST_FIXTURES_v4.json",
+      "kind": "blob",
+      "git_object": "cadae99fd2c7205d29f17375a36bc70df3e629b3",
+      "source_commit": "6bffa094431d84429ed93339d48f839bcc5a2302",
+      "sha256_git_bytes": "31459edf0c79ad29bfe3a02b40a4b4a7ec1b6676ed11b7e4f69b7fa14439d14e",
+      "observed_commit": "18440b2637c94807213483a73664d8a2a0f3f366",
+      "verification_scope": "current promoted working input",
+      "matched": true,
+      "section": "F046 complete L08 start/scenario, F053 four invalid-source cases, F052 stale_queued_inactive_source"
+    },
+    {
+      "id": "golden-start-state",
+      "path": "orchestration/validation/RS-001-golden-start-state.json",
+      "kind": "blob",
+      "git_object": "2c1d1b69692c3e38edba8bd42adf2bd42fe5826c",
+      "source_commit": "3c9c8e4e15eaf287b5fec6e9a9a00cbd5d76272f",
+      "sha256_git_bytes": "3c4f8de10b411a612ab04b860750886c360e25d7056fcc7890dcdda28f6eb289",
+      "observed_commit": "18440b2637c94807213483a73664d8a2a0f3f366",
+      "verification_scope": "current promoted working input",
+      "matched": true,
+      "section": "Complete pre_setup_state and first_ready_to_roll_state; embedded old revision retained as provenance"
+    },
+    {
+      "id": "golden-script",
+      "path": "src/data/raw/golden/HERC-GOLDEN-RUN-0001_replay_script_v2_normalized.json",
+      "kind": "blob",
+      "git_object": "da24321337d3c297d858d58b8e2c292fad937eb1",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "sha256_git_bytes": "e342e1891616ebb319f3a355515af97709ab560eac7192fb98c349b4e8a7da59",
+      "observed_commit": "18440b2637c94807213483a73664d8a2a0f3f366",
+      "verification_scope": "current promoted working input",
+      "matched": true,
+      "section": "112 prescribed inputs and explicit historical normalization"
+    },
+    {
+      "id": "golden-record",
+      "path": "src/data/raw/golden/HERC-GOLDEN-RUN-0001_golden_run_record.json",
+      "kind": "blob",
+      "git_object": "8d4dd7d3e8137d28d1e931be514ba8bfe4c1474d",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "sha256_git_bytes": "2c7264dd7a1baa8f2907c013bf195986df6b0aebc2319dc9bee95a82ec1b9061",
+      "observed_commit": "18440b2637c94807213483a73664d8a2a0f3f366",
+      "verification_scope": "current promoted working input",
+      "matched": true,
+      "section": "Five completed-Labor checkpoints, terminal state, full RNG event ledger and permanent orphan reconciliation"
+    },
+    {
+      "id": "rng-spec",
+      "path": "src/data/raw/sources/Hercules_RNG_Spec_v3.md",
+      "kind": "blob",
+      "git_object": "c1b70237e259cacf7a913f7ffccb1344a01189ac",
+      "source_commit": null,
+      "sha256_git_bytes": "6e735e6eee584d2c0ac754d620e6b46c35dd40883ccfc843a6aa289bc7b7d988",
+      "observed_commit": "18440b2637c94807213483a73664d8a2a0f3f366",
+      "verification_scope": "current promoted working input",
+      "matched": true,
+      "section": "SHA256_COUNTER_V1 byte encoding, bounded draws, Fisher-Yates and permanent orphan recovery"
+    }
+  ],
+  "known_provisional_conditions": [
+    {
+      "id": "HIND-USABLE-DICE-BELOW-2",
+      "status": "provisional_owner_approved",
+      "source": "src/data/raw/TEST_SCENARIOS.md#f036",
+      "scope": "golden scenario when Labor III is undefeated",
+      "note": "Preserve the inherited owner-approved testing status; designer confirmation is not established."
+    }
+  ],
+  "reproducibility_status": "REPRODUCED_EXACTLY",
+  "reproducibility_evidence_path": "orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-reproduction.json",
+  "method_limitations": [
+    "These conclusions apply to the exact e1-m0007 pins and assigned VAL-004 cases. No whole-game certification or PM gate decision is made.",
+    "Negative replay controls modify only in-memory copies of terminal evidence; all original inputs and player choices remain unchanged. Exact error-field comparisons are preserved. The helper exposes no private partial-state observer on rejection.",
+    "The stale inactive-source state comes from F052. The explicit VAL-004 rejection requirement governs the expected exception, while the fixture supplies full unchanged-state expectations. The four F053 states are instantiated from the pinned full regression context and exact overrides.",
+    "Golden gameplay is freshly executed with independent SHA256 auditing, full command consumption and complete state snapshots. The 270-operation trace, five full checkpoint states and terminal state exactly match accepted VAL-003 evidence; historical PASS is used only as a comparison target.",
+    "Unmodified helper output matches its prior output exactly. Comparing helper output to the independent detailed driver normalizes only explanatory text on permanent historical orphan entries; no gameplay or random-material field is normalized.",
+    "Labor VIII is an explicit fixed post-roll scenario with no preceding gameplay history and zero RNG. Its ten operation states and full final state match the accepted base scenario. Other unassigned F047-F054 cases and direct failure paths were not executed.",
+    "The inherited Hind soft-lock rule retains provisional_owner_approved status. No new designer confirmation or physical component inspection is claimed.",
+    "The implementation 95-test suite remains inherited implementation evidence. This run used locked compilation and independent scenario/negative-control checks; it did not rerun that suite, regenerate content, test UI or alter engine/canon."
+  ],
+  "publication_freshness": {
+    "remote_commit": "18440b2637c94807213483a73664d8a2a0f3f366",
+    "claim_owner_verified": true,
+    "unexpired": true,
+    "expires_at": "2026-09-14T07:50:55.9928238+00:00",
+    "manifest_revision": "e1-m0007",
+    "input_pins_unchanged": true,
+    "checked_at": "2026-09-14T06:02:26.510Z"
+  },
+  "recommended_next_action": "PM review and accept VAL-004 for its declared scope, assess the two existing residual findings using the fresh rejection and unchanged-scenario evidence, and record any supported issue dispositions and gate decisions. No further worker execution is needed unless PM releases another task.",
+  "canonical_update_required": false,
+  "engine_or_canon_repaired": false,
+  "rerun_required": false
+}

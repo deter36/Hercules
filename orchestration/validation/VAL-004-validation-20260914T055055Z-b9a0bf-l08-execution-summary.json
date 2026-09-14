@@ -1,0 +1,21 @@
+{
+  "task_id": "VAL-004",
+  "run_id": "validation-20260914T055055Z-b9a0bf",
+  "pass_fail": "PASS",
+  "canonical_contract_checks": 24,
+  "canonical_contract_checks_passed": 24,
+  "pins_matched": 49,
+  "checkpoints": [
+    "after placement",
+    "after damage, before advancement",
+    "after advancement",
+    "after impacts",
+    "after failure check and cleanup"
+  ],
+  "stop": null,
+  "operation_count": 10,
+  "matched_operations": 10,
+  "rng_events": 0,
+  "evidence_sha256": "4ce95c216368f1be2911cc89e7b1b3e4146f6496ace1a41fcf0909f0e3dc5b3a",
+  "ledger_sha256": "e5ba65c3c9583d657573d16faef7db71ba00e02b77935d9e77ccd543b54f8a81"
+}

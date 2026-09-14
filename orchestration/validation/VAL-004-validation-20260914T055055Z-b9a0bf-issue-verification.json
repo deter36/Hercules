@@ -1,0 +1,374 @@
+{
+  "task_id": "VAL-004",
+  "run_id": "validation-20260914T055055Z-b9a0bf",
+  "tested_commit": "18440b2637c94807213483a73664d8a2a0f3f366",
+  "manifest_revision": "e1-m0007",
+  "issue_verifications": [
+    {
+      "issue_id": "ISS-VAL-VAL-001-002",
+      "pass_fail": "PASS",
+      "controls": [
+        {
+          "id": "terminal_H1_face",
+          "expected_error": "Golden terminal hercules_dice.H1.face diverged.",
+          "observed_error": "Golden terminal hercules_dice.H1.face diverged.",
+          "input_objects_unchanged": true,
+          "passed": true,
+          "evidence_pointer": "orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-residuals.json#/controls/0"
+        },
+        {
+          "id": "terminal_hidden_order",
+          "expected_error": "Golden terminal ordered_hidden_mood_deck_top_to_bottom diverged.",
+          "observed_error": "Golden terminal ordered_hidden_mood_deck_top_to_bottom diverged.",
+          "input_objects_unchanged": true,
+          "passed": true,
+          "evidence_pointer": "orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-residuals.json#/controls/1"
+        },
+        {
+          "id": "first_Hercules_field_with_two_differences",
+          "expected_error": "Golden terminal hercules_dice.H1.face diverged.",
+          "observed_error": "Golden terminal hercules_dice.H1.face diverged.",
+          "input_objects_unchanged": true,
+          "passed": true,
+          "evidence_pointer": "orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-residuals.json#/controls/2"
+        },
+        {
+          "id": "first_terminal_field_with_order_and_face_differences",
+          "expected_error": "Golden terminal ordered_hidden_mood_deck_top_to_bottom diverged.",
+          "observed_error": "Golden terminal ordered_hidden_mood_deck_top_to_bottom diverged.",
+          "input_objects_unchanged": true,
+          "passed": true,
+          "evidence_pointer": "orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-residuals.json#/controls/3"
+        }
+      ],
+      "unmodified_helper_full_state_comparison": "orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-equivalence.json#/entries/0",
+      "scope": "Terminal H1 face and hidden Mood order, including first reported field when multiple terminal differences are supplied. No claim that every possible corrupted evidence structure has been tested."
+    },
+    {
+      "issue_id": "ISS-RS-RS-001-002",
+      "pass_fail": "PASS",
+      "controls": [
+        {
+          "id": "F053_missing_source_immediate",
+          "expected_error": "Healing requires a source Labor die and entered-node context.",
+          "observed_error": "Healing requires a source Labor die and entered-node context.",
+          "state_unchanged": true,
+          "rng_unchanged": true,
+          "passed": true,
+          "evidence_pointer": "orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-residuals.json#/controls/4"
+        },
+        {
+          "id": "F053_missing_source_queued",
+          "expected_error": "Healing requires a source Labor die and entered-node context.",
+          "observed_error": "Healing requires a source Labor die and entered-node context.",
+          "state_unchanged": true,
+          "rng_unchanged": true,
+          "passed": true,
+          "evidence_pointer": "orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-residuals.json#/controls/5"
+        },
+        {
+          "id": "F053_unknown_source_immediate",
+          "expected_error": "Healing source Labor die labor.L08.unknown is unknown.",
+          "observed_error": "Healing source Labor die labor.L08.unknown is unknown.",
+          "state_unchanged": true,
+          "rng_unchanged": true,
+          "passed": true,
+          "evidence_pointer": "orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-residuals.json#/controls/6"
+        },
+        {
+          "id": "F053_unknown_source_queued",
+          "expected_error": "Healing source Labor die labor.L08.unknown is unknown.",
+          "observed_error": "Healing source Labor die labor.L08.unknown is unknown.",
+          "state_unchanged": true,
+          "rng_unchanged": true,
+          "passed": true,
+          "evidence_pointer": "orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-residuals.json#/controls/7"
+        },
+        {
+          "id": "F053_wrong_track_source_immediate",
+          "expected_error": "Healing source Labor die labor.L08.A is not on entered node L08B.n1.",
+          "observed_error": "Healing source Labor die labor.L08.A is not on entered node L08B.n1.",
+          "state_unchanged": true,
+          "rng_unchanged": true,
+          "passed": true,
+          "evidence_pointer": "orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-residuals.json#/controls/8"
+        },
+        {
+          "id": "F053_wrong_track_source_queued",
+          "expected_error": "Healing source Labor die labor.L08.A is not on entered node L08B.n1.",
+          "observed_error": "Healing source Labor die labor.L08.A is not on entered node L08B.n1.",
+          "state_unchanged": true,
+          "rng_unchanged": true,
+          "passed": true,
+          "evidence_pointer": "orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-residuals.json#/controls/9"
+        },
+        {
+          "id": "F053_source_not_on_entered_node_immediate",
+          "expected_error": "Healing source Labor die labor.L08.B is not on entered node L08B.n3.",
+          "observed_error": "Healing source Labor die labor.L08.B is not on entered node L08B.n3.",
+          "state_unchanged": true,
+          "rng_unchanged": true,
+          "passed": true,
+          "evidence_pointer": "orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-residuals.json#/controls/10"
+        },
+        {
+          "id": "F053_source_not_on_entered_node_queued",
+          "expected_error": "Healing source Labor die labor.L08.B is not on entered node L08B.n3.",
+          "observed_error": "Healing source Labor die labor.L08.B is not on entered node L08B.n3.",
+          "state_unchanged": true,
+          "rng_unchanged": true,
+          "passed": true,
+          "evidence_pointer": "orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-residuals.json#/controls/11"
+        },
+        {
+          "id": "F052_stale_queued_inactive_source_immediate",
+          "expected_error": "Healing source Labor die labor.L08.B is not active.",
+          "observed_error": "Healing source Labor die labor.L08.B is not active.",
+          "state_unchanged": true,
+          "rng_unchanged": true,
+          "passed": true,
+          "evidence_pointer": "orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-residuals.json#/controls/12"
+        },
+        {
+          "id": "F052_stale_queued_inactive_source_queued",
+          "expected_error": "Healing source Labor die labor.L08.B is not active.",
+          "observed_error": "Healing source Labor die labor.L08.B is not active.",
+          "state_unchanged": true,
+          "rng_unchanged": true,
+          "passed": true,
+          "evidence_pointer": "orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-residuals.json#/controls/13"
+        }
+      ],
+      "valid_scenario_evidence": "orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-l08-checkpoints.json",
+      "scope": "All four F053 contexts and F052 stale inactive-source state, each with immediate and queued resource mode; full F046 scenario unchanged. Other F047-F054 cases are not claimed as executed."
+    }
+  ],
+  "baseline_comparisons": {
+    "golden_full_terminal_state": true,
+    "golden_all_full_checkpoint_states": true,
+    "golden_command_consumption": true,
+    "golden_full_trace": true,
+    "l08_full_terminal_state": true,
+    "l08_full_operations": true,
+    "l08_command_consumption": true
+  },
+  "baseline_source_commit": "ce274602ea3145c1d8855e54c23afd48357782ec",
+  "prior_handoff_member_objects": [
+    {
+      "path": "orchestration/validation/VAL-003-validation-20260914T015459Z-5daa2c-build-log.txt",
+      "source_commit": "ce274602ea3145c1d8855e54c23afd48357782ec",
+      "expected_git_object": "bc18dffb0424301725ae86e4afa8a9cdaa2bf8b1",
+      "source_git_object": "bc18dffb0424301725ae86e4afa8a9cdaa2bf8b1",
+      "working_git_object": "bc18dffb0424301725ae86e4afa8a9cdaa2bf8b1",
+      "matched": true
+    },
+    {
+      "path": "orchestration/validation/VAL-003-validation-20260914T015459Z-5daa2c-common.mjs",
+      "source_commit": "ce274602ea3145c1d8855e54c23afd48357782ec",
+      "expected_git_object": "225ec2e71e372a2493e98bd1910ce77692424bb4",
+      "source_git_object": "225ec2e71e372a2493e98bd1910ce77692424bb4",
+      "working_git_object": "225ec2e71e372a2493e98bd1910ce77692424bb4",
+      "matched": true
+    },
+    {
+      "path": "orchestration/validation/VAL-003-validation-20260914T015459Z-5daa2c-golden-checkpoints.json",
+      "source_commit": "ce274602ea3145c1d8855e54c23afd48357782ec",
+      "expected_git_object": "72c5f3b68a3eb38055095b8e56bfdec5e8a8efb2",
+      "source_git_object": "72c5f3b68a3eb38055095b8e56bfdec5e8a8efb2",
+      "working_git_object": "72c5f3b68a3eb38055095b8e56bfdec5e8a8efb2",
+      "matched": true
+    },
+    {
+      "path": "orchestration/validation/VAL-003-validation-20260914T015459Z-5daa2c-golden-execution-log.txt",
+      "source_commit": "ce274602ea3145c1d8855e54c23afd48357782ec",
+      "expected_git_object": "ffc4049429c5a1e4846673ed78a29ee591ee49d7",
+      "source_git_object": "ffc4049429c5a1e4846673ed78a29ee591ee49d7",
+      "working_git_object": "ffc4049429c5a1e4846673ed78a29ee591ee49d7",
+      "matched": true
+    },
+    {
+      "path": "orchestration/validation/VAL-003-validation-20260914T015459Z-5daa2c-golden-input-verification.json",
+      "source_commit": "ce274602ea3145c1d8855e54c23afd48357782ec",
+      "expected_git_object": "6318478bceee58ac91ec7a8bacc460859d93c3ec",
+      "source_git_object": "6318478bceee58ac91ec7a8bacc460859d93c3ec",
+      "working_git_object": "6318478bceee58ac91ec7a8bacc460859d93c3ec",
+      "matched": true
+    },
+    {
+      "path": "orchestration/validation/VAL-003-validation-20260914T015459Z-5daa2c-golden-replay-summary.json",
+      "source_commit": "ce274602ea3145c1d8855e54c23afd48357782ec",
+      "expected_git_object": "4902b586e1e28dfbf1daf86739005c24a4a2c626",
+      "source_git_object": "4902b586e1e28dfbf1daf86739005c24a4a2c626",
+      "working_git_object": "4902b586e1e28dfbf1daf86739005c24a4a2c626",
+      "matched": true
+    },
+    {
+      "path": "orchestration/validation/VAL-003-validation-20260914T015459Z-5daa2c-golden-rng-ledger.json",
+      "source_commit": "ce274602ea3145c1d8855e54c23afd48357782ec",
+      "expected_git_object": "3bb811dc30d196d2a7f0fd4724319224d61a46f1",
+      "source_git_object": "3bb811dc30d196d2a7f0fd4724319224d61a46f1",
+      "working_git_object": "3bb811dc30d196d2a7f0fd4724319224d61a46f1",
+      "matched": true
+    },
+    {
+      "path": "orchestration/validation/VAL-003-validation-20260914T015459Z-5daa2c-golden-trace.jsonl",
+      "source_commit": "ce274602ea3145c1d8855e54c23afd48357782ec",
+      "expected_git_object": "240b83733b14d51fccfb90e1e8c80d4633b41516",
+      "source_git_object": "240b83733b14d51fccfb90e1e8c80d4633b41516",
+      "working_git_object": "240b83733b14d51fccfb90e1e8c80d4633b41516",
+      "matched": true
+    },
+    {
+      "path": "orchestration/validation/VAL-003-validation-20260914T015459Z-5daa2c-golden.mjs",
+      "source_commit": "ce274602ea3145c1d8855e54c23afd48357782ec",
+      "expected_git_object": "18027e1754523f8b1a49b60714a3472087ccc4f5",
+      "source_git_object": "18027e1754523f8b1a49b60714a3472087ccc4f5",
+      "working_git_object": "18027e1754523f8b1a49b60714a3472087ccc4f5",
+      "matched": true
+    },
+    {
+      "path": "orchestration/validation/VAL-003-validation-20260914T015459Z-5daa2c-implementation-evidence.json",
+      "source_commit": "ce274602ea3145c1d8855e54c23afd48357782ec",
+      "expected_git_object": "d0f3e3998090edb36f5d50c5ea68e4ba1edc440b",
+      "source_git_object": "d0f3e3998090edb36f5d50c5ea68e4ba1edc440b",
+      "working_git_object": "d0f3e3998090edb36f5d50c5ea68e4ba1edc440b",
+      "matched": true
+    },
+    {
+      "path": "orchestration/validation/VAL-003-validation-20260914T015459Z-5daa2c-l08-checkpoints.json",
+      "source_commit": "ce274602ea3145c1d8855e54c23afd48357782ec",
+      "expected_git_object": "342b167e37bebbb7e33776fef237cc6dcc0e71e9",
+      "source_git_object": "342b167e37bebbb7e33776fef237cc6dcc0e71e9",
+      "working_git_object": "342b167e37bebbb7e33776fef237cc6dcc0e71e9",
+      "matched": true
+    },
+    {
+      "path": "orchestration/validation/VAL-003-validation-20260914T015459Z-5daa2c-l08-execution-log.txt",
+      "source_commit": "ce274602ea3145c1d8855e54c23afd48357782ec",
+      "expected_git_object": "65a55d68a79a66780bf77a1dd3769164c209f7a9",
+      "source_git_object": "65a55d68a79a66780bf77a1dd3769164c209f7a9",
+      "working_git_object": "65a55d68a79a66780bf77a1dd3769164c209f7a9",
+      "matched": true
+    },
+    {
+      "path": "orchestration/validation/VAL-003-validation-20260914T015459Z-5daa2c-l08-execution-summary.json",
+      "source_commit": "ce274602ea3145c1d8855e54c23afd48357782ec",
+      "expected_git_object": "fe0397ded1664f81832e410dfb6c6bc44d640fa4",
+      "source_git_object": "fe0397ded1664f81832e410dfb6c6bc44d640fa4",
+      "working_git_object": "fe0397ded1664f81832e410dfb6c6bc44d640fa4",
+      "matched": true
+    },
+    {
+      "path": "orchestration/validation/VAL-003-validation-20260914T015459Z-5daa2c-l08-input-verification.json",
+      "source_commit": "ce274602ea3145c1d8855e54c23afd48357782ec",
+      "expected_git_object": "4a2a626ddc40e16ef1e15ab825ef05f3b138f84c",
+      "source_git_object": "4a2a626ddc40e16ef1e15ab825ef05f3b138f84c",
+      "working_git_object": "4a2a626ddc40e16ef1e15ab825ef05f3b138f84c",
+      "matched": true
+    },
+    {
+      "path": "orchestration/validation/VAL-003-validation-20260914T015459Z-5daa2c-l08-rng-ledger.json",
+      "source_commit": "ce274602ea3145c1d8855e54c23afd48357782ec",
+      "expected_git_object": "b0ef87df0d2046e61818a42ff5c4b6e2995a76dc",
+      "source_git_object": "b0ef87df0d2046e61818a42ff5c4b6e2995a76dc",
+      "working_git_object": "b0ef87df0d2046e61818a42ff5c4b6e2995a76dc",
+      "matched": true
+    },
+    {
+      "path": "orchestration/validation/VAL-003-validation-20260914T015459Z-5daa2c-l08.mjs",
+      "source_commit": "ce274602ea3145c1d8855e54c23afd48357782ec",
+      "expected_git_object": "a0bcb3869bcc825742b353f32ab559daf7d08401",
+      "source_git_object": "a0bcb3869bcc825742b353f32ab559daf7d08401",
+      "working_git_object": "a0bcb3869bcc825742b353f32ab559daf7d08401",
+      "matched": true
+    },
+    {
+      "path": "orchestration/validation/VAL-003-validation-20260914T015459Z-5daa2c-probes.mjs",
+      "source_commit": "ce274602ea3145c1d8855e54c23afd48357782ec",
+      "expected_git_object": "cb2cdb44885ab6cc3ce080221d783a5272b71d55",
+      "source_git_object": "cb2cdb44885ab6cc3ce080221d783a5272b71d55",
+      "working_git_object": "cb2cdb44885ab6cc3ce080221d783a5272b71d55",
+      "matched": true
+    },
+    {
+      "path": "orchestration/validation/VAL-003-validation-20260914T015459Z-5daa2c-replay-issue-evidence.json",
+      "source_commit": "ce274602ea3145c1d8855e54c23afd48357782ec",
+      "expected_git_object": "55083641e9562d1cf7096bd5f0a9b153e65afba3",
+      "source_git_object": "55083641e9562d1cf7096bd5f0a9b153e65afba3",
+      "working_git_object": "55083641e9562d1cf7096bd5f0a9b153e65afba3",
+      "matched": true
+    },
+    {
+      "path": "orchestration/validation/VAL-003-validation-20260914T015459Z-5daa2c-replay-probes.json",
+      "source_commit": "ce274602ea3145c1d8855e54c23afd48357782ec",
+      "expected_git_object": "875f9a1ab0e019a554725f90f7786701edfff174",
+      "source_git_object": "875f9a1ab0e019a554725f90f7786701edfff174",
+      "working_git_object": "875f9a1ab0e019a554725f90f7786701edfff174",
+      "matched": true
+    },
+    {
+      "path": "orchestration/validation/VAL-003-validation-20260914T015459Z-5daa2c-report.mjs",
+      "source_commit": "ce274602ea3145c1d8855e54c23afd48357782ec",
+      "expected_git_object": "b723c8bff31c9640b924594928700484621bff60",
+      "source_git_object": "b723c8bff31c9640b924594928700484621bff60",
+      "working_git_object": "b723c8bff31c9640b924594928700484621bff60",
+      "matched": true
+    },
+    {
+      "path": "orchestration/validation/VAL-003-validation-20260914T015459Z-5daa2c-reproduction.json",
+      "source_commit": "ce274602ea3145c1d8855e54c23afd48357782ec",
+      "expected_git_object": "b62a3197cd77036f2bf30a6ac1c9cdf6199f2f9f",
+      "source_git_object": "b62a3197cd77036f2bf30a6ac1c9cdf6199f2f9f",
+      "working_git_object": "b62a3197cd77036f2bf30a6ac1c9cdf6199f2f9f",
+      "matched": true
+    },
+    {
+      "path": "orchestration/validation/VAL-003-validation-20260914T015459Z-5daa2c-result.json",
+      "source_commit": "ce274602ea3145c1d8855e54c23afd48357782ec",
+      "expected_git_object": "d465643d2f9dbb9198521a093c05e8f97e5f1f71",
+      "source_git_object": "d465643d2f9dbb9198521a093c05e8f97e5f1f71",
+      "working_git_object": "d465643d2f9dbb9198521a093c05e8f97e5f1f71",
+      "matched": true
+    },
+    {
+      "path": "orchestration/tasks/VAL-003.json",
+      "source_commit": "ce274602ea3145c1d8855e54c23afd48357782ec",
+      "expected_git_object": "ae82664fd1ce461ea1d1c4757550f8efdd3ac25d",
+      "source_git_object": "ae82664fd1ce461ea1d1c4757550f8efdd3ac25d",
+      "working_git_object": null,
+      "matched": true
+    }
+  ],
+  "issue_dispositions": [
+    {
+      "issue_id": "ISS-VAL-VAL-001-002",
+      "status_before_validation": "resolution_submitted",
+      "owner": "implementation",
+      "existing_disposition_preserved": {
+        "type": "implementation_scope_deferred",
+        "state": "validation_method_accepted_with_limitation",
+        "action": "Use the guarded run evidence for this experiment and carry a reusable replay-helper correction into the human checkpoint. No current role is authorized to modify src/replay."
+      },
+      "independent_validation": "PASS within VAL-004 assigned scope",
+      "evidence_path": "orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-residuals.json",
+      "closure_by_validator": false
+    },
+    {
+      "issue_id": "ISS-RS-RS-001-002",
+      "status_before_validation": "resolution_submitted",
+      "owner": "implementation",
+      "existing_disposition_preserved": {
+        "type": "canonical_update",
+        "state": "canonical_correction_accepted_engine_fix_authorized",
+        "action": "Explicit L08 requirement eligibility and selected damage recipient; numeric healing annotated with source scope and cap; schema/spec amendments; F046-F054; regenerated data.",
+        "scope": "Canonical portion only. Engine behavior is independently diagnosed and remains blocking where failing.",
+        "verification_required": true
+      },
+      "independent_validation": "PASS within VAL-004 assigned scope",
+      "evidence_path": "orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-residuals.json",
+      "closure_by_validator": false
+    }
+  ],
+  "no_new_discrepancies": true,
+  "no_issue_closed": true
+}

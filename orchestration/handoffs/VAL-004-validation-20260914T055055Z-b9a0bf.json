@@ -1,0 +1,1152 @@
+{
+  "task_id": "VAL-004",
+  "run_id": "validation-20260914T055055Z-b9a0bf",
+  "role": "validation",
+  "status": "submitted",
+  "manifest_revision": "e1-m0007",
+  "tested_commit": "18440b2637c94807213483a73664d8a2a0f3f366",
+  "pass_fail": "PASS",
+  "divergence_point": null,
+  "outcomes": {
+    "replay_negative_controls": {
+      "pass_fail": "PASS",
+      "passed": 4,
+      "total": 4,
+      "first_field_detection_verified": true
+    },
+    "healing_invalid_source_controls": {
+      "pass_fail": "PASS",
+      "passed": 10,
+      "total": 10,
+      "all_full_states_unchanged": true,
+      "all_rng_unchanged": true
+    },
+    "golden": {
+      "pass_fail": "PASS",
+      "accepted_inputs": 112,
+      "checkpoints_matched": 5,
+      "trace_operations": 270,
+      "canonical_terminal_assertions": 32,
+      "prior_full_evidence_assertions": 4,
+      "phase": "DEFEAT",
+      "spirit": 8,
+      "divinity": 3,
+      "failed_die": {
+        "id": "labor.L06.C17",
+        "health": 3,
+        "startingHealth": 3,
+        "trackId": "track.L06.C17",
+        "nodeId": "L06C17.n3",
+        "status": "active_failure_terminal"
+      },
+      "rng_next_event": 174,
+      "computed_events": 166,
+      "permanent_orphans": 8
+    },
+    "l08": {
+      "pass_fail": "PASS",
+      "commands": 2,
+      "matched_full_state_operations": 10,
+      "checkpoints": 5,
+      "phase": "READY_TO_ROLL",
+      "spirit": 7,
+      "divinity": 0,
+      "labor_dice": {
+        "labor.L08.A": {
+          "id": "labor.L08.A",
+          "health": 5,
+          "startingHealth": 6,
+          "trackId": "track.L08.A",
+          "nodeId": "L08A.n1",
+          "status": "active"
+        },
+        "labor.L08.B": {
+          "id": "labor.L08.B",
+          "health": 6,
+          "startingHealth": 6,
+          "trackId": "track.L08.B",
+          "nodeId": "L08B.n1",
+          "status": "active"
+        }
+      },
+      "rng_next_event": 0
+    },
+    "entry_point_equivalence": {
+      "pass_fail": "PASS",
+      "checks": [
+        {
+          "id": "reusable_Golden_full_state_and_five_checkpoints",
+          "comparisons": {
+            "exact_prior_helper_match": true,
+            "independent_observed_states_match": true
+          }
+        },
+        {
+          "id": "L08_compound_scheduler_full_state",
+          "comparisons": {
+            "exact_prior_state_match": true,
+            "independent_observed_state_match": true
+          }
+        }
+      ]
+    }
+  },
+  "baseline_comparisons": {
+    "golden_full_terminal_state": true,
+    "golden_all_full_checkpoint_states": true,
+    "golden_command_consumption": true,
+    "golden_full_trace": true,
+    "l08_full_terminal_state": true,
+    "l08_full_operations": true,
+    "l08_command_consumption": true
+  },
+  "input_verification": {
+    "manifest_pins": 49,
+    "matched": 49,
+    "current_working_pins": 43,
+    "superseded_historical_trees": 6,
+    "prior_handoff_members": 23,
+    "path": "orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-input-verification.json"
+  },
+  "issue_ids": [
+    "ISS-VAL-VAL-001-002",
+    "ISS-RS-RS-001-002"
+  ],
+  "blocking_issue_ids": [],
+  "issue_dispositions": [
+    {
+      "issue_id": "ISS-VAL-VAL-001-002",
+      "status_before_validation": "resolution_submitted",
+      "owner": "implementation",
+      "existing_disposition_preserved": {
+        "type": "implementation_scope_deferred",
+        "state": "validation_method_accepted_with_limitation",
+        "action": "Use the guarded run evidence for this experiment and carry a reusable replay-helper correction into the human checkpoint. No current role is authorized to modify src/replay."
+      },
+      "independent_validation": "PASS within VAL-004 assigned scope",
+      "evidence_path": "orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-residuals.json",
+      "closure_by_validator": false
+    },
+    {
+      "issue_id": "ISS-RS-RS-001-002",
+      "status_before_validation": "resolution_submitted",
+      "owner": "implementation",
+      "existing_disposition_preserved": {
+        "type": "canonical_update",
+        "state": "canonical_correction_accepted_engine_fix_authorized",
+        "action": "Explicit L08 requirement eligibility and selected damage recipient; numeric healing annotated with source scope and cap; schema/spec amendments; F046-F054; regenerated data.",
+        "scope": "Canonical portion only. Engine behavior is independently diagnosed and remains blocking where failing.",
+        "verification_required": true
+      },
+      "independent_validation": "PASS within VAL-004 assigned scope",
+      "evidence_path": "orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-residuals.json",
+      "closure_by_validator": false
+    }
+  ],
+  "new_issue_ids": [],
+  "no_new_discrepancies": true,
+  "authority_refs": [
+    {
+      "id": "execution-spec",
+      "path": "src/data/raw/hercules_engine_execution_spec_v0_13.md",
+      "kind": "blob",
+      "git_object": "da5f94c4437cdff2366efc161eac1f187aca1a87",
+      "source_commit": "6bffa094431d84429ed93339d48f839bcc5a2302",
+      "sha256_git_bytes": "5b2c52c9862db8ce3573bed12af891b2cfb94cca450fc789d7f7bc9a38565492",
+      "observed_commit": "18440b2637c94807213483a73664d8a2a0f3f366",
+      "verification_scope": "current promoted working input",
+      "matched": true,
+      "section": "15 healing source context, 16 failure, 17 cleanup, 26 Golden record and reconciliation"
+    },
+    {
+      "id": "test-fixtures",
+      "path": "src/data/raw/TEST_FIXTURES_v4.json",
+      "kind": "blob",
+      "git_object": "cadae99fd2c7205d29f17375a36bc70df3e629b3",
+      "source_commit": "6bffa094431d84429ed93339d48f839bcc5a2302",
+      "sha256_git_bytes": "31459edf0c79ad29bfe3a02b40a4b4a7ec1b6676ed11b7e4f69b7fa14439d14e",
+      "observed_commit": "18440b2637c94807213483a73664d8a2a0f3f366",
+      "verification_scope": "current promoted working input",
+      "matched": true,
+      "section": "F046 complete L08 start/scenario, F053 four invalid-source cases, F052 stale_queued_inactive_source"
+    },
+    {
+      "id": "golden-start-state",
+      "path": "orchestration/validation/RS-001-golden-start-state.json",
+      "kind": "blob",
+      "git_object": "2c1d1b69692c3e38edba8bd42adf2bd42fe5826c",
+      "source_commit": "3c9c8e4e15eaf287b5fec6e9a9a00cbd5d76272f",
+      "sha256_git_bytes": "3c4f8de10b411a612ab04b860750886c360e25d7056fcc7890dcdda28f6eb289",
+      "observed_commit": "18440b2637c94807213483a73664d8a2a0f3f366",
+      "verification_scope": "current promoted working input",
+      "matched": true,
+      "section": "Complete pre_setup_state and first_ready_to_roll_state; embedded old revision retained as provenance"
+    },
+    {
+      "id": "golden-script",
+      "path": "src/data/raw/golden/HERC-GOLDEN-RUN-0001_replay_script_v2_normalized.json",
+      "kind": "blob",
+      "git_object": "da24321337d3c297d858d58b8e2c292fad937eb1",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "sha256_git_bytes": "e342e1891616ebb319f3a355515af97709ab560eac7192fb98c349b4e8a7da59",
+      "observed_commit": "18440b2637c94807213483a73664d8a2a0f3f366",
+      "verification_scope": "current promoted working input",
+      "matched": true,
+      "section": "112 prescribed inputs and explicit historical normalization"
+    },
+    {
+      "id": "golden-record",
+      "path": "src/data/raw/golden/HERC-GOLDEN-RUN-0001_golden_run_record.json",
+      "kind": "blob",
+      "git_object": "8d4dd7d3e8137d28d1e931be514ba8bfe4c1474d",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "sha256_git_bytes": "2c7264dd7a1baa8f2907c013bf195986df6b0aebc2319dc9bee95a82ec1b9061",
+      "observed_commit": "18440b2637c94807213483a73664d8a2a0f3f366",
+      "verification_scope": "current promoted working input",
+      "matched": true,
+      "section": "Five completed-Labor checkpoints, terminal state, full RNG event ledger and permanent orphan reconciliation"
+    },
+    {
+      "id": "rng-spec",
+      "path": "src/data/raw/sources/Hercules_RNG_Spec_v3.md",
+      "kind": "blob",
+      "git_object": "c1b70237e259cacf7a913f7ffccb1344a01189ac",
+      "source_commit": null,
+      "sha256_git_bytes": "6e735e6eee584d2c0ac754d620e6b46c35dd40883ccfc843a6aa289bc7b7d988",
+      "observed_commit": "18440b2637c94807213483a73664d8a2a0f3f366",
+      "verification_scope": "current promoted working input",
+      "matched": true,
+      "section": "SHA256_COUNTER_V1 byte encoding, bounded draws, Fisher-Yates and permanent orphan recovery"
+    }
+  ],
+  "known_provisional_conditions": [
+    {
+      "id": "HIND-USABLE-DICE-BELOW-2",
+      "status": "provisional_owner_approved",
+      "source": "src/data/raw/TEST_SCENARIOS.md#f036",
+      "scope": "golden scenario when Labor III is undefeated",
+      "note": "Preserve the inherited owner-approved testing status; designer confirmation is not established."
+    }
+  ],
+  "reproducibility_status": "REPRODUCED_EXACTLY",
+  "reproducibility_evidence_path": "orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-reproduction.json",
+  "method_limitations": [
+    "These conclusions apply to the exact e1-m0007 pins and assigned VAL-004 cases. No whole-game certification or PM gate decision is made.",
+    "Negative replay controls modify only in-memory copies of terminal evidence; all original inputs and player choices remain unchanged. Exact error-field comparisons are preserved. The helper exposes no private partial-state observer on rejection.",
+    "The stale inactive-source state comes from F052. The explicit VAL-004 rejection requirement governs the expected exception, while the fixture supplies full unchanged-state expectations. The four F053 states are instantiated from the pinned full regression context and exact overrides.",
+    "Golden gameplay is freshly executed with independent SHA256 auditing, full command consumption and complete state snapshots. The 270-operation trace, five full checkpoint states and terminal state exactly match accepted VAL-003 evidence; historical PASS is used only as a comparison target.",
+    "Unmodified helper output matches its prior output exactly. Comparing helper output to the independent detailed driver normalizes only explanatory text on permanent historical orphan entries; no gameplay or random-material field is normalized.",
+    "Labor VIII is an explicit fixed post-roll scenario with no preceding gameplay history and zero RNG. Its ten operation states and full final state match the accepted base scenario. Other unassigned F047-F054 cases and direct failure paths were not executed.",
+    "The inherited Hind soft-lock rule retains provisional_owner_approved status. No new designer confirmation or physical component inspection is claimed.",
+    "The implementation 95-test suite remains inherited implementation evidence. This run used locked compilation and independent scenario/negative-control checks; it did not rerun that suite, regenerate content, test UI or alter engine/canon."
+  ],
+  "publication_freshness": {
+    "remote_commit": "18440b2637c94807213483a73664d8a2a0f3f366",
+    "claim_owner_verified": true,
+    "unexpired": true,
+    "expires_at": "2026-09-14T07:50:55.9928238+00:00",
+    "manifest_revision": "e1-m0007",
+    "input_pins_unchanged": true,
+    "checked_at": "2026-09-14T06:02:26.510Z"
+  },
+  "recommended_next_action": "PM review and accept VAL-004 for its declared scope, assess the two existing residual findings using the fresh rejection and unchanged-scenario evidence, and record any supported issue dispositions and gate decisions. No further worker execution is needed unless PM releases another task.",
+  "canonical_update_required": false,
+  "engine_or_canon_repaired": false,
+  "rerun_required": false,
+  "inputs": [
+    {
+      "id": "game-data",
+      "path": "src/data/raw/GAME_DATA_v4.json",
+      "kind": "blob",
+      "git_object": "9407bd9cb58eae1d8cd7a1495a65275e3ef644e1",
+      "source_commit": "6bffa094431d84429ed93339d48f839bcc5a2302",
+      "sha256_git_bytes": "b32c1e902d200e25e59d475c9453c97e4687603aaecf3f948250fe1bec844ac4",
+      "observed_commit": "18440b2637c94807213483a73664d8a2a0f3f366",
+      "verification_scope": "current promoted working input",
+      "matched": true
+    },
+    {
+      "id": "data-schema",
+      "path": "src/data/raw/GAME_DATA_SCHEMA.md",
+      "kind": "blob",
+      "git_object": "d9300f6ae1d04cb6772a901a1ed15af34ba814ea",
+      "source_commit": "6bffa094431d84429ed93339d48f839bcc5a2302",
+      "sha256_git_bytes": "7b857d72ed6982c94d9e2fd1bae7d3b1187065b57ec9fe1bab95ef9a5d9e9d97",
+      "observed_commit": "18440b2637c94807213483a73664d8a2a0f3f366",
+      "verification_scope": "current promoted working input",
+      "matched": true
+    },
+    {
+      "id": "rules-spec",
+      "path": "src/data/raw/GAME_RULES_SPEC.md",
+      "kind": "blob",
+      "git_object": "07cea77200d58483e39eed0d702efd022dc840a0",
+      "source_commit": "6bffa094431d84429ed93339d48f839bcc5a2302",
+      "sha256_git_bytes": "34ddfe22914b78e6e479e236e5e063b962839efccc88ae93b508230b10f51893",
+      "observed_commit": "18440b2637c94807213483a73664d8a2a0f3f366",
+      "verification_scope": "current promoted working input",
+      "matched": true
+    },
+    {
+      "id": "execution-spec",
+      "path": "src/data/raw/hercules_engine_execution_spec_v0_13.md",
+      "kind": "blob",
+      "git_object": "da5f94c4437cdff2366efc161eac1f187aca1a87",
+      "source_commit": "6bffa094431d84429ed93339d48f839bcc5a2302",
+      "sha256_git_bytes": "5b2c52c9862db8ce3573bed12af891b2cfb94cca450fc789d7f7bc9a38565492",
+      "observed_commit": "18440b2637c94807213483a73664d8a2a0f3f366",
+      "verification_scope": "current promoted working input",
+      "matched": true
+    },
+    {
+      "id": "test-scenarios",
+      "path": "src/data/raw/TEST_SCENARIOS.md",
+      "kind": "blob",
+      "git_object": "0b51c516eb5c287c7d39bfbf2f50b9cd92128b86",
+      "source_commit": "6bffa094431d84429ed93339d48f839bcc5a2302",
+      "sha256_git_bytes": "0bb3f1d88778f4ceea906e5911e68d0d97f97ac7658781e79d362e261e2cdae7",
+      "observed_commit": "18440b2637c94807213483a73664d8a2a0f3f366",
+      "verification_scope": "current promoted working input",
+      "matched": true
+    },
+    {
+      "id": "test-fixtures",
+      "path": "src/data/raw/TEST_FIXTURES_v4.json",
+      "kind": "blob",
+      "git_object": "cadae99fd2c7205d29f17375a36bc70df3e629b3",
+      "source_commit": "6bffa094431d84429ed93339d48f839bcc5a2302",
+      "sha256_git_bytes": "31459edf0c79ad29bfe3a02b40a4b4a7ec1b6676ed11b7e4f69b7fa14439d14e",
+      "observed_commit": "18440b2637c94807213483a73664d8a2a0f3f366",
+      "verification_scope": "current promoted working input",
+      "matched": true
+    },
+    {
+      "id": "package-manifest",
+      "path": "src/data/raw/HANDOFF_MANIFEST.json",
+      "kind": "blob",
+      "git_object": "766c18906cc20578ef5fc7d11c5e6a82bc4d9d54",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "sha256_git_bytes": "c249e816d87bb2f7c2e715caddf7a0d3d27bef83434b6f91b86652be60548078",
+      "observed_commit": "18440b2637c94807213483a73664d8a2a0f3f366",
+      "verification_scope": "current promoted working input",
+      "matched": true
+    },
+    {
+      "id": "package-checksums",
+      "path": "src/data/raw/SHA256SUMS.json",
+      "kind": "blob",
+      "git_object": "aebdce242d075b500df9f8624f0b471c9f5d040f",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "sha256_git_bytes": "47b5b40c7d7265f35eee89ae36001dace681ebc2ff2b1f4b2bdaf47691059094",
+      "observed_commit": "18440b2637c94807213483a73664d8a2a0f3f366",
+      "verification_scope": "current promoted working input",
+      "matched": true
+    },
+    {
+      "id": "implementation-brief",
+      "path": "src/data/raw/IMPLEMENTATION_BRIEF.md",
+      "kind": "blob",
+      "git_object": "7abba014243ce1e5cd68c922018fed5c5a383ba1",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "sha256_git_bytes": "cf7696152ecefd32ff2307eb2137da0df6e3ff5cebcfa519b917e6621fe7fad4",
+      "observed_commit": "18440b2637c94807213483a73664d8a2a0f3f366",
+      "verification_scope": "current promoted working input",
+      "matched": true
+    },
+    {
+      "id": "presentation-flow",
+      "path": "src/data/raw/PRESENTATION_FLOW.md",
+      "kind": "blob",
+      "git_object": "2bcb04974b018a50dc4f481fc8c35c5e44d52e04",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "sha256_git_bytes": "5cc092125143bf6c2296df42b51b609e3599948587a3c0c09d18cb8d44ec6d4b",
+      "observed_commit": "18440b2637c94807213483a73664d8a2a0f3f366",
+      "verification_scope": "current promoted working input",
+      "matched": true
+    },
+    {
+      "id": "golden-record",
+      "path": "src/data/raw/golden/HERC-GOLDEN-RUN-0001_golden_run_record.json",
+      "kind": "blob",
+      "git_object": "8d4dd7d3e8137d28d1e931be514ba8bfe4c1474d",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "sha256_git_bytes": "2c7264dd7a1baa8f2907c013bf195986df6b0aebc2319dc9bee95a82ec1b9061",
+      "observed_commit": "18440b2637c94807213483a73664d8a2a0f3f366",
+      "verification_scope": "current promoted working input",
+      "matched": true
+    },
+    {
+      "id": "golden-script",
+      "path": "src/data/raw/golden/HERC-GOLDEN-RUN-0001_replay_script_v2_normalized.json",
+      "kind": "blob",
+      "git_object": "da24321337d3c297d858d58b8e2c292fad937eb1",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "sha256_git_bytes": "e342e1891616ebb319f3a355515af97709ab560eac7192fb98c349b4e8a7da59",
+      "observed_commit": "18440b2637c94807213483a73664d8a2a0f3f366",
+      "verification_scope": "current promoted working input",
+      "matched": true
+    },
+    {
+      "id": "golden-prior-report",
+      "path": "src/data/raw/golden/HERC-GOLDEN-RUN-0001_replay_validation_report.json",
+      "kind": "blob",
+      "git_object": "866da0a2c60aac30545e6cdbbf2f8a532f0cc82b",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "sha256_git_bytes": "b27ab485c2791f61b97173d63756bb6e24b10ff78d1ccb49baa60475fe0814e1",
+      "observed_commit": "18440b2637c94807213483a73664d8a2a0f3f366",
+      "verification_scope": "current promoted working input",
+      "matched": true
+    },
+    {
+      "id": "historical-engine",
+      "path": "src/engine",
+      "kind": "tree",
+      "git_object": "dac7a33b4fea961c4ba10fed79eda3da5f719211",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "sha256_git_bytes": null,
+      "observed_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "verification_scope": "superseded historical object only; never executed",
+      "matched": true
+    },
+    {
+      "id": "rng-implementation",
+      "path": "src/rng",
+      "kind": "tree",
+      "git_object": "574ad2efc0e8fb67c3e38ebbd0f56c41755a6cdf",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "sha256_git_bytes": null,
+      "observed_commit": "18440b2637c94807213483a73664d8a2a0f3f366",
+      "verification_scope": "current promoted working input",
+      "matched": true
+    },
+    {
+      "id": "replay-implementation",
+      "path": "src/replay",
+      "kind": "tree",
+      "git_object": "8df5cbcbd7e2733e829c5c0abea0005381ba7433",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "sha256_git_bytes": null,
+      "observed_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "verification_scope": "superseded historical object only; never executed",
+      "matched": true
+    },
+    {
+      "id": "generated-data",
+      "path": "src/data/generated",
+      "kind": "tree",
+      "git_object": "a9238f5f4600fd0f5d7ad5f27590bf8833734605",
+      "source_commit": "6bffa094431d84429ed93339d48f839bcc5a2302",
+      "sha256_git_bytes": null,
+      "observed_commit": "18440b2637c94807213483a73664d8a2a0f3f366",
+      "verification_scope": "current promoted working input",
+      "matched": true
+    },
+    {
+      "id": "existing-tests",
+      "path": "test",
+      "kind": "tree",
+      "git_object": "953f11900a4467a8f7807b5b437c677f3b12ea22",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "sha256_git_bytes": null,
+      "observed_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "verification_scope": "superseded historical object only; never executed",
+      "matched": true
+    },
+    {
+      "id": "package",
+      "path": "package.json",
+      "kind": "blob",
+      "git_object": "ec00f499a965e96db2ca4d0b8e4cda50e7bea805",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "sha256_git_bytes": "57309a5e04e6b3368f5edaaac040d86680442d7abae76f5567d793e96a1e1fd9",
+      "observed_commit": "18440b2637c94807213483a73664d8a2a0f3f366",
+      "verification_scope": "current promoted working input",
+      "matched": true
+    },
+    {
+      "id": "lockfile",
+      "path": "pnpm-lock.yaml",
+      "kind": "blob",
+      "git_object": "f974b55ecfee5f821216dd2ee26e6a4cb85e1737",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "sha256_git_bytes": "fe4a0dac8359a8b6252c5e3e4d02a2f8158ada9b7f6189f8e6c0f7e1f653c28e",
+      "observed_commit": "18440b2637c94807213483a73664d8a2a0f3f366",
+      "verification_scope": "current promoted working input",
+      "matched": true
+    },
+    {
+      "id": "tsconfig",
+      "path": "tsconfig.json",
+      "kind": "blob",
+      "git_object": "e10045c9619b6c3d47281654d968c7dfb8217c48",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "sha256_git_bytes": "1e0f0d23494bc5e21924b2f287bfa8f1f734579037fa6355db4be2fde3528545",
+      "observed_commit": "18440b2637c94807213483a73664d8a2a0f3f366",
+      "verification_scope": "current promoted working input",
+      "matched": true
+    },
+    {
+      "id": "tools-tsconfig",
+      "path": "tsconfig.tools.json",
+      "kind": "blob",
+      "git_object": "874248bd29f4521f9fa3e14e9356639ed800847a",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "sha256_git_bytes": "dc70f5b95f167083c3cf9e2223c5b5fe929876736b9ea549b556a4fb5c670e80",
+      "observed_commit": "18440b2637c94807213483a73664d8a2a0f3f366",
+      "verification_scope": "current promoted working input",
+      "matched": true
+    },
+    {
+      "id": "data-generator",
+      "path": "src/data/generate.ts",
+      "kind": "blob",
+      "git_object": "c018bb23e59239d6873d6f7cd0d4aa6482e1acd2",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "sha256_git_bytes": "8b1809a8119a16da7eeae0dc38484135a025675849e1a86b77c71fec597dcbf3",
+      "observed_commit": "18440b2637c94807213483a73664d8a2a0f3f366",
+      "verification_scope": "current promoted working input",
+      "matched": true
+    },
+    {
+      "id": "data-validator",
+      "path": "src/data/validation.ts",
+      "kind": "blob",
+      "git_object": "df88d2d5aa065f8de8ef653924ed8a1704315415",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "sha256_git_bytes": "62671ac1f74e16970d8956556b11b8c72ad53db083a3989588ec25c515bc4ab1",
+      "observed_commit": "18440b2637c94807213483a73664d8a2a0f3f366",
+      "verification_scope": "current promoted working input",
+      "matched": true
+    },
+    {
+      "id": "official-rulebook",
+      "path": "src/data/raw/sources/Hercules_Rules_104x155.pdf",
+      "kind": "blob",
+      "git_object": "bb1662bbede6a183bfe5b5548a126d20099a496b",
+      "source_commit": null,
+      "sha256_git_bytes": "de7d479426b40fd94935be85ef09e37ef30f2d00c5f8fcd4b20ab39b6720ef4a",
+      "observed_commit": "18440b2637c94807213483a73664d8a2a0f3f366",
+      "verification_scope": "current promoted working input",
+      "matched": true
+    },
+    {
+      "id": "verified-reference",
+      "path": "src/data/raw/sources/Hercules_Verified_Gameplay_Reference_v12.md",
+      "kind": "blob",
+      "git_object": "9b806258acc2a7daa60224d66e27c83baa2e6a0c",
+      "source_commit": null,
+      "sha256_git_bytes": "d3cc41b91fb32440c6970cad0d148222ffa9e9e08c277c361fd1f0ce6082ffde",
+      "observed_commit": "18440b2637c94807213483a73664d8a2a0f3f366",
+      "verification_scope": "current promoted working input",
+      "matched": true
+    },
+    {
+      "id": "rng-spec",
+      "path": "src/data/raw/sources/Hercules_RNG_Spec_v3.md",
+      "kind": "blob",
+      "git_object": "c1b70237e259cacf7a913f7ffccb1344a01189ac",
+      "source_commit": null,
+      "sha256_git_bytes": "6e735e6eee584d2c0ac754d620e6b46c35dd40883ccfc843a6aa289bc7b7d988",
+      "observed_commit": "18440b2637c94807213483a73664d8a2a0f3f366",
+      "verification_scope": "current promoted working input",
+      "matched": true
+    },
+    {
+      "id": "rs-001-readiness",
+      "path": "orchestration/validation/RS-001-readiness.json",
+      "kind": "blob",
+      "git_object": "6fd8a445afc98455a252f74a0eccbf62a0e8c2af",
+      "source_commit": "3c9c8e4e15eaf287b5fec6e9a9a00cbd5d76272f",
+      "sha256_git_bytes": "f795dc3782f89c390436567c051273855ef3bc7959fb8d528b2fcfe58a8ab374",
+      "observed_commit": "18440b2637c94807213483a73664d8a2a0f3f366",
+      "verification_scope": "current promoted working input",
+      "matched": true
+    },
+    {
+      "id": "golden-start-state",
+      "path": "orchestration/validation/RS-001-golden-start-state.json",
+      "kind": "blob",
+      "git_object": "2c1d1b69692c3e38edba8bd42adf2bd42fe5826c",
+      "source_commit": "3c9c8e4e15eaf287b5fec6e9a9a00cbd5d76272f",
+      "sha256_git_bytes": "3c4f8de10b411a612ab04b860750886c360e25d7056fcc7890dcdda28f6eb289",
+      "observed_commit": "18440b2637c94807213483a73664d8a2a0f3f366",
+      "verification_scope": "current promoted working input",
+      "matched": true
+    },
+    {
+      "id": "rs-002-handoff",
+      "path": "orchestration/handoffs/RS-002-rules-spec-20260913T131948Z-6e6af8.json",
+      "kind": "blob",
+      "git_object": "ec4b9e65909a9f6ce98081ca0bf1a1e30ba7f11b",
+      "source_commit": "6bffa094431d84429ed93339d48f839bcc5a2302",
+      "sha256_git_bytes": "ce9ed7f73f197b813b286d484fcfdbcfa44cb4e7eaf41cf29a1489455f813944",
+      "observed_commit": "18440b2637c94807213483a73664d8a2a0f3f366",
+      "verification_scope": "current promoted working input",
+      "matched": true
+    },
+    {
+      "id": "l08-scenario",
+      "path": "orchestration/validation/RS-001-L08-scenario.json",
+      "kind": "blob",
+      "git_object": "26274cbd8d42ebb23de206545e32c1d72728c35a",
+      "source_commit": "3c9c8e4e15eaf287b5fec6e9a9a00cbd5d76272f",
+      "sha256_git_bytes": "ed12d6c59322497317ead04cd3b2d33294e9e3c1899a3737d2619d99fc60dfc7",
+      "observed_commit": "18440b2637c94807213483a73664d8a2a0f3f366",
+      "verification_scope": "current promoted working input",
+      "matched": true
+    },
+    {
+      "id": "val-001-result",
+      "path": "orchestration/validation/VAL-001-validation-20260913T152213Z-30ff45-result.json",
+      "kind": "blob",
+      "git_object": "2e980948749145ad132761336f63b7bbfdcdc8d6",
+      "source_commit": "5483df904f2c841b35a41f7faca7ad65b01b0173",
+      "sha256_git_bytes": "d4ed8a40d191f0ee803f37e5744b2f45ca9ce13321a92c3e2dfe4f7392ca81a3",
+      "observed_commit": "18440b2637c94807213483a73664d8a2a0f3f366",
+      "verification_scope": "current promoted working input",
+      "matched": true
+    },
+    {
+      "id": "val-001-handoff",
+      "path": "orchestration/handoffs/VAL-001-validation-20260913T152213Z-30ff45.json",
+      "kind": "blob",
+      "git_object": "f77fc4f96f8e520b3931cd74a49086907e1bbff3",
+      "source_commit": "5483df904f2c841b35a41f7faca7ad65b01b0173",
+      "sha256_git_bytes": "56f1b408398160742342a04a584906d944b9fbe5e1b7bb122db06d647a81b785",
+      "observed_commit": "18440b2637c94807213483a73664d8a2a0f3f366",
+      "verification_scope": "current promoted working input",
+      "matched": true
+    },
+    {
+      "id": "corrected-engine",
+      "path": "src/engine",
+      "kind": "tree",
+      "git_object": "8b39d43a90b71729d56b45fa03aaf6cd357e5e9e",
+      "source_commit": "f474d66249edf96f209257b0a9418990cdb3edf0",
+      "sha256_git_bytes": null,
+      "observed_commit": "f474d66249edf96f209257b0a9418990cdb3edf0",
+      "verification_scope": "superseded historical object only; never executed",
+      "matched": true
+    },
+    {
+      "id": "corrected-replay",
+      "path": "src/replay",
+      "kind": "tree",
+      "git_object": "c287d247e4bb2b550aabc77bc29074772319d5e3",
+      "source_commit": "f474d66249edf96f209257b0a9418990cdb3edf0",
+      "sha256_git_bytes": null,
+      "observed_commit": "f474d66249edf96f209257b0a9418990cdb3edf0",
+      "verification_scope": "superseded historical object only; never executed",
+      "matched": true
+    },
+    {
+      "id": "corrected-tests",
+      "path": "test",
+      "kind": "tree",
+      "git_object": "120159a44de8b10b6d2993cbfcaa8e4843649bed",
+      "source_commit": "6491d1db65459e83bbe951e00dd91a51934e7ff0",
+      "sha256_git_bytes": null,
+      "observed_commit": "6491d1db65459e83bbe951e00dd91a51934e7ff0",
+      "verification_scope": "superseded historical object only; never executed",
+      "matched": true
+    },
+    {
+      "id": "imp-001-handoff",
+      "path": "orchestration/handoffs/IMP-001-implementation-20260913T213517Z-b680db.json",
+      "kind": "blob",
+      "git_object": "09e257c948952535287fddc6383f6bdf7bd27705",
+      "source_commit": "f474d66249edf96f209257b0a9418990cdb3edf0",
+      "sha256_git_bytes": "20ba882a247c8edd75ac5fe86ec948f77fc335c1abe20548aa3331dae17e454c",
+      "observed_commit": "18440b2637c94807213483a73664d8a2a0f3f366",
+      "verification_scope": "current promoted working input",
+      "matched": true
+    },
+    {
+      "id": "imp-001-test-results",
+      "path": "orchestration/implementation/IMP-001-implementation-20260913T213517Z-b680db-test-results.json",
+      "kind": "blob",
+      "git_object": "13bc8abc02ad4fa6897482f30e92909f64b075d4",
+      "source_commit": "f474d66249edf96f209257b0a9418990cdb3edf0",
+      "sha256_git_bytes": "41fce416c9d5fe9f85c07e821f50c8099120d6ff60d5f2f22b01796da26f548c",
+      "observed_commit": "18440b2637c94807213483a73664d8a2a0f3f366",
+      "verification_scope": "current promoted working input",
+      "matched": true
+    },
+    {
+      "id": "imp-002-handoff",
+      "path": "orchestration/handoffs/IMP-002-implementation-20260913T223627Z-82cc42.json",
+      "kind": "blob",
+      "git_object": "55989fb8991844d0fd27293a3cef37794a6e4fc1",
+      "source_commit": "6491d1db65459e83bbe951e00dd91a51934e7ff0",
+      "sha256_git_bytes": "a18088139d2534de05e6613bf84f06c56c50d6c26468a0c021ea0fbf19c656a6",
+      "observed_commit": "18440b2637c94807213483a73664d8a2a0f3f366",
+      "verification_scope": "current promoted working input",
+      "matched": true
+    },
+    {
+      "id": "imp-002-test-results",
+      "path": "orchestration/implementation/IMP-002-implementation-20260913T223627Z-82cc42-test-results.json",
+      "kind": "blob",
+      "git_object": "814ef62fa65f4f07cdc98d7d98f6a780a9ca45e7",
+      "source_commit": "6491d1db65459e83bbe951e00dd91a51934e7ff0",
+      "sha256_git_bytes": "5e2b94bc59e3384713235c95753354c9c4c03ef1904694688f12f69b9b61bb6e",
+      "observed_commit": "18440b2637c94807213483a73664d8a2a0f3f366",
+      "verification_scope": "current promoted working input",
+      "matched": true
+    },
+    {
+      "id": "val-003-result",
+      "path": "orchestration/validation/VAL-003-validation-20260914T015459Z-5daa2c-result.json",
+      "kind": "blob",
+      "git_object": "d465643d2f9dbb9198521a093c05e8f97e5f1f71",
+      "source_commit": "ce274602ea3145c1d8855e54c23afd48357782ec",
+      "sha256_git_bytes": "0771140d3c6e0777fd827a4b2d917090ab4f7650e0cc0a5459d4c3b89dc995ca",
+      "observed_commit": "18440b2637c94807213483a73664d8a2a0f3f366",
+      "verification_scope": "current promoted working input",
+      "matched": true
+    },
+    {
+      "id": "val-003-handoff",
+      "path": "orchestration/handoffs/VAL-003-validation-20260914T015459Z-5daa2c.json",
+      "kind": "blob",
+      "git_object": "7dce1f0a991c13d826343a971d12557e9af8dae1",
+      "source_commit": "ce274602ea3145c1d8855e54c23afd48357782ec",
+      "sha256_git_bytes": "f6f9aaa4aba38602dd60c178d36fe43752e3b16976c86bb4bc97fcb96f2928e5",
+      "observed_commit": "18440b2637c94807213483a73664d8a2a0f3f366",
+      "verification_scope": "current promoted working input",
+      "matched": true
+    },
+    {
+      "id": "val-003-replay-evidence",
+      "path": "orchestration/validation/VAL-003-validation-20260914T015459Z-5daa2c-replay-issue-evidence.json",
+      "kind": "blob",
+      "git_object": "55083641e9562d1cf7096bd5f0a9b153e65afba3",
+      "source_commit": "ce274602ea3145c1d8855e54c23afd48357782ec",
+      "sha256_git_bytes": "83c8972a906f172c024c1dc6dfbf8e39422d2b28fd30d5214badf439742cc973",
+      "observed_commit": "18440b2637c94807213483a73664d8a2a0f3f366",
+      "verification_scope": "current promoted working input",
+      "matched": true
+    },
+    {
+      "id": "val-003-implementation-evidence",
+      "path": "orchestration/validation/VAL-003-validation-20260914T015459Z-5daa2c-implementation-evidence.json",
+      "kind": "blob",
+      "git_object": "d0f3e3998090edb36f5d50c5ea68e4ba1edc440b",
+      "source_commit": "ce274602ea3145c1d8855e54c23afd48357782ec",
+      "sha256_git_bytes": "f403c0b2c7595091994c3128ec3f2f97b8e5eceb02749ddb9c0b2ce973ed1421",
+      "observed_commit": "18440b2637c94807213483a73664d8a2a0f3f366",
+      "verification_scope": "current promoted working input",
+      "matched": true
+    },
+    {
+      "id": "residual-corrected-engine",
+      "path": "src/engine",
+      "kind": "tree",
+      "git_object": "2872f15d3d6c8448f75518bfd431e87e0f9bf6f5",
+      "source_commit": "c8599a5d72a730710cb6c8c8bebd8407923c638b",
+      "sha256_git_bytes": null,
+      "observed_commit": "18440b2637c94807213483a73664d8a2a0f3f366",
+      "verification_scope": "current promoted working input",
+      "matched": true
+    },
+    {
+      "id": "residual-corrected-replay",
+      "path": "src/replay",
+      "kind": "tree",
+      "git_object": "d80db607146f2092b685729135d70ee60e890501",
+      "source_commit": "c8599a5d72a730710cb6c8c8bebd8407923c638b",
+      "sha256_git_bytes": null,
+      "observed_commit": "18440b2637c94807213483a73664d8a2a0f3f366",
+      "verification_scope": "current promoted working input",
+      "matched": true
+    },
+    {
+      "id": "residual-corrected-tests",
+      "path": "test",
+      "kind": "tree",
+      "git_object": "fd07b3e414843a0648b5fa2d6b761bcd4e57eb6c",
+      "source_commit": "c8599a5d72a730710cb6c8c8bebd8407923c638b",
+      "sha256_git_bytes": null,
+      "observed_commit": "18440b2637c94807213483a73664d8a2a0f3f366",
+      "verification_scope": "current promoted working input",
+      "matched": true
+    },
+    {
+      "id": "imp-003-handoff",
+      "path": "orchestration/handoffs/IMP-003-implementation-20260914T034832Z-e1b1db.json",
+      "kind": "blob",
+      "git_object": "79652d37c60a49575b4eaabea374ccc5bad20c7d",
+      "source_commit": "c8599a5d72a730710cb6c8c8bebd8407923c638b",
+      "sha256_git_bytes": "8ed2b32cb5a0718ee11e70a9f362b92e986b3b8f2456d6bf0f118ab4dfaa4c96",
+      "observed_commit": "18440b2637c94807213483a73664d8a2a0f3f366",
+      "verification_scope": "current promoted working input",
+      "matched": true
+    },
+    {
+      "id": "imp-003-test-results",
+      "path": "orchestration/implementation/IMP-003-implementation-20260914T034832Z-e1b1db-test-results.json",
+      "kind": "blob",
+      "git_object": "b562603e6162024442eeb10353ef66e9524c3a74",
+      "source_commit": "c8599a5d72a730710cb6c8c8bebd8407923c638b",
+      "sha256_git_bytes": "8ee6fe3eb2cbc622909aca98cc6ce99402c48043dfb2669e17fdce1f5eda354a",
+      "observed_commit": "18440b2637c94807213483a73664d8a2a0f3f366",
+      "verification_scope": "current promoted working input",
+      "matched": true
+    }
+  ],
+  "changed_artifacts": [
+    {
+      "path": "orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-build-log.txt",
+      "before_git_object": null,
+      "after_git_object": "de6f8e96eea1bdc6c3725b3c48aa915a2efb70c7",
+      "sha256": "70e39171e3ec016bcbc9fdd7c9a14cff7157415e603099c0e8246c69e8a40d06"
+    },
+    {
+      "path": "orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-common.mjs",
+      "before_git_object": null,
+      "after_git_object": "608ff330e341ae69c80e6929bb099ab34482af53",
+      "sha256": "ff3aa099355a13411d92a50a42279d5730dd8ab90fc03680ba200405e1d849a7"
+    },
+    {
+      "path": "orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-equivalence.json",
+      "before_git_object": null,
+      "after_git_object": "5f6c089cf9cad3bd9a9fdbce19e53dfe519f1035",
+      "sha256": "3f5a7fa8fe402f6d67911a13b71377111f528c87ea0099ab8b273ce008cd9613"
+    },
+    {
+      "path": "orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-equivalence.mjs",
+      "before_git_object": null,
+      "after_git_object": "66c1b75265cd91eaeeb65fafe2bf8d4b7f9d7db6",
+      "sha256": "16e42e55b427735279a0561d5a61caa3da0294dde3bfd9749a0029f9764e0ece"
+    },
+    {
+      "path": "orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-golden-checkpoints.json",
+      "before_git_object": null,
+      "after_git_object": "74f647cc21575b3f33481a79f4324895dee61135",
+      "sha256": "2ac6fcd62c82d72565133d108d3ff40f4139c8f03bbd4848a690c65ba736af84"
+    },
+    {
+      "path": "orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-golden-execution-log.txt",
+      "before_git_object": null,
+      "after_git_object": "25831eddf8bb10590c2779c4abbb526104fcfd54",
+      "sha256": "4fa76382640a2e9eea730ac462421c241bcb0b11db8486ccb6a98073b7e03745"
+    },
+    {
+      "path": "orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-golden-input-verification.json",
+      "before_git_object": null,
+      "after_git_object": "d0b96e4b369b0c03ae722ed0e0f205894d414cc1",
+      "sha256": "0aa35797a548623ae250e58542c88d5e0984d1a3c89957e13dcd1597c003eae7"
+    },
+    {
+      "path": "orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-golden-replay-summary.json",
+      "before_git_object": null,
+      "after_git_object": "d1d63c11f39a402c772478b71991c5ee73cce78b",
+      "sha256": "83e6e972436664e37ebaf402b39e95103b44a7400b45b60084a3af4f07258aee"
+    },
+    {
+      "path": "orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-golden-rng-ledger.json",
+      "before_git_object": null,
+      "after_git_object": "d940be9910f770ddcf5e3c7b9aeb95edccb10ea8",
+      "sha256": "a4aec9585999e1973c00af54707277ff1b794e77cb5a99cee538f46639d367c1"
+    },
+    {
+      "path": "orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-golden-trace.jsonl",
+      "before_git_object": null,
+      "after_git_object": "240b83733b14d51fccfb90e1e8c80d4633b41516",
+      "sha256": "67c1b0f54783106b80710ddbe845b4465a3266a89efcbf67800b7ac3e66c5ee5"
+    },
+    {
+      "path": "orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-golden.mjs",
+      "before_git_object": null,
+      "after_git_object": "da1da459e5e749c353bea3d272540cdbf7dc0d4b",
+      "sha256": "beecb5befebcfd2d38196ecbcec47f1099d684a606231998c541da4598bf81bd"
+    },
+    {
+      "path": "orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-input-verification.json",
+      "before_git_object": null,
+      "after_git_object": "1294ba56325b3bb32079ede02fa2f9c59fc0f398",
+      "sha256": "d926529b726be38bc64e639d47767b64e66b35908fbde4b5845b2d80ab8259fa"
+    },
+    {
+      "path": "orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-issue-verification.json",
+      "before_git_object": null,
+      "after_git_object": "5cbb11ce97910affb545fe4babb2d29d286bbfb8",
+      "sha256": "34bf9b7cd8ec3e7acc1b15bb33b4ba3dcab91ab3f4b5f5bdd61c7a9de6768b64"
+    },
+    {
+      "path": "orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-l08-checkpoints.json",
+      "before_git_object": null,
+      "after_git_object": "9133308b82432d1b0a635e0723d22745f09d2290",
+      "sha256": "5ac99f706df5f0a1ceeb662f264ffe831ed50910e9116288c29ff2843aa783ea"
+    },
+    {
+      "path": "orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-l08-execution-log.txt",
+      "before_git_object": null,
+      "after_git_object": "a1acb7b749748e0837a3367090808808ef02850d",
+      "sha256": "a41fd68696c71bcd8ab25dcec8b2b117cae61472f3d95c0a94ffed5dc6ece85a"
+    },
+    {
+      "path": "orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-l08-execution-summary.json",
+      "before_git_object": null,
+      "after_git_object": "c28e416e86b4099b362efcd1870079bba9ad83fd",
+      "sha256": "48c7335f569fb2fdb109f4042b5ba611e86f30fd2dbb10cfbc1de609c3048cf6"
+    },
+    {
+      "path": "orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-l08-input-verification.json",
+      "before_git_object": null,
+      "after_git_object": "3f1fdb38cf96cd058e62a98ab9d1b00ae1d3af60",
+      "sha256": "96168fc60f45d9a3a2847c07f165478bc77d1c622c57072ba8bdecb473e8d55b"
+    },
+    {
+      "path": "orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-l08-rng-ledger.json",
+      "before_git_object": null,
+      "after_git_object": "0ed2b0734353f5cc2ba2b2593bee77171fade623",
+      "sha256": "45b730ebc030842bd318b2f18b52a74a7650b7a4099859da9bde27cad89366ac"
+    },
+    {
+      "path": "orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-l08.mjs",
+      "before_git_object": null,
+      "after_git_object": "cbed12247ce844708be3b64f410c10385b5e6741",
+      "sha256": "74aac310116eccc5de282cdc172eac8cb77f5b370e1739a174dffc9b5b67bff4"
+    },
+    {
+      "path": "orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-report.mjs",
+      "before_git_object": null,
+      "after_git_object": "cc4df168672f96a1c3187b95f9f004a59a676207",
+      "sha256": "31a410887bbaa073bfeaf5c0480ca8cf540ea7b11764b265e063ca685e15d6a9"
+    },
+    {
+      "path": "orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-reproduction.json",
+      "before_git_object": null,
+      "after_git_object": "ce61b3e129695abb169e4295535e134365dcb131",
+      "sha256": "04b2ed98edee73d69bdb41e637289d7c93ab15e724aebd4a1bcb46879644240d"
+    },
+    {
+      "path": "orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-residuals.json",
+      "before_git_object": null,
+      "after_git_object": "191a551969563ebbe7d99e1efe48882e658f1b3b",
+      "sha256": "582af9b9d9ee32d914423f7797e5d7cf94988aa4ed2646da417e701001541678"
+    },
+    {
+      "path": "orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-residuals.mjs",
+      "before_git_object": null,
+      "after_git_object": "8861b638a4f3bc1885d10f65f88e928f5742a75d",
+      "sha256": "30f6e144c6941362b0d55554bd0bdf4aa4e46d34036ddc56a1c81b4cd5080afe"
+    },
+    {
+      "path": "orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-result.json",
+      "before_git_object": null,
+      "after_git_object": "e5d49957b45b53ebb622fc1d537a08cb18e46ceb",
+      "sha256": "3a11d71ca8ad5c0475557fa49b46c389c0aabb7ba91c371431632857c8b4f379"
+    },
+    {
+      "path": "orchestration/tasks/VAL-004.json",
+      "before_git_object": "db6f14aac9a85414761319503a05bc0a3af350a4",
+      "after_git_object": "a46a510a690d2ecf8da129fb725373d9414d0ac1",
+      "sha256": "596a01cd02f4da60ec491d8c173a561a43a152f031629c9fe18ba05af32070ce"
+    }
+  ],
+  "decisions": [
+    "Verify all 49 manifest pins and 23 referenced prior evidence objects before execution. Six superseded trees are verified at their source commits only; current code uses the three residual-corrected trees.",
+    "Run the assigned rejection controls from exact pinned starts; require the expected exception and full state/RNG preservation.",
+    "Freshly execute both complete scenarios and compare full states, checkpoints, command consumption and Golden trace with the accepted baseline.",
+    "Preserve every prior artifact and issue disposition; submit PASS evidence for PM review without modifying canon, implementation or gates."
+  ],
+  "assumptions": [
+    {
+      "type": "explicit_fixed_fixture",
+      "detail": "Labor VIII fixed faces are constructed, not random outcomes; active Haunted B already resolved and hidden order comes from the complete pinned context."
+    },
+    {
+      "type": "inherited_scoped_provisional_rule",
+      "detail": [
+        {
+          "id": "HIND-USABLE-DICE-BELOW-2",
+          "status": "provisional_owner_approved",
+          "source": "src/data/raw/TEST_SCENARIOS.md#f036",
+          "scope": "golden scenario when Labor III is undefeated",
+          "note": "Preserve the inherited owner-approved testing status; designer confirmation is not established."
+        }
+      ]
+    }
+  ],
+  "unresolved_items": [],
+  "deliverable_paths": [
+    "orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-build-log.txt",
+    "orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-common.mjs",
+    "orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-equivalence.json",
+    "orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-equivalence.mjs",
+    "orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-golden-checkpoints.json",
+    "orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-golden-execution-log.txt",
+    "orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-golden-input-verification.json",
+    "orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-golden-replay-summary.json",
+    "orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-golden-rng-ledger.json",
+    "orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-golden-trace.jsonl",
+    "orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-golden.mjs",
+    "orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-input-verification.json",
+    "orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-issue-verification.json",
+    "orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-l08-checkpoints.json",
+    "orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-l08-execution-log.txt",
+    "orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-l08-execution-summary.json",
+    "orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-l08-input-verification.json",
+    "orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-l08-rng-ledger.json",
+    "orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-l08.mjs",
+    "orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-report.mjs",
+    "orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-reproduction.json",
+    "orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-residuals.json",
+    "orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-residuals.mjs",
+    "orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-result.json",
+    "orchestration/handoffs/VAL-004-validation-20260914T055055Z-b9a0bf.json"
+  ],
+  "validation_required": "PM review of this containing commit and scope. A fresh worker rerun is required only after changed inputs or a newly released task.",
+  "regression_implications": [
+    "Retain terminal face/order negative controls with first-field error assertions.",
+    "Retain all F053 and stale inactive-source rejection checks for both immediate and queued resource modes with full unchanged-state/RNG comparison.",
+    "Preserve exact Golden and constructed L08 scenario outputs, RNG commitments, orphan entries and complete checkpoints."
+  ],
+  "validation_mode": [
+    "deterministic_replay",
+    "targeted_regression",
+    "replay_negative_controls"
+  ],
+  "scenario_id": [
+    "HERC-GOLDEN-RUN-0001",
+    "RS-001-L08-CONSTRUCTED-001",
+    "F053",
+    "F052/stale_queued_inactive_source"
+  ],
+  "start_state_path": {
+    "golden": "orchestration/validation/RS-001-golden-start-state.json#/pre_setup_state",
+    "golden_first_ready": "orchestration/validation/RS-001-golden-start-state.json#/first_ready_to_roll_state",
+    "l08": "orchestration/validation/RS-001-L08-scenario.json#/start_state",
+    "healing": "src/data/raw/TEST_FIXTURES_v4.json#/regression_contexts/RS-002-L08/start_state; exact F053/F052 case overrides in residuals.json"
+  },
+  "rng": [
+    {
+      "scenario": "golden",
+      "algorithm": "SHA256_COUNTER_V1",
+      "policy": "HERC-RNG-v3",
+      "seed": "HERC-GOLDEN-RUN-0001",
+      "start_index": 0,
+      "end_index": 174,
+      "orphaned_ranges": [
+        [
+          18,
+          25
+        ]
+      ],
+      "ledger_path": "orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-golden-rng-ledger.json",
+      "hidden_order_source": "orchestration/validation/RS-001-golden-start-state.json#/pre_setup_state/mood"
+    },
+    {
+      "scenario": "l08_and_healing_controls",
+      "algorithm": "SHA256_COUNTER_V1",
+      "policy": "HERC-RNG-v3",
+      "seed": "RS-001-L08-FIXED",
+      "start_index": 0,
+      "end_index": 0,
+      "orphaned_ranges": [],
+      "fixed_faces_are_random_outcomes": false,
+      "ledger_path": "orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-l08-rng-ledger.json",
+      "hidden_order_source": "orchestration/validation/RS-001-L08-scenario.json#/start_state/mood"
+    }
+  ],
+  "player_choice_source": {
+    "golden": "src/data/raw/golden/HERC-GOLDEN-RUN-0001_replay_script_v2_normalized.json#/inputs",
+    "l08": "orchestration/validation/RS-001-L08-scenario.json#/actions",
+    "negative_controls": "orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-residuals.mjs"
+  },
+  "checkpoints_reached": {
+    "golden": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "golden_terminal": true,
+    "l08": [
+      "after placement",
+      "after damage, before advancement",
+      "after advancement",
+      "after impacts",
+      "after failure check and cleanup"
+    ],
+    "negative_controls": [
+      "terminal_H1_face",
+      "terminal_hidden_order",
+      "first_Hercules_field_with_two_differences",
+      "first_terminal_field_with_order_and_face_differences",
+      "F053_missing_source_immediate",
+      "F053_missing_source_queued",
+      "F053_unknown_source_immediate",
+      "F053_unknown_source_queued",
+      "F053_wrong_track_source_immediate",
+      "F053_wrong_track_source_queued",
+      "F053_source_not_on_entered_node_immediate",
+      "F053_source_not_on_entered_node_queued",
+      "F052_stale_queued_inactive_source_immediate",
+      "F052_stale_queued_inactive_source_queued"
+    ]
+  },
+  "terminal_state_path": {
+    "golden": "orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-golden-checkpoints.json#/terminal_state",
+    "l08": "orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-l08-checkpoints.json#/terminal_state"
+  },
+  "execution_command": [
+    "pnpm install --frozen-lockfile",
+    "pnpm exec tsc -p tsconfig.json",
+    "node orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-residuals.mjs --check",
+    "node orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-l08.mjs --check",
+    "node orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-golden.mjs --check",
+    "node orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-equivalence.mjs --check"
+  ],
+  "reproducibility_procedure": "Use the containing delivery commit in an isolated checkout of the experiment lineage. Install locked dependencies and compile only with the listed commands; do not invoke content generation. Execute --check commands in listed order to reverify pins and compare exact recorded outputs. Check mode permits historical reproduction after claim expiry but rejects changed manifests or input objects. Each negative control uses a fresh complete state; positive scenarios consume the exact prescribed actions. No report generation or task mutation is needed for reproduction.",
+  "tool_output_path": [
+    "orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-build-log.txt",
+    "orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-residuals.json",
+    "orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-l08-execution-log.txt",
+    "orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-golden-execution-log.txt",
+    "orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-equivalence.json",
+    "orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-reproduction.json"
+  ],
+  "acceptance_criteria_status": [
+    {
+      "criterion": 1,
+      "text": "Verify every promoted input pin before execution.",
+      "status": "SATISFIED",
+      "evidence": "orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-input-verification.json"
+    },
+    {
+      "criterion": 2,
+      "text": "Replay terminal Hercules-face and hidden-order mismatches must fail at the first differing field.",
+      "status": "SATISFIED",
+      "evidence": "orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-residuals.json"
+    },
+    {
+      "criterion": 3,
+      "text": "Invalid and stale healing source contexts must be rejected without state or RNG mutation.",
+      "status": "SATISFIED",
+      "evidence": "orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-residuals.json"
+    },
+    {
+      "criterion": 4,
+      "text": "Golden and complete Labor VIII scenario outputs must remain identical to the accepted VAL-003 PASS evidence.",
+      "status": "SATISFIED",
+      "evidence": "orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-issue-verification.json"
+    },
+    {
+      "criterion": 5,
+      "text": "Record every discrepancy and stop at the first unsafe divergence.",
+      "status": "SATISFIED",
+      "evidence": "orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-result.json"
+    }
+  ],
+  "schedule_confirmation": {
+    "automation_id": "hercules-validation-worker",
+    "status": "ACTIVE",
+    "cadence": "hourly",
+    "evidence": "Existing heartbeat invoked this pass at 2026-09-14T05:48:57.041Z; no duplicate schedule created."
+  },
+  "containing_commit_policy": "The containing commit is the delivery commit; no circular own hash is embedded. All other changed artifact IDs are explicit."
+}

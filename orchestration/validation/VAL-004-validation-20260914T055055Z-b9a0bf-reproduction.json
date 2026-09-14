@@ -1,0 +1,59 @@
+{
+  "task_id": "VAL-004",
+  "run_id": "validation-20260914T055055Z-b9a0bf",
+  "checked_at": "2026-09-14T05:59:27.716Z",
+  "status": "EXACT_MATCH",
+  "scope": "All 14 negative controls, complete L08 and Golden scenarios, and unmodified entry-point equivalence. No new cases are added.",
+  "commands": [
+    {
+      "command": "node orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-residuals.mjs --check",
+      "exit_code": 0,
+      "output": "EXACT_MATCH: all residual controls, errors and unchanged full states/RNG.\n"
+    },
+    {
+      "command": "node orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-l08.mjs --check",
+      "exit_code": 0,
+      "output": "{\n  \"task_id\": \"VAL-004\",\n  \"run_id\": \"validation-20260914T055055Z-b9a0bf\",\n  \"pass_fail\": \"PASS\",\n  \"canonical_contract_checks\": 24,\n  \"canonical_contract_checks_passed\": 24,\n  \"pins_matched\": 49,\n  \"checkpoints\": [\n    \"after placement\",\n    \"after damage, before advancement\",\n    \"after advancement\",\n    \"after impacts\",\n    \"after failure check and cleanup\"\n  ],\n  \"stop\": null,\n  \"operation_count\": 10,\n  \"matched_operations\": 10,\n  \"rng_events\": 0,\n  \"evidence_sha256\": \"4ce95c216368f1be2911cc89e7b1b3e4146f6496ace1a41fcf0909f0e3dc5b3a\",\n  \"ledger_sha256\": \"e5ba65c3c9583d657573d16faef7db71ba00e02b77935d9e77ccd543b54f8a81\",\n  \"reproduction\": \"EXACT_MATCH; full states/actions/operations and zero-RNG ledger; no files written\"\n}\n"
+    },
+    {
+      "command": "node orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-golden.mjs --check",
+      "exit_code": 0,
+      "output": "{\n  \"pass_fail\": \"PASS\",\n  \"stop\": null,\n  \"accepted_inputs\": 112,\n  \"attempted_inputs\": 112,\n  \"checkpoints\": [\n    {\n      \"labor\": 1,\n      \"status\": \"MATCH\"\n    },\n    {\n      \"labor\": 2,\n      \"status\": \"MATCH\"\n    },\n    {\n      \"labor\": 3,\n      \"status\": \"MATCH\"\n    },\n    {\n      \"labor\": 4,\n      \"status\": \"MATCH\"\n    },\n    {\n      \"labor\": 5,\n      \"status\": \"MATCH\"\n    }\n  ],\n  \"next_rng_event\": \"174\",\n  \"computed_events\": 166,\n  \"orphans\": 8,\n  \"trace_operations\": 270,\n  \"evidence_sha256\": \"1e6a78fb6ee7f01af4661b89b60f8c996247b6e62a5d4dc829538dcb0bbff410\",\n  \"ledger_sha256\": \"35c0b79b86cb8b3a2f45af6f88252c6ac3ceb7ec6a2af72e4b253ab5ae3fe88c\",\n  \"trace_sha256\": \"67c1b0f54783106b80710ddbe845b4465a3266a89efcbf67800b7ac3e66c5ee5\",\n  \"reproduction\": \"Exact states, consumption, ledger and trace match; no files written.\"\n}\n"
+    },
+    {
+      "command": "node orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-equivalence.mjs --check",
+      "exit_code": 0,
+      "output": "EXACT_MATCH: reusable helper and compound scheduler full states.\n"
+    }
+  ],
+  "evidence_file_hashes": [
+    {
+      "path": "orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-equivalence.json",
+      "sha256": "3f5a7fa8fe402f6d67911a13b71377111f528c87ea0099ab8b273ce008cd9613"
+    },
+    {
+      "path": "orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-golden-checkpoints.json",
+      "sha256": "2ac6fcd62c82d72565133d108d3ff40f4139c8f03bbd4848a690c65ba736af84"
+    },
+    {
+      "path": "orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-golden-rng-ledger.json",
+      "sha256": "a4aec9585999e1973c00af54707277ff1b794e77cb5a99cee538f46639d367c1"
+    },
+    {
+      "path": "orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-golden-trace.jsonl",
+      "sha256": "67c1b0f54783106b80710ddbe845b4465a3266a89efcbf67800b7ac3e66c5ee5"
+    },
+    {
+      "path": "orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-l08-checkpoints.json",
+      "sha256": "5ac99f706df5f0a1ceeb662f264ffe831ed50910e9116288c29ff2843aa783ea"
+    },
+    {
+      "path": "orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-l08-rng-ledger.json",
+      "sha256": "45b730ebc030842bd318b2f18b52a74a7650b7a4099859da9bde27cad89366ac"
+    },
+    {
+      "path": "orchestration/validation/VAL-004-validation-20260914T055055Z-b9a0bf-residuals.json",
+      "sha256": "582af9b9d9ee32d914423f7797e5d7cf94988aa4ed2646da417e701001541678"
+    }
+  ]
+}

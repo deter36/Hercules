@@ -1,0 +1,160 @@
+Run validation-20260914T055055Z-b9a0bf
+Tested commit 18440b2637c94807213483a73664d8a2a0f3f366
+Manifest e1-m0007
+Node v24.19.0
+Git git version 2.54.0.windows.1
+Locked dependency installation: pnpm install --frozen-lockfile (exit 0).
+Pinned TypeScript compilation only: pnpm exec tsc -p tsconfig.json (exit 0); no data generation.
+Tool versions: pnpm 11.19.0; TypeScript 5.9.3.
+49/49 exact input objects match; six superseded historical trees are verified only at their source commits including Git-byte SHA256 and complete tree membership.
+Input 2 roll: accepted; labor.L01/BLUE_ABILITY_WINDOW; Spirit 17; Divinity 0; next RNG 13
+Input 3 use_blue: accepted; labor.L01/BLUE_ABILITY_WINDOW; Spirit 16; Divinity 0; next RNG 13
+Input 4 assign_attack: accepted; labor.L01/GOLD_AND_ATTACK_PLACEMENT; Spirit 16; Divinity 0; next RNG 13
+Input 5 resolve_assignments: accepted; labor.L01/READY_TO_ROLL; Spirit 15; Divinity 0; next RNG 13
+Input 6 roll: accepted; labor.L01/BLUE_ABILITY_WINDOW; Spirit 15; Divinity 0; next RNG 18
+Input 7 use_blue: accepted; labor.L01/BLUE_ABILITY_WINDOW; Spirit 14; Divinity 0; next RNG 18
+Input 8 assign_attack: accepted; labor.L01/GOLD_AND_ATTACK_PLACEMENT; Spirit 14; Divinity 0; next RNG 18
+Checkpoint Labor 1: MATCH; Spirit 16; Divinity 0; next RNG 34
+Input 9 resolve_assignments: accepted; labor.L02/READY_TO_ROLL; Spirit 15; Divinity 0; next RNG 34
+Input 10 roll: accepted; labor.L02/BLUE_ABILITY_WINDOW; Spirit 15; Divinity 0; next RNG 39
+Input 11 use_blue: accepted; labor.L02/BLUE_ABILITY_WINDOW; Spirit 14; Divinity 0; next RNG 39
+Input 12 use_blue: accepted; labor.L02/BLUE_ABILITY_WINDOW; Spirit 14; Divinity 0; next RNG 39
+Input 13 assign_attack: accepted; labor.L02/GOLD_AND_ATTACK_PLACEMENT; Spirit 14; Divinity 0; next RNG 39
+Input 14 place_gold: accepted; labor.L02/GOLD_AND_ATTACK_PLACEMENT; Spirit 14; Divinity 0; next RNG 39
+Input 15 resolve_assignments: accepted; labor.L02/READY_TO_ROLL; Spirit 14; Divinity 0; next RNG 39
+Input 16 roll: accepted; labor.L02/BLUE_ABILITY_WINDOW; Spirit 14; Divinity 0; next RNG 44
+Input 17 use_blue: accepted; labor.L02/BLUE_ABILITY_WINDOW; Spirit 13; Divinity 0; next RNG 44
+Input 18 use_blue: accepted; labor.L02/BLUE_ABILITY_WINDOW; Spirit 13; Divinity 0; next RNG 44
+Input 19 assign_attack: accepted; labor.L02/GOLD_AND_ATTACK_PLACEMENT; Spirit 13; Divinity 0; next RNG 44
+Checkpoint Labor 2: MATCH; Spirit 13; Divinity 0; next RNG 52
+Input 20 resolve_assignments: accepted; labor.L03/READY_TO_ROLL; Spirit 12; Divinity 0; next RNG 52
+Input 21 roll: accepted; labor.L03/BLUE_ABILITY_WINDOW; Spirit 12; Divinity 0; next RNG 58
+Input 22 use_blue: accepted; labor.L03/BLUE_ABILITY_WINDOW; Spirit 12; Divinity 0; next RNG 58
+Input 23 finalize_blue_phase: accepted; labor.L03/GOLD_AND_ATTACK_PLACEMENT; Spirit 12; Divinity 0; next RNG 58
+Input 24 assign_attack_sets: accepted; labor.L03/GOLD_AND_ATTACK_PLACEMENT; Spirit 12; Divinity 0; next RNG 58
+Input 25 resolve_assignments: accepted; labor.L03/READY_TO_ROLL; Spirit 12; Divinity 0; next RNG 58
+Input 26 roll: accepted; labor.L03/BLUE_ABILITY_WINDOW; Spirit 12; Divinity 0; next RNG 64
+Input 27 use_blue: accepted; labor.L03/BLUE_ABILITY_WINDOW; Spirit 11; Divinity 0; next RNG 64
+Input 28 finalize_blue_phase: accepted; labor.L03/GOLD_AND_ATTACK_PLACEMENT; Spirit 11; Divinity 0; next RNG 64
+Input 29 assign_attack_sets: accepted; labor.L03/GOLD_AND_ATTACK_PLACEMENT; Spirit 11; Divinity 0; next RNG 64
+Input 30 resolve_assignments: accepted; labor.L03/IMPACT_RESOLUTION; Spirit 11; Divinity 0; next RNG 64
+Input 31 choose_broken_die: accepted; labor.L03/READY_TO_ROLL; Spirit 11; Divinity 0; next RNG 64
+Input 32 roll: accepted; labor.L03/BLUE_ABILITY_WINDOW; Spirit 11; Divinity 0; next RNG 69
+Input 33 finalize_blue_phase: accepted; labor.L03/GOLD_AND_ATTACK_PLACEMENT; Spirit 11; Divinity 0; next RNG 69
+Input 34 assign_attack_sets: accepted; labor.L03/GOLD_AND_ATTACK_PLACEMENT; Spirit 11; Divinity 0; next RNG 69
+Checkpoint Labor 3: MATCH; Spirit 14; Divinity 0; next RNG 77
+Input 35 resolve_assignments: accepted; labor.L04/READY_TO_ROLL; Spirit 11; Divinity 0; next RNG 77
+Input 36 roll: accepted; labor.L04/BLUE_ABILITY_WINDOW; Spirit 11; Divinity 0; next RNG 83
+Input 37 reroll: accepted; labor.L04/BLUE_ABILITY_WINDOW; Spirit 11; Divinity 0; next RNG 84
+Input 38 reroll: accepted; labor.L04/BLUE_ABILITY_WINDOW; Spirit 11; Divinity 0; next RNG 85
+Input 39 finalize_blue_phase: accepted; labor.L04/GOLD_AND_ATTACK_PLACEMENT; Spirit 11; Divinity 0; next RNG 85
+Input 40 assign_attack_sets: accepted; labor.L04/GOLD_AND_ATTACK_PLACEMENT; Spirit 11; Divinity 0; next RNG 85
+Input 41 resolve_assignments: accepted; labor.L04/READY_TO_ROLL; Spirit 8; Divinity 0; next RNG 85
+Input 42 roll: accepted; labor.L04/BLUE_ABILITY_WINDOW; Spirit 8; Divinity 0; next RNG 91
+Input 43 reroll: accepted; labor.L04/BLUE_ABILITY_WINDOW; Spirit 8; Divinity 0; next RNG 92
+Input 44 reroll: accepted; labor.L04/BLUE_ABILITY_WINDOW; Spirit 8; Divinity 0; next RNG 93
+Input 45 finalize_blue_phase: accepted; labor.L04/GOLD_AND_ATTACK_PLACEMENT; Spirit 8; Divinity 0; next RNG 93
+Input 46 assign_attack_sets: accepted; labor.L04/GOLD_AND_ATTACK_PLACEMENT; Spirit 8; Divinity 0; next RNG 93
+Input 47 resolve_assignments: accepted; labor.L04/READY_TO_ROLL; Spirit 8; Divinity 0; next RNG 93
+Input 48 roll: accepted; labor.L04/BLUE_ABILITY_WINDOW; Spirit 8; Divinity 0; next RNG 99
+Input 49 reroll: accepted; labor.L04/BLUE_ABILITY_WINDOW; Spirit 8; Divinity 0; next RNG 100
+Input 50 reroll: accepted; labor.L04/BLUE_ABILITY_WINDOW; Spirit 8; Divinity 0; next RNG 101
+Input 51 finalize_blue_phase: accepted; labor.L04/GOLD_AND_ATTACK_PLACEMENT; Spirit 8; Divinity 0; next RNG 101
+Input 52 place_gold: accepted; labor.L04/GOLD_AND_ATTACK_PLACEMENT; Spirit 8; Divinity 0; next RNG 101
+Input 53 assign_attack: accepted; labor.L04/GOLD_AND_ATTACK_PLACEMENT; Spirit 8; Divinity 0; next RNG 101
+Input 54 resolve_assignments: accepted; labor.L04/READY_TO_ROLL; Spirit 8; Divinity 1; next RNG 101
+Input 55 roll: accepted; labor.L04/BLUE_ABILITY_WINDOW; Spirit 8; Divinity 1; next RNG 107
+Input 56 reroll: accepted; labor.L04/BLUE_ABILITY_WINDOW; Spirit 8; Divinity 1; next RNG 108
+Input 57 reroll: accepted; labor.L04/BLUE_ABILITY_WINDOW; Spirit 8; Divinity 1; next RNG 109
+Input 58 use_blue: accepted; labor.L04/BLUE_ABILITY_WINDOW; Spirit 7; Divinity 1; next RNG 109
+Input 59 finalize_blue_phase: accepted; labor.L04/GOLD_AND_ATTACK_PLACEMENT; Spirit 7; Divinity 1; next RNG 109
+Input 60 assign_attack_sets: accepted; labor.L04/GOLD_AND_ATTACK_PLACEMENT; Spirit 7; Divinity 1; next RNG 109
+Input 61 resolve_assignments: accepted; labor.L04/REWARD_SELECTION; Spirit 7; Divinity 1; next RNG 109
+Checkpoint Labor 4: MATCH; Spirit 9; Divinity 1; next RNG 117
+Input 62 choose_reward: accepted; labor.L05/READY_TO_ROLL; Spirit 9; Divinity 1; next RNG 117
+Input 63 roll: accepted; labor.L05/BLUE_ABILITY_WINDOW; Spirit 9; Divinity 1; next RNG 125
+Input 64 reroll: accepted; labor.L05/BLUE_ABILITY_WINDOW; Spirit 9; Divinity 1; next RNG 126
+Input 65 reroll: accepted; labor.L05/BLUE_ABILITY_WINDOW; Spirit 9; Divinity 1; next RNG 127
+Input 66 use_blue: accepted; labor.L05/BLUE_ABILITY_WINDOW; Spirit 8; Divinity 1; next RNG 127
+Input 67 finalize_blue_phase: accepted; labor.L05/GOLD_AND_ATTACK_PLACEMENT; Spirit 8; Divinity 1; next RNG 127
+Input 68 assign_attack: accepted; labor.L05/GOLD_AND_ATTACK_PLACEMENT; Spirit 8; Divinity 1; next RNG 127
+Input 69 place_gold: accepted; labor.L05/GOLD_AND_ATTACK_PLACEMENT; Spirit 8; Divinity 1; next RNG 127
+Input 70 place_gold: accepted; labor.L05/GOLD_AND_ATTACK_PLACEMENT; Spirit 8; Divinity 1; next RNG 127
+Input 71 resolve_assignments: accepted; labor.L05/READY_TO_ROLL; Spirit 9; Divinity 1; next RNG 127
+Input 72 roll: accepted; labor.L05/BLUE_ABILITY_WINDOW; Spirit 9; Divinity 1; next RNG 135
+Input 73 reroll: accepted; labor.L05/BLUE_ABILITY_WINDOW; Spirit 9; Divinity 1; next RNG 136
+Input 74 use_blue: accepted; labor.L05/BLUE_ABILITY_WINDOW; Spirit 8; Divinity 1; next RNG 136
+Input 75 reroll: accepted; labor.L05/BLUE_ABILITY_WINDOW; Spirit 8; Divinity 1; next RNG 137
+Input 76 finalize_blue_phase: accepted; labor.L05/GOLD_AND_ATTACK_PLACEMENT; Spirit 8; Divinity 1; next RNG 137
+Input 77 undo_last_deterministic_action: accepted; labor.L05/BLUE_ABILITY_WINDOW; Spirit 8; Divinity 1; next RNG 137
+Input 78 use_blue: accepted; labor.L05/BLUE_ABILITY_WINDOW; Spirit 8; Divinity 1; next RNG 137
+Input 79 assign_attack: accepted; labor.L05/GOLD_AND_ATTACK_PLACEMENT; Spirit 8; Divinity 1; next RNG 137
+Input 80 assign_attack: accepted; labor.L05/GOLD_AND_ATTACK_PLACEMENT; Spirit 8; Divinity 1; next RNG 137
+Input 81 place_gold: accepted; labor.L05/GOLD_AND_ATTACK_PLACEMENT; Spirit 8; Divinity 1; next RNG 137
+Input 82 place_gold: accepted; labor.L05/GOLD_AND_ATTACK_PLACEMENT; Spirit 8; Divinity 1; next RNG 137
+Input 83 resolve_assignments: accepted; labor.L05/READY_TO_ROLL; Spirit 10; Divinity 1; next RNG 137
+Input 84 roll: accepted; labor.L05/BLUE_ABILITY_WINDOW; Spirit 10; Divinity 1; next RNG 145
+Input 85 use_blue: accepted; labor.L05/BLUE_ABILITY_WINDOW; Spirit 9; Divinity 1; next RNG 145
+Input 86 undo_last_deterministic_action: accepted; labor.L05/BLUE_ABILITY_WINDOW; Spirit 10; Divinity 1; next RNG 145
+Input 87 reroll: accepted; labor.L05/BLUE_ABILITY_WINDOW; Spirit 10; Divinity 1; next RNG 146
+Input 88 use_blue: accepted; labor.L05/BLUE_ABILITY_WINDOW; Spirit 9; Divinity 1; next RNG 146
+Input 89 finalize_blue_phase: accepted; labor.L05/GOLD_AND_ATTACK_PLACEMENT; Spirit 9; Divinity 1; next RNG 146
+Input 90 assign_attack: accepted; labor.L05/GOLD_AND_ATTACK_PLACEMENT; Spirit 9; Divinity 1; next RNG 146
+Input 91 place_gold: accepted; labor.L05/GOLD_AND_ATTACK_PLACEMENT; Spirit 9; Divinity 1; next RNG 146
+Input 92 place_gold: accepted; labor.L05/GOLD_AND_ATTACK_PLACEMENT; Spirit 9; Divinity 1; next RNG 146
+Input 93 resolve_assignments: accepted; labor.L05/REWARD_SELECTION; Spirit 11; Divinity 2; next RNG 146
+Input 94 choose_reward: accepted; labor.L05/REWARD_SELECTION; Spirit 14; Divinity 2; next RNG 146
+Checkpoint Labor 5: MATCH; Spirit 14; Divinity 2; next RNG 154
+Input 95 remove_prior_reward_or_component: accepted; labor.L06/READY_TO_ROLL; Spirit 13; Divinity 2; next RNG 154
+Input 96 roll: accepted; labor.L06/BLUE_ABILITY_WINDOW; Spirit 13; Divinity 2; next RNG 161
+Input 97 reroll: accepted; labor.L06/BLUE_ABILITY_WINDOW; Spirit 13; Divinity 2; next RNG 162
+Input 98 reroll: accepted; labor.L06/BLUE_ABILITY_WINDOW; Spirit 13; Divinity 2; next RNG 163
+Input 99 use_blue_cows_b_and_reroll: accepted; labor.L06/BLUE_ABILITY_WINDOW; Spirit 13; Divinity 2; next RNG 164
+Input 100 assign_attack: accepted; labor.L06/GOLD_AND_ATTACK_PLACEMENT; Spirit 13; Divinity 2; next RNG 164
+Input 101 place_gold: accepted; labor.L06/GOLD_AND_ATTACK_PLACEMENT; Spirit 13; Divinity 2; next RNG 164
+Input 102 place_gold: accepted; labor.L06/GOLD_AND_ATTACK_PLACEMENT; Spirit 13; Divinity 2; next RNG 164
+Input 103 resolve_assignments: accepted; labor.L06/READY_TO_ROLL; Spirit 11; Divinity 3; next RNG 164
+Input 104 roll: accepted; labor.L06/BLUE_ABILITY_WINDOW; Spirit 11; Divinity 3; next RNG 171
+Input 105 reroll: accepted; labor.L06/BLUE_ABILITY_WINDOW; Spirit 11; Divinity 3; next RNG 172
+Input 106 reroll: accepted; labor.L06/BLUE_ABILITY_WINDOW; Spirit 11; Divinity 3; next RNG 173
+Input 107 use_blue_cows_b_and_reroll: accepted; labor.L06/BLUE_ABILITY_WINDOW; Spirit 11; Divinity 3; next RNG 174
+Input 108 assign_attack: accepted; labor.L06/GOLD_AND_ATTACK_PLACEMENT; Spirit 11; Divinity 3; next RNG 174
+Input 109 assign_attack: accepted; labor.L06/GOLD_AND_ATTACK_PLACEMENT; Spirit 11; Divinity 3; next RNG 174
+Input 110 place_gold: accepted; labor.L06/GOLD_AND_ATTACK_PLACEMENT; Spirit 11; Divinity 3; next RNG 174
+Input 111 place_gold: accepted; labor.L06/GOLD_AND_ATTACK_PLACEMENT; Spirit 11; Divinity 3; next RNG 174
+Input 112 resolve_assignments: accepted; labor.L06/DEFEAT; Spirit 8; Divinity 3; next RNG 174
+{
+  "pass_fail": "PASS",
+  "stop": null,
+  "accepted_inputs": 112,
+  "attempted_inputs": 112,
+  "checkpoints": [
+    {
+      "labor": 1,
+      "status": "MATCH"
+    },
+    {
+      "labor": 2,
+      "status": "MATCH"
+    },
+    {
+      "labor": 3,
+      "status": "MATCH"
+    },
+    {
+      "labor": 4,
+      "status": "MATCH"
+    },
+    {
+      "labor": 5,
+      "status": "MATCH"
+    }
+  ],
+  "next_rng_event": "174",
+  "computed_events": 166,
+  "orphans": 8,
+  "trace_operations": 270,
+  "evidence_sha256": "1e6a78fb6ee7f01af4661b89b60f8c996247b6e62a5d4dc829538dcb0bbff410",
+  "ledger_sha256": "35c0b79b86cb8b3a2f45af6f88252c6ac3ceb7ec6a2af72e4b253ab5ae3fe88c",
+  "trace_sha256": "67c1b0f54783106b80710ddbe845b4465a3266a89efcbf67800b7ac3e66c5ee5"
+}

@@ -1,0 +1,2442 @@
+{
+  "task_id": "VAL-004",
+  "run_id": "validation-20260914T055055Z-b9a0bf",
+  "manifest_revision": "e1-m0007",
+  "tested_commit": "18440b2637c94807213483a73664d8a2a0f3f366",
+  "claim": {
+    "role": "validation",
+    "run_id": "validation-20260914T055055Z-b9a0bf",
+    "claimed_at": "2026-09-14T05:50:55.9928238+00:00",
+    "expires_at": "2026-09-14T07:50:55.9928238+00:00",
+    "remote_commit_read": "79063a8f3439eb9d04b435a9796710dd04ae4864"
+  },
+  "canonical_pin_count": 49,
+  "canonical_pins_match": true,
+  "canonical_inputs": [
+    {
+      "id": "game-data",
+      "path": "src/data/raw/GAME_DATA_v4.json",
+      "kind": "blob",
+      "git_object": "9407bd9cb58eae1d8cd7a1495a65275e3ef644e1",
+      "source_commit": "6bffa094431d84429ed93339d48f839bcc5a2302",
+      "role": "canonical_content",
+      "sha256_git_bytes": "b32c1e902d200e25e59d475c9453c97e4687603aaecf3f948250fe1bec844ac4",
+      "observed_commit": "18440b2637c94807213483a73664d8a2a0f3f366",
+      "observed_git_object": "9407bd9cb58eae1d8cd7a1495a65275e3ef644e1",
+      "observed_source_object": "9407bd9cb58eae1d8cd7a1495a65275e3ef644e1",
+      "observed_sha256_git_bytes": "b32c1e902d200e25e59d475c9453c97e4687603aaecf3f948250fe1bec844ac4",
+      "observed_working_object": "9407bd9cb58eae1d8cd7a1495a65275e3ef644e1",
+      "working_changes": "",
+      "covered_tree_members": null,
+      "verification_scope": "current promoted working input",
+      "matched": true
+    },
+    {
+      "id": "data-schema",
+      "path": "src/data/raw/GAME_DATA_SCHEMA.md",
+      "kind": "blob",
+      "git_object": "d9300f6ae1d04cb6772a901a1ed15af34ba814ea",
+      "source_commit": "6bffa094431d84429ed93339d48f839bcc5a2302",
+      "role": "representation_contract",
+      "sha256_git_bytes": "7b857d72ed6982c94d9e2fd1bae7d3b1187065b57ec9fe1bab95ef9a5d9e9d97",
+      "observed_commit": "18440b2637c94807213483a73664d8a2a0f3f366",
+      "observed_git_object": "d9300f6ae1d04cb6772a901a1ed15af34ba814ea",
+      "observed_source_object": "d9300f6ae1d04cb6772a901a1ed15af34ba814ea",
+      "observed_sha256_git_bytes": "7b857d72ed6982c94d9e2fd1bae7d3b1187065b57ec9fe1bab95ef9a5d9e9d97",
+      "observed_working_object": "d9300f6ae1d04cb6772a901a1ed15af34ba814ea",
+      "working_changes": "",
+      "covered_tree_members": null,
+      "verification_scope": "current promoted working input",
+      "matched": true
+    },
+    {
+      "id": "rules-spec",
+      "path": "src/data/raw/GAME_RULES_SPEC.md",
+      "kind": "blob",
+      "git_object": "07cea77200d58483e39eed0d702efd022dc840a0",
+      "source_commit": "6bffa094431d84429ed93339d48f839bcc5a2302",
+      "role": "execution_semantics",
+      "sha256_git_bytes": "34ddfe22914b78e6e479e236e5e063b962839efccc88ae93b508230b10f51893",
+      "observed_commit": "18440b2637c94807213483a73664d8a2a0f3f366",
+      "observed_git_object": "07cea77200d58483e39eed0d702efd022dc840a0",
+      "observed_source_object": "07cea77200d58483e39eed0d702efd022dc840a0",
+      "observed_sha256_git_bytes": "34ddfe22914b78e6e479e236e5e063b962839efccc88ae93b508230b10f51893",
+      "observed_working_object": "07cea77200d58483e39eed0d702efd022dc840a0",
+      "working_changes": "",
+      "covered_tree_members": null,
+      "verification_scope": "current promoted working input",
+      "matched": true
+    },
+    {
+      "id": "execution-spec",
+      "path": "src/data/raw/hercules_engine_execution_spec_v0_13.md",
+      "kind": "blob",
+      "git_object": "da5f94c4437cdff2366efc161eac1f187aca1a87",
+      "source_commit": "6bffa094431d84429ed93339d48f839bcc5a2302",
+      "role": "execution_semantics",
+      "sha256_git_bytes": "5b2c52c9862db8ce3573bed12af891b2cfb94cca450fc789d7f7bc9a38565492",
+      "observed_commit": "18440b2637c94807213483a73664d8a2a0f3f366",
+      "observed_git_object": "da5f94c4437cdff2366efc161eac1f187aca1a87",
+      "observed_source_object": "da5f94c4437cdff2366efc161eac1f187aca1a87",
+      "observed_sha256_git_bytes": "5b2c52c9862db8ce3573bed12af891b2cfb94cca450fc789d7f7bc9a38565492",
+      "observed_working_object": "da5f94c4437cdff2366efc161eac1f187aca1a87",
+      "working_changes": "",
+      "covered_tree_members": null,
+      "verification_scope": "current promoted working input",
+      "matched": true
+    },
+    {
+      "id": "test-scenarios",
+      "path": "src/data/raw/TEST_SCENARIOS.md",
+      "kind": "blob",
+      "git_object": "0b51c516eb5c287c7d39bfbf2f50b9cd92128b86",
+      "source_commit": "6bffa094431d84429ed93339d48f839bcc5a2302",
+      "role": "historical_expectations",
+      "sha256_git_bytes": "0bb3f1d88778f4ceea906e5911e68d0d97f97ac7658781e79d362e261e2cdae7",
+      "observed_commit": "18440b2637c94807213483a73664d8a2a0f3f366",
+      "observed_git_object": "0b51c516eb5c287c7d39bfbf2f50b9cd92128b86",
+      "observed_source_object": "0b51c516eb5c287c7d39bfbf2f50b9cd92128b86",
+      "observed_sha256_git_bytes": "0bb3f1d88778f4ceea906e5911e68d0d97f97ac7658781e79d362e261e2cdae7",
+      "observed_working_object": "0b51c516eb5c287c7d39bfbf2f50b9cd92128b86",
+      "working_changes": "",
+      "covered_tree_members": null,
+      "verification_scope": "current promoted working input",
+      "matched": true
+    },
+    {
+      "id": "test-fixtures",
+      "path": "src/data/raw/TEST_FIXTURES_v4.json",
+      "kind": "blob",
+      "git_object": "cadae99fd2c7205d29f17375a36bc70df3e629b3",
+      "source_commit": "6bffa094431d84429ed93339d48f839bcc5a2302",
+      "role": "historical_expectations",
+      "sha256_git_bytes": "31459edf0c79ad29bfe3a02b40a4b4a7ec1b6676ed11b7e4f69b7fa14439d14e",
+      "observed_commit": "18440b2637c94807213483a73664d8a2a0f3f366",
+      "observed_git_object": "cadae99fd2c7205d29f17375a36bc70df3e629b3",
+      "observed_source_object": "cadae99fd2c7205d29f17375a36bc70df3e629b3",
+      "observed_sha256_git_bytes": "31459edf0c79ad29bfe3a02b40a4b4a7ec1b6676ed11b7e4f69b7fa14439d14e",
+      "observed_working_object": "cadae99fd2c7205d29f17375a36bc70df3e629b3",
+      "working_changes": "",
+      "covered_tree_members": null,
+      "verification_scope": "current promoted working input",
+      "matched": true
+    },
+    {
+      "id": "package-manifest",
+      "path": "src/data/raw/HANDOFF_MANIFEST.json",
+      "kind": "blob",
+      "git_object": "766c18906cc20578ef5fc7d11c5e6a82bc4d9d54",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "role": "historical_inventory",
+      "sha256_git_bytes": "c249e816d87bb2f7c2e715caddf7a0d3d27bef83434b6f91b86652be60548078",
+      "observed_commit": "18440b2637c94807213483a73664d8a2a0f3f366",
+      "observed_git_object": "766c18906cc20578ef5fc7d11c5e6a82bc4d9d54",
+      "observed_source_object": "766c18906cc20578ef5fc7d11c5e6a82bc4d9d54",
+      "observed_sha256_git_bytes": "c249e816d87bb2f7c2e715caddf7a0d3d27bef83434b6f91b86652be60548078",
+      "observed_working_object": "766c18906cc20578ef5fc7d11c5e6a82bc4d9d54",
+      "working_changes": "",
+      "covered_tree_members": null,
+      "verification_scope": "current promoted working input",
+      "matched": true
+    },
+    {
+      "id": "package-checksums",
+      "path": "src/data/raw/SHA256SUMS.json",
+      "kind": "blob",
+      "git_object": "aebdce242d075b500df9f8624f0b471c9f5d040f",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "role": "historical_checksums",
+      "sha256_git_bytes": "47b5b40c7d7265f35eee89ae36001dace681ebc2ff2b1f4b2bdaf47691059094",
+      "observed_commit": "18440b2637c94807213483a73664d8a2a0f3f366",
+      "observed_git_object": "aebdce242d075b500df9f8624f0b471c9f5d040f",
+      "observed_source_object": "aebdce242d075b500df9f8624f0b471c9f5d040f",
+      "observed_sha256_git_bytes": "47b5b40c7d7265f35eee89ae36001dace681ebc2ff2b1f4b2bdaf47691059094",
+      "observed_working_object": "aebdce242d075b500df9f8624f0b471c9f5d040f",
+      "working_changes": "",
+      "covered_tree_members": null,
+      "verification_scope": "current promoted working input",
+      "matched": true
+    },
+    {
+      "id": "implementation-brief",
+      "path": "src/data/raw/IMPLEMENTATION_BRIEF.md",
+      "kind": "blob",
+      "git_object": "7abba014243ce1e5cd68c922018fed5c5a383ba1",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "role": "historical_architecture_only",
+      "sha256_git_bytes": "cf7696152ecefd32ff2307eb2137da0df6e3ff5cebcfa519b917e6621fe7fad4",
+      "observed_commit": "18440b2637c94807213483a73664d8a2a0f3f366",
+      "observed_git_object": "7abba014243ce1e5cd68c922018fed5c5a383ba1",
+      "observed_source_object": "7abba014243ce1e5cd68c922018fed5c5a383ba1",
+      "observed_sha256_git_bytes": "cf7696152ecefd32ff2307eb2137da0df6e3ff5cebcfa519b917e6621fe7fad4",
+      "observed_working_object": "7abba014243ce1e5cd68c922018fed5c5a383ba1",
+      "working_changes": "",
+      "covered_tree_members": null,
+      "verification_scope": "current promoted working input",
+      "matched": true
+    },
+    {
+      "id": "presentation-flow",
+      "path": "src/data/raw/PRESENTATION_FLOW.md",
+      "kind": "blob",
+      "git_object": "2bcb04974b018a50dc4f481fc8c35c5e44d52e04",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "role": "future_product_context",
+      "sha256_git_bytes": "5cc092125143bf6c2296df42b51b609e3599948587a3c0c09d18cb8d44ec6d4b",
+      "observed_commit": "18440b2637c94807213483a73664d8a2a0f3f366",
+      "observed_git_object": "2bcb04974b018a50dc4f481fc8c35c5e44d52e04",
+      "observed_source_object": "2bcb04974b018a50dc4f481fc8c35c5e44d52e04",
+      "observed_sha256_git_bytes": "5cc092125143bf6c2296df42b51b609e3599948587a3c0c09d18cb8d44ec6d4b",
+      "observed_working_object": "2bcb04974b018a50dc4f481fc8c35c5e44d52e04",
+      "working_changes": "",
+      "covered_tree_members": null,
+      "verification_scope": "current promoted working input",
+      "matched": true
+    },
+    {
+      "id": "golden-record",
+      "path": "src/data/raw/golden/HERC-GOLDEN-RUN-0001_golden_run_record.json",
+      "kind": "blob",
+      "git_object": "8d4dd7d3e8137d28d1e931be514ba8bfe4c1474d",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "role": "historical_replay_evidence",
+      "sha256_git_bytes": "2c7264dd7a1baa8f2907c013bf195986df6b0aebc2319dc9bee95a82ec1b9061",
+      "observed_commit": "18440b2637c94807213483a73664d8a2a0f3f366",
+      "observed_git_object": "8d4dd7d3e8137d28d1e931be514ba8bfe4c1474d",
+      "observed_source_object": "8d4dd7d3e8137d28d1e931be514ba8bfe4c1474d",
+      "observed_sha256_git_bytes": "2c7264dd7a1baa8f2907c013bf195986df6b0aebc2319dc9bee95a82ec1b9061",
+      "observed_working_object": "8d4dd7d3e8137d28d1e931be514ba8bfe4c1474d",
+      "working_changes": "",
+      "covered_tree_members": null,
+      "verification_scope": "current promoted working input",
+      "matched": true
+    },
+    {
+      "id": "golden-script",
+      "path": "src/data/raw/golden/HERC-GOLDEN-RUN-0001_replay_script_v2_normalized.json",
+      "kind": "blob",
+      "git_object": "da24321337d3c297d858d58b8e2c292fad937eb1",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "role": "historical_replay_evidence",
+      "sha256_git_bytes": "e342e1891616ebb319f3a355515af97709ab560eac7192fb98c349b4e8a7da59",
+      "observed_commit": "18440b2637c94807213483a73664d8a2a0f3f366",
+      "observed_git_object": "da24321337d3c297d858d58b8e2c292fad937eb1",
+      "observed_source_object": "da24321337d3c297d858d58b8e2c292fad937eb1",
+      "observed_sha256_git_bytes": "e342e1891616ebb319f3a355515af97709ab560eac7192fb98c349b4e8a7da59",
+      "observed_working_object": "da24321337d3c297d858d58b8e2c292fad937eb1",
+      "working_changes": "",
+      "covered_tree_members": null,
+      "verification_scope": "current promoted working input",
+      "matched": true
+    },
+    {
+      "id": "golden-prior-report",
+      "path": "src/data/raw/golden/HERC-GOLDEN-RUN-0001_replay_validation_report.json",
+      "kind": "blob",
+      "git_object": "866da0a2c60aac30545e6cdbbf2f8a532f0cc82b",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "role": "historical_replay_evidence",
+      "sha256_git_bytes": "b27ab485c2791f61b97173d63756bb6e24b10ff78d1ccb49baa60475fe0814e1",
+      "observed_commit": "18440b2637c94807213483a73664d8a2a0f3f366",
+      "observed_git_object": "866da0a2c60aac30545e6cdbbf2f8a532f0cc82b",
+      "observed_source_object": "866da0a2c60aac30545e6cdbbf2f8a532f0cc82b",
+      "observed_sha256_git_bytes": "b27ab485c2791f61b97173d63756bb6e24b10ff78d1ccb49baa60475fe0814e1",
+      "observed_working_object": "866da0a2c60aac30545e6cdbbf2f8a532f0cc82b",
+      "working_changes": "",
+      "covered_tree_members": null,
+      "verification_scope": "current promoted working input",
+      "matched": true
+    },
+    {
+      "id": "historical-engine",
+      "path": "src/engine",
+      "kind": "tree",
+      "git_object": "dac7a33b4fea961c4ba10fed79eda3da5f719211",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "role": "historical_implementation_or_tests",
+      "observed_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "observed_git_object": "dac7a33b4fea961c4ba10fed79eda3da5f719211",
+      "observed_source_object": "dac7a33b4fea961c4ba10fed79eda3da5f719211",
+      "observed_sha256_git_bytes": null,
+      "observed_working_object": null,
+      "working_changes": null,
+      "covered_tree_members": [
+        {
+          "path": "src/engine/abilities/registry.ts",
+          "git_object": "f13eff24962bf52773c149338c8e445eb355f682",
+          "working_object": null
+        },
+        {
+          "path": "src/engine/actions/placement.ts",
+          "git_object": "13daa0c1f5d8509ada0d9335ade0dec02b064c0e",
+          "working_object": null
+        },
+        {
+          "path": "src/engine/api.ts",
+          "git_object": "d78f6a235e74ece778e9b1915390451e45d4d903",
+          "working_object": null
+        },
+        {
+          "path": "src/engine/build-version.ts",
+          "git_object": "5c9ed5d770d4be5c79f5ee26e279c5fb5010b706",
+          "working_object": null
+        },
+        {
+          "path": "src/engine/commands/allocation.ts",
+          "git_object": "51a87416c2d447b89a9d88ad8b74a7430f99cad3",
+          "working_object": null
+        },
+        {
+          "path": "src/engine/commands/dispatcher.ts",
+          "git_object": "738c2cd47ef7111048a593bf2a3cd16998721777",
+          "working_object": null
+        },
+        {
+          "path": "src/engine/commands/resolve-assignments.ts",
+          "git_object": "a5015850aa7df0c78b3415e432115965633c35d2",
+          "working_object": null
+        },
+        {
+          "path": "src/engine/commands/types.ts",
+          "git_object": "d54529cfc8998b7277cb67d7e23bc3d13aac5126",
+          "working_object": null
+        },
+        {
+          "path": "src/engine/decisions/resolve.ts",
+          "git_object": "d5f3428a01dec48960faf254f91903bdc47b28b1",
+          "working_object": null
+        },
+        {
+          "path": "src/engine/diagnostics/export.ts",
+          "git_object": "1c4a428e72f6fdf5e59d013f00ad6789d1496447",
+          "working_object": null
+        },
+        {
+          "path": "src/engine/dice/abilities.ts",
+          "git_object": "70d717852e532ef10cfea3541af2b1770ce68436",
+          "working_object": null
+        },
+        {
+          "path": "src/engine/dice/commit.ts",
+          "git_object": "f8e3995ef85f4cea4e07b853d100f9391b7d790a",
+          "working_object": null
+        },
+        {
+          "path": "src/engine/dice/content-abilities.ts",
+          "git_object": "c9d93dfc53d26be6659bb86b4434933221717e7c",
+          "working_object": null
+        },
+        {
+          "path": "src/engine/dice/lifecycle.ts",
+          "git_object": "a7e6cb7103427528f198d2020683554f924f3e1c",
+          "working_object": null
+        },
+        {
+          "path": "src/engine/dice/pool.ts",
+          "git_object": "922e7a3f7670dee615194ef618e074cd7ac409de",
+          "working_object": null
+        },
+        {
+          "path": "src/engine/effects/apply.ts",
+          "git_object": "197486b9d766c5e97582159a41c6c945d7727b43",
+          "working_object": null
+        },
+        {
+          "path": "src/engine/effects/content.ts",
+          "git_object": "4445549d39b190dc3ce72d9e360d25031dbfe691",
+          "working_object": null
+        },
+        {
+          "path": "src/engine/labor/attacks.ts",
+          "git_object": "e305839c2336470f46ac1d4ac985e03569245ec4",
+          "working_object": null
+        },
+        {
+          "path": "src/engine/labor/content.ts",
+          "git_object": "eece06afb77258acf301a856548620dd02754ad1",
+          "working_object": null
+        },
+        {
+          "path": "src/engine/labor/damage.ts",
+          "git_object": "67376cfa0423a1cc67d40616cd00f46a642ff47e",
+          "working_object": null
+        },
+        {
+          "path": "src/engine/labor/hind.ts",
+          "git_object": "d5f06c5cb31c813cd2cf7d34171174b3cad266c6",
+          "working_object": null
+        },
+        {
+          "path": "src/engine/labor/setup.ts",
+          "git_object": "e6858b0f67e853ef0ff526e50d63fb072431ca16",
+          "working_object": null
+        },
+        {
+          "path": "src/engine/labor/transition.ts",
+          "git_object": "8306bbc94a77a2580916278486d0b185dd5511c1",
+          "working_object": null
+        },
+        {
+          "path": "src/engine/moods/roll-modifiers.ts",
+          "git_object": "b01ad6b659dc1653516f687ef327904c65db6cc2",
+          "working_object": null
+        },
+        {
+          "path": "src/engine/requirements/evaluate.ts",
+          "git_object": "2408c1c12f7afb4b2ff85ea5b83c5675576202b2",
+          "working_object": null
+        },
+        {
+          "path": "src/engine/resources/resolve.ts",
+          "git_object": "2160e21392f3b91fc5a383907234ee22148628a6",
+          "working_object": null
+        },
+        {
+          "path": "src/engine/rewards/resolve.ts",
+          "git_object": "6d92dfb26bd043781badb102bc50909bd00adb2c",
+          "working_object": null
+        },
+        {
+          "path": "src/engine/round/progress.ts",
+          "git_object": "b845d25aefbb8e9deda8d5b1c8aa040715fb220e",
+          "working_object": null
+        },
+        {
+          "path": "src/engine/round/resolve.ts",
+          "git_object": "33315f89759c9e7fda6280d5e4e58a0e7d1d6f17",
+          "working_object": null
+        },
+        {
+          "path": "src/engine/state/create.ts",
+          "git_object": "e14a4ed44120681b441c9b3cda4bc593ac298dbc",
+          "working_object": null
+        },
+        {
+          "path": "src/engine/state/invariants.ts",
+          "git_object": "965d3a2d0c669f87594fcf4a14061f910764a9eb",
+          "working_object": null
+        },
+        {
+          "path": "src/engine/state/save.ts",
+          "git_object": "9b7aa2fd488dfbc72b77764e09a8008006d14de4",
+          "working_object": null
+        },
+        {
+          "path": "src/engine/state/types.ts",
+          "git_object": "e01d30897bf0467dbf04340ce2bf0359635adfa0",
+          "working_object": null
+        },
+        {
+          "path": "src/engine/state/undo.ts",
+          "git_object": "f2c99437dee76714cb9eb6b5a2beb5a1ea6b1b22",
+          "working_object": null
+        },
+        {
+          "path": "src/engine/tracks/move.ts",
+          "git_object": "4979b78b8e1b29cb7d269353bb5b01e216444140",
+          "working_object": null
+        },
+        {
+          "path": "src/engine/transitions/resolve-impact.ts",
+          "git_object": "d7473275d7375eb54e6f7cb2f5b229d75d1972b1",
+          "working_object": null
+        },
+        {
+          "path": "src/engine/view-model.ts",
+          "git_object": "eb6fb4a49b106dd7f9e652ef1c9ecfea7831fb40",
+          "working_object": null
+        }
+      ],
+      "verification_scope": "superseded historical object only; never executed",
+      "matched": true
+    },
+    {
+      "id": "rng-implementation",
+      "path": "src/rng",
+      "kind": "tree",
+      "git_object": "574ad2efc0e8fb67c3e38ebbd0f56c41755a6cdf",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "role": "historical_implementation_or_tests",
+      "observed_commit": "18440b2637c94807213483a73664d8a2a0f3f366",
+      "observed_git_object": "574ad2efc0e8fb67c3e38ebbd0f56c41755a6cdf",
+      "observed_source_object": "574ad2efc0e8fb67c3e38ebbd0f56c41755a6cdf",
+      "observed_sha256_git_bytes": null,
+      "observed_working_object": "574ad2efc0e8fb67c3e38ebbd0f56c41755a6cdf",
+      "working_changes": "",
+      "covered_tree_members": [
+        {
+          "path": "src/rng/herc-rng.ts",
+          "git_object": "e4923082f3345509483c76fb46ba67cbe2114bcd",
+          "working_object": "e4923082f3345509483c76fb46ba67cbe2114bcd"
+        },
+        {
+          "path": "src/rng/sha256.ts",
+          "git_object": "5b2f9218c72c23f2f57c5fb075e8392ccec131a5",
+          "working_object": "5b2f9218c72c23f2f57c5fb075e8392ccec131a5"
+        }
+      ],
+      "verification_scope": "current promoted working input",
+      "matched": true
+    },
+    {
+      "id": "replay-implementation",
+      "path": "src/replay",
+      "kind": "tree",
+      "git_object": "8df5cbcbd7e2733e829c5c0abea0005381ba7433",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "role": "historical_implementation_or_tests",
+      "observed_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "observed_git_object": "8df5cbcbd7e2733e829c5c0abea0005381ba7433",
+      "observed_source_object": "8df5cbcbd7e2733e829c5c0abea0005381ba7433",
+      "observed_sha256_git_bytes": null,
+      "observed_working_object": null,
+      "working_changes": null,
+      "covered_tree_members": [
+        {
+          "path": "src/replay/golden-run.ts",
+          "git_object": "2a7181f9eee2f37e3458330d96106460eb05dcf4",
+          "working_object": null
+        }
+      ],
+      "verification_scope": "superseded historical object only; never executed",
+      "matched": true
+    },
+    {
+      "id": "generated-data",
+      "path": "src/data/generated",
+      "kind": "tree",
+      "git_object": "a9238f5f4600fd0f5d7ad5f27590bf8833734605",
+      "source_commit": "6bffa094431d84429ed93339d48f839bcc5a2302",
+      "role": "historical_implementation_or_tests",
+      "observed_commit": "18440b2637c94807213483a73664d8a2a0f3f366",
+      "observed_git_object": "a9238f5f4600fd0f5d7ad5f27590bf8833734605",
+      "observed_source_object": "a9238f5f4600fd0f5d7ad5f27590bf8833734605",
+      "observed_sha256_git_bytes": null,
+      "observed_working_object": "a9238f5f4600fd0f5d7ad5f27590bf8833734605",
+      "working_changes": "",
+      "covered_tree_members": [
+        {
+          "path": "src/data/generated/game-data.ts",
+          "git_object": "12a9a34b5a1492067da3ee0e6df1b41c7a122bb4",
+          "working_object": "12a9a34b5a1492067da3ee0e6df1b41c7a122bb4"
+        }
+      ],
+      "verification_scope": "current promoted working input",
+      "matched": true
+    },
+    {
+      "id": "existing-tests",
+      "path": "test",
+      "kind": "tree",
+      "git_object": "953f11900a4467a8f7807b5b437c677f3b12ea22",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "role": "historical_implementation_or_tests",
+      "observed_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "observed_git_object": "953f11900a4467a8f7807b5b437c677f3b12ea22",
+      "observed_source_object": "953f11900a4467a8f7807b5b437c677f3b12ea22",
+      "observed_sha256_git_bytes": null,
+      "observed_working_object": null,
+      "working_changes": null,
+      "covered_tree_members": [
+        {
+          "path": "test/confidence/headless-fuzz.test.ts",
+          "git_object": "ea4030d86f70af4721e712624235cfd38eb99fc0",
+          "working_object": null
+        },
+        {
+          "path": "test/data/validation.test.ts",
+          "git_object": "f6216c4124ec13c9556fbd5e9e1de1edeb7adc85",
+          "working_object": null
+        },
+        {
+          "path": "test/engine/action-pipeline.test.ts",
+          "git_object": "e11013d634833f5f27a4412b70bd6b29116540fd",
+          "working_object": null
+        },
+        {
+          "path": "test/engine/allocation.test.ts",
+          "git_object": "e82c050d8042e8b3e6afe013217b5bffef05f631",
+          "working_object": null
+        },
+        {
+          "path": "test/engine/api.test.ts",
+          "git_object": "7729c3c9397be14f4ff986d889f99cef2316adc5",
+          "working_object": null
+        },
+        {
+          "path": "test/engine/dice.test.ts",
+          "git_object": "442d0528af25da928920e2df9920a42dfef688af",
+          "working_object": null
+        },
+        {
+          "path": "test/engine/dispatcher.test.ts",
+          "git_object": "8731dd8c03a863316a1514da74a52fd77edd8b2f",
+          "working_object": null
+        },
+        {
+          "path": "test/engine/effects.test.ts",
+          "git_object": "e340a7ce95ec6e4f00ca2c6aea01fd3c1b5e99db",
+          "working_object": null
+        },
+        {
+          "path": "test/engine/impact.test.ts",
+          "git_object": "9ef9d022b7a44438fc621da5da338f8a4c05fcce",
+          "working_object": null
+        },
+        {
+          "path": "test/engine/progress.test.ts",
+          "git_object": "6741b4a850d3aabc46fd288869691457f07302eb",
+          "working_object": null
+        },
+        {
+          "path": "test/engine/requirements.test.ts",
+          "git_object": "dee3d06b3838ffd2e6dba2b5b601fcd7f28d683a",
+          "working_object": null
+        },
+        {
+          "path": "test/engine/resources.test.ts",
+          "git_object": "285409cb31ab7797b5ed2bff728a251e6d9dd4ff",
+          "working_object": null
+        },
+        {
+          "path": "test/engine/tracks.test.ts",
+          "git_object": "3df22173bdbcabaf1e570406c635d7ee0cfe959f",
+          "working_object": null
+        },
+        {
+          "path": "test/labor/abilities.test.ts",
+          "git_object": "512df791596244ce5e83c46403270dd01d79e4ad",
+          "working_object": null
+        },
+        {
+          "path": "test/labor/ability-registry.test.ts",
+          "git_object": "81df51f5d374bbfe63f0698aa5ebe2968036410d",
+          "working_object": null
+        },
+        {
+          "path": "test/labor/assignments.test.ts",
+          "git_object": "3b13a5dcd12eaaab7e74f4c2dfe4bf93917907c8",
+          "working_object": null
+        },
+        {
+          "path": "test/labor/attacks.test.ts",
+          "git_object": "854182788bc70d029ed3da94d434da3d1a687823",
+          "working_object": null
+        },
+        {
+          "path": "test/labor/content-effects.test.ts",
+          "git_object": "aff122c621d7e94cce982c4d535af83dc95414e9",
+          "working_object": null
+        },
+        {
+          "path": "test/labor/content.test.ts",
+          "git_object": "26cdd42a082edb8666220ecb2676b14d937e4c8e",
+          "working_object": null
+        },
+        {
+          "path": "test/labor/damage.test.ts",
+          "git_object": "b79dccfdf482b66330d6aa49e7792731b872cd5a",
+          "working_object": null
+        },
+        {
+          "path": "test/labor/decisions.test.ts",
+          "git_object": "da96d09422e3a7f07d0c7ea760c20f40afe2f470",
+          "working_object": null
+        },
+        {
+          "path": "test/labor/fixtures-v4.test.ts",
+          "git_object": "dc9efdbb76e30ab82ff5a530b7fea272fa8aa711",
+          "working_object": null
+        },
+        {
+          "path": "test/labor/hind.test.ts",
+          "git_object": "1179839c28dada946a0b000b41550c57c96f4cb5",
+          "working_object": null
+        },
+        {
+          "path": "test/labor/moods.test.ts",
+          "git_object": "8d602f24d6fda79740df9946de13600280dc25b6",
+          "working_object": null
+        },
+        {
+          "path": "test/labor/pholus.test.ts",
+          "git_object": "3a351b4f865469690244cec66457ad1b46f8b7a8",
+          "working_object": null
+        },
+        {
+          "path": "test/labor/reward-side-effects.test.ts",
+          "git_object": "5c6f3030360b5c5bfd4210adafc3789b4f36a188",
+          "working_object": null
+        },
+        {
+          "path": "test/labor/rewards.test.ts",
+          "git_object": "d005c76b1a69887800b4796fb47bd89e79fb48e4",
+          "working_object": null
+        },
+        {
+          "path": "test/labor/setup.test.ts",
+          "git_object": "13b852f518cbeb2b832f4023048acc341ff25422",
+          "working_object": null
+        },
+        {
+          "path": "test/labor/temporary-dice-pool.test.ts",
+          "git_object": "ac9819db0d0baaff773bfda4e878a6028cda3338",
+          "working_object": null
+        },
+        {
+          "path": "test/labor/transition.test.ts",
+          "git_object": "1f6f498ffd2c790ab2fea436028ffa9ca9a69c85",
+          "working_object": null
+        },
+        {
+          "path": "test/labor/zeus-redraw.test.ts",
+          "git_object": "6965cb63fec65a01151f153ce734a93bb6ceb567",
+          "working_object": null
+        },
+        {
+          "path": "test/rng/herc-rng.test.ts",
+          "git_object": "21e367132ee41ea1e7f515e2f8a8039d1d688f3f",
+          "working_object": null
+        },
+        {
+          "path": "test/state/starting-spirit.test.ts",
+          "git_object": "596a80817e30c1c58916b28d1477a4cdbae3c110",
+          "working_object": null
+        },
+        {
+          "path": "test/state/state.test.ts",
+          "git_object": "3cc8792875fe78c3086674d4582e752b8f5ab359",
+          "working_object": null
+        }
+      ],
+      "verification_scope": "superseded historical object only; never executed",
+      "matched": true
+    },
+    {
+      "id": "package",
+      "path": "package.json",
+      "kind": "blob",
+      "git_object": "ec00f499a965e96db2ca4d0b8e4cda50e7bea805",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "role": "reproduction_tooling",
+      "sha256_git_bytes": "57309a5e04e6b3368f5edaaac040d86680442d7abae76f5567d793e96a1e1fd9",
+      "observed_commit": "18440b2637c94807213483a73664d8a2a0f3f366",
+      "observed_git_object": "ec00f499a965e96db2ca4d0b8e4cda50e7bea805",
+      "observed_source_object": "ec00f499a965e96db2ca4d0b8e4cda50e7bea805",
+      "observed_sha256_git_bytes": "57309a5e04e6b3368f5edaaac040d86680442d7abae76f5567d793e96a1e1fd9",
+      "observed_working_object": "ec00f499a965e96db2ca4d0b8e4cda50e7bea805",
+      "working_changes": "",
+      "covered_tree_members": null,
+      "verification_scope": "current promoted working input",
+      "matched": true
+    },
+    {
+      "id": "lockfile",
+      "path": "pnpm-lock.yaml",
+      "kind": "blob",
+      "git_object": "f974b55ecfee5f821216dd2ee26e6a4cb85e1737",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "role": "reproduction_tooling",
+      "sha256_git_bytes": "fe4a0dac8359a8b6252c5e3e4d02a2f8158ada9b7f6189f8e6c0f7e1f653c28e",
+      "observed_commit": "18440b2637c94807213483a73664d8a2a0f3f366",
+      "observed_git_object": "f974b55ecfee5f821216dd2ee26e6a4cb85e1737",
+      "observed_source_object": "f974b55ecfee5f821216dd2ee26e6a4cb85e1737",
+      "observed_sha256_git_bytes": "fe4a0dac8359a8b6252c5e3e4d02a2f8158ada9b7f6189f8e6c0f7e1f653c28e",
+      "observed_working_object": "f974b55ecfee5f821216dd2ee26e6a4cb85e1737",
+      "working_changes": "",
+      "covered_tree_members": null,
+      "verification_scope": "current promoted working input",
+      "matched": true
+    },
+    {
+      "id": "tsconfig",
+      "path": "tsconfig.json",
+      "kind": "blob",
+      "git_object": "e10045c9619b6c3d47281654d968c7dfb8217c48",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "role": "reproduction_tooling",
+      "sha256_git_bytes": "1e0f0d23494bc5e21924b2f287bfa8f1f734579037fa6355db4be2fde3528545",
+      "observed_commit": "18440b2637c94807213483a73664d8a2a0f3f366",
+      "observed_git_object": "e10045c9619b6c3d47281654d968c7dfb8217c48",
+      "observed_source_object": "e10045c9619b6c3d47281654d968c7dfb8217c48",
+      "observed_sha256_git_bytes": "1e0f0d23494bc5e21924b2f287bfa8f1f734579037fa6355db4be2fde3528545",
+      "observed_working_object": "e10045c9619b6c3d47281654d968c7dfb8217c48",
+      "working_changes": "",
+      "covered_tree_members": null,
+      "verification_scope": "current promoted working input",
+      "matched": true
+    },
+    {
+      "id": "tools-tsconfig",
+      "path": "tsconfig.tools.json",
+      "kind": "blob",
+      "git_object": "874248bd29f4521f9fa3e14e9356639ed800847a",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "role": "reproduction_tooling",
+      "sha256_git_bytes": "dc70f5b95f167083c3cf9e2223c5b5fe929876736b9ea549b556a4fb5c670e80",
+      "observed_commit": "18440b2637c94807213483a73664d8a2a0f3f366",
+      "observed_git_object": "874248bd29f4521f9fa3e14e9356639ed800847a",
+      "observed_source_object": "874248bd29f4521f9fa3e14e9356639ed800847a",
+      "observed_sha256_git_bytes": "dc70f5b95f167083c3cf9e2223c5b5fe929876736b9ea549b556a4fb5c670e80",
+      "observed_working_object": "874248bd29f4521f9fa3e14e9356639ed800847a",
+      "working_changes": "",
+      "covered_tree_members": null,
+      "verification_scope": "current promoted working input",
+      "matched": true
+    },
+    {
+      "id": "data-generator",
+      "path": "src/data/generate.ts",
+      "kind": "blob",
+      "git_object": "c018bb23e59239d6873d6f7cd0d4aa6482e1acd2",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "role": "reproduction_tooling",
+      "sha256_git_bytes": "8b1809a8119a16da7eeae0dc38484135a025675849e1a86b77c71fec597dcbf3",
+      "observed_commit": "18440b2637c94807213483a73664d8a2a0f3f366",
+      "observed_git_object": "c018bb23e59239d6873d6f7cd0d4aa6482e1acd2",
+      "observed_source_object": "c018bb23e59239d6873d6f7cd0d4aa6482e1acd2",
+      "observed_sha256_git_bytes": "8b1809a8119a16da7eeae0dc38484135a025675849e1a86b77c71fec597dcbf3",
+      "observed_working_object": "c018bb23e59239d6873d6f7cd0d4aa6482e1acd2",
+      "working_changes": "",
+      "covered_tree_members": null,
+      "verification_scope": "current promoted working input",
+      "matched": true
+    },
+    {
+      "id": "data-validator",
+      "path": "src/data/validation.ts",
+      "kind": "blob",
+      "git_object": "df88d2d5aa065f8de8ef653924ed8a1704315415",
+      "source_commit": "70b33a0e81c63c5317550bb81da4b9799b02a91b",
+      "role": "reproduction_tooling",
+      "sha256_git_bytes": "62671ac1f74e16970d8956556b11b8c72ad53db083a3989588ec25c515bc4ab1",
+      "observed_commit": "18440b2637c94807213483a73664d8a2a0f3f366",
+      "observed_git_object": "df88d2d5aa065f8de8ef653924ed8a1704315415",
+      "observed_source_object": "df88d2d5aa065f8de8ef653924ed8a1704315415",
+      "observed_sha256_git_bytes": "62671ac1f74e16970d8956556b11b8c72ad53db083a3989588ec25c515bc4ab1",
+      "observed_working_object": "df88d2d5aa065f8de8ef653924ed8a1704315415",
+      "working_changes": "",
+      "covered_tree_members": null,
+      "verification_scope": "current promoted working input",
+      "matched": true
+    },
+    {
+      "id": "official-rulebook",
+      "path": "src/data/raw/sources/Hercules_Rules_104x155.pdf",
+      "kind": "blob",
+      "git_object": "bb1662bbede6a183bfe5b5548a126d20099a496b",
+      "source_commit": null,
+      "sha256_git_bytes": "de7d479426b40fd94935be85ef09e37ef30f2d00c5f8fcd4b20ab39b6720ef4a",
+      "role": "official_rules",
+      "provenance": {
+        "type": "recovered_historical_reference",
+        "source_filename": "Hercules_Rules_104x155.pdf",
+        "verification": "byte_identical_local_export; substantive verification assigned to RS-001",
+        "historical_basis": "named by historical handoff authority chain; version identity checked",
+        "export_timestamp_verified": false
+      },
+      "observed_commit": "18440b2637c94807213483a73664d8a2a0f3f366",
+      "observed_git_object": "bb1662bbede6a183bfe5b5548a126d20099a496b",
+      "observed_source_object": null,
+      "observed_sha256_git_bytes": "de7d479426b40fd94935be85ef09e37ef30f2d00c5f8fcd4b20ab39b6720ef4a",
+      "observed_working_object": "bb1662bbede6a183bfe5b5548a126d20099a496b",
+      "working_changes": "",
+      "covered_tree_members": null,
+      "verification_scope": "current promoted working input",
+      "matched": true
+    },
+    {
+      "id": "verified-reference",
+      "path": "src/data/raw/sources/Hercules_Verified_Gameplay_Reference_v12.md",
+      "kind": "blob",
+      "git_object": "9b806258acc2a7daa60224d66e27c83baa2e6a0c",
+      "source_commit": null,
+      "sha256_git_bytes": "d3cc41b91fb32440c6970cad0d148222ffa9e9e08c277c361fd1f0ce6082ffde",
+      "role": "recorded_owner_verified_components",
+      "provenance": {
+        "type": "recovered_historical_reference",
+        "source_filename": "Hercules_Verified_Gameplay_Reference_v12.md",
+        "verification": "byte_identical_local_export; substantive verification assigned to RS-001",
+        "historical_basis": "named by historical handoff authority chain; version identity checked",
+        "export_timestamp_verified": false
+      },
+      "observed_commit": "18440b2637c94807213483a73664d8a2a0f3f366",
+      "observed_git_object": "9b806258acc2a7daa60224d66e27c83baa2e6a0c",
+      "observed_source_object": null,
+      "observed_sha256_git_bytes": "d3cc41b91fb32440c6970cad0d148222ffa9e9e08c277c361fd1f0ce6082ffde",
+      "observed_working_object": "9b806258acc2a7daa60224d66e27c83baa2e6a0c",
+      "working_changes": "",
+      "covered_tree_members": null,
+      "verification_scope": "current promoted working input",
+      "matched": true
+    },
+    {
+      "id": "rng-spec",
+      "path": "src/data/raw/sources/Hercules_RNG_Spec_v3.md",
+      "kind": "blob",
+      "git_object": "c1b70237e259cacf7a913f7ffccb1344a01189ac",
+      "source_commit": null,
+      "sha256_git_bytes": "6e735e6eee584d2c0ac754d620e6b46c35dd40883ccfc843a6aa289bc7b7d988",
+      "role": "deterministic_randomness_authority",
+      "provenance": {
+        "type": "recovered_historical_reference",
+        "source_filename": "Hercules_RNG_Spec_v3.md",
+        "verification": "byte_identical_local_export; substantive verification assigned to RS-001",
+        "historical_basis": "named by historical handoff authority chain; version identity checked",
+        "export_timestamp_verified": false
+      },
+      "observed_commit": "18440b2637c94807213483a73664d8a2a0f3f366",
+      "observed_git_object": "c1b70237e259cacf7a913f7ffccb1344a01189ac",
+      "observed_source_object": null,
+      "observed_sha256_git_bytes": "6e735e6eee584d2c0ac754d620e6b46c35dd40883ccfc843a6aa289bc7b7d988",
+      "observed_working_object": "c1b70237e259cacf7a913f7ffccb1344a01189ac",
+      "working_changes": "",
+      "covered_tree_members": null,
+      "verification_scope": "current promoted working input",
+      "matched": true
+    },
+    {
+      "id": "rs-001-readiness",
+      "path": "orchestration/validation/RS-001-readiness.json",
+      "kind": "blob",
+      "git_object": "6fd8a445afc98455a252f74a0eccbf62a0e8c2af",
+      "source_commit": "3c9c8e4e15eaf287b5fec6e9a9a00cbd5d76272f",
+      "sha256_git_bytes": "f795dc3782f89c390436567c051273855ef3bc7959fb8d528b2fcfe58a8ab374",
+      "role": "validation_precondition",
+      "observed_commit": "18440b2637c94807213483a73664d8a2a0f3f366",
+      "observed_git_object": "6fd8a445afc98455a252f74a0eccbf62a0e8c2af",
+      "observed_source_object": "6fd8a445afc98455a252f74a0eccbf62a0e8c2af",
+      "observed_sha256_git_bytes": "f795dc3782f89c390436567c051273855ef3bc7959fb8d528b2fcfe58a8ab374",
+      "observed_working_object": "6fd8a445afc98455a252f74a0eccbf62a0e8c2af",
+      "working_changes": "",
+      "covered_tree_members": null,
+      "verification_scope": "current promoted working input",
+      "matched": true
+    },
+    {
+      "id": "golden-start-state",
+      "path": "orchestration/validation/RS-001-golden-start-state.json",
+      "kind": "blob",
+      "git_object": "2c1d1b69692c3e38edba8bd42adf2bd42fe5826c",
+      "source_commit": "3c9c8e4e15eaf287b5fec6e9a9a00cbd5d76272f",
+      "sha256_git_bytes": "3c4f8de10b411a612ab04b860750886c360e25d7056fcc7890dcdda28f6eb289",
+      "role": "validation_start_state",
+      "observed_commit": "18440b2637c94807213483a73664d8a2a0f3f366",
+      "observed_git_object": "2c1d1b69692c3e38edba8bd42adf2bd42fe5826c",
+      "observed_source_object": "2c1d1b69692c3e38edba8bd42adf2bd42fe5826c",
+      "observed_sha256_git_bytes": "3c4f8de10b411a612ab04b860750886c360e25d7056fcc7890dcdda28f6eb289",
+      "observed_working_object": "2c1d1b69692c3e38edba8bd42adf2bd42fe5826c",
+      "working_changes": "",
+      "covered_tree_members": null,
+      "verification_scope": "current promoted working input",
+      "matched": true
+    },
+    {
+      "id": "rs-002-handoff",
+      "path": "orchestration/handoffs/RS-002-rules-spec-20260913T131948Z-6e6af8.json",
+      "kind": "blob",
+      "git_object": "ec4b9e65909a9f6ce98081ca0bf1a1e30ba7f11b",
+      "source_commit": "6bffa094431d84429ed93339d48f839bcc5a2302",
+      "sha256_git_bytes": "ce9ed7f73f197b813b286d484fcfdbcfa44cb4e7eaf41cf29a1489455f813944",
+      "role": "validation_precondition",
+      "observed_commit": "18440b2637c94807213483a73664d8a2a0f3f366",
+      "observed_git_object": "ec4b9e65909a9f6ce98081ca0bf1a1e30ba7f11b",
+      "observed_source_object": "ec4b9e65909a9f6ce98081ca0bf1a1e30ba7f11b",
+      "observed_sha256_git_bytes": "ce9ed7f73f197b813b286d484fcfdbcfa44cb4e7eaf41cf29a1489455f813944",
+      "observed_working_object": "ec4b9e65909a9f6ce98081ca0bf1a1e30ba7f11b",
+      "working_changes": "",
+      "covered_tree_members": null,
+      "verification_scope": "current promoted working input",
+      "matched": true
+    },
+    {
+      "id": "l08-scenario",
+      "path": "orchestration/validation/RS-001-L08-scenario.json",
+      "kind": "blob",
+      "git_object": "26274cbd8d42ebb23de206545e32c1d72728c35a",
+      "source_commit": "3c9c8e4e15eaf287b5fec6e9a9a00cbd5d76272f",
+      "sha256_git_bytes": "ed12d6c59322497317ead04cd3b2d33294e9e3c1899a3737d2619d99fc60dfc7",
+      "role": "validation_start_state",
+      "observed_commit": "18440b2637c94807213483a73664d8a2a0f3f366",
+      "observed_git_object": "26274cbd8d42ebb23de206545e32c1d72728c35a",
+      "observed_source_object": "26274cbd8d42ebb23de206545e32c1d72728c35a",
+      "observed_sha256_git_bytes": "ed12d6c59322497317ead04cd3b2d33294e9e3c1899a3737d2619d99fc60dfc7",
+      "observed_working_object": "26274cbd8d42ebb23de206545e32c1d72728c35a",
+      "working_changes": "",
+      "covered_tree_members": null,
+      "verification_scope": "current promoted working input",
+      "matched": true
+    },
+    {
+      "id": "val-001-result",
+      "path": "orchestration/validation/VAL-001-validation-20260913T152213Z-30ff45-result.json",
+      "kind": "blob",
+      "git_object": "2e980948749145ad132761336f63b7bbfdcdc8d6",
+      "source_commit": "5483df904f2c841b35a41f7faca7ad65b01b0173",
+      "sha256_git_bytes": "d4ed8a40d191f0ee803f37e5744b2f45ca9ce13321a92c3e2dfe4f7392ca81a3",
+      "role": "validation_evidence",
+      "observed_commit": "18440b2637c94807213483a73664d8a2a0f3f366",
+      "observed_git_object": "2e980948749145ad132761336f63b7bbfdcdc8d6",
+      "observed_source_object": "2e980948749145ad132761336f63b7bbfdcdc8d6",
+      "observed_sha256_git_bytes": "d4ed8a40d191f0ee803f37e5744b2f45ca9ce13321a92c3e2dfe4f7392ca81a3",
+      "observed_working_object": "2e980948749145ad132761336f63b7bbfdcdc8d6",
+      "working_changes": "",
+      "covered_tree_members": null,
+      "verification_scope": "current promoted working input",
+      "matched": true
+    },
+    {
+      "id": "val-001-handoff",
+      "path": "orchestration/handoffs/VAL-001-validation-20260913T152213Z-30ff45.json",
+      "kind": "blob",
+      "git_object": "f77fc4f96f8e520b3931cd74a49086907e1bbff3",
+      "source_commit": "5483df904f2c841b35a41f7faca7ad65b01b0173",
+      "sha256_git_bytes": "56f1b408398160742342a04a584906d944b9fbe5e1b7bb122db06d647a81b785",
+      "role": "validation_evidence",
+      "observed_commit": "18440b2637c94807213483a73664d8a2a0f3f366",
+      "observed_git_object": "f77fc4f96f8e520b3931cd74a49086907e1bbff3",
+      "observed_source_object": "f77fc4f96f8e520b3931cd74a49086907e1bbff3",
+      "observed_sha256_git_bytes": "56f1b408398160742342a04a584906d944b9fbe5e1b7bb122db06d647a81b785",
+      "observed_working_object": "f77fc4f96f8e520b3931cd74a49086907e1bbff3",
+      "working_changes": "",
+      "covered_tree_members": null,
+      "verification_scope": "current promoted working input",
+      "matched": true
+    },
+    {
+      "id": "corrected-engine",
+      "path": "src/engine",
+      "kind": "tree",
+      "git_object": "8b39d43a90b71729d56b45fa03aaf6cd357e5e9e",
+      "source_commit": "f474d66249edf96f209257b0a9418990cdb3edf0",
+      "role": "candidate_implementation_for_independent_validation",
+      "observed_commit": "f474d66249edf96f209257b0a9418990cdb3edf0",
+      "observed_git_object": "8b39d43a90b71729d56b45fa03aaf6cd357e5e9e",
+      "observed_source_object": "8b39d43a90b71729d56b45fa03aaf6cd357e5e9e",
+      "observed_sha256_git_bytes": null,
+      "observed_working_object": null,
+      "working_changes": null,
+      "covered_tree_members": [
+        {
+          "path": "src/engine/abilities/registry.ts",
+          "git_object": "f13eff24962bf52773c149338c8e445eb355f682",
+          "working_object": null
+        },
+        {
+          "path": "src/engine/actions/placement.ts",
+          "git_object": "13daa0c1f5d8509ada0d9335ade0dec02b064c0e",
+          "working_object": null
+        },
+        {
+          "path": "src/engine/api.ts",
+          "git_object": "d78f6a235e74ece778e9b1915390451e45d4d903",
+          "working_object": null
+        },
+        {
+          "path": "src/engine/build-version.ts",
+          "git_object": "5c9ed5d770d4be5c79f5ee26e279c5fb5010b706",
+          "working_object": null
+        },
+        {
+          "path": "src/engine/commands/allocation.ts",
+          "git_object": "51a87416c2d447b89a9d88ad8b74a7430f99cad3",
+          "working_object": null
+        },
+        {
+          "path": "src/engine/commands/dispatcher.ts",
+          "git_object": "738c2cd47ef7111048a593bf2a3cd16998721777",
+          "working_object": null
+        },
+        {
+          "path": "src/engine/commands/resolve-assignments.ts",
+          "git_object": "a5015850aa7df0c78b3415e432115965633c35d2",
+          "working_object": null
+        },
+        {
+          "path": "src/engine/commands/types.ts",
+          "git_object": "d54529cfc8998b7277cb67d7e23bc3d13aac5126",
+          "working_object": null
+        },
+        {
+          "path": "src/engine/decisions/resolve.ts",
+          "git_object": "d5f3428a01dec48960faf254f91903bdc47b28b1",
+          "working_object": null
+        },
+        {
+          "path": "src/engine/diagnostics/export.ts",
+          "git_object": "1c4a428e72f6fdf5e59d013f00ad6789d1496447",
+          "working_object": null
+        },
+        {
+          "path": "src/engine/dice/abilities.ts",
+          "git_object": "70d717852e532ef10cfea3541af2b1770ce68436",
+          "working_object": null
+        },
+        {
+          "path": "src/engine/dice/commit.ts",
+          "git_object": "f8e3995ef85f4cea4e07b853d100f9391b7d790a",
+          "working_object": null
+        },
+        {
+          "path": "src/engine/dice/content-abilities.ts",
+          "git_object": "c9d93dfc53d26be6659bb86b4434933221717e7c",
+          "working_object": null
+        },
+        {
+          "path": "src/engine/dice/lifecycle.ts",
+          "git_object": "a7e6cb7103427528f198d2020683554f924f3e1c",
+          "working_object": null
+        },
+        {
+          "path": "src/engine/dice/pool.ts",
+          "git_object": "922e7a3f7670dee615194ef618e074cd7ac409de",
+          "working_object": null
+        },
+        {
+          "path": "src/engine/effects/apply.ts",
+          "git_object": "197486b9d766c5e97582159a41c6c945d7727b43",
+          "working_object": null
+        },
+        {
+          "path": "src/engine/effects/content.ts",
+          "git_object": "74ad4a47481a2422c5a962077aadaab3909ce4d1",
+          "working_object": null
+        },
+        {
+          "path": "src/engine/labor/attacks.ts",
+          "git_object": "e305839c2336470f46ac1d4ac985e03569245ec4",
+          "working_object": null
+        },
+        {
+          "path": "src/engine/labor/content.ts",
+          "git_object": "eece06afb77258acf301a856548620dd02754ad1",
+          "working_object": null
+        },
+        {
+          "path": "src/engine/labor/damage.ts",
+          "git_object": "67376cfa0423a1cc67d40616cd00f46a642ff47e",
+          "working_object": null
+        },
+        {
+          "path": "src/engine/labor/hind.ts",
+          "git_object": "d5f06c5cb31c813cd2cf7d34171174b3cad266c6",
+          "working_object": null
+        },
+        {
+          "path": "src/engine/labor/setup.ts",
+          "git_object": "e6858b0f67e853ef0ff526e50d63fb072431ca16",
+          "working_object": null
+        },
+        {
+          "path": "src/engine/labor/transition.ts",
+          "git_object": "8306bbc94a77a2580916278486d0b185dd5511c1",
+          "working_object": null
+        },
+        {
+          "path": "src/engine/moods/roll-modifiers.ts",
+          "git_object": "b01ad6b659dc1653516f687ef327904c65db6cc2",
+          "working_object": null
+        },
+        {
+          "path": "src/engine/requirements/evaluate.ts",
+          "git_object": "2408c1c12f7afb4b2ff85ea5b83c5675576202b2",
+          "working_object": null
+        },
+        {
+          "path": "src/engine/resources/resolve.ts",
+          "git_object": "2160e21392f3b91fc5a383907234ee22148628a6",
+          "working_object": null
+        },
+        {
+          "path": "src/engine/rewards/resolve.ts",
+          "git_object": "6d92dfb26bd043781badb102bc50909bd00adb2c",
+          "working_object": null
+        },
+        {
+          "path": "src/engine/round/progress.ts",
+          "git_object": "63be3129d6c4155e92b9192471243ce8bad41bc7",
+          "working_object": null
+        },
+        {
+          "path": "src/engine/round/resolve.ts",
+          "git_object": "33315f89759c9e7fda6280d5e4e58a0e7d1d6f17",
+          "working_object": null
+        },
+        {
+          "path": "src/engine/state/create.ts",
+          "git_object": "e14a4ed44120681b441c9b3cda4bc593ac298dbc",
+          "working_object": null
+        },
+        {
+          "path": "src/engine/state/invariants.ts",
+          "git_object": "965d3a2d0c669f87594fcf4a14061f910764a9eb",
+          "working_object": null
+        },
+        {
+          "path": "src/engine/state/save.ts",
+          "git_object": "9b7aa2fd488dfbc72b77764e09a8008006d14de4",
+          "working_object": null
+        },
+        {
+          "path": "src/engine/state/types.ts",
+          "git_object": "e01d30897bf0467dbf04340ce2bf0359635adfa0",
+          "working_object": null
+        },
+        {
+          "path": "src/engine/state/undo.ts",
+          "git_object": "f2c99437dee76714cb9eb6b5a2beb5a1ea6b1b22",
+          "working_object": null
+        },
+        {
+          "path": "src/engine/tracks/move.ts",
+          "git_object": "4979b78b8e1b29cb7d269353bb5b01e216444140",
+          "working_object": null
+        },
+        {
+          "path": "src/engine/transitions/resolve-impact.ts",
+          "git_object": "d7473275d7375eb54e6f7cb2f5b229d75d1972b1",
+          "working_object": null
+        },
+        {
+          "path": "src/engine/view-model.ts",
+          "git_object": "eb6fb4a49b106dd7f9e652ef1c9ecfea7831fb40",
+          "working_object": null
+        }
+      ],
+      "verification_scope": "superseded historical object only; never executed",
+      "matched": true
+    },
+    {
+      "id": "corrected-replay",
+      "path": "src/replay",
+      "kind": "tree",
+      "git_object": "c287d247e4bb2b550aabc77bc29074772319d5e3",
+      "source_commit": "f474d66249edf96f209257b0a9418990cdb3edf0",
+      "role": "candidate_implementation_for_independent_validation",
+      "observed_commit": "f474d66249edf96f209257b0a9418990cdb3edf0",
+      "observed_git_object": "c287d247e4bb2b550aabc77bc29074772319d5e3",
+      "observed_source_object": "c287d247e4bb2b550aabc77bc29074772319d5e3",
+      "observed_sha256_git_bytes": null,
+      "observed_working_object": null,
+      "working_changes": null,
+      "covered_tree_members": [
+        {
+          "path": "src/replay/golden-run.ts",
+          "git_object": "a5aa0322ee7429a91e3ac39222314884a068b0ee",
+          "working_object": null
+        }
+      ],
+      "verification_scope": "superseded historical object only; never executed",
+      "matched": true
+    },
+    {
+      "id": "corrected-tests",
+      "path": "test",
+      "kind": "tree",
+      "git_object": "120159a44de8b10b6d2993cbfcaa8e4843649bed",
+      "source_commit": "6491d1db65459e83bbe951e00dd91a51934e7ff0",
+      "role": "candidate_regression_suite_for_independent_validation",
+      "observed_commit": "6491d1db65459e83bbe951e00dd91a51934e7ff0",
+      "observed_git_object": "120159a44de8b10b6d2993cbfcaa8e4843649bed",
+      "observed_source_object": "120159a44de8b10b6d2993cbfcaa8e4843649bed",
+      "observed_sha256_git_bytes": null,
+      "observed_working_object": null,
+      "working_changes": null,
+      "covered_tree_members": [
+        {
+          "path": "test/confidence/headless-fuzz.test.ts",
+          "git_object": "ea4030d86f70af4721e712624235cfd38eb99fc0",
+          "working_object": null
+        },
+        {
+          "path": "test/data/validation.test.ts",
+          "git_object": "f6216c4124ec13c9556fbd5e9e1de1edeb7adc85",
+          "working_object": null
+        },
+        {
+          "path": "test/engine/action-pipeline.test.ts",
+          "git_object": "e11013d634833f5f27a4412b70bd6b29116540fd",
+          "working_object": null
+        },
+        {
+          "path": "test/engine/allocation.test.ts",
+          "git_object": "e82c050d8042e8b3e6afe013217b5bffef05f631",
+          "working_object": null
+        },
+        {
+          "path": "test/engine/api.test.ts",
+          "git_object": "979ca9728188f7b25f201d1501c907b38c76d71c",
+          "working_object": null
+        },
+        {
+          "path": "test/engine/dice.test.ts",
+          "git_object": "442d0528af25da928920e2df9920a42dfef688af",
+          "working_object": null
+        },
+        {
+          "path": "test/engine/dispatcher.test.ts",
+          "git_object": "8731dd8c03a863316a1514da74a52fd77edd8b2f",
+          "working_object": null
+        },
+        {
+          "path": "test/engine/effects.test.ts",
+          "git_object": "e340a7ce95ec6e4f00ca2c6aea01fd3c1b5e99db",
+          "working_object": null
+        },
+        {
+          "path": "test/engine/impact.test.ts",
+          "git_object": "9ef9d022b7a44438fc621da5da338f8a4c05fcce",
+          "working_object": null
+        },
+        {
+          "path": "test/engine/progress.test.ts",
+          "git_object": "6741b4a850d3aabc46fd288869691457f07302eb",
+          "working_object": null
+        },
+        {
+          "path": "test/engine/requirements.test.ts",
+          "git_object": "dee3d06b3838ffd2e6dba2b5b601fcd7f28d683a",
+          "working_object": null
+        },
+        {
+          "path": "test/engine/resources.test.ts",
+          "git_object": "285409cb31ab7797b5ed2bff728a251e6d9dd4ff",
+          "working_object": null
+        },
+        {
+          "path": "test/engine/tracks.test.ts",
+          "git_object": "3df22173bdbcabaf1e570406c635d7ee0cfe959f",
+          "working_object": null
+        },
+        {
+          "path": "test/implementation/imp-001-engine.test.ts",
+          "git_object": "4f52928833fed5c34488c43fe44627f8a5bada82",
+          "working_object": null
+        },
+        {
+          "path": "test/implementation/imp-001-replay.test.ts",
+          "git_object": "b4e784251cd312b4b3a944cd29d26950384840a9",
+          "working_object": null
+        },
+        {
+          "path": "test/labor/abilities.test.ts",
+          "git_object": "512df791596244ce5e83c46403270dd01d79e4ad",
+          "working_object": null
+        },
+        {
+          "path": "test/labor/ability-registry.test.ts",
+          "git_object": "81df51f5d374bbfe63f0698aa5ebe2968036410d",
+          "working_object": null
+        },
+        {
+          "path": "test/labor/assignments.test.ts",
+          "git_object": "3b13a5dcd12eaaab7e74f4c2dfe4bf93917907c8",
+          "working_object": null
+        },
+        {
+          "path": "test/labor/attacks.test.ts",
+          "git_object": "854182788bc70d029ed3da94d434da3d1a687823",
+          "working_object": null
+        },
+        {
+          "path": "test/labor/content-effects.test.ts",
+          "git_object": "aff122c621d7e94cce982c4d535af83dc95414e9",
+          "working_object": null
+        },
+        {
+          "path": "test/labor/content.test.ts",
+          "git_object": "26cdd42a082edb8666220ecb2676b14d937e4c8e",
+          "working_object": null
+        },
+        {
+          "path": "test/labor/damage.test.ts",
+          "git_object": "b79dccfdf482b66330d6aa49e7792731b872cd5a",
+          "working_object": null
+        },
+        {
+          "path": "test/labor/decisions.test.ts",
+          "git_object": "da96d09422e3a7f07d0c7ea760c20f40afe2f470",
+          "working_object": null
+        },
+        {
+          "path": "test/labor/fixtures-v4.test.ts",
+          "git_object": "dc9efdbb76e30ab82ff5a530b7fea272fa8aa711",
+          "working_object": null
+        },
+        {
+          "path": "test/labor/hind.test.ts",
+          "git_object": "1179839c28dada946a0b000b41550c57c96f4cb5",
+          "working_object": null
+        },
+        {
+          "path": "test/labor/moods.test.ts",
+          "git_object": "8d602f24d6fda79740df9946de13600280dc25b6",
+          "working_object": null
+        },
+        {
+          "path": "test/labor/pholus.test.ts",
+          "git_object": "3a351b4f865469690244cec66457ad1b46f8b7a8",
+          "working_object": null
+        },
+        {
+          "path": "test/labor/reward-side-effects.test.ts",
+          "git_object": "5c6f3030360b5c5bfd4210adafc3789b4f36a188",
+          "working_object": null
+        },
+        {
+          "path": "test/labor/rewards.test.ts",
+          "git_object": "d005c76b1a69887800b4796fb47bd89e79fb48e4",
+          "working_object": null
+        },
+        {
+          "path": "test/labor/setup.test.ts",
+          "git_object": "13b852f518cbeb2b832f4023048acc341ff25422",
+          "working_object": null
+        },
+        {
+          "path": "test/labor/temporary-dice-pool.test.ts",
+          "git_object": "ac9819db0d0baaff773bfda4e878a6028cda3338",
+          "working_object": null
+        },
+        {
+          "path": "test/labor/transition.test.ts",
+          "git_object": "1f6f498ffd2c790ab2fea436028ffa9ca9a69c85",
+          "working_object": null
+        },
+        {
+          "path": "test/labor/zeus-redraw.test.ts",
+          "git_object": "6965cb63fec65a01151f153ce734a93bb6ceb567",
+          "working_object": null
+        },
+        {
+          "path": "test/rng/herc-rng.test.ts",
+          "git_object": "0e3f08b2b74a1b28b0e518f0821f4da97d9f262e",
+          "working_object": null
+        },
+        {
+          "path": "test/state/starting-spirit.test.ts",
+          "git_object": "596a80817e30c1c58916b28d1477a4cdbae3c110",
+          "working_object": null
+        },
+        {
+          "path": "test/state/state.test.ts",
+          "git_object": "3cc8792875fe78c3086674d4582e752b8f5ab359",
+          "working_object": null
+        }
+      ],
+      "verification_scope": "superseded historical object only; never executed",
+      "matched": true
+    },
+    {
+      "id": "imp-001-handoff",
+      "path": "orchestration/handoffs/IMP-001-implementation-20260913T213517Z-b680db.json",
+      "kind": "blob",
+      "git_object": "09e257c948952535287fddc6383f6bdf7bd27705",
+      "source_commit": "f474d66249edf96f209257b0a9418990cdb3edf0",
+      "sha256_git_bytes": "20ba882a247c8edd75ac5fe86ec948f77fc335c1abe20548aa3331dae17e454c",
+      "role": "implementation_evidence",
+      "observed_commit": "18440b2637c94807213483a73664d8a2a0f3f366",
+      "observed_git_object": "09e257c948952535287fddc6383f6bdf7bd27705",
+      "observed_source_object": "09e257c948952535287fddc6383f6bdf7bd27705",
+      "observed_sha256_git_bytes": "20ba882a247c8edd75ac5fe86ec948f77fc335c1abe20548aa3331dae17e454c",
+      "observed_working_object": "09e257c948952535287fddc6383f6bdf7bd27705",
+      "working_changes": "",
+      "covered_tree_members": null,
+      "verification_scope": "current promoted working input",
+      "matched": true
+    },
+    {
+      "id": "imp-001-test-results",
+      "path": "orchestration/implementation/IMP-001-implementation-20260913T213517Z-b680db-test-results.json",
+      "kind": "blob",
+      "git_object": "13bc8abc02ad4fa6897482f30e92909f64b075d4",
+      "source_commit": "f474d66249edf96f209257b0a9418990cdb3edf0",
+      "sha256_git_bytes": "41fce416c9d5fe9f85c07e821f50c8099120d6ff60d5f2f22b01796da26f548c",
+      "role": "implementation_evidence",
+      "observed_commit": "18440b2637c94807213483a73664d8a2a0f3f366",
+      "observed_git_object": "13bc8abc02ad4fa6897482f30e92909f64b075d4",
+      "observed_source_object": "13bc8abc02ad4fa6897482f30e92909f64b075d4",
+      "observed_sha256_git_bytes": "41fce416c9d5fe9f85c07e821f50c8099120d6ff60d5f2f22b01796da26f548c",
+      "observed_working_object": "13bc8abc02ad4fa6897482f30e92909f64b075d4",
+      "working_changes": "",
+      "covered_tree_members": null,
+      "verification_scope": "current promoted working input",
+      "matched": true
+    },
+    {
+      "id": "imp-002-handoff",
+      "path": "orchestration/handoffs/IMP-002-implementation-20260913T223627Z-82cc42.json",
+      "kind": "blob",
+      "git_object": "55989fb8991844d0fd27293a3cef37794a6e4fc1",
+      "source_commit": "6491d1db65459e83bbe951e00dd91a51934e7ff0",
+      "sha256_git_bytes": "a18088139d2534de05e6613bf84f06c56c50d6c26468a0c021ea0fbf19c656a6",
+      "role": "implementation_evidence",
+      "observed_commit": "18440b2637c94807213483a73664d8a2a0f3f366",
+      "observed_git_object": "55989fb8991844d0fd27293a3cef37794a6e4fc1",
+      "observed_source_object": "55989fb8991844d0fd27293a3cef37794a6e4fc1",
+      "observed_sha256_git_bytes": "a18088139d2534de05e6613bf84f06c56c50d6c26468a0c021ea0fbf19c656a6",
+      "observed_working_object": "55989fb8991844d0fd27293a3cef37794a6e4fc1",
+      "working_changes": "",
+      "covered_tree_members": null,
+      "verification_scope": "current promoted working input",
+      "matched": true
+    },
+    {
+      "id": "imp-002-test-results",
+      "path": "orchestration/implementation/IMP-002-implementation-20260913T223627Z-82cc42-test-results.json",
+      "kind": "blob",
+      "git_object": "814ef62fa65f4f07cdc98d7d98f6a780a9ca45e7",
+      "source_commit": "6491d1db65459e83bbe951e00dd91a51934e7ff0",
+      "sha256_git_bytes": "5e2b94bc59e3384713235c95753354c9c4c03ef1904694688f12f69b9b61bb6e",
+      "role": "implementation_evidence",
+      "observed_commit": "18440b2637c94807213483a73664d8a2a0f3f366",
+      "observed_git_object": "814ef62fa65f4f07cdc98d7d98f6a780a9ca45e7",
+      "observed_source_object": "814ef62fa65f4f07cdc98d7d98f6a780a9ca45e7",
+      "observed_sha256_git_bytes": "5e2b94bc59e3384713235c95753354c9c4c03ef1904694688f12f69b9b61bb6e",
+      "observed_working_object": "814ef62fa65f4f07cdc98d7d98f6a780a9ca45e7",
+      "working_changes": "",
+      "covered_tree_members": null,
+      "verification_scope": "current promoted working input",
+      "matched": true
+    },
+    {
+      "id": "val-003-result",
+      "path": "orchestration/validation/VAL-003-validation-20260914T015459Z-5daa2c-result.json",
+      "kind": "blob",
+      "git_object": "d465643d2f9dbb9198521a093c05e8f97e5f1f71",
+      "source_commit": "ce274602ea3145c1d8855e54c23afd48357782ec",
+      "sha256_git_bytes": "0771140d3c6e0777fd827a4b2d917090ab4f7650e0cc0a5459d4c3b89dc995ca",
+      "role": "validation_evidence",
+      "observed_commit": "18440b2637c94807213483a73664d8a2a0f3f366",
+      "observed_git_object": "d465643d2f9dbb9198521a093c05e8f97e5f1f71",
+      "observed_source_object": "d465643d2f9dbb9198521a093c05e8f97e5f1f71",
+      "observed_sha256_git_bytes": "0771140d3c6e0777fd827a4b2d917090ab4f7650e0cc0a5459d4c3b89dc995ca",
+      "observed_working_object": "d465643d2f9dbb9198521a093c05e8f97e5f1f71",
+      "working_changes": "",
+      "covered_tree_members": null,
+      "verification_scope": "current promoted working input",
+      "matched": true
+    },
+    {
+      "id": "val-003-handoff",
+      "path": "orchestration/handoffs/VAL-003-validation-20260914T015459Z-5daa2c.json",
+      "kind": "blob",
+      "git_object": "7dce1f0a991c13d826343a971d12557e9af8dae1",
+      "source_commit": "ce274602ea3145c1d8855e54c23afd48357782ec",
+      "sha256_git_bytes": "f6f9aaa4aba38602dd60c178d36fe43752e3b16976c86bb4bc97fcb96f2928e5",
+      "role": "validation_evidence",
+      "observed_commit": "18440b2637c94807213483a73664d8a2a0f3f366",
+      "observed_git_object": "7dce1f0a991c13d826343a971d12557e9af8dae1",
+      "observed_source_object": "7dce1f0a991c13d826343a971d12557e9af8dae1",
+      "observed_sha256_git_bytes": "f6f9aaa4aba38602dd60c178d36fe43752e3b16976c86bb4bc97fcb96f2928e5",
+      "observed_working_object": "7dce1f0a991c13d826343a971d12557e9af8dae1",
+      "working_changes": "",
+      "covered_tree_members": null,
+      "verification_scope": "current promoted working input",
+      "matched": true
+    },
+    {
+      "id": "val-003-replay-evidence",
+      "path": "orchestration/validation/VAL-003-validation-20260914T015459Z-5daa2c-replay-issue-evidence.json",
+      "kind": "blob",
+      "git_object": "55083641e9562d1cf7096bd5f0a9b153e65afba3",
+      "source_commit": "ce274602ea3145c1d8855e54c23afd48357782ec",
+      "sha256_git_bytes": "83c8972a906f172c024c1dc6dfbf8e39422d2b28fd30d5214badf439742cc973",
+      "role": "implementation_reproduction_input",
+      "observed_commit": "18440b2637c94807213483a73664d8a2a0f3f366",
+      "observed_git_object": "55083641e9562d1cf7096bd5f0a9b153e65afba3",
+      "observed_source_object": "55083641e9562d1cf7096bd5f0a9b153e65afba3",
+      "observed_sha256_git_bytes": "83c8972a906f172c024c1dc6dfbf8e39422d2b28fd30d5214badf439742cc973",
+      "observed_working_object": "55083641e9562d1cf7096bd5f0a9b153e65afba3",
+      "working_changes": "",
+      "covered_tree_members": null,
+      "verification_scope": "current promoted working input",
+      "matched": true
+    },
+    {
+      "id": "val-003-implementation-evidence",
+      "path": "orchestration/validation/VAL-003-validation-20260914T015459Z-5daa2c-implementation-evidence.json",
+      "kind": "blob",
+      "git_object": "d0f3e3998090edb36f5d50c5ea68e4ba1edc440b",
+      "source_commit": "ce274602ea3145c1d8855e54c23afd48357782ec",
+      "sha256_git_bytes": "f403c0b2c7595091994c3128ec3f2f97b8e5eceb02749ddb9c0b2ce973ed1421",
+      "role": "implementation_reproduction_input",
+      "observed_commit": "18440b2637c94807213483a73664d8a2a0f3f366",
+      "observed_git_object": "d0f3e3998090edb36f5d50c5ea68e4ba1edc440b",
+      "observed_source_object": "d0f3e3998090edb36f5d50c5ea68e4ba1edc440b",
+      "observed_sha256_git_bytes": "f403c0b2c7595091994c3128ec3f2f97b8e5eceb02749ddb9c0b2ce973ed1421",
+      "observed_working_object": "d0f3e3998090edb36f5d50c5ea68e4ba1edc440b",
+      "working_changes": "",
+      "covered_tree_members": null,
+      "verification_scope": "current promoted working input",
+      "matched": true
+    },
+    {
+      "id": "residual-corrected-engine",
+      "path": "src/engine",
+      "kind": "tree",
+      "git_object": "2872f15d3d6c8448f75518bfd431e87e0f9bf6f5",
+      "source_commit": "c8599a5d72a730710cb6c8c8bebd8407923c638b",
+      "role": "candidate_implementation_for_independent_validation",
+      "observed_commit": "18440b2637c94807213483a73664d8a2a0f3f366",
+      "observed_git_object": "2872f15d3d6c8448f75518bfd431e87e0f9bf6f5",
+      "observed_source_object": "2872f15d3d6c8448f75518bfd431e87e0f9bf6f5",
+      "observed_sha256_git_bytes": null,
+      "observed_working_object": "2872f15d3d6c8448f75518bfd431e87e0f9bf6f5",
+      "working_changes": "",
+      "covered_tree_members": [
+        {
+          "path": "src/engine/abilities/registry.ts",
+          "git_object": "f13eff24962bf52773c149338c8e445eb355f682",
+          "working_object": "f13eff24962bf52773c149338c8e445eb355f682"
+        },
+        {
+          "path": "src/engine/actions/placement.ts",
+          "git_object": "13daa0c1f5d8509ada0d9335ade0dec02b064c0e",
+          "working_object": "13daa0c1f5d8509ada0d9335ade0dec02b064c0e"
+        },
+        {
+          "path": "src/engine/api.ts",
+          "git_object": "d78f6a235e74ece778e9b1915390451e45d4d903",
+          "working_object": "d78f6a235e74ece778e9b1915390451e45d4d903"
+        },
+        {
+          "path": "src/engine/build-version.ts",
+          "git_object": "5c9ed5d770d4be5c79f5ee26e279c5fb5010b706",
+          "working_object": "5c9ed5d770d4be5c79f5ee26e279c5fb5010b706"
+        },
+        {
+          "path": "src/engine/commands/allocation.ts",
+          "git_object": "51a87416c2d447b89a9d88ad8b74a7430f99cad3",
+          "working_object": "51a87416c2d447b89a9d88ad8b74a7430f99cad3"
+        },
+        {
+          "path": "src/engine/commands/dispatcher.ts",
+          "git_object": "738c2cd47ef7111048a593bf2a3cd16998721777",
+          "working_object": "738c2cd47ef7111048a593bf2a3cd16998721777"
+        },
+        {
+          "path": "src/engine/commands/resolve-assignments.ts",
+          "git_object": "a5015850aa7df0c78b3415e432115965633c35d2",
+          "working_object": "a5015850aa7df0c78b3415e432115965633c35d2"
+        },
+        {
+          "path": "src/engine/commands/types.ts",
+          "git_object": "d54529cfc8998b7277cb67d7e23bc3d13aac5126",
+          "working_object": "d54529cfc8998b7277cb67d7e23bc3d13aac5126"
+        },
+        {
+          "path": "src/engine/decisions/resolve.ts",
+          "git_object": "d5f3428a01dec48960faf254f91903bdc47b28b1",
+          "working_object": "d5f3428a01dec48960faf254f91903bdc47b28b1"
+        },
+        {
+          "path": "src/engine/diagnostics/export.ts",
+          "git_object": "1c4a428e72f6fdf5e59d013f00ad6789d1496447",
+          "working_object": "1c4a428e72f6fdf5e59d013f00ad6789d1496447"
+        },
+        {
+          "path": "src/engine/dice/abilities.ts",
+          "git_object": "70d717852e532ef10cfea3541af2b1770ce68436",
+          "working_object": "70d717852e532ef10cfea3541af2b1770ce68436"
+        },
+        {
+          "path": "src/engine/dice/commit.ts",
+          "git_object": "f8e3995ef85f4cea4e07b853d100f9391b7d790a",
+          "working_object": "f8e3995ef85f4cea4e07b853d100f9391b7d790a"
+        },
+        {
+          "path": "src/engine/dice/content-abilities.ts",
+          "git_object": "c9d93dfc53d26be6659bb86b4434933221717e7c",
+          "working_object": "c9d93dfc53d26be6659bb86b4434933221717e7c"
+        },
+        {
+          "path": "src/engine/dice/lifecycle.ts",
+          "git_object": "a7e6cb7103427528f198d2020683554f924f3e1c",
+          "working_object": "a7e6cb7103427528f198d2020683554f924f3e1c"
+        },
+        {
+          "path": "src/engine/dice/pool.ts",
+          "git_object": "922e7a3f7670dee615194ef618e074cd7ac409de",
+          "working_object": "922e7a3f7670dee615194ef618e074cd7ac409de"
+        },
+        {
+          "path": "src/engine/effects/apply.ts",
+          "git_object": "197486b9d766c5e97582159a41c6c945d7727b43",
+          "working_object": "197486b9d766c5e97582159a41c6c945d7727b43"
+        },
+        {
+          "path": "src/engine/effects/content.ts",
+          "git_object": "94a19a4788dd16d0987faded213d3c253632d5c4",
+          "working_object": "94a19a4788dd16d0987faded213d3c253632d5c4"
+        },
+        {
+          "path": "src/engine/labor/attacks.ts",
+          "git_object": "e305839c2336470f46ac1d4ac985e03569245ec4",
+          "working_object": "e305839c2336470f46ac1d4ac985e03569245ec4"
+        },
+        {
+          "path": "src/engine/labor/content.ts",
+          "git_object": "eece06afb77258acf301a856548620dd02754ad1",
+          "working_object": "eece06afb77258acf301a856548620dd02754ad1"
+        },
+        {
+          "path": "src/engine/labor/damage.ts",
+          "git_object": "67376cfa0423a1cc67d40616cd00f46a642ff47e",
+          "working_object": "67376cfa0423a1cc67d40616cd00f46a642ff47e"
+        },
+        {
+          "path": "src/engine/labor/hind.ts",
+          "git_object": "d5f06c5cb31c813cd2cf7d34171174b3cad266c6",
+          "working_object": "d5f06c5cb31c813cd2cf7d34171174b3cad266c6"
+        },
+        {
+          "path": "src/engine/labor/setup.ts",
+          "git_object": "e6858b0f67e853ef0ff526e50d63fb072431ca16",
+          "working_object": "e6858b0f67e853ef0ff526e50d63fb072431ca16"
+        },
+        {
+          "path": "src/engine/labor/transition.ts",
+          "git_object": "8306bbc94a77a2580916278486d0b185dd5511c1",
+          "working_object": "8306bbc94a77a2580916278486d0b185dd5511c1"
+        },
+        {
+          "path": "src/engine/moods/roll-modifiers.ts",
+          "git_object": "b01ad6b659dc1653516f687ef327904c65db6cc2",
+          "working_object": "b01ad6b659dc1653516f687ef327904c65db6cc2"
+        },
+        {
+          "path": "src/engine/requirements/evaluate.ts",
+          "git_object": "2408c1c12f7afb4b2ff85ea5b83c5675576202b2",
+          "working_object": "2408c1c12f7afb4b2ff85ea5b83c5675576202b2"
+        },
+        {
+          "path": "src/engine/resources/resolve.ts",
+          "git_object": "2160e21392f3b91fc5a383907234ee22148628a6",
+          "working_object": "2160e21392f3b91fc5a383907234ee22148628a6"
+        },
+        {
+          "path": "src/engine/rewards/resolve.ts",
+          "git_object": "6d92dfb26bd043781badb102bc50909bd00adb2c",
+          "working_object": "6d92dfb26bd043781badb102bc50909bd00adb2c"
+        },
+        {
+          "path": "src/engine/round/progress.ts",
+          "git_object": "63be3129d6c4155e92b9192471243ce8bad41bc7",
+          "working_object": "63be3129d6c4155e92b9192471243ce8bad41bc7"
+        },
+        {
+          "path": "src/engine/round/resolve.ts",
+          "git_object": "33315f89759c9e7fda6280d5e4e58a0e7d1d6f17",
+          "working_object": "33315f89759c9e7fda6280d5e4e58a0e7d1d6f17"
+        },
+        {
+          "path": "src/engine/state/create.ts",
+          "git_object": "e14a4ed44120681b441c9b3cda4bc593ac298dbc",
+          "working_object": "e14a4ed44120681b441c9b3cda4bc593ac298dbc"
+        },
+        {
+          "path": "src/engine/state/invariants.ts",
+          "git_object": "965d3a2d0c669f87594fcf4a14061f910764a9eb",
+          "working_object": "965d3a2d0c669f87594fcf4a14061f910764a9eb"
+        },
+        {
+          "path": "src/engine/state/save.ts",
+          "git_object": "9b7aa2fd488dfbc72b77764e09a8008006d14de4",
+          "working_object": "9b7aa2fd488dfbc72b77764e09a8008006d14de4"
+        },
+        {
+          "path": "src/engine/state/types.ts",
+          "git_object": "e01d30897bf0467dbf04340ce2bf0359635adfa0",
+          "working_object": "e01d30897bf0467dbf04340ce2bf0359635adfa0"
+        },
+        {
+          "path": "src/engine/state/undo.ts",
+          "git_object": "f2c99437dee76714cb9eb6b5a2beb5a1ea6b1b22",
+          "working_object": "f2c99437dee76714cb9eb6b5a2beb5a1ea6b1b22"
+        },
+        {
+          "path": "src/engine/tracks/move.ts",
+          "git_object": "4979b78b8e1b29cb7d269353bb5b01e216444140",
+          "working_object": "4979b78b8e1b29cb7d269353bb5b01e216444140"
+        },
+        {
+          "path": "src/engine/transitions/resolve-impact.ts",
+          "git_object": "d7473275d7375eb54e6f7cb2f5b229d75d1972b1",
+          "working_object": "d7473275d7375eb54e6f7cb2f5b229d75d1972b1"
+        },
+        {
+          "path": "src/engine/view-model.ts",
+          "git_object": "eb6fb4a49b106dd7f9e652ef1c9ecfea7831fb40",
+          "working_object": "eb6fb4a49b106dd7f9e652ef1c9ecfea7831fb40"
+        }
+      ],
+      "verification_scope": "current promoted working input",
+      "matched": true
+    },
+    {
+      "id": "residual-corrected-replay",
+      "path": "src/replay",
+      "kind": "tree",
+      "git_object": "d80db607146f2092b685729135d70ee60e890501",
+      "source_commit": "c8599a5d72a730710cb6c8c8bebd8407923c638b",
+      "role": "candidate_implementation_for_independent_validation",
+      "observed_commit": "18440b2637c94807213483a73664d8a2a0f3f366",
+      "observed_git_object": "d80db607146f2092b685729135d70ee60e890501",
+      "observed_source_object": "d80db607146f2092b685729135d70ee60e890501",
+      "observed_sha256_git_bytes": null,
+      "observed_working_object": "d80db607146f2092b685729135d70ee60e890501",
+      "working_changes": "",
+      "covered_tree_members": [
+        {
+          "path": "src/replay/golden-run.ts",
+          "git_object": "07d1371b4839c7bdf7b4128e72937cde8e916205",
+          "working_object": "07d1371b4839c7bdf7b4128e72937cde8e916205"
+        }
+      ],
+      "verification_scope": "current promoted working input",
+      "matched": true
+    },
+    {
+      "id": "residual-corrected-tests",
+      "path": "test",
+      "kind": "tree",
+      "git_object": "fd07b3e414843a0648b5fa2d6b761bcd4e57eb6c",
+      "source_commit": "c8599a5d72a730710cb6c8c8bebd8407923c638b",
+      "role": "candidate_regression_suite_for_independent_validation",
+      "observed_commit": "18440b2637c94807213483a73664d8a2a0f3f366",
+      "observed_git_object": "fd07b3e414843a0648b5fa2d6b761bcd4e57eb6c",
+      "observed_source_object": "fd07b3e414843a0648b5fa2d6b761bcd4e57eb6c",
+      "observed_sha256_git_bytes": null,
+      "observed_working_object": "fd07b3e414843a0648b5fa2d6b761bcd4e57eb6c",
+      "working_changes": "",
+      "covered_tree_members": [
+        {
+          "path": "test/confidence/headless-fuzz.test.ts",
+          "git_object": "ea4030d86f70af4721e712624235cfd38eb99fc0",
+          "working_object": "ea4030d86f70af4721e712624235cfd38eb99fc0"
+        },
+        {
+          "path": "test/data/validation.test.ts",
+          "git_object": "f6216c4124ec13c9556fbd5e9e1de1edeb7adc85",
+          "working_object": "f6216c4124ec13c9556fbd5e9e1de1edeb7adc85"
+        },
+        {
+          "path": "test/engine/action-pipeline.test.ts",
+          "git_object": "e11013d634833f5f27a4412b70bd6b29116540fd",
+          "working_object": "e11013d634833f5f27a4412b70bd6b29116540fd"
+        },
+        {
+          "path": "test/engine/allocation.test.ts",
+          "git_object": "e82c050d8042e8b3e6afe013217b5bffef05f631",
+          "working_object": "e82c050d8042e8b3e6afe013217b5bffef05f631"
+        },
+        {
+          "path": "test/engine/api.test.ts",
+          "git_object": "979ca9728188f7b25f201d1501c907b38c76d71c",
+          "working_object": "979ca9728188f7b25f201d1501c907b38c76d71c"
+        },
+        {
+          "path": "test/engine/dice.test.ts",
+          "git_object": "442d0528af25da928920e2df9920a42dfef688af",
+          "working_object": "442d0528af25da928920e2df9920a42dfef688af"
+        },
+        {
+          "path": "test/engine/dispatcher.test.ts",
+          "git_object": "8731dd8c03a863316a1514da74a52fd77edd8b2f",
+          "working_object": "8731dd8c03a863316a1514da74a52fd77edd8b2f"
+        },
+        {
+          "path": "test/engine/effects.test.ts",
+          "git_object": "e340a7ce95ec6e4f00ca2c6aea01fd3c1b5e99db",
+          "working_object": "e340a7ce95ec6e4f00ca2c6aea01fd3c1b5e99db"
+        },
+        {
+          "path": "test/engine/impact.test.ts",
+          "git_object": "9ef9d022b7a44438fc621da5da338f8a4c05fcce",
+          "working_object": "9ef9d022b7a44438fc621da5da338f8a4c05fcce"
+        },
+        {
+          "path": "test/engine/progress.test.ts",
+          "git_object": "6741b4a850d3aabc46fd288869691457f07302eb",
+          "working_object": "6741b4a850d3aabc46fd288869691457f07302eb"
+        },
+        {
+          "path": "test/engine/requirements.test.ts",
+          "git_object": "dee3d06b3838ffd2e6dba2b5b601fcd7f28d683a",
+          "working_object": "dee3d06b3838ffd2e6dba2b5b601fcd7f28d683a"
+        },
+        {
+          "path": "test/engine/resources.test.ts",
+          "git_object": "285409cb31ab7797b5ed2bff728a251e6d9dd4ff",
+          "working_object": "285409cb31ab7797b5ed2bff728a251e6d9dd4ff"
+        },
+        {
+          "path": "test/engine/tracks.test.ts",
+          "git_object": "3df22173bdbcabaf1e570406c635d7ee0cfe959f",
+          "working_object": "3df22173bdbcabaf1e570406c635d7ee0cfe959f"
+        },
+        {
+          "path": "test/implementation/imp-001-engine.test.ts",
+          "git_object": "4f52928833fed5c34488c43fe44627f8a5bada82",
+          "working_object": "4f52928833fed5c34488c43fe44627f8a5bada82"
+        },
+        {
+          "path": "test/implementation/imp-001-replay.test.ts",
+          "git_object": "b4e784251cd312b4b3a944cd29d26950384840a9",
+          "working_object": "b4e784251cd312b4b3a944cd29d26950384840a9"
+        },
+        {
+          "path": "test/implementation/imp-003-residuals.test.ts",
+          "git_object": "0d7ce88ead4400ae4b40e0270a80993250d810f4",
+          "working_object": "0d7ce88ead4400ae4b40e0270a80993250d810f4"
+        },
+        {
+          "path": "test/labor/abilities.test.ts",
+          "git_object": "512df791596244ce5e83c46403270dd01d79e4ad",
+          "working_object": "512df791596244ce5e83c46403270dd01d79e4ad"
+        },
+        {
+          "path": "test/labor/ability-registry.test.ts",
+          "git_object": "81df51f5d374bbfe63f0698aa5ebe2968036410d",
+          "working_object": "81df51f5d374bbfe63f0698aa5ebe2968036410d"
+        },
+        {
+          "path": "test/labor/assignments.test.ts",
+          "git_object": "3b13a5dcd12eaaab7e74f4c2dfe4bf93917907c8",
+          "working_object": "3b13a5dcd12eaaab7e74f4c2dfe4bf93917907c8"
+        },
+        {
+          "path": "test/labor/attacks.test.ts",
+          "git_object": "854182788bc70d029ed3da94d434da3d1a687823",
+          "working_object": "854182788bc70d029ed3da94d434da3d1a687823"
+        },
+        {
+          "path": "test/labor/content-effects.test.ts",
+          "git_object": "b7fa08c72570cbc79bd1dc0d52021fd9ed06be4c",
+          "working_object": "b7fa08c72570cbc79bd1dc0d52021fd9ed06be4c"
+        },
+        {
+          "path": "test/labor/content.test.ts",
+          "git_object": "26cdd42a082edb8666220ecb2676b14d937e4c8e",
+          "working_object": "26cdd42a082edb8666220ecb2676b14d937e4c8e"
+        },
+        {
+          "path": "test/labor/damage.test.ts",
+          "git_object": "b79dccfdf482b66330d6aa49e7792731b872cd5a",
+          "working_object": "b79dccfdf482b66330d6aa49e7792731b872cd5a"
+        },
+        {
+          "path": "test/labor/decisions.test.ts",
+          "git_object": "da96d09422e3a7f07d0c7ea760c20f40afe2f470",
+          "working_object": "da96d09422e3a7f07d0c7ea760c20f40afe2f470"
+        },
+        {
+          "path": "test/labor/fixtures-v4.test.ts",
+          "git_object": "dc9efdbb76e30ab82ff5a530b7fea272fa8aa711",
+          "working_object": "dc9efdbb76e30ab82ff5a530b7fea272fa8aa711"
+        },
+        {
+          "path": "test/labor/hind.test.ts",
+          "git_object": "1179839c28dada946a0b000b41550c57c96f4cb5",
+          "working_object": "1179839c28dada946a0b000b41550c57c96f4cb5"
+        },
+        {
+          "path": "test/labor/moods.test.ts",
+          "git_object": "8d602f24d6fda79740df9946de13600280dc25b6",
+          "working_object": "8d602f24d6fda79740df9946de13600280dc25b6"
+        },
+        {
+          "path": "test/labor/pholus.test.ts",
+          "git_object": "3a351b4f865469690244cec66457ad1b46f8b7a8",
+          "working_object": "3a351b4f865469690244cec66457ad1b46f8b7a8"
+        },
+        {
+          "path": "test/labor/reward-side-effects.test.ts",
+          "git_object": "5c6f3030360b5c5bfd4210adafc3789b4f36a188",
+          "working_object": "5c6f3030360b5c5bfd4210adafc3789b4f36a188"
+        },
+        {
+          "path": "test/labor/rewards.test.ts",
+          "git_object": "d005c76b1a69887800b4796fb47bd89e79fb48e4",
+          "working_object": "d005c76b1a69887800b4796fb47bd89e79fb48e4"
+        },
+        {
+          "path": "test/labor/setup.test.ts",
+          "git_object": "13b852f518cbeb2b832f4023048acc341ff25422",
+          "working_object": "13b852f518cbeb2b832f4023048acc341ff25422"
+        },
+        {
+          "path": "test/labor/temporary-dice-pool.test.ts",
+          "git_object": "ac9819db0d0baaff773bfda4e878a6028cda3338",
+          "working_object": "ac9819db0d0baaff773bfda4e878a6028cda3338"
+        },
+        {
+          "path": "test/labor/transition.test.ts",
+          "git_object": "1f6f498ffd2c790ab2fea436028ffa9ca9a69c85",
+          "working_object": "1f6f498ffd2c790ab2fea436028ffa9ca9a69c85"
+        },
+        {
+          "path": "test/labor/zeus-redraw.test.ts",
+          "git_object": "6965cb63fec65a01151f153ce734a93bb6ceb567",
+          "working_object": "6965cb63fec65a01151f153ce734a93bb6ceb567"
+        },
+        {
+          "path": "test/rng/herc-rng.test.ts",
+          "git_object": "0e3f08b2b74a1b28b0e518f0821f4da97d9f262e",
+          "working_object": "0e3f08b2b74a1b28b0e518f0821f4da97d9f262e"
+        },
+        {
+          "path": "test/state/starting-spirit.test.ts",
+          "git_object": "596a80817e30c1c58916b28d1477a4cdbae3c110",
+          "working_object": "596a80817e30c1c58916b28d1477a4cdbae3c110"
+        },
+        {
+          "path": "test/state/state.test.ts",
+          "git_object": "3cc8792875fe78c3086674d4582e752b8f5ab359",
+          "working_object": "3cc8792875fe78c3086674d4582e752b8f5ab359"
+        }
+      ],
+      "verification_scope": "current promoted working input",
+      "matched": true
+    },
+    {
+      "id": "imp-003-handoff",
+      "path": "orchestration/handoffs/IMP-003-implementation-20260914T034832Z-e1b1db.json",
+      "kind": "blob",
+      "git_object": "79652d37c60a49575b4eaabea374ccc5bad20c7d",
+      "source_commit": "c8599a5d72a730710cb6c8c8bebd8407923c638b",
+      "sha256_git_bytes": "8ed2b32cb5a0718ee11e70a9f362b92e986b3b8f2456d6bf0f118ab4dfaa4c96",
+      "role": "implementation_evidence",
+      "observed_commit": "18440b2637c94807213483a73664d8a2a0f3f366",
+      "observed_git_object": "79652d37c60a49575b4eaabea374ccc5bad20c7d",
+      "observed_source_object": "79652d37c60a49575b4eaabea374ccc5bad20c7d",
+      "observed_sha256_git_bytes": "8ed2b32cb5a0718ee11e70a9f362b92e986b3b8f2456d6bf0f118ab4dfaa4c96",
+      "observed_working_object": "79652d37c60a49575b4eaabea374ccc5bad20c7d",
+      "working_changes": "",
+      "covered_tree_members": null,
+      "verification_scope": "current promoted working input",
+      "matched": true
+    },
+    {
+      "id": "imp-003-test-results",
+      "path": "orchestration/implementation/IMP-003-implementation-20260914T034832Z-e1b1db-test-results.json",
+      "kind": "blob",
+      "git_object": "b562603e6162024442eeb10353ef66e9524c3a74",
+      "source_commit": "c8599a5d72a730710cb6c8c8bebd8407923c638b",
+      "sha256_git_bytes": "8ee6fe3eb2cbc622909aca98cc6ce99402c48043dfb2669e17fdce1f5eda354a",
+      "role": "implementation_evidence",
+      "observed_commit": "18440b2637c94807213483a73664d8a2a0f3f366",
+      "observed_git_object": "b562603e6162024442eeb10353ef66e9524c3a74",
+      "observed_source_object": "b562603e6162024442eeb10353ef66e9524c3a74",
+      "observed_sha256_git_bytes": "8ee6fe3eb2cbc622909aca98cc6ce99402c48043dfb2669e17fdce1f5eda354a",
+      "observed_working_object": "b562603e6162024442eeb10353ef66e9524c3a74",
+      "working_changes": "",
+      "covered_tree_members": null,
+      "verification_scope": "current promoted working input",
+      "matched": true
+    }
+  ],
+  "bindings": {
+    "task_scenario_id": "HERC-ORCH-E1-L08",
+    "pinned_scenario_id": "RS-001-L08-CONSTRUCTED-001",
+    "start_state": "orchestration/validation/RS-001-L08-scenario.json#/start_state",
+    "rng": "orchestration/validation/RS-001-L08-scenario.json#/rng",
+    "actions": "orchestration/validation/RS-001-L08-scenario.json#/actions",
+    "expectations": [
+      "src/data/raw/TEST_FIXTURES_v4.json#/fixtures/22",
+      "orchestration/validation/RS-001-L08-scenario.json#/proposed_expected_transitions"
+    ],
+    "basis": "PM release e1-m0007 explicitly selects this exact scenario path and corrected canon. Null task summary fields are not used as inputs; complete values are read from the uniquely pinned scenario. Its embedded e1-m0001/BLOCKED and old input list remain historical provenance; current manifest pins and corrected F046 govern this run.",
+    "pm_acceptance_task_git_object": "d230dc34d8ea1443475f20e0e3e5e5af5100d9fd"
+  },
+  "contract_checks": {
+    "content_revision": true,
+    "shared_fixed_requirement": true,
+    "single_selected_damage": true,
+    "all_46_numeric_healing_nodes_annotated": true,
+    "graph_L08A.start": true,
+    "graph_L08A.n1": true,
+    "graph_L08A.n2": true,
+    "graph_L08A.n3": true,
+    "graph_L08A.n4": true,
+    "graph_L08A.n5": true,
+    "graph_L08A.n6": true,
+    "graph_L08A.n7": true,
+    "graph_L08B.start": true,
+    "graph_L08B.n1": true,
+    "graph_L08B.n2": true,
+    "graph_L08B.n3": true,
+    "graph_L08B.n4": true,
+    "graph_L08B.n5": true,
+    "graph_L08B.n6": true,
+    "graph_L08B.n7": true,
+    "graph_L08B.n8": true,
+    "graph_L08B.n9": true,
+    "expected_damage_boundary": true,
+    "expected_round_boundary": true
+  },
+  "healing_annotations": [
+    {
+      "labor_id": "labor.L01",
+      "track_id": "track.L01",
+      "node_id": "L01.n3",
+      "amount": 1,
+      "scope": "source_labor_die",
+      "cap": "source_start_health"
+    },
+    {
+      "labor_id": "labor.L02",
+      "track_id": "track.L02",
+      "node_id": "L02.n1",
+      "amount": 1,
+      "scope": "source_labor_die",
+      "cap": "source_start_health"
+    },
+    {
+      "labor_id": "labor.L02",
+      "track_id": "track.L02",
+      "node_id": "L02.n2",
+      "amount": 1,
+      "scope": "source_labor_die",
+      "cap": "source_start_health"
+    },
+    {
+      "labor_id": "labor.L02",
+      "track_id": "track.L02",
+      "node_id": "L02.n3",
+      "amount": 1,
+      "scope": "source_labor_die",
+      "cap": "source_start_health"
+    },
+    {
+      "labor_id": "labor.L02",
+      "track_id": "track.L02",
+      "node_id": "L02.n4",
+      "amount": 2,
+      "scope": "source_labor_die",
+      "cap": "source_start_health"
+    },
+    {
+      "labor_id": "labor.L02",
+      "track_id": "track.L02",
+      "node_id": "L02.n5",
+      "amount": 1,
+      "scope": "source_labor_die",
+      "cap": "source_start_health"
+    },
+    {
+      "labor_id": "labor.L02",
+      "track_id": "track.L02",
+      "node_id": "L02.n6",
+      "amount": 1,
+      "scope": "source_labor_die",
+      "cap": "source_start_health"
+    },
+    {
+      "labor_id": "labor.L02",
+      "track_id": "track.L02",
+      "node_id": "L02.n7",
+      "amount": 1,
+      "scope": "source_labor_die",
+      "cap": "source_start_health"
+    },
+    {
+      "labor_id": "labor.L03",
+      "track_id": "track.L03",
+      "node_id": "L03.n1",
+      "amount": 1,
+      "scope": "source_labor_die",
+      "cap": "source_start_health"
+    },
+    {
+      "labor_id": "labor.L03",
+      "track_id": "track.L03",
+      "node_id": "L03.n3",
+      "amount": 1,
+      "scope": "source_labor_die",
+      "cap": "source_start_health"
+    },
+    {
+      "labor_id": "labor.L04",
+      "track_id": "track.L04.left",
+      "node_id": "L04L.n5",
+      "amount": 1,
+      "scope": "source_labor_die",
+      "cap": "source_start_health"
+    },
+    {
+      "labor_id": "labor.L04",
+      "track_id": "track.L04.right",
+      "node_id": "L04R.n2",
+      "amount": 1,
+      "scope": "source_labor_die",
+      "cap": "source_start_health"
+    },
+    {
+      "labor_id": "labor.L05",
+      "track_id": "track.L05.A",
+      "node_id": "L05A.n3",
+      "amount": 1,
+      "scope": "source_labor_die",
+      "cap": "source_start_health"
+    },
+    {
+      "labor_id": "labor.L05",
+      "track_id": "track.L05.B",
+      "node_id": "L05B.n2",
+      "amount": 1,
+      "scope": "source_labor_die",
+      "cap": "source_start_health"
+    },
+    {
+      "labor_id": "labor.L07",
+      "track_id": "track.L07",
+      "amount": 1,
+      "scope": "source_labor_die",
+      "cap": "source_start_health"
+    },
+    {
+      "labor_id": "labor.L07",
+      "track_id": "track.L07",
+      "amount": 1,
+      "scope": "source_labor_die",
+      "cap": "source_start_health"
+    },
+    {
+      "labor_id": "labor.L07",
+      "track_id": "track.L07",
+      "amount": 1,
+      "scope": "source_labor_die",
+      "cap": "source_start_health"
+    },
+    {
+      "labor_id": "labor.L07",
+      "track_id": "track.L07",
+      "amount": 1,
+      "scope": "source_labor_die",
+      "cap": "source_start_health"
+    },
+    {
+      "labor_id": "labor.L07",
+      "track_id": "track.L07",
+      "amount": 1,
+      "scope": "source_labor_die",
+      "cap": "source_start_health"
+    },
+    {
+      "labor_id": "labor.L07",
+      "track_id": "track.L07",
+      "amount": 2,
+      "scope": "source_labor_die",
+      "cap": "source_start_health"
+    },
+    {
+      "labor_id": "labor.L07",
+      "track_id": "track.L07",
+      "amount": 2,
+      "scope": "source_labor_die",
+      "cap": "source_start_health"
+    },
+    {
+      "labor_id": "labor.L08",
+      "track_id": "track.L08.A",
+      "node_id": "L08A.n3",
+      "amount": 1,
+      "scope": "source_labor_die",
+      "cap": "source_start_health"
+    },
+    {
+      "labor_id": "labor.L08",
+      "track_id": "track.L08.B",
+      "node_id": "L08B.n1",
+      "amount": 1,
+      "scope": "source_labor_die",
+      "cap": "source_start_health"
+    },
+    {
+      "labor_id": "labor.L08",
+      "track_id": "track.L08.B",
+      "node_id": "L08B.n3",
+      "amount": 1,
+      "scope": "source_labor_die",
+      "cap": "source_start_health"
+    },
+    {
+      "labor_id": "labor.L08",
+      "track_id": "track.L08.B",
+      "node_id": "L08B.n5",
+      "amount": 1,
+      "scope": "source_labor_die",
+      "cap": "source_start_health"
+    },
+    {
+      "labor_id": "labor.L09",
+      "track_id": "track.L09.left3",
+      "node_id": "L09L.n4",
+      "amount": 1,
+      "scope": "source_labor_die",
+      "cap": "source_start_health"
+    },
+    {
+      "labor_id": "labor.L09",
+      "track_id": "track.L09.right3",
+      "node_id": "L09R.n4",
+      "amount": 1,
+      "scope": "source_labor_die",
+      "cap": "source_start_health"
+    },
+    {
+      "labor_id": "labor.L10",
+      "track_id": "track.L10.LO",
+      "node_id": "L10LO.n7",
+      "amount": 1,
+      "scope": "source_labor_die",
+      "cap": "source_start_health"
+    },
+    {
+      "labor_id": "labor.L10",
+      "track_id": "track.L10.RO",
+      "node_id": "L10RO.n7",
+      "amount": 1,
+      "scope": "source_labor_die",
+      "cap": "source_start_health"
+    },
+    {
+      "labor_id": "labor.L11",
+      "track_id": "track.L11",
+      "amount": 1,
+      "scope": "source_labor_die",
+      "cap": "source_start_health"
+    },
+    {
+      "labor_id": "labor.L11",
+      "track_id": "track.L11",
+      "amount": 1,
+      "scope": "source_labor_die",
+      "cap": "source_start_health"
+    },
+    {
+      "labor_id": "labor.L11",
+      "track_id": "track.L11",
+      "amount": 1,
+      "scope": "source_labor_die",
+      "cap": "source_start_health"
+    },
+    {
+      "labor_id": "labor.L11",
+      "track_id": "track.L11",
+      "amount": 1,
+      "scope": "source_labor_die",
+      "cap": "source_start_health"
+    },
+    {
+      "labor_id": "labor.L11",
+      "track_id": "track.L11",
+      "amount": 2,
+      "scope": "source_labor_die",
+      "cap": "source_start_health"
+    },
+    {
+      "labor_id": "labor.L11",
+      "track_id": "track.L11",
+      "amount": 1,
+      "scope": "source_labor_die",
+      "cap": "source_start_health"
+    },
+    {
+      "labor_id": "labor.L11",
+      "track_id": "track.L11",
+      "amount": 1,
+      "scope": "source_labor_die",
+      "cap": "source_start_health"
+    },
+    {
+      "labor_id": "labor.L11",
+      "track_id": "track.L11",
+      "amount": 1,
+      "scope": "source_labor_die",
+      "cap": "source_start_health"
+    },
+    {
+      "labor_id": "labor.L11",
+      "track_id": "track.L11",
+      "amount": 2,
+      "scope": "source_labor_die",
+      "cap": "source_start_health"
+    },
+    {
+      "labor_id": "labor.L12",
+      "track_id": "track.L12.A",
+      "node_id": "L12A.n7",
+      "amount": 1,
+      "scope": "source_labor_die",
+      "cap": "source_start_health"
+    },
+    {
+      "labor_id": "labor.L12",
+      "track_id": "track.L12.A",
+      "node_id": "L12A.n10",
+      "amount": 2,
+      "scope": "source_labor_die",
+      "cap": "source_start_health"
+    },
+    {
+      "labor_id": "labor.L12",
+      "track_id": "track.L12.B",
+      "node_id": "L12B.n3",
+      "amount": 1,
+      "scope": "source_labor_die",
+      "cap": "source_start_health"
+    },
+    {
+      "labor_id": "labor.L12",
+      "track_id": "track.L12.B",
+      "node_id": "L12B.n4",
+      "amount": 1,
+      "scope": "source_labor_die",
+      "cap": "source_start_health"
+    },
+    {
+      "labor_id": "labor.L12",
+      "track_id": "track.L12.B",
+      "node_id": "L12B.n7",
+      "amount": 1,
+      "scope": "source_labor_die",
+      "cap": "source_start_health"
+    },
+    {
+      "labor_id": "labor.L12",
+      "track_id": "track.L12.B",
+      "node_id": "L12B.n8",
+      "amount": 1,
+      "scope": "source_labor_die",
+      "cap": "source_start_health"
+    },
+    {
+      "labor_id": "labor.L12",
+      "track_id": "track.L12.C",
+      "node_id": "L12C.n4",
+      "amount": 1,
+      "scope": "source_labor_die",
+      "cap": "source_start_health"
+    },
+    {
+      "labor_id": "labor.L12",
+      "track_id": "track.L12.C",
+      "node_id": "L12C.n9",
+      "amount": 1,
+      "scope": "source_labor_die",
+      "cap": "source_start_health"
+    }
+  ],
+  "raw_compiled_data_equal": true,
+  "full_pinned_start_states_equal": true,
+  "tool_versions": {
+    "node": "v24.19.0",
+    "git": "git version 2.54.0.windows.1",
+    "pnpm": "11.19.0",
+    "typescript": "5.9.3"
+  },
+  "procedure_sha256": "74aac310116eccc5de282cdc172eac8cb77f5b370e1739a174dffc9b5b67bff4"
+}
