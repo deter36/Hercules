@@ -19,7 +19,7 @@ test("presentation queue preserves a reward bonus before the following Mood", ()
     }
   }]);
   assert.deepEqual(events.map(event => [event.kind, event.title, event.detail]), [
-    ["reward", "Venomous Blood", "+3 Spirit"],
+    ["reward", "Venomous Blood", "Blue: sacrifice one die to set another die. Immediate: +3 Spirit."],
     ["mood", "Haunted A", "-2 Spirit."]
   ]);
 });
@@ -37,5 +37,5 @@ test("presentation queue includes dice and Divinity reward bonuses", () => {
       { type: "REWARD_DIVINITY_EFFECT", rewardId: "reward.test", delta: 2 }
     ] }
   }]);
-  assert.equal(events[0].detail, "+1 Hercules die · +2 Divinity");
+  assert.equal(events[0].detail, "No active ability. Immediate: +1 Hercules die · +2 Divinity.");
 });

@@ -52,7 +52,7 @@ const rewardAbilitySummary: Record<string, string> = {
   "reward.L11.B": "Gold: a 5 gains 1 Divinity.",
   "reward.L11.C": "Gold: any die blocks 2 Spirit."
 };
-const rewardSummary = (id: string): string => rewardAbilitySummary[id] ?? "No active ability.";
+export const rewardSummary = (id: string): string => rewardAbilitySummary[id] ?? "No active ability.";
 const rewardColor = (id: string): "blue" | "gold" | "mixed" | "neutral" => {
   const reward = findReward(id);
   const blue = records(reward?.blue).length > 0;

@@ -66,7 +66,7 @@ function App() {
     return targets.length ? targets.map(target => ({ id: target.id, title, subtitle: summary, tone, target })) : [{ id: `card:${title}`, title, subtitle: summary, tone, target: null }];
   };
   const actionTiles = [
-    ...abilityTiles("Bow", "Blue ability", "blue"),
+    ...abilityTiles("Bow", "Blue: raise or lower a die by 1 (wraps); costs 1 Spirit.", "blue"),
     ...view.rewards.flatMap(reward => abilityTiles(reward.name, reward.summary, reward.color === "blue" ? "blue" : "reward")),
     ...(view.mood.id === "mood.ferocious" ? abilityTiles("Ferocious", "Blue: set any die", "blue") : [])
   ];

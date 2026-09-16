@@ -1,4 +1,5 @@
 import type { TransitionHistoryRecord } from "../engine/state/types.js";
+import { rewardSummary } from "../engine/view-model.js";
 
 type RecordValue = Record<string, unknown>;
 
@@ -28,7 +29,7 @@ const moodDetail = (effect: unknown): string => {
   }
 };
 
-const rewardDetail = (events: RecordValue[]): string => {
+const rewardDetail = (rewardId: string, events: RecordValue[]): string => {
   const details = events.flatMap((event) => {
     const delta = Number(event.delta);
     if (!Number.isFinite(delta)) return [];
@@ -37,7 +38,8 @@ const rewardDetail = (events: RecordValue[]): string => {
     if (event.type === "REWARD_HERCULES_DICE_EFFECT") return [`${signed(delta)} Hercules ${Math.abs(delta) === 1 ? "die" : "dice"}`];
     return [];
   });
-  return details.length ? details.join(" · ") : "Added to your rewards.";
+  const ability = rewardSummary(rewardId);
+  return details.length ? `${ability} Immediate: ${details.join(" · ")}.` : ability;
 };
 
 export const moodPresentation = (id: string, name: string, effect: unknown): GameplayPresentation => ({ id, kind: "mood", eyebrow: "MOOD REVEALED", title: name, detail: moodDetail(effect) });
@@ -52,7 +54,7 @@ export function presentationEventsFromTransitions(transitions: readonly Transiti
       if (event.type === "REWARD_GAINED") {
         const rewardId = String(event.rewardId);
         const effects = lifecycle.slice(index + 1).filter(candidate => candidate.rewardId === rewardId);
-        presentations.push({ id: `${transition.index}:reward:${rewardId}`, kind: "reward", eyebrow: "REWARD GAINED", title: String(event.rewardName ?? rewardId), detail: rewardDetail(effects) });
+        presentations.push({ id: `${transition.index}:reward:${rewardId}`, kind: "reward", eyebrow: "REWARD GAINED", title: String(event.rewardName ?? rewardId), detail: rewardDetail(rewardId, effects) });
       }
       if (event.type === "MOOD_REVEALED") presentations.push(moodPresentation(`${transition.index}:mood:${String(event.moodId)}`, String(event.moodName ?? event.moodId), event.effect));
     }
