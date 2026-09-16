@@ -6,6 +6,8 @@ import { deserialize, serialize } from "./state/save.js";
 import { exportDiagnostics } from "./diagnostics/export.js";
 import { getPlayView } from "./view-model.js";
 export type { PlayAbility, PlayControl, PlayView } from "./view-model.js";
+import { getForecastProjection, getGameplayScreenModel, getLegalTargets } from "./ui-projection.js";
+export type { ForecastProjection, GameplayScreenModel, LegalTarget } from "./ui-projection.js";
 import type { Difficulty, GameState, SerializedGame } from "./state/types.js";
 
 export interface NewGameConfig { difficulty: Difficulty; seed: string; }
@@ -23,5 +25,8 @@ export const HerculesEngine = {
   serialize(state: GameState): SerializedGame { return serialize(state); },
   deserialize(save: SerializedGame): GameState { return deserialize(save); },
   getPlayView,
+  getGameplayScreenModel,
+  getLegalTargets,
+  getForecastProjection,
   exportDiagnostics,
 };

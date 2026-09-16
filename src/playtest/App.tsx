@@ -1,117 +1,76 @@
-import { useEffect, useMemo, useState } from "react";
-import { HerculesEngine } from "../engine/api.js";
+import { useEffect, useMemo, useState, type DragEvent } from "react";
+import { HerculesEngine, type LegalTarget } from "../engine/api.js";
 import type { EngineCommand } from "../engine/commands/types.js";
 import type { Difficulty, GameState } from "../engine/state/types.js";
-import "./tracks.css";
-import "./qol.css";
-import "./hind-arrow.css";
-import "./dice-contrast.css";
+import "./playtest.css";
 
 const SAVE_KEY = "hercules-12-labors.playtest.save.v1";
 let fallbackSeedCounter = 0;
-const randomSeed = (): string => {
-  const values = new Uint32Array(2);
-  if (globalThis.crypto?.getRandomValues) {
-    globalThis.crypto.getRandomValues(values);
-    return `playtest-${values[0].toString(36)}-${values[1].toString(36)}`;
-  }
-  fallbackSeedCounter += 1;
-  return `playtest-${Date.now().toString(36)}-${fallbackSeedCounter.toString(36)}`;
-};
+const randomSeed = (): string => { const values = new Uint32Array(2); if (globalThis.crypto?.getRandomValues) { globalThis.crypto.getRandomValues(values); return `playtest-${values[0].toString(36)}-${values[1].toString(36)}`; } fallbackSeedCounter += 1; return `playtest-${Date.now().toString(36)}-${fallbackSeedCounter.toString(36)}`; };
 const freshGame = () => HerculesEngine.createGame({ difficulty: "human", seed: randomSeed() }).state;
-const persistGame = (state: GameState): boolean => {
-  try { window.localStorage.setItem(SAVE_KEY, JSON.stringify(HerculesEngine.serialize(state))); return true; }
-  catch { return false; }
-};
-const loadGame = (): { state: GameState; restored: boolean } => {
-  if (typeof window === "undefined") return { state: freshGame(), restored: false };
-  try {
-    const saved = window.localStorage.getItem(SAVE_KEY);
-    if (!saved) return { state: freshGame(), restored: false };
-    return { state: HerculesEngine.deserialize(JSON.parse(saved)), restored: true };
-  } catch {
-    // A changed content revision or malformed local data must never prevent play.
-    window.localStorage.removeItem(SAVE_KEY);
-    return { state: freshGame(), restored: false };
-  }
-};
+const persistGame = (state: GameState): boolean => { try { window.localStorage.setItem(SAVE_KEY, JSON.stringify(HerculesEngine.serialize(state))); return true; } catch { return false; } };
+const loadGame = (): { state: GameState; restored: boolean } => { try { const saved = window.localStorage.getItem(SAVE_KEY); return saved ? { state: HerculesEngine.deserialize(JSON.parse(saved)), restored: true } : { state: freshGame(), restored: false }; } catch { window.localStorage.removeItem(SAVE_KEY); return { state: freshGame(), restored: false }; } };
 const download = (name: string, value: unknown) => { const url = URL.createObjectURL(new Blob([JSON.stringify(value, null, 2)], { type: "application/json" })); const anchor = document.createElement("a"); anchor.href = url; anchor.download = name; anchor.click(); URL.revokeObjectURL(url); };
-type LaborView = NonNullable<ReturnType<typeof HerculesEngine.getPlayView>["labor"]>;
-const effectMark = (effect: unknown): string => { if (!effect || typeof effect !== "object") return "Start"; const value = effect as Record<string, unknown>; if (value.failure) return "☠"; if (value.break_hercules_die) return "⚡"; if (value.divinity_delta) return "✦−"; if (value.cannot_block) return "🛡̸"; if (value.heal && value.spirit_delta) return "♥−🔥"; if (value.heal) return `🔥${Number(value.heal) > 1 ? value.heal : ""}`; if (value.spirit_delta) return `♥−${Math.abs(Number(value.spirit_delta)) > 1 ? Math.abs(Number(value.spirit_delta)) : ""}`; return "•"; };
-const historyText = (transition: { type: string; payload: Record<string, unknown> }): string => { const payload = transition.payload; const spirit = payload.spirit as { before: number | string; after: number | string } | undefined; const divinity = payload.divinity as { before: number | string; after: number | string } | undefined; const parts = [transition.type.replaceAll("_", " ").toLowerCase()]; if (spirit && spirit.before !== spirit.after) parts.push(`Spirit ${spirit.before} → ${spirit.after}`); if (divinity && divinity.before !== divinity.after) parts.push(`Divinity ${divinity.before} → ${divinity.after}`); const attack = payload.attack as { targetId: string; dieIds: string[] } | undefined; if (attack) parts.push(`attack ${attack.targetId} with ${attack.dieIds.join(", ")}`); if (typeof payload.goldAbilityId === "string") parts.push(`gold: ${payload.goldAbilityId}`); const lifecycle = payload.lifecycle as Array<{ type: string; laborId?: string; rewardName?: string; moodName?: string; delta?: number }> | undefined; for (const event of lifecycle ?? []) { if (event.type === "LABOR_DEFEATED") parts.push(`Labor defeated: ${event.laborId}`); if (event.type === "REWARD_GAINED") parts.push(`Reward: ${event.rewardName ?? event.type}`); if (event.type === "REWARD_SPIRIT_EFFECT") parts.push(`Reward Spirit ${event.delta! >= 0 ? "+" : ""}${event.delta}`); if (event.type === "LABOR_STARTED") parts.push(`Labor begins: ${event.laborId}`); if (event.type === "MOOD_REVEALED") parts.push(`Mood: ${event.moodName ?? event.type}`); if (event.type === "MOOD_SPIRIT_EFFECT") parts.push(`Mood Spirit ${event.delta! >= 0 ? "+" : ""}${event.delta}`); } return parts.join(" · "); };
-const bullNodeStyle = (occupied: boolean, start: boolean) => ({ border: `1px solid ${occupied ? "#d3aa48" : "#776337"}`, borderRadius: 6, padding: "4px 6px", background: start ? "#39311b" : "#2d281a", color: "#f8f1da", fontSize: ".65rem", textAlign: "center" as const, minWidth: 0 });
-function BullPath({ labor, track }: { labor: LaborView; track: LaborView["tracks"][number] }) {
-  const nodes = new Map(track.nodes.map(node => [node.id, node]));
-  const Node = ({ id }: { id: string }) => { const node = nodes.get(id); if (!node) return null; const occupants = labor.dice.filter(die => die.trackId === track.id && die.nodeId === id && die.status === "active"); return <div style={bullNodeStyle(occupants.length > 0, id === track.startId)}><b>{id.replace("L07.", "")}</b><span style={{ color: "#e1bd5b", marginLeft: 4 }}>{effectMark(node.effect)}</span>{occupants.map(die => <i key={die.id} style={{ display: "block", marginTop: 3, color: "#171006", background: "#d3aa48", borderRadius: 4 }}>{die.id.replace(/^labor\.L\d+\./, "")}</i>)}</div>; };
-  const Sequence = ({ ids }: { ids: string[] }) => <div style={{ display: "grid", gap: 4 }}>{ids.map((id, index) => <><Node key={id} id={id} />{index < ids.length - 1 && <span key={`${id}-arrow`} style={{ textAlign: "center", color: "#e1bd5b" }}>↓</span>}</>)}</div>;
-  return <section className="labor-track bull-path"><h4>{track.label}{track.attack && <small>Attack: {track.attack}</small>}</h4><div style={{ display: "grid", gap: 7, maxWidth: 520, margin: "0 auto" }}><Node id="L07.start" /><div style={{ textAlign: "center", color: "#e1bd5b", fontSize: ".7rem" }}>↙ choose ↘</div><div style={{ display: "grid", gridTemplateColumns: "repeat(2, minmax(0, 1fr))", gap: 9 }}><div><small>Left route</small><Sequence ids={["L07.L1", "L07.L2", "L07.L3", "L07.L4", "L07.L5"]} /></div><div><small>Right route</small><Sequence ids={["L07.R1", "L07.R2", "L07.R3"]} /><div style={{ textAlign: "center", color: "#e1bd5b", margin: "4px 0" }}>↙ choose ↘</div><div style={{ display: "grid", gridTemplateColumns: "repeat(2, minmax(0, 1fr))", gap: 6 }}><div><small>Return</small><Sequence ids={["L07.RL1", "L07.RL2"]} /></div><div><small>Risk</small><Sequence ids={["L07.RR1", "L07.RR2", "L07.RR3", "L07.RR4", "L07.RR5", "L07.skull"]} /></div></div></div></div><div style={{ textAlign: "center", color: "#e1bd5b", fontSize: ".7rem" }}>Left and return routes merge ↓</div><Sequence ids={["L07.M1", "L07.M2", "L07.M3", "L07.skull"]} /></div></section>;
-}
-function LaborTracks({ labor }: { labor: LaborView }) { if (labor.id === "labor.L07") return <BullPath labor={labor} track={labor.tracks[0]} />; return <div className={`labor-tracks ${labor.tracks.length > 1 ? "multi" : ""}`}>{labor.tracks.map(track => <section className={`labor-track ${track.type}`} key={track.id}><h4>{track.label}{track.attack && <small>Attack: {track.attack}</small>}</h4><div className="track-grid">{track.nodes.map(node => { const occupants = labor.dice.filter(die => die.trackId === track.id && die.nodeId === node.id && die.status === "active"); return <div className={`track-node ${occupants.length ? "occupied" : ""} ${node.id === track.startId ? "start-node" : ""}`} key={node.id}><b>{node.id}</b><span>{effectMark(node.effect)}</span>{occupants.map(die => <i key={die.id} title={`${die.id}: ${die.health}/${die.startingHealth}`}>{die.id.replace(/^labor\.L\d+\./, "")}</i>)}{node.next.length > 0 && <small>→ {node.next.join(" · ")}</small>}</div>; })}</div></section>)}</div>; }
+const dieLabel = (id: string) => id.replace(/^labor\.L\d+\./, "").replace(/-D\d+$/, " copy");
+const titleCase = (value: string) => value.toLowerCase().replaceAll("_", " ").replace(/\b\w/g, letter => letter.toUpperCase());
 
-export function App() {
-  const [loadedGame] = useState(loadGame);
-  const [difficulty, setDifficulty] = useState<Difficulty>(loadedGame.state.game.difficulty);
-  const [seed, setSeed] = useState(loadedGame.state.rng.seed);
-  const [state, setState] = useState<GameState>(loadedGame.state);
-  const [message, setMessage] = useState(loadedGame.restored ? "Resumed your saved game." : "Ready to begin a deterministic playtest.");
+function Die({ id, face, selected, disabled, state, onSelect, onDragStart }: { id: string; face: number | null; selected: boolean; disabled: boolean; state: string; onSelect: () => void; onDragStart: () => void }) {
+  return <button className={`die-tile ${selected ? "is-selected" : ""} ${disabled ? "is-disabled" : ""}`} disabled={disabled} draggable={!disabled} onClick={onSelect} onDragStart={onDragStart} aria-label={`${dieLabel(id)}, ${face ?? "unrolled"}, ${state}`}><span>{dieLabel(id)}</span><strong>{face ?? "—"}</strong><small>{state}</small></button>;
+}
+
+function App() {
+  const [loaded] = useState(loadGame);
+  const [state, setState] = useState<GameState>(loaded.state);
+  const [difficulty, setDifficulty] = useState<Difficulty>(loaded.state.game.difficulty);
+  const [seed, setSeed] = useState(loaded.state.rng.seed);
+  const [selectedIds, setSelectedIds] = useState<string[]>([]);
+  const [targetId, setTargetId] = useState<string | null>(null);
+  const [menuOpen, setMenuOpen] = useState(false);
   const [debug, setDebug] = useState(false);
-  const [gameMenuOpen, setGameMenuOpen] = useState(false);
-  const [selectedDieIds, setSelectedDieIds] = useState<string[]>([]);
-  const [selectedActionKey, setSelectedActionKey] = useState<string | null>(null);
-  const [saveAvailable, setSaveAvailable] = useState(true);
-  const view = useMemo(() => HerculesEngine.getPlayView(state), [state]);
-  const availableDice = Object.values(view.dice).filter(die => die.availableForLabor);
-  const derivedContributions = view.derivedContributions;
-  const submit = (command: EngineCommand) => { try { const result = HerculesEngine.submit(state, command); setSaveAvailable(persistGame(result.state)); setState(result.state); setSelectedDieIds([]); setSelectedActionKey(null); setMessage(`${result.transitions.at(-1)?.type ?? "Action complete"}.`); } catch (error) { setMessage(error instanceof Error ? error.message : String(error)); } };
-  const start = (nextSeed = randomSeed()) => { try { const result = HerculesEngine.createGame({ difficulty, seed: nextSeed }); setSeed(nextSeed); setSaveAvailable(persistGame(result.state)); setState(result.state); setSelectedDieIds([]); setSelectedActionKey(null); setMessage(`New game created with seed ${nextSeed}.`); } catch (error) { setMessage(error instanceof Error ? error.message : String(error)); } };
-  const copyDiagnostics = async () => {
-    try { await navigator.clipboard.writeText(JSON.stringify(HerculesEngine.exportDiagnostics(state))); setMessage("Diagnostics copied. Paste them into this chat message."); }
-    catch { setMessage("Could not copy diagnostics. Your browser may block clipboard access."); }
-  };
-  const grouped = (group: string) => view.actions.filter(action => action.group === group);
-  const actionDice = (command: EngineCommand): string[] => {
-    if (command.type === "USE_BLUE_ABILITY") return [command.sourceDieId];
-    if (command.type === "REROLL_DIE") return [command.dieId];
-    if (command.type === "USE_COWS_A") return [command.sourceDieId, command.targetDieId];
-    if (command.type === "USE_COWS_B") return [command.sourceDieId, ...command.rerollDieIds];
-    if (command.type === "PLACE_GOLD" || command.type === "ALLOCATE_ATTACK") return [...command.dieIds, ...(command.contributionIds ?? [])];
-    return [];
-  };
-  const sameDice = (left: string[], right: string[]) => left.length === right.length && [...left].sort().every((id, index) => id === [...right].sort()[index]);
+  const [message, setMessage] = useState(loaded.restored ? "Resumed your saved game." : "Ready to begin your journey.");
+  const model = useMemo(() => HerculesEngine.getGameplayScreenModel(state, selectedIds), [state, selectedIds]);
+  const { view } = model;
   const phaseAllowsSelection = view.game.phase === "BLUE_ABILITY_WINDOW" || view.game.phase === "GOLD_AND_ATTACK_PLACEMENT";
-  const selectable = (die: typeof availableDice[number]) => phaseAllowsSelection && die.face !== null && !die.broken && !die.spent && !die.locked && !die.allocated;
-  const selectableContribution = (contribution: typeof derivedContributions[number]) => phaseAllowsSelection && !contribution.allocated;
-  const selectedActions = selectedDieIds.length === 0 ? [] : view.actions.filter(action => (action.group === "blue" || action.group === "placement") && sameDice(actionDice(action.command), selectedDieIds));
-  const actionGroup = (action: ReturnType<typeof grouped>[number]) => {
-    if (action.command.type === "ALLOCATE_ATTACK") return { key: `attack:${action.command.targetId}`, label: action.label.replace(/ with .+$/, "") };
-    if (action.command.type === "PLACE_GOLD") return { key: `gold:${action.command.abilityId}`, label: action.label.split(":")[0] };
-    if (action.command.type === "USE_BLUE_ABILITY") return { key: `blue:${action.command.abilityId}`, label: action.label.split(":")[0] };
-    if (action.command.type === "REROLL_DIE") return { key: `blue:${action.command.abilityId}`, label: action.label.split(":")[0] };
-    if (action.command.type === "USE_COWS_A") return { key: "blue:cows-a", label: action.label.split(":")[0] };
-    if (action.command.type === "USE_COWS_B") return { key: "blue:cows-b", label: action.label.split(":")[0] };
-    return { key: action.id, label: action.label };
+  const physicalDice = Object.values(view.dice).filter(die => die.availableForLabor);
+  const selectedTarget = model.legalTargets.find(target => target.id === targetId) ?? null;
+  const targetById = (id: string) => model.legalTargets.find(target => target.id === id);
+  const submit = (command: EngineCommand) => { try { const result = HerculesEngine.submit(state, command); setState(result.state); persistGame(result.state); setSelectedIds([]); setTargetId(null); setMessage(`${titleCase(result.transitions.at(-1)?.type ?? "Action complete")}.`); } catch (error) { setMessage(error instanceof Error ? error.message : String(error)); } };
+  const start = (nextSeed = randomSeed()) => { const next = HerculesEngine.createGame({ difficulty, seed: nextSeed }).state; setSeed(nextSeed); setState(next); persistGame(next); setSelectedIds([]); setTargetId(null); setMessage(`New game created with seed ${nextSeed}.`); };
+  useEffect(() => { persistGame(state); }, [state]);
+  const toggle = (id: string) => { if (!phaseAllowsSelection) return; setTargetId(null); setSelectedIds(current => current.includes(id) ? current.filter(value => value !== id) : [...current, id]); };
+  const beginDrag = (id: string) => { if (!selectedIds.includes(id)) setSelectedIds([id]); setTargetId(null); };
+  const drop = (event: DragEvent, target: LegalTarget | undefined) => { event.preventDefault(); if (!target) return; if (target.commands.length === 1) submit(target.commands[0]); else setTargetId(target.id); };
+  const ctaAction = () => { if (model.phaseCta === "UNSELECT") { setSelectedIds([]); setTargetId(null); return; } const id = model.phaseCta === "ROLL" ? "roll" : model.phaseCta === "FINISH_BLUE" ? "finish-blue" : model.phaseCta === "RESOLVE_ASSIGNMENTS" ? "resolve" : null; const action = view.actions.find(entry => entry.id === id); if (action) submit(action.command); };
+  const active = (id: string) => !!targetById(id);
+  const tileDropProps = (id: string) => ({ onDragOver: (event: DragEvent) => { if (active(id)) event.preventDefault(); }, onDrop: (event: DragEvent) => drop(event, targetById(id)) });
+  const moodStatus = view.mood.name ? `${view.mood.name}${view.mood.effect ? ` · ${view.mood.effect}` : ""}` : "No active Mood";
+  const abilityTiles = (title: string, summary: string, tone: "blue" | "reward"): Array<{ id: string; title: string; subtitle: string; tone: "blue" | "reward"; target: LegalTarget | null }> => {
+    const targets = model.legalTargets.filter(target => target.label === title);
+    return targets.length ? targets.map(target => ({ id: target.id, title, subtitle: summary, tone, target })) : [{ id: `card:${title}`, title, subtitle: summary, tone, target: null }];
   };
-  const actionGroups = [...selectedActions.reduce((groups, action) => { const group = actionGroup(action); const existing = groups.get(group.key) ?? { ...group, actions: [] as typeof selectedActions }; existing.actions.push(action); groups.set(group.key, existing); return groups; }, new Map<string, { key: string; label: string; actions: typeof selectedActions }>()).values()];
-  const chosenActionGroup = actionGroups.find(group => group.key === selectedActionKey) ?? null;
-  const actionDetail = (action: ReturnType<typeof grouped>[number]) => {
-    if (action.command.type === "ALLOCATE_ATTACK") return "Assign selected dice to this attack";
-    if (action.command.type === "PLACE_GOLD") return "Use this gold ability";
-    return action.label.replace(/^[^:]+:\s*/, "");
-  };
-  useEffect(() => {
-    setSaveAvailable(persistGame(state));
-  }, [state]);
-  const toggleDie = (dieId: string) => { setSelectedActionKey(null); setSelectedDieIds(ids => ids.includes(dieId) ? ids.filter(id => id !== dieId) : [...ids, dieId]); };
-  return <main>
-    <header><div><p className="eyebrow">ENGINE PLAYTEST</p><h1>Hercules &amp; the 12 Labors</h1></div><div className="status"><span>{view.game.phase}</span><strong>{view.game.result?.toUpperCase() ?? "IN PROGRESS"}</strong></div></header>
-    <section className="game-toolbar"><button className="new-game" onClick={() => start()}>New game</button><section className="game-menu card"><button className="menu-toggle quiet" aria-expanded={gameMenuOpen} onClick={() => setGameMenuOpen(open => !open)}>Game menu <span>{gameMenuOpen ? "−" : "+"}</span></button>{gameMenuOpen && <div className="setup"><label>Difficulty<select value={difficulty} onChange={event => setDifficulty(event.target.value as Difficulty)}>{(["human", "hero", "god"] as Difficulty[]).map(value => <option key={value}>{value}</option>)}</select></label><label>Seed<input value={seed} onChange={event => setSeed(event.target.value)} /></label><button className="quiet" onClick={() => start(seed)}>Start this seed</button><button className="quiet" onClick={() => setDebug(value => !value)}>{debug ? "Hide" : "Show"} debug</button><button className="quiet" onClick={copyDiagnostics}>Copy diagnostics</button><button className="quiet" onClick={() => download("hercules-diagnostics.json", HerculesEngine.exportDiagnostics(state))}>Export diagnostics</button></div>}</section></section>
-    <p className="message" role="status">{message}{!saveAvailable && " This browser is not allowing local game saves."}</p>
-    <section className="dashboard">
-      <article className="card"><h2>Hercules</h2><div className="resources"><span>Spirit <b>{view.player.spirit}</b></span><span>Divinity <b>{view.player.divinity}</b></span></div>{phaseAllowsSelection && <p className="selection-help">Select dice or a linked copy, then choose an engine-legal action.</p>}<div className="dice">{availableDice.map(die => <button className={`die ${selectedDieIds.includes(die.id) ? "selected" : ""} ${selectable(die) ? "targetable" : ""} ${die.allocated || die.locked || die.spent ? "used" : ""}`} disabled={!selectable(die)} onClick={() => toggleDie(die.id)} key={die.id}><b>{die.id}</b><strong>{die.face ?? "—"}</strong><small>{selectedDieIds.includes(die.id) ? "selected" : die.allocated ? "attack" : die.locked ? "gold" : die.spent ? "spent" : die.blueUsed ? "blue used" : die.rollable ? "ready" : "unavailable"}</small></button>)}{derivedContributions.map(contribution => <button className={`die derived ${selectedDieIds.includes(contribution.id) ? "selected" : ""} ${selectableContribution(contribution) ? "targetable" : ""} ${contribution.allocated ? "used" : ""}`} disabled={!selectableContribution(contribution)} onClick={() => toggleDie(contribution.id)} key={contribution.id}><b>{contribution.id}</b><strong>{contribution.face}</strong><small>{selectedDieIds.includes(contribution.id) ? "selected" : contribution.allocated ? "used" : `copy of ${contribution.sourceDieId}`}</small></button>)}</div><h3>Rewards</h3>{view.rewards.length ? <ul className="reward-list">{view.rewards.map(reward => <li key={reward.id}><b>{reward.name}</b><small>{reward.summary}</small></li>)}</ul> : <p>None yet</p>}</article>
-      <div className="labor-stack"><article className="card"><h2>Labor</h2>{view.labor ? <><h3>{view.labor.name}</h3><p>Attack: <b>{[...new Set(view.labor.dice.map(die => die.attack))].join(" · ")}</b></p><div className="labor-health">{view.labor.dice.map(die => <span key={die.id}><b>{die.id.replace(/^labor\.L\d+\./, "")}</b> {die.health}/{die.startingHealth}</span>)}</div><LaborTracks labor={view.labor} /></> : <p>Preparing the first Labor…</p>}</article><article className="card mood-card"><h2>Current Mood</h2><h3>{view.mood.name ?? "—"}</h3>{view.mood.effect && <p className="mood-effect">{view.mood.effect}</p>}</article></div>
-      <article className="card controls"><h2>Actions</h2>{view.pendingDecision && <h3>{view.pendingDecision.prompt}</h3>}{phaseAllowsSelection && <div className="action-group"><h3>Selected dice</h3><p>{selectedDieIds.length ? selectedDieIds.join(", ") : "Select one or more dice in the tray."}</p>{selectedDieIds.length > 0 && <button className="quiet" onClick={() => { setSelectedDieIds([]); setSelectedActionKey(null); }}>Clear selection</button>}{selectedDieIds.length > 0 && (chosenActionGroup ? <><button className="quiet" onClick={() => setSelectedActionKey(null)}>Back to actions</button><h3>{chosenActionGroup.label}</h3>{chosenActionGroup.actions.map(action => <button key={action.id} onClick={() => submit(action.command)}>{actionDetail(action)}</button>)}</> : actionGroups.length ? actionGroups.map(group => <button key={group.key} onClick={() => setSelectedActionKey(group.key)}>{group.label}</button>) : <p>No engine-legal action uses exactly this selection.</p>)}</div>}{(["round", "decision", "utility"] as const).map(group => grouped(group).length ? <div className="action-group" key={group}><h3>{group === "decision" ? "Choose reward" : group}</h3>{grouped(group).map(action => <button key={action.id} onClick={() => submit(action.command)}>{action.label}</button>)}</div> : null)}{view.actions.length === 0 && <p>No engine-provided action is available.</p>}</article>
+  const actionTiles = [
+    ...abilityTiles("Bow", "Blue ability", "blue"),
+    ...view.rewards.flatMap(reward => abilityTiles(reward.name, reward.summary, "reward")),
+    ...(view.mood.id === "mood.ferocious" ? abilityTiles("Ferocious", "Blue: set any die", "blue") : [])
+  ];
+  const decisionTitle = view.pendingDecision?.type === "CHOOSE_REWARD" ? "Choose a Reward" : view.pendingDecision?.prompt;
+
+  return <main className="gameplay-shell">
+    <header className="status-strip"><div className="brand"><span>HERCULES</span><b>12 Labors</b></div><div className="resources" aria-label="Resources"><span title="Spirit">♥ <b>{view.player.spirit}</b></span><span title="Divinity">✦ <b>{view.player.divinity}</b></span></div><div className="labor-status"><small>Labor {view.labor?.id.match(/\d+/)?.[0] ?? "—"}</small><b>{view.labor?.name ?? "Preparing"}</b></div><button className="mood-status" title={moodStatus} aria-label={moodStatus}>☾</button><button className="menu-button" aria-label="Open game menu" aria-expanded={menuOpen} onClick={() => setMenuOpen(open => !open)}>☰</button></header>
+    <section className="forecast-strip" aria-live="polite">{model.forecast.neutral ? <span>Forecast updates as you commit placements.</span> : model.forecast.entries.map(entry => <span key={entry.id}>{entry.id === "attack" ? "⚔" : entry.id === "block" ? "🛡" : entry.id === "spirit" ? "♥" : "✦"} {entry.value > 0 && entry.id !== "attack" ? "+" : ""}{entry.value} {entry.label}</span>)}{state.currentLabor?.cannotBlockThisRound && <span className="cannot-block">🛡̸ Cannot Block</span>}</section>
+    {menuOpen && <aside className="game-menu" aria-label="Game menu"><label>Difficulty<select value={difficulty} onChange={event => setDifficulty(event.target.value as Difficulty)}>{(["human", "hero", "god"] as Difficulty[]).map(value => <option key={value}>{value}</option>)}</select></label><label>Seed<input value={seed} onChange={event => setSeed(event.target.value)} /></label><button onClick={() => start(seed)}>Start this seed</button><button onClick={() => start()}>New random game</button><button onClick={() => download("hercules-diagnostics.json", HerculesEngine.exportDiagnostics(state))}>Export diagnostics</button><button onClick={() => setDebug(value => !value)}>{debug ? "Hide" : "Show"} debug</button></aside>}
+    <p className="game-message" role="status">{message}</p>
+    <section className="action-grid" aria-label="Action grid">
+      <article className={`labor-tile panes-${view.labor?.dice.length ?? 1}`}><div className="labor-tile-heading"><span>Labor</span><small>{view.game.phase === "BLUE_ABILITY_WINDOW" ? "Attack after Blue" : "Place attacks"}</small></div><div className="labor-panes">{view.labor?.dice.map(die => { const id = `attack:${die.id}`; const legal = active(id); const assigned = state.round.attackAllocations.filter(allocation => allocation.targetId === die.id || allocation.targetId === "__all_active_targets__"); return <button key={die.id} className={`labor-pane ${legal ? "is-legal" : ""} ${die.status !== "active" ? "is-defeated" : ""}`} disabled={!legal} {...tileDropProps(id)} onClick={() => legal && (targetById(id)!.commands.length === 1 ? submit(targetById(id)!.commands[0]) : setTargetId(id))}><span>{dieLabel(die.id)}</span><b>{die.health}/{die.startingHealth}</b><small>{die.attack}</small>{assigned.length > 0 && <em>{assigned.map(bundle => [...bundle.dieIds, ...bundle.contributionIds].map(dieLabel).join(" + ")).join(" · ")}</em>}</button>; }) ?? <p>Labor is preparing…</p>}</div></article>
+      {actionTiles.map(tile => { const target = tile.target; const legal = !!target; return <button key={tile.id} className={`action-tile ${tile.tone} ${legal ? "is-legal" : ""}`} disabled={selectedIds.length > 0 && !legal} {...(target ? tileDropProps(target.id) : {})} onClick={() => target && (target.commands.length === 1 ? submit(target.commands[0]) : setTargetId(target.id))}><span className="ability-square">{tile.tone === "blue" ? "◆" : "✦"}</span><b>{tile.title}</b><small>{tile.subtitle}</small></button>; })}
     </section>
-    <section className="card history"><h2>Event history</h2><ol>{view.transitions.slice(-12).reverse().map(transition => <li key={transition.index}><b>{transition.index}</b> {historyText(transition)}</li>)}</ol></section>
-    {debug && <section className="debug"><article className="card"><h2>Canonical state</h2><pre>{HerculesEngine.exportDiagnostics(state).canonicalState}</pre></article><article className="card"><h2>Diagnostics</h2><pre>{JSON.stringify(HerculesEngine.exportDiagnostics(state), null, 2)}</pre></article></section>}
+    <section className="bottom-rail"><button className="undo-button" disabled={!model.undoAvailable} onClick={() => submit({ type: "UNDO_DETERMINISTIC" })}>↶<span>Undo</span></button><div className="dice-tray" aria-label="Hercules dice">{physicalDice.map(die => <Die key={die.id} id={die.id} face={die.face} selected={selectedIds.includes(die.id)} disabled={!phaseAllowsSelection || die.face === null || die.broken || die.spent || die.locked || die.allocated} state={die.allocated ? "attack" : die.locked ? "gold" : die.spent ? "spent" : die.blueUsed ? "blue used" : die.rollable ? "ready" : "unavailable"} onSelect={() => toggle(die.id)} onDragStart={() => beginDrag(die.id)} />)}{view.derivedContributions.map(die => <Die key={die.id} id={die.id} face={die.face} selected={selectedIds.includes(die.id)} disabled={!phaseAllowsSelection || die.allocated} state={die.allocated ? "used" : `copy of ${die.sourceDieId}`} onSelect={() => toggle(die.id)} onDragStart={() => beginDrag(die.id)} />)}</div><button className="phase-cta" disabled={!model.phaseCta} onClick={ctaAction}>{model.phaseCta === "UNSELECT" ? "Unselect" : model.phaseCta === "FINISH_BLUE" ? "Finish Blue" : model.phaseCta === "RESOLVE_ASSIGNMENTS" ? "Resolve" : "Roll"}</button></section>
+    {selectedIds.length > 0 && <p className="selection-note">Selected: {selectedIds.map(dieLabel).join(", ")}. {model.legalTargets.length ? "Highlighted targets are engine-legal." : "No engine-legal action uses this exact selection."}</p>}
+    {selectedTarget && <section className="choice-sheet" role="dialog" aria-label={selectedTarget.label}><button className="choice-close" onClick={() => setTargetId(null)}>×</button><h2>{selectedTarget.label}</h2><p>Choose the certified action for this selection.</p>{selectedTarget.commands.map((command, index) => <button key={index} onClick={() => submit(command)}>{command.type === "USE_BLUE_ABILITY" && command.target !== undefined ? `Set to ${command.target}` : command.type === "USE_COWS_A" ? `Set ${dieLabel(command.targetDieId)} to ${command.face}` : command.type === "USE_COWS_B" ? `Reroll ${command.rerollDieIds.map(dieLabel).join(", ")}` : "Confirm placement"}</button>)}</section>}
+    {view.pendingDecision && <section className="choice-sheet decision-sheet" role="dialog" aria-label={decisionTitle}><h2>{decisionTitle}</h2><p>{view.pendingDecision.prompt}</p>{view.actions.filter(action => action.group === "decision").map(action => <button key={action.id} onClick={() => submit(action.command)}>{action.label}</button>)}</section>}
+    {view.game.result && <section className={`end-state ${view.game.result}`} role="dialog"><p>{view.game.result === "victory" ? "HERCULES' ASCENSION" : "YOUR JOURNEY IS OVER"}</p><h1>{view.game.result === "victory" ? "VICTORY" : "You have failed."}</h1><button onClick={() => start()}>New Game</button></section>}
+    {debug && <section className="debug-panel"><h2>Canonical diagnostics</h2><pre>{JSON.stringify(HerculesEngine.exportDiagnostics(state), null, 2)}</pre></section>}
   </main>;
 }
+
+export { App };
