@@ -17,7 +17,7 @@ export interface PlayView {
   derivedContributions: Array<{ id: string; sourceDieId: string; face: number; allocated: boolean }>;
   labor: { id: string; name: string; dice: Array<{ id: string; health: number; startingHealth: number; trackId: string; nodeId: string; nodeEffect: unknown; status: string; attack: string }>; tracks: Array<{ id: string; label: string; attack: string | null; type: string; startId: string; nodes: Array<{ id: string; effect: unknown; next: string[] }> }> } | null;
   mood: { id: string | null; name: string | null; effect: string | null };
-  rewards: Array<{ id: string; name: string; summary: string }>;
+  rewards: Array<{ id: string; name: string; summary: string; color: "blue" | "gold" | "mixed" | "neutral" }>;
   pendingDecision: GameState["pendingDecision"];
   actions: PlayAction[];
   blueAbilities: PlayAbility[];
@@ -53,6 +53,12 @@ const rewardAbilitySummary: Record<string, string> = {
   "reward.L11.C": "Gold: any die blocks 2 Spirit."
 };
 const rewardSummary = (id: string): string => rewardAbilitySummary[id] ?? "No active ability.";
+const rewardColor = (id: string): "blue" | "gold" | "mixed" | "neutral" => {
+  const reward = findReward(id);
+  const blue = records(reward?.blue).length > 0;
+  const gold = records(reward?.gold).length > 0;
+  return blue && gold ? "mixed" : blue ? "blue" : gold ? "gold" : "neutral";
+};
 const rewardBonusSummary = (id: string): string => {
   const bonus = records(findReward(id)?.bonus);
   const parts: string[] = [];
@@ -192,5 +198,5 @@ export function getPlayView(state: GameState): PlayView {
   if (state.undoStack.length > 0) command("undo", "Undo last deterministic action", { type: "UNDO_DETERMINISTIC" }, "utility");
   const labor = state.currentLabor ? (() => { const source = getLabor(state.currentLabor!.laborId); const dice = Object.values(state.currentLabor!.laborDice).map(die => ({ ...die, nodeEffect: getNode(state.currentLabor!.laborId, die.trackId, die.nodeId).effect, attack: attackLabel(attackForLaborDie(state.currentLabor!.laborId, die.id)) })); const sourceTracks = Object.values(getTracks(state.currentLabor!.laborId)); const tracks = sourceTracks.map((track, index) => ({ id: track.id, label: sourceTracks.length > 1 ? `Track ${String.fromCharCode(65 + index)}` : "Track", attack: dice.find(die => die.trackId === track.id)?.attack ?? null, type: track.type, startId: track.startId, nodes: Object.values(track.nodes).map(node => ({ id: node.id, effect: node.effect, next: node.next })) })); return { id: state.currentLabor!.laborId, name: String(source.name ?? state.currentLabor!.laborId), dice, tracks }; })() : null;
   const mood = GAME_DATA.moods.find(entry => entry.id === state.mood.activeMoodId);
-  return { game: state.game, player: state.player, dice: state.herculesDice, derivedContributions: Object.values(state.round.derivedContributions), labor, mood: { id: state.mood.activeMoodId, name: mood ? String(mood.name) : null, effect: moodEffectDescription(mood as unknown as RecordValue | undefined) }, rewards: state.player.ownedRewardIds.filter(id => activeReward(state, id)).map(id => ({ id, name: rewardName(id), summary: rewardSummary(id) })), pendingDecision: state.pendingDecision, actions, blueAbilities, transitions: state.transitions };
+  return { game: state.game, player: state.player, dice: state.herculesDice, derivedContributions: Object.values(state.round.derivedContributions), labor, mood: { id: state.mood.activeMoodId, name: mood ? String(mood.name) : null, effect: moodEffectDescription(mood as unknown as RecordValue | undefined) }, rewards: state.player.ownedRewardIds.filter(id => activeReward(state, id)).map(id => ({ id, name: rewardName(id), summary: rewardSummary(id), color: rewardColor(id) })), pendingDecision: state.pendingDecision, actions, blueAbilities, transitions: state.transitions };
 }

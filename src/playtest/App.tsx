@@ -50,7 +50,7 @@ function App() {
   };
   const actionTiles = [
     ...abilityTiles("Bow", "Blue ability", "blue"),
-    ...view.rewards.flatMap(reward => abilityTiles(reward.name, reward.summary, "reward")),
+    ...view.rewards.flatMap(reward => abilityTiles(reward.name, reward.summary, reward.color === "blue" ? "blue" : "reward")),
     ...(view.mood.id === "mood.ferocious" ? abilityTiles("Ferocious", "Blue: set any die", "blue") : [])
   ];
   const decisionTitle = view.pendingDecision?.type === "CHOOSE_REWARD" ? "Choose a Reward" : view.pendingDecision?.prompt;

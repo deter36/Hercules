@@ -38,3 +38,9 @@ test("a mapped Blue ability is exposed only for a certified source face", () => 
   state.herculesDice.H1.face = 6;
   assert.equal(getPlayView(state).actions.some(action => action.command.type === "USE_BLUE_ABILITY" && action.command.abilityId === "ability.reward.L01.blue"), true);
 });
+
+test("Blue-only rewards retain their Blue presentation color", () => {
+  const state = createInitialState("human", "ui-reward-color");
+  state.player.ownedRewardIds.push("reward.L02");
+  assert.equal(getPlayView(state).rewards.find(reward => reward.id === "reward.L02")?.color, "blue");
+});
