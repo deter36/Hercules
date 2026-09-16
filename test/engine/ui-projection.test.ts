@@ -4,6 +4,7 @@ import { getForecastProjection, getGameplayScreenModel, getLegalTargets } from "
 import { allocateAttack } from "../../src/engine/actions/placement.js";
 import { startLabor } from "../../src/engine/labor/setup.js";
 import { createInitialState } from "../../src/engine/state/create.js";
+import { getPlayView } from "../../src/engine/view-model.js";
 
 test("screen projection uses only engine-certified exact-selection targets", () => {
   const state = startLabor(createInitialState("human", "ui-targets"), "labor.L01");
@@ -26,4 +27,14 @@ test("forecast is pure and describes committed attacks", () => {
   const forecast = getForecastProjection(committed);
   assert.equal(JSON.stringify(committed), before);
   assert.deepEqual(forecast.entries, [{ id: "attack", label: "Attack", value: 1 }]);
+});
+
+test("a mapped Blue ability is exposed only for a certified source face", () => {
+  const state = startLabor(createInitialState("human", "ui-mapped-blue"), "labor.L01");
+  state.player.ownedRewardIds.push("reward.L01");
+  state.game.phase = "BLUE_ABILITY_WINDOW";
+  state.herculesDice.H1.face = 4;
+  assert.equal(getPlayView(state).actions.some(action => action.command.type === "USE_BLUE_ABILITY" && action.command.abilityId === "ability.reward.L01.blue"), false);
+  state.herculesDice.H1.face = 6;
+  assert.equal(getPlayView(state).actions.some(action => action.command.type === "USE_BLUE_ABILITY" && action.command.abilityId === "ability.reward.L01.blue"), true);
 });
