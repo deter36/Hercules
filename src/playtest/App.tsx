@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState, type DragEvent, type PointerEvent
 import { HerculesEngine, type LegalTarget } from "../engine/api.js";
 import type { EngineCommand } from "../engine/commands/types.js";
 import type { Difficulty, GameState } from "../engine/state/types.js";
+import { moodPresentation, presentationEventsFromTransitions, type GameplayPresentation } from "./presentation.js";
 import "./playtest.css";
 
 const SAVE_KEY = "hercules-12-labors.playtest.save.v1";
@@ -21,6 +22,10 @@ function Die({ id, face, selected, disabled, state, dragging, onSelect, onDragSt
 function App() {
   const [loaded] = useState(loadGame);
   const [state, setState] = useState<GameState>(loaded.state);
+  const [presentationQueue, setPresentationQueue] = useState<GameplayPresentation[]>([]);
+  const seenTransitionCount = useRef(loaded.state.transitions.length);
+  const needsInitialMoodPresentation = useRef(!loaded.restored);
+  const [selectedDecisionId, setSelectedDecisionId] = useState<string | null>(null);
   const [difficulty, setDifficulty] = useState<Difficulty>(loaded.state.game.difficulty);
   const [seed, setSeed] = useState(loaded.state.rng.seed);
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
@@ -36,10 +41,15 @@ function App() {
   const phaseAllowsSelection = view.game.phase === "BLUE_ABILITY_WINDOW" || view.game.phase === "GOLD_AND_ATTACK_PLACEMENT";
   const physicalDice = Object.values(view.dice).filter(die => die.availableForLabor);
   const selectedTarget = model.legalTargets.find(target => target.id === targetId) ?? null;
+  const activePresentation = presentationQueue[0] ?? null;
   const targetById = (id: string) => model.legalTargets.find(target => target.id === id);
-  const submit = (command: EngineCommand) => { try { const result = HerculesEngine.submit(state, command); setState(result.state); persistGame(result.state); setSelectedIds([]); setTargetId(null); setMessage(`${titleCase(result.transitions.at(-1)?.type ?? "Action complete")}.`); } catch (error) { setMessage(error instanceof Error ? error.message : String(error)); } };
-  const start = (nextSeed = randomSeed()) => { const next = HerculesEngine.createGame({ difficulty, seed: nextSeed }).state; setSeed(nextSeed); setState(next); persistGame(next); setSelectedIds([]); setTargetId(null); setMessage(`New game created with seed ${nextSeed}.`); };
+  const dismissPresentation = () => setPresentationQueue(current => current.slice(1));
+  const submit = (command: EngineCommand) => { try { const result = HerculesEngine.submit(state, command); if (command.type === "UNDO_DETERMINISTIC") setPresentationQueue([]); setState(result.state); persistGame(result.state); setSelectedIds([]); setTargetId(null); setMessage(`${titleCase(result.transitions.at(-1)?.type ?? "Action complete")}.`); } catch (error) { setMessage(error instanceof Error ? error.message : String(error)); } };
+  const start = (nextSeed = randomSeed()) => { const next = HerculesEngine.createGame({ difficulty, seed: nextSeed }).state; const nextMood = HerculesEngine.getPlayView(next).mood; setSeed(nextSeed); seenTransitionCount.current = next.transitions.length; setState(next); persistGame(next); setPresentationQueue(nextMood.id && nextMood.name ? [moodPresentation(`setup:${nextMood.id}`, nextMood.name, nextMood.effect)] : []); setSelectedDecisionId(null); setSelectedIds([]); setTargetId(null); setMessage(`New game created with seed ${nextSeed}.`); };
   useEffect(() => { persistGame(state); }, [state]);
+  useEffect(() => { if (!needsInitialMoodPresentation.current) return; needsInitialMoodPresentation.current = false; if (view.mood.id && view.mood.name) setPresentationQueue([moodPresentation(`setup:${view.mood.id}`, view.mood.name, view.mood.effect)]); }, [view.mood.effect, view.mood.id, view.mood.name]);
+  useEffect(() => { const transitions = state.transitions.slice(seenTransitionCount.current); seenTransitionCount.current = state.transitions.length; const presentations = presentationEventsFromTransitions(transitions); if (presentations.length) setPresentationQueue(current => [...current, ...presentations]); }, [state.transitions]);
+  useEffect(() => { setSelectedDecisionId(null); }, [view.pendingDecision?.id]);
   const toggle = (id: string) => { if (suppressTouchClick.current || !phaseAllowsSelection) return; setTargetId(null); setSelectedIds(current => current.includes(id) ? current.filter(value => value !== id) : [...current, id]); };
   const beginDrag = (id: string) => { if (!selectedIds.includes(id)) setSelectedIds([id]); setTargetId(null); };
   const drop = (event: DragEvent, target: LegalTarget | undefined) => { event.preventDefault(); if (!target) return; if (target.commands.length === 1) submit(target.commands[0]); else setTargetId(target.id); };
@@ -61,6 +71,11 @@ function App() {
     ...(view.mood.id === "mood.ferocious" ? abilityTiles("Ferocious", "Blue: set any die", "blue") : [])
   ];
   const decisionTitle = view.pendingDecision?.type === "CHOOSE_REWARD" ? "Choose a Reward" : view.pendingDecision?.prompt;
+  const decisionActions = view.actions.filter(action => action.group === "decision");
+  const rewardChoice = view.pendingDecision?.type === "CHOOSE_REWARD";
+  const selectedDecision = decisionActions.find(action => action.id === selectedDecisionId) ?? null;
+  const moodDecision = activePresentation?.kind === "mood" && view.pendingDecision?.source.kind === "mood" ? view.pendingDecision : null;
+  const submitMoodDecision = (command: EngineCommand) => { dismissPresentation(); submit(command); };
 
   return <main className="gameplay-shell">
     <header className="status-strip"><div className="brand"><span>HERCULES</span><b>12 Labors</b></div><div className="resources" aria-label="Resources"><span title="Spirit">♥ <b>{view.player.spirit}</b></span><span title="Divinity">✦ <b>{view.player.divinity}</b></span></div><div className="labor-status"><small>Labor {view.labor?.id.match(/\d+/)?.[0] ?? "—"}</small><b>{view.labor?.name ?? "Preparing"}</b></div><button className="mood-status" title={moodStatus} aria-label={moodStatus}>☾</button><button className="menu-button" aria-label="Open game menu" aria-expanded={menuOpen} onClick={() => setMenuOpen(open => !open)}>☰</button></header>
@@ -74,8 +89,9 @@ function App() {
     <section className="bottom-rail"><button className="undo-button" disabled={!model.undoAvailable} onClick={() => submit({ type: "UNDO_DETERMINISTIC" })}>↶<span>Undo</span></button><div className="dice-tray" aria-label="Hercules dice">{physicalDice.map(die => <Die key={die.id} id={die.id} face={die.face} selected={selectedIds.includes(die.id)} dragging={touchDragging && selectedIds.includes(die.id)} disabled={!phaseAllowsSelection || die.face === null || die.broken || die.spent || die.locked || die.allocated} state={die.allocated ? "attack" : die.locked ? "gold" : die.spent ? "spent" : die.blueUsed ? "blue used" : die.rollable ? "ready" : "unavailable"} onSelect={() => toggle(die.id)} onDragStart={() => beginDrag(die.id)} onPointerDown={event => beginTouchDrag(event, die.id)} onPointerMove={moveTouchDrag} onPointerUp={endTouchDrag} onPointerCancel={cancelTouchDrag} />)}{view.derivedContributions.map(die => <Die key={die.id} id={die.id} face={die.face} selected={selectedIds.includes(die.id)} dragging={touchDragging && selectedIds.includes(die.id)} disabled={!phaseAllowsSelection || die.allocated} state={die.allocated ? "used" : `copy of ${die.sourceDieId}`} onSelect={() => toggle(die.id)} onDragStart={() => beginDrag(die.id)} onPointerDown={event => beginTouchDrag(event, die.id)} onPointerMove={moveTouchDrag} onPointerUp={endTouchDrag} onPointerCancel={cancelTouchDrag} />)}</div><button className="phase-cta" disabled={!model.phaseCta} onClick={ctaAction}>{model.phaseCta === "UNSELECT" ? "Unselect" : model.phaseCta === "FINISH_BLUE" ? "Finish Blue" : model.phaseCta === "RESOLVE_ASSIGNMENTS" ? "Resolve" : "Roll"}</button></section>
     {selectedIds.length > 0 && <p className="selection-note">{touchDragging ? "Release over a highlighted target to assign." : <>Selected: {selectedIds.map(dieLabel).join(", ")}. {model.legalTargets.length ? "Highlighted targets are engine-legal." : "No engine-legal action uses this exact selection."}</>}</p>}
     {selectedTarget && <section className="choice-sheet" role="dialog" aria-label={selectedTarget.label}><button className="choice-close" onClick={() => setTargetId(null)}>×</button><h2>{selectedTarget.label}</h2><p>Choose the certified action for this selection.</p>{selectedTarget.commands.map((command, index) => <button key={index} onClick={() => submit(command)}>{command.type === "USE_BLUE_ABILITY" && command.abilityId === "ability.bow.blue" ? `${command.target === -1 ? "Decrease" : "Increase"} ${dieLabel(command.sourceDieId)} by 1` : command.type === "USE_BLUE_ABILITY" && command.target !== undefined ? `Set to ${command.target}` : command.type === "USE_COWS_A" ? `Set ${dieLabel(command.targetDieId)} to ${command.face}` : command.type === "USE_COWS_B" ? `Reroll ${command.rerollDieIds.map(dieLabel).join(", ")}` : "Confirm placement"}</button>)}</section>}
-    {view.pendingDecision && <section className="choice-sheet decision-sheet" role="dialog" aria-label={decisionTitle}><h2>{decisionTitle}</h2><p>{view.pendingDecision.prompt}</p>{view.actions.filter(action => action.group === "decision").map(action => <button key={action.id} onClick={() => submit(action.command)}>{action.label}</button>)}</section>}
-    {view.game.result && <section className={`end-state ${view.game.result}`} role="dialog"><p>{view.game.result === "victory" ? "HERCULES' ASCENSION" : "YOUR JOURNEY IS OVER"}</p><h1>{view.game.result === "victory" ? "VICTORY" : "You have failed."}</h1><button onClick={() => start()}>New Game</button></section>}
+    {activePresentation && !view.game.result && <section className={`presentation-card ${activePresentation.kind}`} role="dialog" aria-live="assertive" aria-label={activePresentation.title}><p>{activePresentation.eyebrow}</p><h1>{activePresentation.title}</h1><strong>{activePresentation.detail}</strong>{moodDecision ? <div className="presentation-actions">{decisionActions.map(action => <button key={action.id} className={action.command.type === "CHOOSE_OPTION" && action.command.optionId === "redraw" ? "presentation-redraw" : ""} onClick={() => submitMoodDecision(action.command)}>{action.command.type === "CHOOSE_OPTION" && action.command.optionId === "redraw" ? "Redraw Mood with Zeus' Disregard" : action.command.type === "CHOOSE_OPTION" && action.command.optionId === "keep" ? "Continue with this Mood" : action.label}</button>)}</div> : <button onClick={dismissPresentation}>Continue</button>}</section>}
+    {view.pendingDecision && !moodDecision && <section className="choice-sheet decision-sheet" role="dialog" aria-label={decisionTitle}><h2>{decisionTitle}</h2><p>{view.pendingDecision.prompt}</p>{decisionActions.map(action => <button key={action.id} className={rewardChoice && selectedDecisionId === action.id ? "is-selected-decision" : ""} onClick={() => rewardChoice ? setSelectedDecisionId(action.id) : submit(action.command)}>{action.label}</button>)}{rewardChoice && <button disabled={!selectedDecision} onClick={() => selectedDecision && submit(selectedDecision.command)}>Confirm Reward</button>}</section>}
+    {view.game.result && <section className={`end-state ${view.game.result}`} role="dialog"><p>{view.game.result === "victory" ? "HERCULES' ASCENSION" : "YOUR JOURNEY IS OVER"}</p><h1>{view.game.result === "victory" ? "VICTORY" : "You have failed."}</h1><strong>{view.game.result === "victory" ? "Cerberus is defeated. Hercules ascends." : state.player.spirit === "SKULL" ? "Spirit reached its failure space." : "A Labor die reached its final failure."}</strong><button onClick={() => start()}>New Game</button></section>}
     {debug && <section className="debug-panel"><h2>Canonical diagnostics</h2><pre>{JSON.stringify(HerculesEngine.exportDiagnostics(state), null, 2)}</pre></section>}
   </main>;
 }

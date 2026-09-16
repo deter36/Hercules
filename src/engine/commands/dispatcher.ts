@@ -33,6 +33,8 @@ export const lifecycle = (before: GameState, after: GameState): Record<string, u
     for (const bonus of Array.isArray(reward?.bonus) ? reward.bonus : []) {
       const effect = bonus as Record<string, unknown>;
       if (typeof effect.spirit_delta === "number") events.push({ type: "REWARD_SPIRIT_EFFECT", rewardId, delta: effect.spirit_delta });
+      if (typeof effect.divinity_delta === "number") events.push({ type: "REWARD_DIVINITY_EFFECT", rewardId, delta: effect.divinity_delta });
+      if (typeof effect.hercules_dice_delta === "number") events.push({ type: "REWARD_HERCULES_DICE_EFFECT", rewardId, delta: effect.hercules_dice_delta });
     }
   }
   if (before.game.currentLaborId !== after.game.currentLaborId && after.game.currentLaborId) events.push({ type: "LABOR_STARTED", laborId: after.game.currentLaborId });
