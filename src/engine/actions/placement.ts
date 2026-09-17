@@ -103,11 +103,14 @@ export function removeAttackAllocation(state: GameState, allocationIndex: number
   return next;
 }
 
-export function moveAttackAllocation(state: GameState, allocationIndex: number, targetId: string): GameState {
+export function moveAttackAllocation(state: GameState, allocationIndex: number, targetKindOrId: "gold" | "attack" | string, targetId?: string): GameState {
   const allocation = state.round.attackAllocations[allocationIndex];
   if (!allocation) throw new Error("Attack allocation does not exist.");
   const released = removeAttackAllocation(state, allocationIndex);
-  return allocateAttack(released, targetId, allocation.dieIds, allocation.contributionIds);
+  const targetKind = targetId === undefined ? "attack" : targetKindOrId as "gold" | "attack";
+  const destinationId = targetId ?? targetKindOrId;
+  if (targetKind === "gold") return placeGoldAbility(released, destinationId, allocation.dieIds, allocation.contributionIds);
+  return allocateAttack(released, destinationId, allocation.dieIds, allocation.contributionIds);
 }
 
 /** Rebuilds Gold's queued effects from the remaining committed placements. */
@@ -128,6 +131,15 @@ export function removeGoldPlacement(state: GameState, abilityId: string): GameSt
   next.round.resourceQueue = { spiritDeltas: [], divinityDeltas: [] };
   for (const placement of remaining) next = placeGoldAbility(next, placement.abilityId, placement.dieIds, placement.contributionIds);
   return next;
+}
+
+/** Moves one committed Gold bundle without exposing an intermediate loose state. */
+export function moveGoldPlacement(state: GameState, abilityId: string, targetKind: "gold" | "attack", targetId: string): GameState {
+  const placement = state.round.goldPlacements.find(candidate => candidate.abilityId === abilityId);
+  if (!placement) throw new Error("Gold placement does not exist.");
+  const released = removeGoldPlacement(state, abilityId);
+  if (targetKind === "gold") return placeGoldAbility(released, targetId, placement.dieIds, placement.contributionIds);
+  return allocateAttack(released, targetId, placement.dieIds, placement.contributionIds);
 }
 
 export function useCowsA(state: GameState, sourceDieId: string, targetDieId: string, face: number): GameState {

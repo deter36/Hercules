@@ -1,7 +1,7 @@
 import type { EngineCommand } from "./commands/types.js";
 import type { GameState } from "./state/types.js";
 import { getPlayView, type PlayAction, type PlayView } from "./view-model.js";
-import { removeAttackAllocation } from "./actions/placement.js";
+import { removeAttackAllocation, removeGoldPlacement } from "./actions/placement.js";
 
 export type UiPieceId = string;
 export type UiTargetKind = "blue" | "gold" | "attack";
@@ -82,10 +82,29 @@ export function getEditableAttackTargets(state: GameState, allocationIndex: numb
   try {
     const released = removeAttackAllocation(state, allocationIndex);
     return getLegalTargets(released, [...allocation.dieIds, ...allocation.contributionIds])
-      .filter(target => target.kind === "attack")
-      .map(target => ({ ...target, commands: target.commands
-        .filter((command): command is Extract<EngineCommand, { type: "ALLOCATE_ATTACK" }> => command.type === "ALLOCATE_ATTACK")
-        .map(command => ({ type: "MOVE_ATTACK_ALLOCATION" as const, allocationIndex, targetId: command.targetId })) }));
+      .map(target => ({ ...target, commands: target.commands.flatMap<EngineCommand>(command => {
+        if (command.type === "ALLOCATE_ATTACK") return [{ type: "MOVE_ATTACK_ALLOCATION", allocationIndex, targetKind: "attack", targetId: command.targetId }];
+        if (command.type === "PLACE_GOLD") return [{ type: "MOVE_ATTACK_ALLOCATION", allocationIndex, targetKind: "gold", targetId: command.abilityId }];
+        return [];
+      }) })).filter(target => target.commands.length > 0);
+  } catch {
+    return [];
+  }
+}
+
+/** Engine-certified destinations for one already committed Gold bundle. */
+export function getEditableGoldTargets(state: GameState, abilityId: string): LegalTarget[] {
+  const placement = state.round.goldPlacements.find(candidate => candidate.abilityId === abilityId);
+  if (!placement) return [];
+  try {
+    const released = removeGoldPlacement(state, abilityId);
+    return getLegalTargets(released, [...placement.dieIds, ...placement.contributionIds])
+      .filter(target => target.id !== `gold:${abilityId}`)
+      .map(target => ({ ...target, commands: target.commands.flatMap<EngineCommand>(command => {
+        if (command.type === "ALLOCATE_ATTACK") return [{ type: "MOVE_GOLD_PLACEMENT", abilityId, targetKind: "attack", targetId: command.targetId }];
+        if (command.type === "PLACE_GOLD") return [{ type: "MOVE_GOLD_PLACEMENT", abilityId, targetKind: "gold", targetId: command.abilityId }];
+        return [];
+      }) })).filter(target => target.commands.length > 0);
   } catch {
     return [];
   }

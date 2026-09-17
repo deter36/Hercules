@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { getEditableAttackTargets, getForecastProjection, getGameplayScreenModel, getLegalTargets } from "../../src/engine/ui-projection.js";
-import { allocateAttack, moveAttackAllocation, removeAttackAllocation } from "../../src/engine/actions/placement.js";
+import { getEditableAttackTargets, getEditableGoldTargets, getForecastProjection, getGameplayScreenModel, getLegalTargets } from "../../src/engine/ui-projection.js";
+import { allocateAttack, moveAttackAllocation, moveGoldPlacement, placeGoldAbility, removeAttackAllocation } from "../../src/engine/actions/placement.js";
 import { startLabor } from "../../src/engine/labor/setup.js";
 import { createInitialState } from "../../src/engine/state/create.js";
 import { getPlayView } from "../../src/engine/view-model.js";
@@ -57,4 +57,17 @@ test("an assigned attack bundle has engine-certified move targets and can return
   const released = removeAttackAllocation(moved, 0);
   assert.equal(released.herculesDice.H1.allocated, false);
   assert.equal(released.herculesDice.H1.rollable, true);
+});
+
+test("a committed Gold bundle has engine-certified attack targets and moves atomically", () => {
+  const state = startLabor(createInitialState("human", "editable-gold"), "labor.L06");
+  state.player.ownedRewardIds.push("reward.L01");
+  state.game.phase = "GOLD_AND_ATTACK_PLACEMENT";
+  state.herculesDice.H1.face = 6;
+  const committed = placeGoldAbility(state, "ability.reward.L01.gold", ["H1"]);
+  const targets = getEditableGoldTargets(committed, "ability.reward.L01.gold");
+  assert.ok(targets.some(target => target.id === "attack:labor.L06.C14"));
+  const moved = moveGoldPlacement(committed, "ability.reward.L01.gold", "attack", "labor.L06.C14");
+  assert.equal(moved.round.goldPlacements.length, 0);
+  assert.equal(moved.round.attackAllocations[0].targetId, "labor.L06.C14");
 });

@@ -6,7 +6,7 @@ import { deserialize, serialize } from "./state/save.js";
 import { exportDiagnostics } from "./diagnostics/export.js";
 import { getPlayView } from "./view-model.js";
 export type { PlayAbility, PlayControl, PlayView } from "./view-model.js";
-import { getEditableAttackTargets, getForecastProjection, getGameplayScreenModel, getLegalTargets } from "./ui-projection.js";
+import { getEditableAttackTargets, getEditableGoldTargets, getForecastProjection, getGameplayScreenModel, getLegalTargets } from "./ui-projection.js";
 export type { ForecastProjection, GameplayScreenModel, LegalTarget } from "./ui-projection.js";
 import type { Difficulty, GameState, SerializedGame } from "./state/types.js";
 
@@ -28,6 +28,7 @@ export const HerculesEngine = {
   getGameplayScreenModel,
   getLegalTargets,
   getEditableAttackTargets,
+  getEditableGoldTargets,
   getForecastProjection,
   exportDiagnostics,
 };
