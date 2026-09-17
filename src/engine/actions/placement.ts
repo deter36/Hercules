@@ -84,6 +84,52 @@ export function allocateAttack(state: GameState, targetId: string, dieIds: strin
   return next;
 }
 
+export function removeAttackAllocation(state: GameState, allocationIndex: number): GameState {
+  if (state.game.phase !== "GOLD_AND_ATTACK_PLACEMENT") throw new Error("Attack assignments can only be edited during placement.");
+  const allocation = state.round.attackAllocations[allocationIndex];
+  if (!allocation) throw new Error("Attack allocation does not exist.");
+  const next = structuredClone(state);
+  for (const id of allocation.dieIds) {
+    const die = next.herculesDice[id];
+    if (!die || !die.allocated) throw new Error("Attack allocation is no longer editable.");
+    next.herculesDice[id] = { ...die, allocated: false, rollable: die.availableForLabor && !die.broken && !die.spent && !die.locked, placement: null };
+  }
+  for (const id of allocation.contributionIds) {
+    const contribution = next.round.derivedContributions[id];
+    if (!contribution?.allocated) throw new Error("Attack contribution is no longer editable.");
+    contribution.allocated = false;
+  }
+  next.round.attackAllocations.splice(allocationIndex, 1);
+  return next;
+}
+
+export function moveAttackAllocation(state: GameState, allocationIndex: number, targetId: string): GameState {
+  const allocation = state.round.attackAllocations[allocationIndex];
+  if (!allocation) throw new Error("Attack allocation does not exist.");
+  const released = removeAttackAllocation(state, allocationIndex);
+  return allocateAttack(released, targetId, allocation.dieIds, allocation.contributionIds);
+}
+
+/** Rebuilds Gold's queued effects from the remaining committed placements. */
+export function removeGoldPlacement(state: GameState, abilityId: string): GameState {
+  if (state.game.phase !== "GOLD_AND_ATTACK_PLACEMENT") throw new Error("Gold assignments can only be edited during placement.");
+  if (!state.round.goldPlacements.some((placement) => placement.abilityId === abilityId)) throw new Error("Gold placement does not exist.");
+  let next = structuredClone(state);
+  const remaining = next.round.goldPlacements.filter((placement) => placement.abilityId !== abilityId);
+  for (const placement of next.round.goldPlacements) {
+    for (const id of placement.dieIds) {
+      const die = next.herculesDice[id];
+      if (die?.locked) next.herculesDice[id] = { ...die, locked: false, rollable: die.availableForLabor && !die.broken && !die.spent && !die.allocated, placement: null };
+    }
+    for (const id of placement.contributionIds) if (next.round.derivedContributions[id]) next.round.derivedContributions[id].allocated = false;
+  }
+  next.round.goldPlacements = [];
+  next.round.blockedSpirit = 0;
+  next.round.resourceQueue = { spiritDeltas: [], divinityDeltas: [] };
+  for (const placement of remaining) next = placeGoldAbility(next, placement.abilityId, placement.dieIds, placement.contributionIds);
+  return next;
+}
+
 export function useCowsA(state: GameState, sourceDieId: string, targetDieId: string, face: number): GameState {
   if (state.game.phase !== "BLUE_ABILITY_WINDOW" || !Number.isInteger(face) || face < 1 || face > 6) throw new Error("Cows A requires a valid blue-window target face.");
   const definition = ability(state, "ability.reward.L05.A.blue", "blue");

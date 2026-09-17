@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { allocateAttack, placeGoldAbility, useBlueAbility, useCowsA, useCowsB } from "../../src/engine/actions/placement.js";
+import { allocateAttack, placeGoldAbility, removeGoldPlacement, useBlueAbility, useCowsA, useCowsB } from "../../src/engine/actions/placement.js";
 import { resolveRoundDamage, commitInitialRoll, cleanupRound } from "../../src/engine/round/resolve.js";
 import { startLabor, resolveMood } from "../../src/engine/labor/setup.js";
 import { createInitialState } from "../../src/engine/state/create.js";
@@ -65,4 +65,18 @@ test("Stables attacks use the shared single-1 requirement but damage only their 
   state = allocateAttack(state, "labor.L05.A", ["H1"]);
   const resolved = resolveRoundDamage(state);
   assert.deepEqual(Object.values(resolved.currentLabor!.laborDice).map((die) => die.health), [4, 5]);
+});
+
+test("removing a committed Gold placement returns its dice and forecast effect", () => {
+  let state = resolveMood(startLabor(createInitialState("human", "remove-gold"), "labor.L01"), "mood.haunted_a");
+  state.player.ownedRewardIds.push("reward.L01");
+  state.game.phase = "GOLD_AND_ATTACK_PLACEMENT";
+  state.herculesDice.H2.face = 6;
+  state = placeGoldAbility(state, "ability.reward.L01.gold", ["H2"]);
+  assert.equal(state.round.blockedSpirit, 1);
+  state = removeGoldPlacement(state, "ability.reward.L01.gold");
+  assert.equal(state.round.goldPlacements.length, 0);
+  assert.equal(state.round.blockedSpirit, 0);
+  assert.equal(state.herculesDice.H2.locked, false);
+  assert.equal(state.herculesDice.H2.rollable, true);
 });

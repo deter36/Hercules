@@ -1,6 +1,7 @@
 import type { EngineCommand } from "./commands/types.js";
 import type { GameState } from "./state/types.js";
 import { getPlayView, type PlayAction, type PlayView } from "./view-model.js";
+import { removeAttackAllocation } from "./actions/placement.js";
 
 export type UiPieceId = string;
 export type UiTargetKind = "blue" | "gold" | "attack";
@@ -72,6 +73,22 @@ export function getLegalTargets(state: GameState, selection: UiPieceId[]): Legal
     else groups.set(target.id, { ...target, commands: [action.command] });
   }
   return [...groups.values()];
+}
+
+/** Engine-certified destinations for one already committed attack bundle. */
+export function getEditableAttackTargets(state: GameState, allocationIndex: number): LegalTarget[] {
+  const allocation = state.round.attackAllocations[allocationIndex];
+  if (!allocation) return [];
+  try {
+    const released = removeAttackAllocation(state, allocationIndex);
+    return getLegalTargets(released, [...allocation.dieIds, ...allocation.contributionIds])
+      .filter(target => target.kind === "attack")
+      .map(target => ({ ...target, commands: target.commands
+        .filter((command): command is Extract<EngineCommand, { type: "ALLOCATE_ATTACK" }> => command.type === "ALLOCATE_ATTACK")
+        .map(command => ({ type: "MOVE_ATTACK_ALLOCATION" as const, allocationIndex, targetId: command.targetId })) }));
+  } catch {
+    return [];
+  }
 }
 
 /** A pure, compact preview of effects already committed to the current round. */

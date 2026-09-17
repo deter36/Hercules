@@ -6,7 +6,7 @@ import { beginRngUndoInterval, checkpointDeterministicAction, undoDeterministicA
 import { cleanupRound, rollFromRng, resolveRoundDamage } from "../round/resolve.js";
 import { advanceLaborDice, resolveEnteredImpacts } from "../round/progress.js";
 import { chooseBranch, chooseBrokenDie, chooseGhostAbderusCost, choosePholusReward } from "../decisions/resolve.js";
-import { allocateAttack, placeGoldAbility, useBlueAbility, useCowsA, useCowsB, useRerollOne } from "../actions/placement.js";
+import { allocateAttack, moveAttackAllocation, placeGoldAbility, removeAttackAllocation, removeGoldPlacement, useBlueAbility, useCowsA, useCowsB, useRerollOne } from "../actions/placement.js";
 import { chooseReward, chooseRewardToRemove } from "../rewards/resolve.js";
 import { resolveAssignments, resolveAnyway } from "./resolve-assignments.js";
 import { resolveZeusRedraw } from "../labor/setup.js";
@@ -15,7 +15,7 @@ import { GAME_DATA } from "../../data/generated/game-data.js";
 
 const hash = (state: GameState): string => sha256Hex(JSON.stringify(state));
 const sameCommand = (left: EngineCommand, right: EngineCommand): boolean => JSON.stringify(left) === JSON.stringify(right);
-const directAction = (command: EngineCommand): boolean => ["USE_BLUE_ABILITY", "REROLL_DIE", "USE_COWS_A", "USE_COWS_B", "PLACE_GOLD", "ALLOCATE_ATTACK"].includes(command.type);
+const directAction = (command: EngineCommand): boolean => ["USE_BLUE_ABILITY", "REROLL_DIE", "USE_COWS_A", "USE_COWS_B", "PLACE_GOLD", "REMOVE_GOLD_PLACEMENT", "ALLOCATE_ATTACK", "REMOVE_ATTACK_ALLOCATION", "MOVE_ATTACK_ALLOCATION"].includes(command.type);
 
 /**
  * A command can carry the game through several automatic lifecycle steps.  Keep
@@ -88,9 +88,18 @@ export function submit(state: GameState, command: EngineCommand): EngineResult {
       } else if (command.type === "PLACE_GOLD") {
         next = placeGoldAbility(next, command.abilityId, command.dieIds, command.contributionIds);
         type = "GOLD_ABILITY_PLACED";
+      } else if (command.type === "REMOVE_GOLD_PLACEMENT") {
+        next = removeGoldPlacement(next, command.abilityId);
+        type = "GOLD_ABILITY_REMOVED";
       } else if (command.type === "ALLOCATE_ATTACK") {
         next = allocateAttack(next, command.targetId, command.dieIds, command.contributionIds);
         type = "ATTACK_ALLOCATED";
+      } else if (command.type === "REMOVE_ATTACK_ALLOCATION") {
+        next = removeAttackAllocation(next, command.allocationIndex);
+        type = "ATTACK_ALLOCATION_REMOVED";
+      } else if (command.type === "MOVE_ATTACK_ALLOCATION") {
+        next = moveAttackAllocation(next, command.allocationIndex, command.targetId);
+        type = "ATTACK_ALLOCATION_MOVED";
       } else if (command.type === "FINISH_BLUE_PHASE") {
         next.game.phase = "GOLD_AND_ATTACK_PLACEMENT";
         type = "BLUE_PHASE_FINISHED";
