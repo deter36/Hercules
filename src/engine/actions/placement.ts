@@ -30,7 +30,7 @@ export function useBlueAbility(state: GameState, abilityId: string, sourceDieId:
   if (definition.type === "temporary_derived_contribution") {
     const id = `${sourceDieId}-D${Object.values(next.round.derivedContributions).filter((entry) => entry.sourceDieId === sourceDieId).length + 1}`;
     next.round.derivedContributions[id] = { id, sourceDieId, face: source.face, allocated: false };
-    next.herculesDice[sourceDieId].blueUsed = true;
+    next.herculesDice[sourceDieId] = { ...source, blueUsed: true, placement: { kind: "blue", abilityId } };
     return next;
   }
   // Legacy content calls this an effective double value.  It is represented as a
@@ -39,11 +39,11 @@ export function useBlueAbility(state: GameState, abilityId: string, sourceDieId:
   if (definition.type === "effective_double_value") {
     const id = `${sourceDieId}-D${Object.values(next.round.derivedContributions).filter((entry) => entry.sourceDieId === sourceDieId).length + 1}`;
     next.round.derivedContributions[id] = { id, sourceDieId, face: source.face, allocated: false };
-    next.herculesDice[sourceDieId] = { ...source, blueUsed: true };
+    next.herculesDice[sourceDieId] = { ...source, blueUsed: true, placement: { kind: "blue", abilityId } };
     return next;
   }
   if (definition.type === "sacrifice_source_set_other_any" || definition.type === "place_source_reroll_any" || definition.type === "reroll_one" || definition.type === "mood_redraw_next_ordered_no_rng") throw new Error(`Ability ${abilityId} requires its dedicated decision/RNG action.`);
-  next.herculesDice[sourceDieId] = applyDieAbility(source, definition, typeof target === "number" ? target : undefined);
+  next.herculesDice[sourceDieId] = { ...applyDieAbility(source, definition, typeof target === "number" ? target : undefined), placement: { kind: "blue", abilityId } };
   return next;
 }
 

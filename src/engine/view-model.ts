@@ -15,6 +15,7 @@ export interface PlayView {
   player: GameState["player"];
   dice: GameState["herculesDice"];
   derivedContributions: Array<{ id: string; sourceDieId: string; face: number; allocated: boolean }>;
+  bluePlacements: Array<{ abilityId: string; rewardName: string; dieIds: string[] }>;
   goldPlacements: Array<{ abilityId: string; rewardName: string; dieIds: string[]; contributionIds: string[] }>;
   labor: { id: string; name: string; dice: Array<{ id: string; health: number; startingHealth: number; trackId: string; nodeId: string; nodeEffect: unknown; status: string; attack: string }>; tracks: Array<{ id: string; label: string; attack: string | null; type: string; startId: string; nodes: Array<{ id: string; effect: unknown; next: string[] }> }> } | null;
   mood: { id: string | null; name: string | null; effect: string | null };
@@ -28,6 +29,12 @@ export interface PlayView {
 const records = (value: unknown): RecordValue[] => Array.isArray(value) ? value as RecordValue[] : [];
 const findReward = (id: string): RecordValue | undefined => GAME_DATA.labors.flatMap((labor) => records(labor.rewards)).find((reward) => reward.id === id);
 const rewardName = (id: string): string => id === "component.bow" ? String(GAME_DATA.components.bow.name) : String(findReward(id)?.name ?? id);
+const blueAbilityName = (abilityId: string): string => {
+  if (abilityId === "ability.bow.blue") return rewardName("component.bow");
+  if (abilityId === "ability.mood.ferocious.blue") return "Ferocious";
+  for (const labor of GAME_DATA.labors) for (const reward of records(labor.rewards)) if (records(reward.blue).some(ability => ability.id === abilityId)) return rewardName(String(reward.id));
+  return abilityId;
+};
 const rewardAbilitySummary: Record<string, string> = {
   "reward.L01": "Blue: swap a 3 and 6. Gold: block 1 Spirit.",
   "reward.L02": "Blue: reroll up to 2 dice.",
@@ -203,5 +210,11 @@ export function getPlayView(state: GameState): PlayView {
     const owner = state.player.ownedRewardIds.find((rewardId) => records(findReward(rewardId)?.gold).some((ability) => ability.id === placement.abilityId));
     return { ...placement, rewardName: owner ? rewardName(owner) : placement.abilityId };
   });
-  return { game: state.game, player: state.player, dice: state.herculesDice, derivedContributions: Object.values(state.round.derivedContributions), goldPlacements, labor, mood: { id: state.mood.activeMoodId, name: mood ? String(mood.name) : null, effect: moodEffectDescription(mood as unknown as RecordValue | undefined) }, rewards: state.player.ownedRewardIds.filter(id => activeReward(state, id)).map(id => ({ id, name: rewardName(id), summary: rewardSummary(id), color: rewardColor(id) })), pendingDecision: state.pendingDecision, actions, blueAbilities, transitions: state.transitions };
+  const bluePlacements = Object.values(state.herculesDice).flatMap(die => {
+    const placement = die.placement;
+    if (typeof placement !== "object" || placement === null || (placement as RecordValue).kind !== "blue" || typeof (placement as RecordValue).abilityId !== "string") return [];
+    const abilityId = (placement as RecordValue).abilityId as string;
+    return [{ abilityId, rewardName: blueAbilityName(abilityId), dieIds: [die.id] }];
+  });
+  return { game: state.game, player: state.player, dice: state.herculesDice, derivedContributions: Object.values(state.round.derivedContributions), bluePlacements, goldPlacements, labor, mood: { id: state.mood.activeMoodId, name: mood ? String(mood.name) : null, effect: moodEffectDescription(mood as unknown as RecordValue | undefined) }, rewards: state.player.ownedRewardIds.filter(id => activeReward(state, id)).map(id => ({ id, name: rewardName(id), summary: rewardSummary(id), color: rewardColor(id) })), pendingDecision: state.pendingDecision, actions, blueAbilities, transitions: state.transitions };
 }

@@ -104,6 +104,7 @@ export function submit(state: GameState, command: EngineCommand): EngineResult {
         next = moveAttackAllocation(next, command.allocationIndex, command.targetKind, command.targetId);
         type = "ATTACK_ALLOCATION_MOVED";
       } else if (command.type === "FINISH_BLUE_PHASE") {
+        for (const die of Object.values(next.herculesDice)) if (typeof die.placement === "object" && die.placement !== null && (die.placement as Record<string, unknown>).kind === "blue") die.placement = null;
         next.game.phase = "GOLD_AND_ATTACK_PLACEMENT";
         type = "BLUE_PHASE_FINISHED";
       } else if (command.type === "RESOLVE_ASSIGNMENTS") {

@@ -1,7 +1,8 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import { getEditableAttackTargets, getEditableGoldTargets, getForecastProjection, getGameplayScreenModel, getLegalTargets } from "../../src/engine/ui-projection.js";
-import { allocateAttack, moveAttackAllocation, moveGoldPlacement, placeGoldAbility, removeAttackAllocation } from "../../src/engine/actions/placement.js";
+import { allocateAttack, moveAttackAllocation, moveGoldPlacement, placeGoldAbility, removeAttackAllocation, useBlueAbility } from "../../src/engine/actions/placement.js";
+import { submit } from "../../src/engine/commands/dispatcher.js";
 import { startLabor } from "../../src/engine/labor/setup.js";
 import { createInitialState } from "../../src/engine/state/create.js";
 import { getPlayView } from "../../src/engine/view-model.js";
@@ -43,6 +44,17 @@ test("Blue-only rewards retain their Blue presentation color", () => {
   const state = createInitialState("human", "ui-reward-color");
   state.player.ownedRewardIds.push("reward.L02");
   assert.equal(getPlayView(state).rewards.find(reward => reward.id === "reward.L02")?.color, "blue");
+});
+
+test("a used Blue die parks on its ability and returns after finishing Blue", () => {
+  const state = startLabor(createInitialState("human", "blue-parking"), "labor.L01");
+  state.game.phase = "BLUE_ABILITY_WINDOW";
+  state.herculesDice.H1.face = 6;
+  const parked = useBlueAbility(state, "ability.bow.blue", "H1", 1);
+  assert.deepEqual(getPlayView(parked).bluePlacements, [{ abilityId: "ability.bow.blue", rewardName: "Bow of Hercules", dieIds: ["H1"] }]);
+  const finished = submit(parked, { type: "FINISH_BLUE_PHASE" }).state;
+  assert.equal(finished.herculesDice.H1.placement, null);
+  assert.deepEqual(getPlayView(finished).bluePlacements, []);
 });
 
 test("an assigned attack bundle has engine-certified move targets and can return to the tray", () => {
