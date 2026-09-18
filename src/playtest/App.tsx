@@ -84,16 +84,17 @@ function App() {
   const active = (id: string) => !!targetById(id);
   const tileDropProps = (id: string) => ({ onDragOver: (event: DragEvent) => { if (active(id)) event.preventDefault(); }, onDrop: (event: DragEvent) => drop(event, targetById(id)) });
   const moodStatus = view.mood.name ? `${view.mood.name}${view.mood.effect ? ` · ${view.mood.effect}` : ""}` : "No active Mood";
+  const matchesTileTitle = (placementName: string, title: string) => placementName === title || (title === "Bow" && placementName === "Bow of Hercules");
   const abilityTiles = (title: string, summary: string, tone: "blue" | "reward"): Array<{ id: string; title: string; subtitle: string; tone: "blue" | "reward"; target: LegalTarget | null; placement: ({ kind: "gold"; abilityId: string; dieIds: string[]; contributionIds: string[] } | { kind: "blue"; abilityId: string; dieIds: string[] }) | null }> => {
     const targets = interactionTargets.filter(target => target.label === title || (title === "Bow" && target.label === "Bow of Hercules"));
-    const goldPlacement = view.goldPlacements.find(candidate => candidate.rewardName === title);
-    const bluePlacement = tone === "blue" ? view.bluePlacements.find(candidate => candidate.rewardName === title) : undefined;
+    const goldPlacement = view.goldPlacements.find(candidate => matchesTileTitle(candidate.rewardName, title));
+    const bluePlacement = tone === "blue" ? view.bluePlacements.find(candidate => matchesTileTitle(candidate.rewardName, title)) : undefined;
     const placement = goldPlacement ? { kind: "gold" as const, ...goldPlacement } : bluePlacement ? { kind: "blue" as const, ...bluePlacement } : null;
     return targets.length ? targets.map(target => ({ id: target.id, title, subtitle: summary, tone, target, placement })) : [{ id: `card:${title}`, title, subtitle: summary, tone, target: null, placement }];
   };
   const actionTiles = [
     ...abilityTiles("Bow", "Blue: raise or lower a die by 1 (wraps); costs 1 Spirit.", "blue"),
-    ...view.rewards.flatMap(reward => abilityTiles(reward.name, reward.summary, reward.color === "blue" ? "blue" : "reward")),
+    ...view.rewards.flatMap(reward => abilityTiles(reward.name, reward.summary, reward.color === "blue" || (reward.color === "mixed" && view.game.phase === "BLUE_ABILITY_WINDOW") ? "blue" : "reward")),
     ...(view.mood.id === "mood.ferocious" ? abilityTiles("Ferocious", "Blue: set any die", "blue") : [])
   ];
   const decisionTitle = view.pendingDecision?.type === "CHOOSE_REWARD" ? "Choose a Reward" : view.pendingDecision?.prompt;
