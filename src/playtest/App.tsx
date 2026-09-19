@@ -57,9 +57,16 @@ function App() {
   const model = useMemo(() => HerculesEngine.getGameplayScreenModel(state, selectedIds), [state, selectedIds]);
   const { view } = model;
   const phaseAllowsSelection = view.game.phase === "BLUE_ABILITY_WINDOW" || view.game.phase === "GOLD_AND_ATTACK_PLACEMENT";
+  const parkedCopyIdsByAbility = new Map<string, string[]>();
+  if (view.game.phase === "BLUE_ABILITY_WINDOW") for (const copy of view.derivedContributions.filter(candidate => !candidate.allocated)) {
+    const sourcePlacement = view.dice[copy.sourceDieId]?.placement as { kind?: string; abilityId?: string } | null;
+    if (sourcePlacement?.kind !== "blue" || !sourcePlacement.abilityId) continue;
+    parkedCopyIdsByAbility.set(sourcePlacement.abilityId, [...(parkedCopyIdsByAbility.get(sourcePlacement.abilityId) ?? []), copy.id]);
+  }
+  const parkedCopyIds = new Set([...parkedCopyIdsByAbility.values()].flat());
   // A die belongs to its committed attack or Gold tile, not as a disabled ghost in the tray.
   const physicalDice = Object.values(view.dice).filter(die => die.availableForLabor && !die.allocated && !die.locked && die.id !== pendingCows?.sourceDieId && !(view.game.phase === "BLUE_ABILITY_WINDOW" && typeof die.placement === "object" && die.placement !== null && (die.placement as { kind?: string }).kind === "blue"));
-  const trayDice = [...physicalDice, ...view.derivedContributions.filter(die => !die.allocated)];
+  const trayDice = [...physicalDice, ...view.derivedContributions.filter(die => !die.allocated && !parkedCopyIds.has(die.id))];
   const trayDiceById = new Map(trayDice.map(die => [die.id, die]));
   const knownTrayIds = [...Object.keys(view.dice), ...view.derivedContributions.map(die => die.id)];
   const orderedTrayDice = reconcileTrayOrder(trayOrder, knownTrayIds).flatMap(id => { const die = trayDiceById.get(id); return die ? [die] : []; });
@@ -163,7 +170,7 @@ function App() {
           const placement = slot.placement;
           const goldPlacement = placement?.kind === "gold";
           const legal = !!slot.target;
-          const placedIds = placement ? [...placement.dieIds, ...(goldPlacement ? placement.contributionIds : [])] : [];
+          const placedIds = placement ? [...placement.dieIds, ...(goldPlacement ? placement.contributionIds : []), ...(placement.kind === "blue" ? parkedCopyIdsByAbility.get(placement.abilityId) ?? [] : [])] : [];
           const compactOccupied = !!placement && card.slots.some(other => other.id !== slot.id && other.color === slot.color && !other.placement);
           const targetableCowsDie = placement?.kind === "blue" && placedIds.length === 1 && cowsTargetIds.has(placedIds[0]);
           return <button key={slot.id} style={placedIds.length > 1 ? { "--placed-die-count": placedIds.length } as CSSProperties : undefined} className={`action-slot ${slot.color} ${placement ? "is-occupied" : ""} ${targetableCowsDie ? "is-targetable" : ""} ${placedIds.length > 1 ? "has-bundle" : ""} ${compactOccupied ? "is-compact-occupied" : ""} ${goldDragging && goldPlacement && placement.abilityId === editingGoldAbilityId ? "is-dragging" : ""}`} disabled={!legal && !placement} draggable={goldPlacement} title={goldPlacement ? "Tap to return this committed Gold placement, or drag it to a highlighted target" : targetableCowsDie ? "Choose this die" : placement ? "Used this Blue phase" : legal ? "Drag selected dice anywhere on this card" : `${slot.color === "blue" ? "Blue" : "Gold"} space`} onDragStart={goldPlacement ? event => { event.dataTransfer.setData("application/x-hercules-gold-placement", placement.abilityId); event.dataTransfer.effectAllowed = "move"; setSelectedIds([]); setTargetId(null); setEditingAttackIndex(null); setEditingGoldAbilityId(placement.abilityId); } : undefined} onClick={() => { if (targetableCowsDie) { chooseCowsTarget(placedIds[0]); return; } if (slot.provisionalCowsSource) { setPendingCows(null); return; } if (goldPlacement && !suppressGoldClick.current) submit({ type: "REMOVE_GOLD_PLACEMENT", abilityId: placement.abilityId }); }} onPointerDown={goldPlacement ? event => beginGoldTouchDrag(event, placement.abilityId) : undefined} onPointerMove={goldPlacement ? moveGoldTouchDrag : undefined} onPointerUp={goldPlacement ? endGoldTouchDrag : undefined} onPointerCancel={goldPlacement ? cancelGoldTouchDrag : undefined}>
