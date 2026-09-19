@@ -14,3 +14,4 @@ body{overflow:hidden}.gameplay-shell{height:100dvh;min-height:0;grid-template-ro
 
 /* A multi-die placement stays a single horizontal physical bundle inside its Reward slot. */
 .action-slot.has-bundle{width:calc(8px + var(--placed-die-count) * 22px);flex-basis:calc(8px + var(--placed-die-count) * 22px)}.action-slot.has-bundle .placed-dice{flex-wrap:nowrap;padding:1px 3px}.action-slot.has-bundle .placed-dice>span{width:22px;height:22px;min-width:22px;min-height:22px;flex:0 0 22px;font-size:.72rem}
+.action-slot.is-occupied .action-slot-icon{display:none}
