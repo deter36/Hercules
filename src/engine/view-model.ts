@@ -10,6 +10,14 @@ type RecordValue = Record<string, unknown>;
 export interface PlayAction { id: string; label: string; command: EngineCommand; group: "round" | "blue" | "placement" | "decision" | "utility"; }
 export interface PlayControl { id: string; label: string; command?: EngineCommand; choices?: PlayControl[]; }
 export interface PlayAbility { id: string; label: string; choices: PlayControl[]; }
+export interface PlayActionCard {
+  id: string;
+  name: string;
+  summary: string;
+  disabled: boolean;
+  temporary: boolean;
+  slots: Array<{ id: string; color: "blue" | "gold" }>;
+}
 export interface PlayView {
   game: GameState["game"];
   player: GameState["player"];
@@ -20,6 +28,7 @@ export interface PlayView {
   labor: { id: string; name: string; dice: Array<{ id: string; health: number; startingHealth: number; trackId: string; nodeId: string; nodeEffect: unknown; status: string; attack: string }>; tracks: Array<{ id: string; label: string; attack: string | null; type: string; startId: string; nodes: Array<{ id: string; effect: unknown; next: string[] }> }> } | null;
   mood: { id: string | null; name: string | null; effect: string | null };
   rewards: Array<{ id: string; name: string; summary: string; color: "blue" | "gold" | "mixed" | "neutral" }>;
+  actionCards: PlayActionCard[];
   pendingDecision: GameState["pendingDecision"];
   actions: PlayAction[];
   blueAbilities: PlayAbility[];
@@ -216,5 +225,17 @@ export function getPlayView(state: GameState): PlayView {
     const abilityId = (placement as RecordValue).abilityId as string;
     return [{ abilityId, rewardName: blueAbilityName(abilityId), dieIds: [die.id] }];
   });
-  return { game: state.game, player: state.player, dice: state.herculesDice, derivedContributions: Object.values(state.round.derivedContributions), bluePlacements, goldPlacements, labor, mood: { id: state.mood.activeMoodId, name: mood ? String(mood.name) : null, effect: moodEffectDescription(mood as unknown as RecordValue | undefined) }, rewards: state.player.ownedRewardIds.filter(id => activeReward(state, id)).map(id => ({ id, name: rewardName(id), summary: rewardSummary(id), color: rewardColor(id) })), pendingDecision: state.pendingDecision, actions, blueAbilities, transitions: state.transitions };
+  const actionCards: PlayActionCard[] = [];
+  if (!state.player.removedRewardOrComponentIds.includes("component.bow")) actionCards.push({ id: "component.bow", name: rewardName("component.bow"), summary: "Blue: raise or lower a die by 1 (wraps); costs 1 Spirit.", disabled: !activeReward(state, "component.bow"), temporary: false, slots: [{ id: "ability.bow.blue", color: "blue" }] });
+  for (const rewardId of state.player.ownedRewardIds.filter(id => !state.player.removedRewardOrComponentIds.includes(id))) {
+    const reward = findReward(rewardId);
+    if (!reward) continue;
+    const slots = [
+      ...records(reward.blue).filter(ability => typeof ability.id === "string").map(ability => ({ id: String(ability.id), color: "blue" as const })),
+      ...records(reward.gold).filter(ability => typeof ability.id === "string").map(ability => ({ id: String(ability.id), color: "gold" as const }))
+    ];
+    if (slots.length) actionCards.push({ id: rewardId, name: rewardName(rewardId), summary: rewardSummary(rewardId), disabled: !activeReward(state, rewardId), temporary: false, slots });
+  }
+  if (state.mood.activeMoodId === "mood.ferocious") actionCards.push({ id: "mood.ferocious", name: "Ferocious", summary: "Blue: set any die.", disabled: false, temporary: true, slots: [{ id: "ability.mood.ferocious.blue", color: "blue" }] });
+  return { game: state.game, player: state.player, dice: state.herculesDice, derivedContributions: Object.values(state.round.derivedContributions), bluePlacements, goldPlacements, labor, mood: { id: state.mood.activeMoodId, name: mood ? String(mood.name) : null, effect: moodEffectDescription(mood as unknown as RecordValue | undefined) }, rewards: state.player.ownedRewardIds.filter(id => activeReward(state, id)).map(id => ({ id, name: rewardName(id), summary: rewardSummary(id), color: rewardColor(id) })), actionCards, pendingDecision: state.pendingDecision, actions, blueAbilities, transitions: state.transitions };
 }

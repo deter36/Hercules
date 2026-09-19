@@ -46,6 +46,17 @@ test("Blue-only rewards retain their Blue presentation color", () => {
   assert.equal(getPlayView(state).rewards.find(reward => reward.id === "reward.L02")?.color, "blue");
 });
 
+test("same-color multi-use Rewards expose one card with stable placement slots", () => {
+  const state = createInitialState("human", "ui-reward-slots");
+  state.player.ownedRewardIds.push("reward.L02");
+  const card = getPlayView(state).actionCards.find(candidate => candidate.id === "reward.L02");
+  assert.deepEqual(card?.slots, [
+    { id: "ability.reward.L02.blueA", color: "blue" },
+    { id: "ability.reward.L02.blueB", color: "blue" }
+  ]);
+  assert.equal(getPlayView(state).actionCards.filter(candidate => candidate.id === "reward.L02").length, 1);
+});
+
 test("a used Blue die parks on its ability and returns after finishing Blue", () => {
   const state = startLabor(createInitialState("human", "blue-parking"), "labor.L01");
   state.game.phase = "BLUE_ABILITY_WINDOW";
