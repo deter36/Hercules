@@ -2,7 +2,7 @@
 
 ## Authority and scope
 
-The source handoff is [`ui-ux-handoff/hercules_UI_UX_handoff.zip`](./ui-ux-handoff/hercules_UI_UX_handoff.zip). Its eight written specifications govern behavior; the linked Figma file governs hierarchy, proportions, tile anatomy, and layout reference.
+The source handoff is [`ui-ux-handoff/hercules_UI_UX_handoff.zip`](./ui-ux-handoff/hercules_UI_UX_handoff.zip). Its eight written specifications govern behavior; the linked Figma file governs hierarchy, proportions, tile anatomy, and layout reference. The detailed, source-linked implementation checklist is maintained in [UI Framework Requirements Traceability](./ui-framework-requirements-traceability.md).
 
 The deterministic engine, saves, diagnostics, seed handling, and command model remain authoritative. Scanned Labor art, coordinate manifests, pan/zoom boards, and track animation are deferred until those assets arrive.
 
@@ -18,6 +18,8 @@ The deterministic engine, saves, diagnostics, seed handling, and command model r
 ## Current phase — placement fidelity and interaction polish
 
 Finish the default drag model before adding an alternate control mode.
+
+Before further tile polish, complete the Action-card placement-slot model specified in the traceability checklist. In particular, one Reward must never duplicate because it has multiple legal command variants or multiple same-color abilities; all Blue/Gold slots and committed dice must remain visible on the one card.
 
 - Show committed physical dice and derived contributions directly in Blue and Gold action tiles; remove their physical die from the tray while committed.
 - Blue: the die parks in its used Blue tile until **Finish Blue**; reusable dice return to the tray only when the engine finishes the Blue phase.
