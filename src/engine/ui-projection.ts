@@ -21,6 +21,7 @@ export interface ForecastEntry {
 
 export interface UpcomingLaborEffect {
   laborDieId: string;
+  label: string;
   effects: string[];
 }
 
@@ -130,7 +131,7 @@ export function getForecastProjection(state: GameState): ForecastProjection {
   if (divinity) entries.push({ id: "divinity", label: "Divinity", value: divinity });
   const upcoming = getPlayView(state).labor?.dice
     .filter(die => die.status === "active")
-    .map(die => ({ laborDieId: die.id, effects: die.upcomingEffects })) ?? [];
+    .map(die => ({ laborDieId: die.id, label: die.label, effects: die.upcomingEffects })) ?? [];
   return { entries, upcoming, neutral: entries.length === 0 };
 }
 

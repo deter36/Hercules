@@ -25,7 +25,7 @@ export interface PlayView {
   derivedContributions: Array<{ id: string; sourceDieId: string; face: number; allocated: boolean }>;
   bluePlacements: Array<{ abilityId: string; rewardName: string; dieIds: string[] }>;
   goldPlacements: Array<{ abilityId: string; rewardName: string; dieIds: string[]; contributionIds: string[] }>;
-  labor: { id: string; name: string; dice: Array<{ id: string; health: number; startingHealth: number; trackId: string; nodeId: string; nodeEffect: unknown; upcomingEffects: string[]; status: string; attack: string }>; tracks: Array<{ id: string; label: string; attack: string | null; type: string; startId: string; nodes: Array<{ id: string; effect: unknown; next: string[] }> }> } | null;
+  labor: { id: string; name: string; dice: Array<{ id: string; label: string; health: number; startingHealth: number; trackId: string; nodeId: string; nodeEffect: unknown; upcomingEffects: string[]; status: string; attack: string }>; tracks: Array<{ id: string; label: string; attack: string | null; type: string; startId: string; nodes: Array<{ id: string; effect: unknown; next: string[] }> }> } | null;
   mood: { id: string | null; name: string | null; effect: string | null };
   rewards: Array<{ id: string; name: string; summary: string; color: "blue" | "gold" | "mixed" | "neutral" }>;
   actionCards: PlayActionCard[];
@@ -37,7 +37,7 @@ export interface PlayView {
 
 const records = (value: unknown): RecordValue[] => Array.isArray(value) ? value as RecordValue[] : [];
 const findReward = (id: string): RecordValue | undefined => GAME_DATA.labors.flatMap((labor) => records(labor.rewards)).find((reward) => reward.id === id);
-const rewardName = (id: string): string => id === "component.bow" ? String(GAME_DATA.components.bow.name) : String(findReward(id)?.name ?? id);
+const rewardName = (id: string): string => id === "component.bow" ? String(GAME_DATA.components.bow.name) : String(findReward(id)?.name ?? "Reward").replace(/\s+[A-D]$/, "");
 const blueAbilityName = (abilityId: string): string => {
   if (abilityId === "ability.bow.blue") return rewardName("component.bow");
   if (abilityId === "ability.mood.ferocious.blue") return "Ferocious";
@@ -231,16 +231,18 @@ export function getPlayView(state: GameState): PlayView {
   const labor = state.currentLabor ? (() => {
     const currentLabor = state.currentLabor!;
     const source = getLabor(currentLabor.laborId);
+    const sourceTracks = Object.values(getTracks(currentLabor.laborId));
+    const labelByTrackId = new Map(sourceTracks.map((track, index) => [track.id, sourceTracks.length > 1 ? `Track ${String.fromCharCode(65 + index)}` : "Labor Die"]));
     const dice = Object.values(currentLabor.laborDice).map(die => {
       const node = getNode(currentLabor.laborId, die.trackId, die.nodeId);
       return {
         ...die,
+        label: labelByTrackId.get(die.trackId) ?? "Labor Die",
         nodeEffect: node.effect,
         upcomingEffects: node.next.map(nextId => laborEffectDescription(getNode(currentLabor.laborId, die.trackId, nextId).effect)),
         attack: attackLabel(attackForLaborDie(currentLabor.laborId, die.id))
       };
     });
-    const sourceTracks = Object.values(getTracks(currentLabor.laborId));
     const tracks = sourceTracks.map((track, index) => ({ id: track.id, label: sourceTracks.length > 1 ? `Track ${String.fromCharCode(65 + index)}` : "Track", attack: dice.find(die => die.trackId === track.id)?.attack ?? null, type: track.type, startId: track.startId, nodes: Object.values(track.nodes).map(node => ({ id: node.id, effect: node.effect, next: node.next })) }));
     return { id: currentLabor.laborId, name: String(source.name ?? currentLabor.laborId), dice, tracks };
   })() : null;

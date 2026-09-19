@@ -72,10 +72,10 @@ test("the public playtest view supplies player-facing reward summaries and choic
   };
   const view = HerculesEngine.getPlayView(state);
   assert.equal(view.rewards.find((reward) => reward.id === "reward.L04.B")?.summary, "Blue: one die counts as two; costs 2 Spirit.");
-  assert.ok(view.actions.some((action) => action.label === "Regret B — +2 Spirit · +1 Hercules die. Blue: one die counts as two; costs 2 Spirit."));
+  assert.ok(view.actions.some((action) => action.label === "Regret — +2 Spirit · +1 Hercules die. Blue: one die counts as two; costs 2 Spirit."));
   state.pendingDecision = { ...state.pendingDecision, type: "CHOOSE_REWARD_TO_REMOVE", legalOptions: [{ id: "reward.L04.B" }, { id: "component.bow" }] };
   const removalView = HerculesEngine.getPlayView(state);
-  assert.ok(removalView.actions.some((action) => action.label === "Regret B"));
+  assert.ok(removalView.actions.some((action) => action.label === "Regret"));
   assert.ok(removalView.actions.some((action) => action.command.type === "CHOOSE_OPTION" && action.command.optionId === "component.bow" && action.label !== "component.bow"));
   state.player.removedRewardOrComponentIds.push("reward.L04.B");
   assert.equal(HerculesEngine.getPlayView(state).rewards.some((reward) => reward.id === "reward.L04.B"), false);
