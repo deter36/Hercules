@@ -25,7 +25,7 @@ export interface PlayView {
   derivedContributions: Array<{ id: string; sourceDieId: string; face: number; allocated: boolean }>;
   bluePlacements: Array<{ abilityId: string; rewardName: string; dieIds: string[] }>;
   goldPlacements: Array<{ abilityId: string; rewardName: string; dieIds: string[]; contributionIds: string[] }>;
-  labor: { id: string; name: string; dice: Array<{ id: string; health: number; startingHealth: number; trackId: string; nodeId: string; nodeEffect: unknown; status: string; attack: string }>; tracks: Array<{ id: string; label: string; attack: string | null; type: string; startId: string; nodes: Array<{ id: string; effect: unknown; next: string[] }> }> } | null;
+  labor: { id: string; name: string; dice: Array<{ id: string; health: number; startingHealth: number; trackId: string; nodeId: string; nodeEffect: unknown; upcomingEffects: string[]; status: string; attack: string }>; tracks: Array<{ id: string; label: string; attack: string | null; type: string; startId: string; nodes: Array<{ id: string; effect: unknown; next: string[] }> }> } | null;
   mood: { id: string | null; name: string | null; effect: string | null };
   rewards: Array<{ id: string; name: string; summary: string; color: "blue" | "gold" | "mixed" | "neutral" }>;
   actionCards: PlayActionCard[];
@@ -137,6 +137,21 @@ const moodEffectDescription = (mood: RecordValue | undefined): string | null => 
   }
 };
 
+/** Formats verified track content for read-only UI context; it never drives rules. */
+export const laborEffectDescription = (effect: unknown): string => {
+  if (!effect || typeof effect !== "object") return "No effect.";
+  const value = effect as RecordValue;
+  const parts: string[] = [];
+  if (typeof value.spirit_delta === "number") parts.push(`${value.spirit_delta >= 0 ? "+" : ""}${value.spirit_delta} Spirit`);
+  if (typeof value.divinity_delta === "number") parts.push(`${value.divinity_delta >= 0 ? "+" : ""}${value.divinity_delta} Divinity`);
+  if (typeof value.heal === "number") parts.push(`Heal this die ${value.heal}`);
+  if (typeof value.break_hercules_die === "number") parts.push(`Break ${value.break_hercules_die} Hercules ${value.break_hercules_die === 1 ? "die" : "dice"}`);
+  if (typeof value.advance_all_other_active_labor_dice === "number") parts.push(`Advance all other Labor dice ${value.advance_all_other_active_labor_dice}`);
+  if (value.cannot_block === true) parts.push("Cannot Block this round");
+  if (value.failure !== undefined) parts.push("Defeat");
+  return parts.length > 0 ? parts.join(" · ") : "No effect.";
+};
+
 function blueActions(state: GameState): { actions: PlayAction[]; abilities: PlayAbility[] } {
   if (state.game.phase !== "BLUE_ABILITY_WINDOW") return { actions: [], abilities: [] };
   const used = (state.round as GameState["round"] & { usedBlueAbilityIds?: string[] }).usedBlueAbilityIds ?? [];
@@ -213,7 +228,22 @@ export function getPlayView(state: GameState): PlayView {
     command("resolve", "Resolve assignments", { type: "RESOLVE_ASSIGNMENTS" }, "round");
   }
   if (state.undoStack.length > 0) command("undo", "Undo last deterministic action", { type: "UNDO_DETERMINISTIC" }, "utility");
-  const labor = state.currentLabor ? (() => { const source = getLabor(state.currentLabor!.laborId); const dice = Object.values(state.currentLabor!.laborDice).map(die => ({ ...die, nodeEffect: getNode(state.currentLabor!.laborId, die.trackId, die.nodeId).effect, attack: attackLabel(attackForLaborDie(state.currentLabor!.laborId, die.id)) })); const sourceTracks = Object.values(getTracks(state.currentLabor!.laborId)); const tracks = sourceTracks.map((track, index) => ({ id: track.id, label: sourceTracks.length > 1 ? `Track ${String.fromCharCode(65 + index)}` : "Track", attack: dice.find(die => die.trackId === track.id)?.attack ?? null, type: track.type, startId: track.startId, nodes: Object.values(track.nodes).map(node => ({ id: node.id, effect: node.effect, next: node.next })) })); return { id: state.currentLabor!.laborId, name: String(source.name ?? state.currentLabor!.laborId), dice, tracks }; })() : null;
+  const labor = state.currentLabor ? (() => {
+    const currentLabor = state.currentLabor!;
+    const source = getLabor(currentLabor.laborId);
+    const dice = Object.values(currentLabor.laborDice).map(die => {
+      const node = getNode(currentLabor.laborId, die.trackId, die.nodeId);
+      return {
+        ...die,
+        nodeEffect: node.effect,
+        upcomingEffects: node.next.map(nextId => laborEffectDescription(getNode(currentLabor.laborId, die.trackId, nextId).effect)),
+        attack: attackLabel(attackForLaborDie(currentLabor.laborId, die.id))
+      };
+    });
+    const sourceTracks = Object.values(getTracks(currentLabor.laborId));
+    const tracks = sourceTracks.map((track, index) => ({ id: track.id, label: sourceTracks.length > 1 ? `Track ${String.fromCharCode(65 + index)}` : "Track", attack: dice.find(die => die.trackId === track.id)?.attack ?? null, type: track.type, startId: track.startId, nodes: Object.values(track.nodes).map(node => ({ id: node.id, effect: node.effect, next: node.next })) }));
+    return { id: currentLabor.laborId, name: String(source.name ?? currentLabor.laborId), dice, tracks };
+  })() : null;
   const mood = GAME_DATA.moods.find(entry => entry.id === state.mood.activeMoodId);
   const goldPlacements = state.round.goldPlacements.map((placement) => {
     const owner = state.player.ownedRewardIds.find((rewardId) => records(findReward(rewardId)?.gold).some((ability) => ability.id === placement.abilityId));

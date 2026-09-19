@@ -1,0 +1,19 @@
+.forecast-upcoming,
+.forecast-committed {
+  display: flex;
+  align-items: center;
+  gap: clamp(8px, 1.2vw, 14px);
+}
+
+.forecast-upcoming span {
+  color: #d9c98e;
+}
+
+.forecast-upcoming b {
+  color: #f5df94;
+}
+
+.forecast-committed {
+  padding-left: clamp(8px, 1.2vw, 14px);
+  border-left: 1px solid #496176;
+}

@@ -37,6 +37,11 @@ test("multi-track Labors pair stable track labels with their attack requirements
   assert.deepEqual(view.labor?.tracks.map(track => track.attack), ["one 3 or 6", "one 6", "one 3", "one 3 or 6"]);
 });
 
+test("the public play view exposes each active Labor die's next certified effect", () => {
+  const state = startLabor(HerculesEngine.createGame({ difficulty: "human", seed: "upcoming-effect" }).state, "labor.L01");
+  assert.deepEqual(HerculesEngine.getPlayView(state).labor?.dice.map(die => die.upcomingEffects), [["-1 Spirit"]]);
+});
+
 test("Mares fixed-straight attacks show that the player chooses one target", () => {
   const state = startLabor(HerculesEngine.createGame({ difficulty: "human", seed: "mares-attack-label" }).state, "labor.L08");
   const view = HerculesEngine.getPlayView(state);

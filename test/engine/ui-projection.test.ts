@@ -28,6 +28,7 @@ test("forecast is pure and describes committed attacks", () => {
   const forecast = getForecastProjection(committed);
   assert.equal(JSON.stringify(committed), before);
   assert.deepEqual(forecast.entries, [{ id: "attack", label: "Attack", value: 1 }]);
+  assert.deepEqual(forecast.upcoming, [{ laborDieId: "labor.L01.d1", effects: ["-1 Spirit"] }]);
 });
 
 test("a mapped Blue ability is exposed only for a certified source face", () => {

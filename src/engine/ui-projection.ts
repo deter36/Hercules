@@ -19,8 +19,14 @@ export interface ForecastEntry {
   value: number;
 }
 
+export interface UpcomingLaborEffect {
+  laborDieId: string;
+  effects: string[];
+}
+
 export interface ForecastProjection {
   entries: ForecastEntry[];
+  upcoming: UpcomingLaborEffect[];
   neutral: boolean;
 }
 
@@ -122,7 +128,10 @@ export function getForecastProjection(state: GameState): ForecastProjection {
   if (block) entries.push({ id: "block", label: "Block", value: block });
   if (spirit) entries.push({ id: "spirit", label: "Spirit", value: spirit });
   if (divinity) entries.push({ id: "divinity", label: "Divinity", value: divinity });
-  return { entries, neutral: entries.length === 0 };
+  const upcoming = getPlayView(state).labor?.dice
+    .filter(die => die.status === "active")
+    .map(die => ({ laborDieId: die.id, effects: die.upcomingEffects })) ?? [];
+  return { entries, upcoming, neutral: entries.length === 0 };
 }
 
 export function getGameplayScreenModel(state: GameState, selection: UiPieceId[] = []): GameplayScreenModel {
