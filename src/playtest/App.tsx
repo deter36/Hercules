@@ -19,6 +19,17 @@ const loadControlMode = (): "drag" | "tap" => { try { return window.localStorage
 const reconcileTrayOrder = (order: string[], knownIds: string[]) => { const known = new Set(knownIds); return [...order.filter(id => known.has(id)), ...knownIds.filter(id => !order.includes(id))]; };
 const download = (name: string, value: unknown) => { const url = URL.createObjectURL(new Blob([JSON.stringify(value, null, 2)], { type: "application/json" })); const anchor = document.createElement("a"); anchor.href = url; anchor.download = name; anchor.click(); URL.revokeObjectURL(url); };
 const dieLabel = (id: string) => id.includes("-D") ? "Derived die" : id.startsWith("labor.") ? "Labor Die" : "Hercules die";
+const romanNumeral = (value: number | null | undefined): string => {
+  if (!value || value < 1 || value > 3999) return "—";
+  const numerals: [number, string][] = [[1000, "M"], [900, "CM"], [500, "D"], [400, "CD"], [100, "C"], [90, "XC"], [50, "L"], [40, "XL"], [10, "X"], [9, "IX"], [5, "V"], [4, "IV"], [1, "I"]];
+  let remaining = value;
+  return numerals.map(([amount, symbol]) => {
+    const count = Math.floor(remaining / amount);
+    remaining %= amount;
+    return symbol.repeat(count);
+  }).join("");
+};
+const laborNumeral = (laborId: string | undefined): string => romanNumeral(laborId ? Number(laborId.match(/\d+/)?.[0]) : undefined);
 const moodCompact = (id: string | null): string => ({
   "mood.melancholic": "🎲−1",
   "mood.enraged": "🎲+1",
@@ -182,7 +193,7 @@ function App() {
   }) ?? [];
 
   return <main className="gameplay-shell">
-    <header className="status-strip"><div className="brand"><span>HERCULES</span><b>12 Labors</b></div><div className="resources" aria-label="Resources"><span title="Spirit">♥ <b>{view.player.spirit}</b></span><span title="Divinity">✦ <b>{view.player.divinity}</b></span></div><div className="labor-status"><small>Labor {view.labor?.id.match(/\d+/)?.[0] ?? "—"}</small><b>{view.labor?.name ?? "Preparing"}</b></div><div className="status-actions">{moodStatusVisible && <button className="mood-status" title={moodStatus} aria-label={`Current Mood: ${moodStatus}`} aria-haspopup="dialog" onClick={() => setMoodDetailsOpen(true)}>☾ <span>{moodCompact(view.mood.id)}</span></button>}<button className="menu-button" aria-label="Open game menu" aria-expanded={menuOpen} onClick={() => setMenuOpen(open => !open)}>☰</button></div></header>
+    <header className="status-strip"><div className="brand"><span>HERCULES</span><b>12 Labors</b></div><div className="resources" aria-label="Resources"><span title="Spirit">♥ <b>{view.player.spirit}</b></span><span title="Divinity">✦ <b>{view.player.divinity}</b></span></div><div className="labor-status"><small>Labor {laborNumeral(view.labor?.id)}</small><b>{view.labor?.name ?? "Preparing"}</b></div><div className="status-actions">{moodStatusVisible && <button className="mood-status" title={moodStatus} aria-label={`Current Mood: ${moodStatus}`} aria-haspopup="dialog" onClick={() => setMoodDetailsOpen(true)}>☾ <span>{moodCompact(view.mood.id)}</span></button>}<button className="menu-button" aria-label="Open game menu" aria-expanded={menuOpen} onClick={() => setMenuOpen(open => !open)}>☰</button></div></header>
     <section className="forecast-strip" aria-live="polite">{model.forecast.entries.map(entry => <span key={entry.id} className={`forecast-${entry.id}`}>{entry.id === "damage" ? "⚔" : entry.id === "heal" ? "✚" : entry.id === "spirit" ? "♥" : entry.id === "divinity" ? "✦" : entry.id === "break" ? "⬢" : entry.id === "defeat" ? "☠" : "↪"}{entry.value !== undefined && <> {entry.value > 0 && (entry.id === "heal" || entry.id === "spirit" || entry.id === "divinity") ? "+" : ""}{entry.value}</>} {entry.label}</span>)}{state.currentLabor?.cannotBlockThisRound && <span className="cannot-block">🛡̸ Cannot Block</span>}</section>
     {menuOpen && <aside className="game-menu" aria-label="Game menu"><label>Controls<select value={controlMode} onChange={event => { setControlMode(event.target.value as "drag" | "tap"); setSelectedIds([]); setTargetId(null); setEditingAttackIndex(null); setEditingGoldAbilityId(null); }}><option value="drag">Drag dice</option><option value="tap">Tap-select</option></select></label><label>Difficulty<select value={difficulty} onChange={event => setDifficulty(event.target.value as Difficulty)}>{(["human", "hero", "god"] as Difficulty[]).map(value => <option key={value}>{value}</option>)}</select></label><label>Seed<input value={seed} onChange={event => setSeed(event.target.value)} /></label><button onClick={() => start(seed)}>Start this seed</button><button onClick={() => start()}>New random game</button><button onClick={() => download("hercules-diagnostics.json", HerculesEngine.exportDiagnostics(state))}>Export diagnostics</button><button onClick={() => setDebug(value => !value)}>{debug ? "Hide" : "Show"} debug</button></aside>}
     <section ref={actionGridRef} className="action-grid" aria-label="Action grid">
