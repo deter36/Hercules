@@ -16,6 +16,46 @@
 .forecast-defeat { color: #f18a84; }
 .forecast-route { color: #d9c98e; }
 
+/* Status Tray Variant C: primary resources, flexible Labor identity, optional Mood, Menu. */
+.status-strip {
+  min-height: 64px;
+  grid-template-columns: auto auto minmax(0, 1fr) auto;
+}
+
+.resources span {
+  min-width: 50px;
+  text-align: center;
+}
+
+.labor-status b {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  white-space: normal;
+  line-height: 1.1;
+}
+
+.status-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 7px;
+}
+
+.mood-status,
+.menu-button {
+  min-width: 44px;
+  min-height: 44px;
+}
+
+.cannot-block {
+  margin-left: auto;
+  padding-left: 9px;
+  border-left: 1px solid #496176;
+  font-weight: 700;
+}
+
 .mood-status {
   display: inline-flex;
   align-items: center;
@@ -47,4 +87,12 @@
   color: #f8f1da;
   font-size: 1.45rem;
   line-height: 1;
+}
+
+@media (max-width: 480px) {
+  .status-strip { grid-template-columns: auto minmax(0, 1fr) auto; }
+  .labor-status { grid-column: 2; }
+  .resources { grid-column: 1; }
+  .status-actions { grid-column: 3; }
+  .resources span { min-width: 46px; }
 }
