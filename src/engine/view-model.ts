@@ -147,7 +147,7 @@ export const laborEffectDescription = (effect: unknown): string => {
   if (typeof value.heal === "number") parts.push(`Heal this die ${value.heal}`);
   if (typeof value.break_hercules_die === "number") parts.push(`Break ${value.break_hercules_die} Hercules ${value.break_hercules_die === 1 ? "die" : "dice"}`);
   if (typeof value.advance_all_other_active_labor_dice === "number") parts.push(`Advance all other Labor dice ${value.advance_all_other_active_labor_dice}`);
-  if (value.cannot_block === true) parts.push("Cannot Block this round");
+  if (value.cannot_block === true) parts.push("Cannot Block next round");
   if (value.failure !== undefined) parts.push("Defeat");
   return parts.length > 0 ? parts.join(" · ") : "No effect.";
 };

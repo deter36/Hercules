@@ -19,7 +19,7 @@ test("screen projection uses only engine-certified exact-selection targets", () 
   assert.equal(getGameplayScreenModel(state, ["H1"]).phaseCta, "UNSELECT");
 });
 
-test("forecast is pure and describes committed attacks", () => {
+test("forecast is pure and projects end-of-turn totals", () => {
   const state = startLabor(createInitialState("human", "ui-forecast"), "labor.L01");
   state.game.phase = "GOLD_AND_ATTACK_PLACEMENT";
   state.herculesDice.H1.face = 5;
@@ -27,8 +27,28 @@ test("forecast is pure and describes committed attacks", () => {
   const before = JSON.stringify(committed);
   const forecast = getForecastProjection(committed);
   assert.equal(JSON.stringify(committed), before);
-  assert.deepEqual(forecast.entries, [{ id: "attack", label: "Attack", value: 1 }]);
-  assert.deepEqual(forecast.upcoming, [{ laborDieId: "labor.L01.d1", label: "Labor Die", effects: ["-1 Spirit"] }]);
+  assert.deepEqual(forecast.entries, [
+    { id: "damage", label: "damage", value: 1 },
+    { id: "spirit", label: "Spirit", value: -1 }
+  ]);
+});
+
+test("forecast ignores a defeated die's next node effect", () => {
+  const state = startLabor(createInitialState("human", "ui-forecast-defeated"), "labor.L01");
+  state.game.phase = "GOLD_AND_ATTACK_PLACEMENT";
+  state.currentLabor!.laborDice["labor.L01.d1"].health = 1;
+  state.herculesDice.H1.face = 5;
+  const forecast = getForecastProjection(allocateAttack(state, "labor.L01.d1", ["H1"]));
+  assert.deepEqual(forecast.entries, [{ id: "damage", label: "damage", value: 1 }]);
+});
+
+test("forecast totals only effective Labor healing", () => {
+  const state = startLabor(createInitialState("human", "ui-forecast-heal"), "labor.L01");
+  state.game.phase = "GOLD_AND_ATTACK_PLACEMENT";
+  state.currentLabor!.laborDice["labor.L01.d1"].nodeId = "L01.n2";
+  state.currentLabor!.laborDice["labor.L01.d1"].health = 4;
+  const forecast = getForecastProjection(state);
+  assert.deepEqual(forecast.entries, [{ id: "heal", label: "heal", value: 1 }]);
 });
 
 test("a mapped Blue ability is exposed only for a certified source face", () => {

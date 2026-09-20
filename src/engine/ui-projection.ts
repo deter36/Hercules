@@ -2,6 +2,8 @@ import type { EngineCommand } from "./commands/types.js";
 import type { GameState } from "./state/types.js";
 import { getPlayView, type PlayAction, type PlayView } from "./view-model.js";
 import { removeAttackAllocation, removeGoldPlacement } from "./actions/placement.js";
+import { applyLaborDamage } from "./labor/damage.js";
+import { resolveRoundDamage } from "./round/resolve.js";
 
 export type UiPieceId = string;
 export type UiTargetKind = "blue" | "gold" | "attack";
@@ -14,20 +16,13 @@ export interface LegalTarget {
 }
 
 export interface ForecastEntry {
-  id: "attack" | "block" | "spirit" | "divinity";
+  id: "damage" | "heal" | "spirit" | "divinity" | "break" | "defeat" | "route";
   label: string;
-  value: number;
-}
-
-export interface UpcomingLaborEffect {
-  laborDieId: string;
-  label: string;
-  effects: string[];
+  value?: number;
 }
 
 export interface ForecastProjection {
   entries: ForecastEntry[];
-  upcoming: UpcomingLaborEffect[];
   neutral: boolean;
 }
 
@@ -117,22 +112,62 @@ export function getEditableGoldTargets(state: GameState, abilityId: string): Leg
   }
 }
 
-/** A pure, compact preview of effects already committed to the current round. */
+function healthByLaborDie(state: GameState): Record<string, number> {
+  return Object.fromEntries(Object.entries(state.currentLabor?.laborDice ?? {}).map(([id, die]) => [id, die.health]));
+}
+
+function brokenDieCount(state: GameState): number {
+  return Object.values(state.herculesDice).filter(die => die.broken).length;
+}
+
+function numericResource(value: number | "X" | "SKULL" | "TOP"): number | null {
+  return typeof value === "number" ? value : null;
+}
+
+/**
+ * Applies only the attack step of resolution so the Forecast can report damage
+ * actually dealt, rather than damage merely committed to a target that may
+ * already have been defeated by an earlier bundle.
+ */
+function resolveCommittedAttacks(state: GameState): GameState {
+  let next = structuredClone(state);
+  if (!next.currentLabor) return next;
+  for (const allocation of next.round.attackAllocations) {
+    if (allocation.targetId === "__all_active_targets__") {
+      for (const target of Object.values(next.currentLabor!.laborDice).filter(die => die.status === "active")) next = applyLaborDamage(next, target.id, allocation.damage);
+    } else if (next.currentLabor!.laborDice[allocation.targetId]?.status === "active") {
+      next = applyLaborDamage(next, allocation.targetId, allocation.damage);
+    }
+  }
+  return next;
+}
+
+/** A pure end-of-turn tally for committed placements. It never mutates the game state or consumes RNG. */
 export function getForecastProjection(state: GameState): ForecastProjection {
-  const attackCount = state.round.attackAllocations.reduce((total, allocation) => total + allocation.damage, 0);
-  const block = state.currentLabor?.cannotBlockThisRound ? 0 : state.round.blockedSpirit;
-  const resourceQueue = state.round.resourceQueue;
-  const spirit = resourceQueue.spiritDeltas.reduce((total, value) => total + value, 0);
-  const divinity = resourceQueue.divinityDeltas.reduce((total, value) => total + value, 0);
+  if (state.game.phase !== "GOLD_AND_ATTACK_PLACEMENT" || !state.currentLabor) return { entries: [], neutral: true };
+
+  const afterAttacks = resolveCommittedAttacks(state);
+  const damage = Object.entries(healthByLaborDie(state)).reduce((total, [id, before]) => total + Math.max(0, before - (healthByLaborDie(afterAttacks)[id] ?? before)), 0);
+  const resolved = resolveRoundDamage(state);
+  const afterAttackHealth = healthByLaborDie(afterAttacks);
+  const resolvedHealth = healthByLaborDie(resolved);
+  const healing = Object.entries(afterAttackHealth).reduce((total, [id, afterAttack]) => total + Math.max(0, (resolvedHealth[id] ?? afterAttack) - afterAttack), 0);
+  const beforeSpirit = numericResource(state.player.spirit);
+  const afterSpirit = numericResource(resolved.player.spirit);
+  const beforeDivinity = numericResource(state.player.divinity);
+  const afterDivinity = numericResource(resolved.player.divinity);
+  const spirit = beforeSpirit !== null && afterSpirit !== null ? afterSpirit - beforeSpirit : 0;
+  const divinity = beforeDivinity !== null && afterDivinity !== null ? afterDivinity - beforeDivinity : 0;
+  const breaks = Math.max(0, brokenDieCount(resolved) - brokenDieCount(state));
   const entries: ForecastEntry[] = [];
-  if (attackCount) entries.push({ id: "attack", label: "Attack", value: attackCount });
-  if (block) entries.push({ id: "block", label: "Block", value: block });
+  if (damage) entries.push({ id: "damage", label: "damage", value: damage });
+  if (healing) entries.push({ id: "heal", label: "heal", value: healing });
   if (spirit) entries.push({ id: "spirit", label: "Spirit", value: spirit });
   if (divinity) entries.push({ id: "divinity", label: "Divinity", value: divinity });
-  const upcoming = getPlayView(state).labor?.dice
-    .filter(die => die.status === "active")
-    .map(die => ({ laborDieId: die.id, label: die.label, effects: die.upcomingEffects })) ?? [];
-  return { entries, upcoming, neutral: entries.length === 0 };
+  if (breaks) entries.push({ id: "break", label: breaks === 1 ? "break" : "breaks", value: breaks });
+  if (resolved.game.result === "defeat") entries.push({ id: "defeat", label: "Defeat" });
+  if (resolved.pendingDecision?.type === "CHOOSE_TRACK_BRANCH") entries.push({ id: "route", label: "Route choice pending" });
+  return { entries, neutral: entries.length === 0 };
 }
 
 export function getGameplayScreenModel(state: GameState, selection: UiPieceId[] = []): GameplayScreenModel {
