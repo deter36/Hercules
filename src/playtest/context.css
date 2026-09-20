@@ -15,3 +15,36 @@
 .forecast-break { color: #f0bd82; }
 .forecast-defeat { color: #f18a84; }
 .forecast-route { color: #d9c98e; }
+
+.mood-status {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  width: auto;
+  padding: 6px 8px;
+  white-space: nowrap;
+  font-size: .76rem;
+}
+
+.mood-status span { font-weight: 700; }
+
+.mood-detail-backdrop {
+  position: fixed;
+  z-index: 40;
+  inset: 0;
+  background: #060b11a8;
+}
+
+.current-mood-card { z-index: 41; }
+
+.current-mood-close {
+  position: absolute;
+  top: 8px;
+  right: 9px;
+  border: 0;
+  background: transparent;
+  color: #f8f1da;
+  font-size: 1.45rem;
+  line-height: 1;
+}
