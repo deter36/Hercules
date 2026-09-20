@@ -68,6 +68,14 @@ test("a mapped Blue ability is exposed only for a certified source face", () => 
   assert.equal(getPlayView(state).actions.some(action => action.command.type === "USE_BLUE_ABILITY" && action.command.abilityId === "ability.reward.L01.blue"), true);
 });
 
+test("wrapped pip-adjustment choices are ordered by their displayed face", () => {
+  const state = startLabor(createInitialState("human", "ui-pip-order"), "labor.L01");
+  state.game.phase = "BLUE_ABILITY_WINDOW";
+  state.herculesDice.H1.face = 1;
+  const actions = getPlayView(state).actions.filter(action => action.command.type === "USE_BLUE_ABILITY" && action.command.abilityId === "ability.bow.blue" && action.command.sourceDieId === "H1");
+  assert.deepEqual(actions.map(action => action.label.match(/→ (\d)$/)?.[1]), ["2", "6"]);
+});
+
 test("Blue-only rewards retain their Blue presentation color", () => {
   const state = createInitialState("human", "ui-reward-color");
   state.player.ownedRewardIds.push("reward.L02");
