@@ -51,6 +51,13 @@ test("forecast totals only effective Labor healing", () => {
   assert.deepEqual(forecast.entries, [{ id: "heal", label: "heal", value: 1 }]);
 });
 
+test("forecast is available during the post-roll Blue window", () => {
+  const state = startLabor(createInitialState("human", "ui-forecast-blue"), "labor.L01");
+  state.game.phase = "BLUE_ABILITY_WINDOW";
+  const forecast = getForecastProjection(state);
+  assert.deepEqual(forecast.entries, [{ id: "spirit", label: "Spirit", value: -1 }]);
+});
+
 test("a mapped Blue ability is exposed only for a certified source face", () => {
   const state = startLabor(createInitialState("human", "ui-mapped-blue"), "labor.L01");
   state.player.ownedRewardIds.push("reward.L01");

@@ -144,21 +144,25 @@ function resolveCommittedAttacks(state: GameState): GameState {
 
 /** A pure end-of-turn tally for committed placements. It never mutates the game state or consumes RNG. */
 export function getForecastProjection(state: GameState): ForecastProjection {
-  if (state.game.phase !== "GOLD_AND_ATTACK_PLACEMENT" || !state.currentLabor) return { entries: [], neutral: true };
+  if ((state.game.phase !== "BLUE_ABILITY_WINDOW" && state.game.phase !== "GOLD_AND_ATTACK_PLACEMENT") || !state.currentLabor) return { entries: [], neutral: true };
 
-  const afterAttacks = resolveCommittedAttacks(state);
-  const damage = Object.entries(healthByLaborDie(state)).reduce((total, [id, before]) => total + Math.max(0, before - (healthByLaborDie(afterAttacks)[id] ?? before)), 0);
-  const resolved = resolveRoundDamage(state);
+  // Resolution begins after Blue. Projecting from that window is still pure: Blue
+  // effects already changed canonical state, while an empty Gold/attack step shows
+  // the baseline outcome the player is currently trying to improve.
+  const resolvableState = state.game.phase === "GOLD_AND_ATTACK_PLACEMENT" ? state : { ...structuredClone(state), game: { ...state.game, phase: "GOLD_AND_ATTACK_PLACEMENT" as const } };
+  const afterAttacks = resolveCommittedAttacks(resolvableState);
+  const damage = Object.entries(healthByLaborDie(resolvableState)).reduce((total, [id, before]) => total + Math.max(0, before - (healthByLaborDie(afterAttacks)[id] ?? before)), 0);
+  const resolved = resolveRoundDamage(resolvableState);
   const afterAttackHealth = healthByLaborDie(afterAttacks);
   const resolvedHealth = healthByLaborDie(resolved);
   const healing = Object.entries(afterAttackHealth).reduce((total, [id, afterAttack]) => total + Math.max(0, (resolvedHealth[id] ?? afterAttack) - afterAttack), 0);
-  const beforeSpirit = numericResource(state.player.spirit);
+  const beforeSpirit = numericResource(resolvableState.player.spirit);
   const afterSpirit = numericResource(resolved.player.spirit);
-  const beforeDivinity = numericResource(state.player.divinity);
+  const beforeDivinity = numericResource(resolvableState.player.divinity);
   const afterDivinity = numericResource(resolved.player.divinity);
   const spirit = beforeSpirit !== null && afterSpirit !== null ? afterSpirit - beforeSpirit : 0;
   const divinity = beforeDivinity !== null && afterDivinity !== null ? afterDivinity - beforeDivinity : 0;
-  const breaks = Math.max(0, brokenDieCount(resolved) - brokenDieCount(state));
+  const breaks = Math.max(0, brokenDieCount(resolved) - brokenDieCount(resolvableState));
   const entries: ForecastEntry[] = [];
   if (damage) entries.push({ id: "damage", label: "damage", value: damage });
   if (healing) entries.push({ id: "heal", label: "heal", value: healing });
