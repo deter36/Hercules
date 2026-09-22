@@ -53,30 +53,121 @@ function Die({ id, face, selected, targetable, disabled, draggable, state, dragg
   return <button data-tray-die={id} className={`die-tile ${selected ? "is-selected" : ""} ${targetable ? "is-targetable" : ""} ${dragging ? "is-dragging" : ""} ${disabled ? "is-disabled" : ""}`} style={{ touchAction: draggable ? "none" : "manipulation", userSelect: "none", opacity: dragging ? 0.68 : undefined, transform: dragging ? "scale(1.07)" : undefined }} disabled={disabled} draggable={draggable && !disabled} onClick={onSelect} onDragStart={onDragStart} onDragOver={onDragOver} onDrop={onDrop} onPointerDown={onPointerDown} onPointerMove={onPointerMove} onPointerUp={onPointerUp} onPointerCancel={onPointerCancel} aria-label={`${dieLabel(id)}, ${face ?? "unrolled"}, ${state}`}><strong>{face ?? "—"}</strong></button>;
 }
 
-const PIPS: Record<number, string[]> = {
-  1: ["center"],
-  2: ["top-left", "bottom-right"],
-  3: ["top-left", "center", "bottom-right"],
-  4: ["top-left", "top-right", "bottom-left", "bottom-right"],
-  5: ["top-left", "top-right", "center", "bottom-left", "bottom-right"],
-  6: ["top-left", "middle-left", "bottom-left", "top-right", "middle-right", "bottom-right"]
-};
-
-function DieFace({ face, className }: { face: number; className: string }) {
-  return <span className={`roll-preview-face ${className}`}>{PIPS[face].map(pip => <i key={pip} className={pip} />)}</span>;
-}
-
 function RollPreview({ run, onComplete }: { run: number; onComplete: () => void }) {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const completeRef = useRef(onComplete);
+  useEffect(() => { completeRef.current = onComplete; }, [onComplete]);
   useEffect(() => {
-    const timeout = window.setTimeout(onComplete, 3250);
-    return () => window.clearTimeout(timeout);
-  }, [onComplete, run]);
-  const dice: { face: number; style: CSSProperties }[] = [
-    { face: 2, style: { "--roll-start-x": "8vw", "--roll-start-y": "72dvh", "--roll-bounce-one-x": "77vw", "--roll-bounce-one-y": "14dvh", "--roll-bounce-two-x": "13vw", "--roll-bounce-two-y": "42dvh", "--roll-settle-x": "31vw", "--roll-settle-y": "51dvh", "--roll-tray-x": "29vw", "--roll-tray-y": "calc(100dvh - 90px)", "--settle-x": "-90deg", "--settle-y": "0deg" } as CSSProperties },
-    { face: 5, style: { "--roll-start-x": "72vw", "--roll-start-y": "13dvh", "--roll-bounce-one-x": "6vw", "--roll-bounce-one-y": "70dvh", "--roll-bounce-two-x": "76vw", "--roll-bounce-two-y": "61dvh", "--roll-settle-x": "64vw", "--roll-settle-y": "39dvh", "--roll-tray-x": "50vw", "--roll-tray-y": "calc(100dvh - 90px)", "--settle-x": "90deg", "--settle-y": "0deg" } as CSSProperties },
-    { face: 6, style: { "--roll-start-x": "47vw", "--roll-start-y": "18dvh", "--roll-bounce-one-x": "9vw", "--roll-bounce-one-y": "13dvh", "--roll-bounce-two-x": "78vw", "--roll-bounce-two-y": "73dvh", "--roll-settle-x": "48vw", "--roll-settle-y": "57dvh", "--roll-tray-x": "70vw", "--roll-tray-y": "calc(100dvh - 90px)", "--settle-x": "0deg", "--settle-y": "180deg" } as CSSProperties }
-  ];
-  return <div key={run} className="roll-preview-layer" aria-hidden="true">{dice.map((die, index) => <div key={`${run}-${index}`} className="roll-preview-die" style={die.style}><div className="roll-preview-cube"><DieFace face={1} className="front" /><DieFace face={6} className="back" /><DieFace face={3} className="right" /><DieFace face={4} className="left" /><DieFace face={2} className="top" /><DieFace face={5} className="bottom" /></div></div>)}</div>;
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const context = canvas.getContext("2d");
+    if (!context) return;
+    let frame = 0;
+    const startedAt = performance.now();
+    const duration = 3000;
+    const pipLayout: Record<number, [number, number][]> = {
+      1: [[.5, .5]], 2: [[.25, .25], [.75, .75]], 3: [[.25, .25], [.5, .5], [.75, .75]],
+      4: [[.25, .25], [.75, .25], [.25, .75], [.75, .75]], 5: [[.25, .25], [.75, .25], [.5, .5], [.25, .75], [.75, .75]],
+      6: [[.25, .22], [.75, .22], [.25, .5], [.75, .5], [.25, .78], [.75, .78]]
+    };
+    const finalRotation: Record<number, [number, number]> = { 1: [-.11, .14], 2: [-Math.PI / 2 + .11, .14], 3: [-.11, -Math.PI / 2 + .14], 4: [-.11, Math.PI / 2 + .14], 5: [Math.PI / 2 - .11, .14], 6: [-.11, Math.PI + .14] };
+    const ease = (value: number) => 1 - Math.pow(1 - Math.min(1, Math.max(0, value)), 3);
+    const mix = (from: number, to: number, amount: number) => from + (to - from) * amount;
+    const rotate = (point: [number, number, number], xAngle: number, yAngle: number, zAngle: number): [number, number, number] => {
+      const [x, y, z] = point;
+      const cy = Math.cos(yAngle), sy = Math.sin(yAngle), cx = Math.cos(xAngle), sx = Math.sin(xAngle), cz = Math.cos(zAngle), sz = Math.sin(zAngle);
+      const yRotated = x * sy + z * cy;
+      const xRotated = x * cy - z * sy;
+      const zRotated = y * sx + yRotated * cx;
+      const yRotatedAgain = y * cx - yRotated * sx;
+      return [xRotated * cz - yRotatedAgain * sz, xRotated * sz + yRotatedAgain * cz, zRotated];
+    };
+    const resize = () => {
+      const scale = window.devicePixelRatio || 1;
+      canvas.width = Math.round(window.innerWidth * scale);
+      canvas.height = Math.round(window.innerHeight * scale);
+      canvas.style.width = `${window.innerWidth}px`;
+      canvas.style.height = `${window.innerHeight}px`;
+      context.setTransform(scale, 0, 0, scale, 0, 0);
+    };
+    const pointAlong = (points: [number, number][], progress: number): [number, number] => {
+      const stages = [0, .24, .48, .71, .82, 1];
+      const index = Math.max(0, stages.findIndex((stage, candidate) => progress >= stage && progress <= stages[candidate + 1]) === -1 ? points.length - 2 : stages.findIndex((stage, candidate) => progress >= stage && progress <= stages[candidate + 1]));
+      const local = ease((progress - stages[index]) / (stages[index + 1] - stages[index]));
+      return [mix(points[index][0], points[index + 1][0], local), mix(points[index][1], points[index + 1][1], local)];
+    };
+    const drawCube = (centerX: number, centerY: number, side: number, angles: [number, number, number], face: number, opacity: number) => {
+      const half = side / 2;
+      const base: [number, number, number][] = [[-half, -half, -half], [half, -half, -half], [half, half, -half], [-half, half, -half], [-half, -half, half], [half, -half, half], [half, half, half], [-half, half, half]];
+      const transformed = base.map(point => rotate(point, ...angles));
+      const project = (point: [number, number, number]): [number, number] => {
+        const scale = 285 / (285 - point[2]);
+        return [centerX + point[0] * scale, centerY + point[1] * scale];
+      };
+      const faces = [
+        { value: 1, indices: [4, 5, 6, 7] }, { value: 6, indices: [1, 0, 3, 2] }, { value: 3, indices: [5, 1, 2, 6] },
+        { value: 4, indices: [0, 4, 7, 3] }, { value: 2, indices: [7, 6, 2, 3] }, { value: 5, indices: [0, 1, 5, 4] }
+      ].map(candidate => ({ ...candidate, corners: candidate.indices.map(index => project(transformed[index])), depth: candidate.indices.reduce((total, index) => total + transformed[index][2], 0) / 4 })).sort((left, right) => left.depth - right.depth);
+      context.save();
+      context.globalAlpha = opacity;
+      context.fillStyle = "#02070a88";
+      context.beginPath();
+      context.ellipse(centerX + side * .13, centerY + side * .57, side * .54, side * .16, -.16, 0, Math.PI * 2);
+      context.fill();
+      faces.forEach(candidate => {
+        if (candidate.depth < -side * .28) return;
+        const light = Math.round(37 + Math.max(-1, Math.min(1, candidate.depth / half)) * 18);
+        const gradient = context.createLinearGradient(candidate.corners[0][0], candidate.corners[0][1], candidate.corners[2][0], candidate.corners[2][1]);
+        gradient.addColorStop(0, `hsl(198 75% ${light + 12}%)`);
+        gradient.addColorStop(1, `hsl(202 76% ${light - 9}%)`);
+        context.beginPath();
+        candidate.corners.forEach(([x, y], index) => index ? context.lineTo(x, y) : context.moveTo(x, y));
+        context.closePath();
+        context.fillStyle = gradient;
+        context.fill();
+        context.lineWidth = 1.4;
+        context.strokeStyle = "#b5f0ffcc";
+        context.stroke();
+        if (candidate.value === face || candidate.depth > side * .04) pipLayout[candidate.value].forEach(([u, v]) => {
+          const top = [mix(candidate.corners[0][0], candidate.corners[1][0], u), mix(candidate.corners[0][1], candidate.corners[1][1], u)] as [number, number];
+          const bottom = [mix(candidate.corners[3][0], candidate.corners[2][0], u), mix(candidate.corners[3][1], candidate.corners[2][1], u)] as [number, number];
+          const [x, y] = [mix(top[0], bottom[0], v), mix(top[1], bottom[1], v)];
+          context.beginPath();
+          context.arc(x, y, Math.max(3.3, side * .065), 0, Math.PI * 2);
+          context.fillStyle = "#f4feff";
+          context.fill();
+          context.lineWidth = .8;
+          context.strokeStyle = "#062535";
+          context.stroke();
+        });
+      });
+      context.restore();
+    };
+    const render = (now: number) => {
+      const progress = Math.min(1, (now - startedAt) / duration);
+      context.clearRect(0, 0, window.innerWidth, window.innerHeight);
+      const dieDefinitions = [
+        { face: 2, points: [[.08, .72], [.84, .13], [.12, .43], [.31, .51], [.31, .51], [.29, .91]], turns: [7, -9, 4] },
+        { face: 5, points: [[.74, .13], [.06, .70], [.79, .60], [.64, .39], [.64, .39], [.51, .91]], turns: [8, 10, -5] },
+        { face: 6, points: [[.47, .18], [.08, .13], [.81, .74], [.48, .57], [.48, .57], [.71, .91]], turns: [9, -8, 6] }
+      ];
+      dieDefinitions.forEach((die, index) => {
+        const points = die.points.map(([x, y]) => [x * window.innerWidth, y * window.innerHeight] as [number, number]);
+        const [x, y] = pointAlong(points, progress);
+        const settling = ease((progress - .66) / .14);
+        const [finalX, finalY] = finalRotation[die.face];
+        const angles: [number, number, number] = [mix(die.turns[0] * Math.PI, finalX, settling), mix(die.turns[1] * Math.PI, finalY, settling), mix(die.turns[2] * Math.PI, 0, settling)];
+        const exiting = Math.max(0, (progress - .92) / .08);
+        drawCube(x, y, mix(72, 38, exiting), angles, die.face, 1 - exiting);
+      });
+      if (progress < 1) frame = window.requestAnimationFrame(render); else completeRef.current();
+    };
+    resize();
+    window.addEventListener("resize", resize);
+    frame = window.requestAnimationFrame(render);
+    return () => { window.cancelAnimationFrame(frame); window.removeEventListener("resize", resize); };
+  }, [run]);
+  return <canvas ref={canvasRef} className="roll-preview-canvas" aria-hidden="true" />;
 }
 
 function App() {
