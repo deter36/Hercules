@@ -60,124 +60,35 @@ function RollPreview({ run, onComplete }: { run: number; onComplete: () => void 
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    // This is deliberately WebGL rather than a painted cube.  Each pip is a
-    // sphere subtracted from the rounded-cube surface in the fragment shader,
-    // so light reaches a real concave cavity as the die tumbles.
-    const gl = canvas.getContext("webgl", { alpha: true, antialias: true, premultipliedAlpha: false });
-    if (!gl) return;
+    const context = canvas.getContext("2d");
+    if (!context) return;
     let frame = 0;
     const startedAt = performance.now();
     const duration = 3000;
+    const pipLayout: Record<number, [number, number][]> = {
+      1: [[.5, .5]], 2: [[.25, .25], [.75, .75]], 3: [[.25, .25], [.5, .5], [.75, .75]],
+      4: [[.25, .25], [.75, .25], [.25, .75], [.75, .75]], 5: [[.25, .25], [.75, .25], [.5, .5], [.25, .75], [.75, .75]],
+      6: [[.25, .22], [.75, .22], [.25, .5], [.75, .5], [.25, .78], [.75, .78]]
+    };
     const finalRotation: Record<number, [number, number]> = { 1: [-.11, .14], 2: [-Math.PI / 2 + .11, .14], 3: [-.11, -Math.PI / 2 + .14], 4: [-.11, Math.PI / 2 + .14], 5: [Math.PI / 2 - .11, .14], 6: [-.11, Math.PI + .14] };
     const ease = (value: number) => 1 - Math.pow(1 - Math.min(1, Math.max(0, value)), 3);
     const mix = (from: number, to: number, amount: number) => from + (to - from) * amount;
-    const vertexSource = `attribute vec2 aPosition; void main() { gl_Position = vec4(aPosition, 0.0, 1.0); }`;
-    const fragmentSource = `
-      precision highp float;
-      uniform vec2 uResolution;
-      uniform vec3 uPosition[3];
-      uniform vec3 uRotation[3];
-
-      vec3 rotX(vec3 p, float a) { float c = cos(a), s = sin(a); return vec3(p.x, p.y * c - p.z * s, p.y * s + p.z * c); }
-      vec3 rotY(vec3 p, float a) { float c = cos(a), s = sin(a); return vec3(p.x * c + p.z * s, p.y, -p.x * s + p.z * c); }
-      vec3 rotZ(vec3 p, float a) { float c = cos(a), s = sin(a); return vec3(p.x * c - p.y * s, p.x * s + p.y * c, p.z); }
-      vec3 inverseRotate(vec3 p, vec3 a) { return rotX(rotY(rotZ(p, -a.z), -a.y), -a.x); }
-
-      float roundedBox(vec3 p) {
-        vec3 q = abs(p) - vec3(0.42);
-        return length(max(q, 0.0)) + min(max(q.x, max(q.y, q.z)), 0.0) - 0.052;
-      }
-      float pit(vec3 q, vec2 position) { return length(vec3(q.xy - position, q.z)) - 0.092; }
-      float pips(vec3 p, vec3 normal, vec3 axisU, vec3 axisV, int count) {
-        vec3 q = vec3(dot(p, axisU), dot(p, axisV), dot(p, normal) - 0.495);
-        float result = 9.0;
-        if (count == 1 || count == 3 || count == 5) result = min(result, pit(q, vec2(0.0)));
-        if (count == 2 || count == 3) { result = min(result, pit(q, vec2(-.19, -.19))); result = min(result, pit(q, vec2(.19, .19))); }
-        if (count == 4 || count == 5) { result = min(result, pit(q, vec2(-.19, -.19))); result = min(result, pit(q, vec2(.19, -.19))); result = min(result, pit(q, vec2(-.19, .19))); result = min(result, pit(q, vec2(.19, .19))); }
-        if (count == 6) { result = min(result, pit(q, vec2(-.19, -.22))); result = min(result, pit(q, vec2(.19, -.22))); result = min(result, pit(q, vec2(-.19, 0.0))); result = min(result, pit(q, vec2(.19, 0.0))); result = min(result, pit(q, vec2(-.19, .22))); result = min(result, pit(q, vec2(.19, .22))); }
-        return result;
-      }
-      float dieDistance(vec3 p) {
-        float cavities = 9.0;
-        // Standard opposing faces: 1/6, 2/5, and 3/4.
-        cavities = min(cavities, pips(p, vec3(0., 0., 1.), vec3(1., 0., 0.), vec3(0., 1., 0.), 1));
-        cavities = min(cavities, pips(p, vec3(0., 0., -1.), vec3(-1., 0., 0.), vec3(0., 1., 0.), 6));
-        cavities = min(cavities, pips(p, vec3(0., 1., 0.), vec3(1., 0., 0.), vec3(0., 0., -1.), 2));
-        cavities = min(cavities, pips(p, vec3(0., -1., 0.), vec3(1., 0., 0.), vec3(0., 0., 1.), 5));
-        cavities = min(cavities, pips(p, vec3(1., 0., 0.), vec3(0., 0., -1.), vec3(0., 1., 0.), 3));
-        cavities = min(cavities, pips(p, vec3(-1., 0., 0.), vec3(0., 0., 1.), vec3(0., 1., 0.), 4));
-        return max(roundedBox(p), -cavities);
-      }
-      float scene(vec3 p, out float dieIndex) {
-        float closest = 99.0; dieIndex = -1.0;
-        for (int index = 0; index < 3; index++) {
-          float distance = dieDistance(inverseRotate(p - uPosition[index], uRotation[index]));
-          if (distance < closest) { closest = distance; dieIndex = float(index); }
-        }
-        return closest;
-      }
-      float distanceOnly(vec3 p) { float index; return scene(p, index); }
-      vec3 normalAt(vec3 p) {
-        const float e = 0.0015;
-        return normalize(vec3(distanceOnly(p + vec3(e, 0., 0.)) - distanceOnly(p - vec3(e, 0., 0.)), distanceOnly(p + vec3(0., e, 0.)) - distanceOnly(p - vec3(0., e, 0.)), distanceOnly(p + vec3(0., 0., e)) - distanceOnly(p - vec3(0., 0., e))));
-      }
-      void main() {
-        vec2 screen = (gl_FragCoord.xy / uResolution.xy - .5) * 2.0;
-        screen.x *= uResolution.x / uResolution.y;
-        vec3 rayOrigin = vec3(0., 0., 5.0);
-        vec3 ray = normalize(vec3(screen, -1.95));
-        float travel = 0.0; float hitIndex = -1.0; bool hit = false;
-        for (int step = 0; step < 80; step++) {
-          vec3 p = rayOrigin + ray * travel;
-          float distance = scene(p, hitIndex);
-          if (distance < .0012) { hit = true; break; }
-          travel += distance * .82;
-          if (travel > 9.0) break;
-        }
-        if (!hit) discard;
-        vec3 position = rayOrigin + ray * travel;
-        vec3 normal = normalAt(position);
-        vec3 light = normalize(vec3(-.45, .72, 1.0));
-        float diffuse = max(0.0, dot(normal, light));
-        float specular = pow(max(0.0, dot(reflect(-light, normal), -ray)), 22.0);
-        float cavityShade = clamp(0.24 + diffuse * .76, .0, 1.0);
-        vec3 base = hitIndex < .5 ? vec3(.04, .34, .50) : hitIndex < 1.5 ? vec3(.035, .28, .44) : vec3(.05, .38, .56);
-        vec3 color = base * cavityShade + vec3(.16, .55, .72) * specular;
-        gl_FragColor = vec4(color, 1.0);
-      }
-    `;
-    const compile = (type: number, source: string): WebGLShader | null => {
-      const shader = gl.createShader(type);
-      if (!shader) return null;
-      gl.shaderSource(shader, source);
-      gl.compileShader(shader);
-      return gl.getShaderParameter(shader, gl.COMPILE_STATUS) ? shader : null;
+    const rotate = (point: [number, number, number], xAngle: number, yAngle: number, zAngle: number): [number, number, number] => {
+      const [x, y, z] = point;
+      const cy = Math.cos(yAngle), sy = Math.sin(yAngle), cx = Math.cos(xAngle), sx = Math.sin(xAngle), cz = Math.cos(zAngle), sz = Math.sin(zAngle);
+      const yRotated = x * sy + z * cy;
+      const xRotated = x * cy - z * sy;
+      const zRotated = y * sx + yRotated * cx;
+      const yRotatedAgain = y * cx - yRotated * sx;
+      return [xRotated * cz - yRotatedAgain * sz, xRotated * sz + yRotatedAgain * cz, zRotated];
     };
-    const vertex = compile(gl.VERTEX_SHADER, vertexSource);
-    const fragment = compile(gl.FRAGMENT_SHADER, fragmentSource);
-    if (!vertex || !fragment) return;
-    const program = gl.createProgram();
-    if (!program) return;
-    gl.attachShader(program, vertex); gl.attachShader(program, fragment); gl.linkProgram(program);
-    if (!gl.getProgramParameter(program, gl.LINK_STATUS)) return;
-    const buffer = gl.createBuffer();
-    if (!buffer) return;
-    gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
-    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
-    gl.useProgram(program);
-    const positionAttribute = gl.getAttribLocation(program, "aPosition");
-    gl.enableVertexAttribArray(positionAttribute);
-    gl.vertexAttribPointer(positionAttribute, 2, gl.FLOAT, false, 0, 0);
-    const resolutionUniform = gl.getUniformLocation(program, "uResolution");
-    const positionsUniform = gl.getUniformLocation(program, "uPosition[0]");
-    const rotationsUniform = gl.getUniformLocation(program, "uRotation[0]");
     const resize = () => {
       const scale = window.devicePixelRatio || 1;
       canvas.width = Math.round(window.innerWidth * scale);
       canvas.height = Math.round(window.innerHeight * scale);
       canvas.style.width = `${window.innerWidth}px`;
       canvas.style.height = `${window.innerHeight}px`;
-      gl.viewport(0, 0, canvas.width, canvas.height);
+      context.setTransform(scale, 0, 0, scale, 0, 0);
     };
     const pointAlong = (points: [number, number][], progress: number): [number, number] => {
       // The last stationary point is the die's settled position.  It stays
@@ -188,10 +99,65 @@ function RollPreview({ run, onComplete }: { run: number; onComplete: () => void 
       const local = ease((progress - stages[index]) / (stages[index + 1] - stages[index]));
       return [mix(points[index][0], points[index + 1][0], local), mix(points[index][1], points[index + 1][1], local)];
     };
+    const drawCube = (centerX: number, centerY: number, side: number, angles: [number, number, number], face: number, opacity: number) => {
+      const half = side / 2;
+      const base: [number, number, number][] = [[-half, -half, -half], [half, -half, -half], [half, half, -half], [-half, half, -half], [-half, -half, half], [half, -half, half], [half, half, half], [-half, half, half]];
+      const transformed = base.map(point => rotate(point, ...angles));
+      const project = (point: [number, number, number]): [number, number] => {
+        const scale = 285 / (285 - point[2]);
+        return [centerX + point[0] * scale, centerY + point[1] * scale];
+      };
+      const faces = [
+        { value: 1, indices: [4, 5, 6, 7] }, { value: 6, indices: [1, 0, 3, 2] }, { value: 3, indices: [5, 1, 2, 6] },
+        { value: 4, indices: [0, 4, 7, 3] }, { value: 2, indices: [7, 6, 2, 3] }, { value: 5, indices: [0, 1, 5, 4] }
+      ].map(candidate => ({ ...candidate, corners: candidate.indices.map(index => project(transformed[index])), depth: candidate.indices.reduce((total, index) => total + transformed[index][2], 0) / 4 })).sort((left, right) => left.depth - right.depth);
+      context.save();
+      context.globalAlpha = opacity;
+      context.fillStyle = "#02070a88";
+      context.beginPath();
+      context.ellipse(centerX + side * .13, centerY + side * .57, side * .54, side * .16, -.16, 0, Math.PI * 2);
+      context.fill();
+      faces.forEach(candidate => {
+        if (candidate.depth < -side * .28) return;
+        const light = Math.round(37 + Math.max(-1, Math.min(1, candidate.depth / half)) * 18);
+        const gradient = context.createLinearGradient(candidate.corners[0][0], candidate.corners[0][1], candidate.corners[2][0], candidate.corners[2][1]);
+        gradient.addColorStop(0, `hsl(198 75% ${light + 12}%)`);
+        gradient.addColorStop(1, `hsl(202 76% ${light - 9}%)`);
+        context.beginPath();
+        candidate.corners.forEach(([x, y], index) => index ? context.lineTo(x, y) : context.moveTo(x, y));
+        context.closePath();
+        context.fillStyle = gradient;
+        context.fill();
+        context.lineWidth = 1.4;
+        context.strokeStyle = "#b5f0ffcc";
+        context.stroke();
+        if (candidate.value === face || candidate.depth > side * .04) pipLayout[candidate.value].forEach(([u, v]) => {
+          const top = [mix(candidate.corners[0][0], candidate.corners[1][0], u), mix(candidate.corners[0][1], candidate.corners[1][1], u)] as [number, number];
+          const bottom = [mix(candidate.corners[3][0], candidate.corners[2][0], u), mix(candidate.corners[3][1], candidate.corners[2][1], u)] as [number, number];
+          const [x, y] = [mix(top[0], bottom[0], v), mix(top[1], bottom[1], v)];
+          // Pips are recesses, not white beads applied over the surface.
+          // A subtle lit rim on the upper edge and a dark interior give the
+          // temporary canvas die a visibly cut-in pip without needing WebGL.
+          const radius = Math.max(3.3, side * .065);
+          const inset = context.createRadialGradient(x - radius * .34, y - radius * .34, radius * .08, x, y, radius);
+          inset.addColorStop(0, "#04131c");
+          inset.addColorStop(.62, "#082b3a");
+          inset.addColorStop(.82, "#174a5d");
+          inset.addColorStop(1, "#8ed7e8");
+          context.beginPath();
+          context.arc(x, y, radius, 0, Math.PI * 2);
+          context.fillStyle = inset;
+          context.fill();
+          context.lineWidth = .65;
+          context.strokeStyle = "#021018aa";
+          context.stroke();
+        });
+      });
+      context.restore();
+    };
     const render = (now: number) => {
       const progress = Math.min(1, (now - startedAt) / duration);
-      gl.clearColor(0, 0, 0, 0);
-      gl.clear(gl.COLOR_BUFFER_BIT);
+      context.clearRect(0, 0, window.innerWidth, window.innerHeight);
       const dieDefinitions = [
         // These paths deliberately rebound near opposite screen edges. The
         // penultimate point is where each die settles on its final face.
@@ -199,9 +165,7 @@ function RollPreview({ run, onComplete }: { run: number; onComplete: () => void 
         { face: 5, points: [[.74, .14], [.07, .70], [.82, .58], [.18, .26], [.64, .39], [.64, .39], [.51, .91]], turns: [4.5, 3.5, -2.5] },
         { face: 6, points: [[.47, .18], [.08, .16], [.83, .74], [.18, .68], [.48, .57], [.48, .57], [.71, .91]], turns: [4, -4, 3] }
       ];
-      const positions: number[] = [];
-      const rotations: number[] = [];
-      dieDefinitions.forEach(die => {
+      dieDefinitions.forEach((die, index) => {
         const points = die.points.map(([x, y]) => [x * window.innerWidth, y * window.innerHeight] as [number, number]);
         const [x, y] = pointAlong(points, progress);
         // Tumble continuously while moving, then lose momentum into the
@@ -211,20 +175,15 @@ function RollPreview({ run, onComplete }: { run: number; onComplete: () => void 
         const [finalX, finalY] = finalRotation[die.face];
         const remainingTurns = 1 - settling;
         const angles: [number, number, number] = [finalX + die.turns[0] * Math.PI * 2 * remainingTurns, finalY + die.turns[1] * Math.PI * 2 * remainingTurns, die.turns[2] * Math.PI * 2 * remainingTurns];
-        const aspect = window.innerWidth / window.innerHeight;
-        positions.push((x / window.innerWidth - .5) * 3.4 * aspect, (.5 - y / window.innerHeight) * 3.4, 0);
-        rotations.push(...angles);
+        const exiting = Math.max(0, (progress - .92) / .08);
+        drawCube(x, y, mix(72, 38, exiting), angles, die.face, 1 - exiting);
       });
-      if (resolutionUniform) gl.uniform2f(resolutionUniform, canvas.width, canvas.height);
-      if (positionsUniform) gl.uniform3fv(positionsUniform, new Float32Array(positions));
-      if (rotationsUniform) gl.uniform3fv(rotationsUniform, new Float32Array(rotations));
-      gl.drawArrays(gl.TRIANGLES, 0, 3);
       if (progress < 1) frame = window.requestAnimationFrame(render); else completeRef.current();
     };
     resize();
     window.addEventListener("resize", resize);
     frame = window.requestAnimationFrame(render);
-    return () => { window.cancelAnimationFrame(frame); window.removeEventListener("resize", resize); gl.deleteBuffer(buffer); gl.deleteProgram(program); gl.deleteShader(vertex); gl.deleteShader(fragment); };
+    return () => { window.cancelAnimationFrame(frame); window.removeEventListener("resize", resize); };
   }, [run]);
   return <canvas ref={canvasRef} className="roll-preview-canvas" aria-hidden="true" />;
 }
