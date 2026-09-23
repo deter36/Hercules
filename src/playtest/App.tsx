@@ -91,7 +91,10 @@ function RollPreview({ run, onComplete }: { run: number; onComplete: () => void 
       context.setTransform(scale, 0, 0, scale, 0, 0);
     };
     const pointAlong = (points: [number, number][], progress: number): [number, number] => {
-      const stages = [0, .24, .48, .71, .82, 1];
+      // The last stationary point is the die's settled position.  It stays
+      // there briefly before travelling into the tray rather than "spinning
+      // to" a result after the path has ended.
+      const stages = [0, .16, .32, .49, .65, .86, 1];
       const index = Math.max(0, stages.findIndex((stage, candidate) => progress >= stage && progress <= stages[candidate + 1]) === -1 ? points.length - 2 : stages.findIndex((stage, candidate) => progress >= stage && progress <= stages[candidate + 1]));
       const local = ease((progress - stages[index]) / (stages[index + 1] - stages[index]));
       return [mix(points[index][0], points[index + 1][0], local), mix(points[index][1], points[index + 1][1], local)];
@@ -132,12 +135,21 @@ function RollPreview({ run, onComplete }: { run: number; onComplete: () => void 
           const top = [mix(candidate.corners[0][0], candidate.corners[1][0], u), mix(candidate.corners[0][1], candidate.corners[1][1], u)] as [number, number];
           const bottom = [mix(candidate.corners[3][0], candidate.corners[2][0], u), mix(candidate.corners[3][1], candidate.corners[2][1], u)] as [number, number];
           const [x, y] = [mix(top[0], bottom[0], v), mix(top[1], bottom[1], v)];
+          // Pips are recesses, not white beads applied over the surface.
+          // A subtle lit rim on the upper edge and a dark interior give the
+          // temporary canvas die a visibly cut-in pip without needing WebGL.
+          const radius = Math.max(3.3, side * .065);
+          const inset = context.createRadialGradient(x - radius * .34, y - radius * .34, radius * .08, x, y, radius);
+          inset.addColorStop(0, "#04131c");
+          inset.addColorStop(.62, "#082b3a");
+          inset.addColorStop(.82, "#174a5d");
+          inset.addColorStop(1, "#8ed7e8");
           context.beginPath();
-          context.arc(x, y, Math.max(3.3, side * .065), 0, Math.PI * 2);
-          context.fillStyle = "#f4feff";
+          context.arc(x, y, radius, 0, Math.PI * 2);
+          context.fillStyle = inset;
           context.fill();
-          context.lineWidth = .8;
-          context.strokeStyle = "#062535";
+          context.lineWidth = .65;
+          context.strokeStyle = "#021018aa";
           context.stroke();
         });
       });
@@ -147,16 +159,22 @@ function RollPreview({ run, onComplete }: { run: number; onComplete: () => void 
       const progress = Math.min(1, (now - startedAt) / duration);
       context.clearRect(0, 0, window.innerWidth, window.innerHeight);
       const dieDefinitions = [
-        { face: 2, points: [[.08, .72], [.84, .13], [.12, .43], [.31, .51], [.31, .51], [.29, .91]], turns: [7, -9, 4] },
-        { face: 5, points: [[.74, .13], [.06, .70], [.79, .60], [.64, .39], [.64, .39], [.51, .91]], turns: [8, 10, -5] },
-        { face: 6, points: [[.47, .18], [.08, .13], [.81, .74], [.48, .57], [.48, .57], [.71, .91]], turns: [9, -8, 6] }
+        // These paths deliberately rebound near opposite screen edges. The
+        // penultimate point is where each die settles on its final face.
+        { face: 2, points: [[.10, .70], [.84, .14], [.14, .43], [.78, .76], [.31, .51], [.31, .51], [.29, .91]], turns: [3.5, -4.5, 1.5] },
+        { face: 5, points: [[.74, .14], [.07, .70], [.82, .58], [.18, .26], [.64, .39], [.64, .39], [.51, .91]], turns: [4.5, 3.5, -2.5] },
+        { face: 6, points: [[.47, .18], [.08, .16], [.83, .74], [.18, .68], [.48, .57], [.48, .57], [.71, .91]], turns: [4, -4, 3] }
       ];
       dieDefinitions.forEach((die, index) => {
         const points = die.points.map(([x, y]) => [x * window.innerWidth, y * window.innerHeight] as [number, number]);
         const [x, y] = pointAlong(points, progress);
-        const settling = ease((progress - .66) / .14);
+        // Tumble continuously while moving, then lose momentum into the
+        // certified face while stationary.  Once stable, preserve that face
+        // as the die moves down into the tray.
+        const settling = ease((progress - .65) / .21);
         const [finalX, finalY] = finalRotation[die.face];
-        const angles: [number, number, number] = [mix(die.turns[0] * Math.PI, finalX, settling), mix(die.turns[1] * Math.PI, finalY, settling), mix(die.turns[2] * Math.PI, 0, settling)];
+        const remainingTurns = 1 - settling;
+        const angles: [number, number, number] = [finalX + die.turns[0] * Math.PI * 2 * remainingTurns, finalY + die.turns[1] * Math.PI * 2 * remainingTurns, die.turns[2] * Math.PI * 2 * remainingTurns];
         const exiting = Math.max(0, (progress - .92) / .08);
         drawCube(x, y, mix(72, 38, exiting), angles, die.face, 1 - exiting);
       });
