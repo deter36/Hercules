@@ -90,15 +90,6 @@ function RollPreview({ run, onComplete }: { run: number; onComplete: () => void 
       canvas.style.height = `${window.innerHeight}px`;
       context.setTransform(scale, 0, 0, scale, 0, 0);
     };
-    const pointAlong = (points: [number, number][], progress: number): [number, number] => {
-      // The last stationary point is the die's settled position.  It stays
-      // there briefly before travelling into the tray rather than "spinning
-      // to" a result after the path has ended.
-      const stages = [0, .16, .32, .49, .65, .86, 1];
-      const index = Math.max(0, stages.findIndex((stage, candidate) => progress >= stage && progress <= stages[candidate + 1]) === -1 ? points.length - 2 : stages.findIndex((stage, candidate) => progress >= stage && progress <= stages[candidate + 1]));
-      const local = ease((progress - stages[index]) / (stages[index + 1] - stages[index]));
-      return [mix(points[index][0], points[index + 1][0], local), mix(points[index][1], points[index + 1][1], local)];
-    };
     const drawCube = (centerX: number, centerY: number, side: number, angles: [number, number, number], face: number, opacity: number) => {
       const half = side / 2;
       const base: [number, number, number][] = [[-half, -half, -half], [half, -half, -half], [half, half, -half], [-half, half, -half], [-half, -half, half], [half, -half, half], [half, half, half], [-half, half, half]];
@@ -159,24 +150,55 @@ function RollPreview({ run, onComplete }: { run: number; onComplete: () => void 
       const progress = Math.min(1, (now - startedAt) / duration);
       context.clearRect(0, 0, window.innerWidth, window.innerHeight);
       const dieDefinitions = [
-        // These paths deliberately rebound near opposite screen edges. The
-        // penultimate point is where each die settles on its final face.
-        { face: 2, points: [[.10, .70], [.84, .14], [.14, .43], [.78, .76], [.31, .51], [.31, .51], [.29, .91]], turns: [3.5, -4.5, 1.5] },
-        { face: 5, points: [[.74, .14], [.07, .70], [.82, .58], [.18, .26], [.64, .39], [.64, .39], [.51, .91]], turns: [4.5, 3.5, -2.5] },
-        { face: 6, points: [[.47, .18], [.08, .16], [.83, .74], [.18, .68], [.48, .57], [.48, .57], [.71, .91]], turns: [4, -4, 3] }
+        { face: 2, start: [.14, .70], velocity: [1.72, -1.16], tray: [.29, .91] },
+        { face: 5, start: [.78, .17], velocity: [-1.44, 1.28], tray: [.51, .91] },
+        { face: 6, start: [.48, .20], velocity: [.96, 1.52], tray: [.71, .91] }
       ];
-      dieDefinitions.forEach((die, index) => {
-        const points = die.points.map(([x, y]) => [x * window.innerWidth, y * window.innerHeight] as [number, number]);
-        const [x, y] = pointAlong(points, progress);
-        // Tumble continuously while moving, then lose momentum into the
-        // certified face while stationary.  Once stable, preserve that face
-        // as the die moves down into the tray.
-        const settling = ease((progress - .65) / .21);
+      const settleSeconds = 2.16;
+      const fixedStep = 1 / 120;
+      type PhysicsState = { x: number; y: number; vx: number; vy: number; rx: number; ry: number; rz: number };
+      const runPhysics = (die: typeof dieDefinitions[number], seconds: number, startRotation: [number, number, number] = [0, 0, 0]): PhysicsState => {
+        const radius = 47;
+        const state: PhysicsState = {
+          x: die.start[0] * window.innerWidth,
+          y: die.start[1] * window.innerHeight,
+          vx: die.velocity[0] * window.innerWidth,
+          vy: die.velocity[1] * window.innerHeight,
+          rx: startRotation[0], ry: startRotation[1], rz: startRotation[2]
+        };
+        let remaining = Math.min(seconds, settleSeconds);
+        while (remaining > 0) {
+          const step = Math.min(fixedStep, remaining);
+          state.x += state.vx * step;
+          state.y += state.vy * step;
+          // Screen edges are the table rails: rebound changes the direction
+          // of both travel and the corresponding roll, never a scripted turn.
+          if (state.x < radius || state.x > window.innerWidth - radius) { state.x = Math.max(radius, Math.min(window.innerWidth - radius, state.x)); state.vx *= -.69; state.vy *= .92; }
+          if (state.y < radius || state.y > window.innerHeight - radius) { state.y = Math.max(radius, Math.min(window.innerHeight - radius, state.y)); state.vy *= -.69; state.vx *= .92; }
+          // A cube rolling across a table rotates around the axis perpendicular
+          // to its travel.  There is no separate spin track to correct later.
+          state.rx -= state.vy * step / 58;
+          state.ry += state.vx * step / 58;
+          state.rz += (state.vx - state.vy) * step / 920;
+          const drag = Math.pow(.18, step / settleSeconds);
+          state.vx *= drag;
+          state.vy *= drag;
+          remaining -= step;
+        }
+        return state;
+      };
+      dieDefinitions.forEach(die => {
         const [finalX, finalY] = finalRotation[die.face];
-        const remainingTurns = 1 - settling;
-        const angles: [number, number, number] = [finalX + die.turns[0] * Math.PI * 2 * remainingTurns, finalY + die.turns[1] * Math.PI * 2 * remainingTurns, die.turns[2] * Math.PI * 2 * remainingTurns];
-        const exiting = Math.max(0, (progress - .92) / .08);
-        drawCube(x, y, mix(72, 38, exiting), angles, die.face, 1 - exiting);
+        // Work backward from the certified final face.  The physics itself
+        // supplies all rotation; this initial orientation simply guarantees
+        // it ends on the engine's result rather than visibly correcting later.
+        const accumulated = runPhysics(die, settleSeconds);
+        const state = runPhysics(die, progress * duration, [finalX - accumulated.rx, finalY - accumulated.ry, -accumulated.rz]);
+        const trayProgress = ease((progress - .80) / .20);
+        const settled = progress >= settleSeconds / duration;
+        const x = settled ? mix(state.x, die.tray[0] * window.innerWidth, trayProgress) : state.x;
+        const y = settled ? mix(state.y, die.tray[1] * window.innerHeight, trayProgress) : state.y;
+        drawCube(x, y, mix(72, 38, trayProgress), [state.rx, state.ry, state.rz], die.face, 1 - trayProgress);
       });
       if (progress < 1) frame = window.requestAnimationFrame(render); else completeRef.current();
     };
