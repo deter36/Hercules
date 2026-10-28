@@ -54,7 +54,7 @@ export function presentationEventsFromTransitions(transitions: readonly Transiti
       if (event.type === "REWARD_GAINED") {
         const rewardId = String(event.rewardId);
         const effects = lifecycle.slice(index + 1).filter(candidate => candidate.rewardId === rewardId);
-        presentations.push({ id: `${transition.index}:reward:${rewardId}`, kind: "reward", eyebrow: "REWARD GAINED", title: String(event.rewardName ?? rewardId), detail: rewardDetail(rewardId, effects) });
+        presentations.push({ id: `${transition.index}:reward:${rewardId}`, kind: "reward", eyebrow: "REWARD GAINED", title: String(event.rewardName ?? rewardId).replace(/\s+[A-D]$/, ""), detail: rewardDetail(rewardId, effects) });
       }
       if (event.type === "MOOD_REVEALED") presentations.push(moodPresentation(`${transition.index}:mood:${String(event.moodId)}`, String(event.moodName ?? event.moodId), event.effect));
     }

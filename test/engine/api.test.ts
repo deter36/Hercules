@@ -42,14 +42,14 @@ test("the public play view exposes each active Labor die's next certified effect
   assert.deepEqual(HerculesEngine.getPlayView(state).labor?.dice.map(die => die.upcomingEffects), [["-1 Spirit"]]);
 });
 
-test("Mares fixed-straight attacks show that the player chooses one target", () => {
+test("Mares fixed-straight attacks retain requirements without redundant target instructions", () => {
   const state = startLabor(HerculesEngine.createGame({ difficulty: "human", seed: "mares-attack-label" }).state, "labor.L08");
   const view = HerculesEngine.getPlayView(state);
-  assert.deepEqual(view.labor?.tracks.map(track => track.attack), ["fixed 1-2-3 straight · choose 1 target", "fixed 1-2-3 straight · choose 1 target"]);
+  assert.deepEqual(view.labor?.tracks.map(track => track.attack), ["fixed 1-2-3 straight", "fixed 1-2-3 straight"]);
 });
 
-test("Belt, Apples, and Cerberus attacks show that the player chooses one target", () => {
-  for (const [laborId, expected] of [["labor.L09", "A × B = C · choose 1 target"], ["labor.L11", "4-die straight · choose 1 target"], ["labor.L12", "dice totaling 18 · choose 1 target"]] as const) {
+test("Belt, Apples, and Cerberus attacks retain requirements without redundant target instructions", () => {
+  for (const [laborId, expected] of [["labor.L09", "A × B = C"], ["labor.L11", "4-die straight"], ["labor.L12", "dice totaling 18"]] as const) {
     const state = startLabor(HerculesEngine.createGame({ difficulty: "human", seed: `${laborId}-attack-label` }).state, laborId);
     assert.ok(HerculesEngine.getPlayView(state).labor?.tracks.every(track => track.attack === expected));
   }

@@ -118,7 +118,6 @@ const requirementLabel = (r: Requirement): string => {
 };
 const attackLabel = (attack: ReturnType<typeof attackForLaborDie>): string => {
   if (attack.scope === "all_active_targets") return `${requirementLabel(attack.requirement)} · hits every active Labor die`;
-  if (attack.scope === "single_active_target_per_attack_instance") return `${requirementLabel(attack.requirement)} · choose 1 target`;
   return requirementLabel(attack.requirement);
 };
 const moodEffectDescription = (mood: RecordValue | undefined): string | null => {
@@ -205,7 +204,9 @@ export function getPlayView(state: GameState): PlayView {
     const isOwnedRewardChoice = state.pendingDecision.type === "CHOOSE_REWARD_TO_REMOVE" || state.pendingDecision.type === "CHOOSE_PHOLUS_REWARD";
     const label = isRewardChoice
       ? `${rewardName(option.id)} — ${rewardBonusSummary(option.id)}. ${rewardSummary(option.id)}`
-      : isOwnedRewardChoice ? rewardName(option.id) : option.label ?? option.id;
+      : isOwnedRewardChoice ? rewardName(option.id) : state.pendingDecision.type === "CHOOSE_TRACK_BRANCH" && state.currentLabor
+        ? `Route ${state.pendingDecision.legalOptions.indexOf(option)+1}: ${laborEffectDescription(getNode(state.currentLabor.laborId, String(state.pendingDecision.context.trackId ?? state.currentLabor.laborDice[String(state.pendingDecision.context.laborDieId)]?.trackId), option.id).effect)}`
+        : option.label ?? option.id;
     command(`decision:${option.id}`, label, { type: "CHOOSE_OPTION", decisionId: state.pendingDecision.id, optionId: option.id }, "decision");
   }
   else if (state.game.phase === "READY_TO_ROLL") command("roll", "Roll Hercules dice", { type: "ROLL" }, "round");

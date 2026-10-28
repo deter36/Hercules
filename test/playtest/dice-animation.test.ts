@@ -132,7 +132,7 @@ test('doubled handful launches together with deterministic contacts and prescrib
 });
 
 
-test('handoff follows the last tip without padded hold, including Mood and set-aside results',()=>{
+test('animation completes every body before the final-face hold, including Mood and set-aside results',()=>{
  for(const [w,h] of [[360,640],[390,844],[430,932]])for(let count=1;count<=11;count++)for(let seed=0;seed<4;seed++){
   const faces=Array.from({length:count},(_,i)=>i%6+1),record=makeRoll(faces,w,h-208,seed,viewportDieSide(w,h));
   const base={eventId:'handoff',kind:'ROLL' as const,moodId:null,dice:faces.map((f,i)=>({id:`H${i+1}`,rawFace:f,face:f,setAside:f===1}))};

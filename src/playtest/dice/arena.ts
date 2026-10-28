@@ -1,4 +1,4 @@
-import {sample, targetQ} from './motion.js';
+import {sample, targetQ, DT} from './motion.js';
 import type {CommittedRollEvent} from './committed-roll.js';
 export type Point={x:number;y:number};
 export type Arena={width:number;height:number;top:number;left:number};
@@ -21,8 +21,23 @@ export function rerollCells(count:number,arena:Arena,side:number,origins:Record<
  return ids.map((_,i)=>({x:left+(i%columns)*pitch,y:top+Math.floor(i/columns)*pitch}));
 }
 function blend(a:number[],b:number[],t:number){const dot=a.reduce((s,v,i)=>s+v*b[i],0),q=a.map((v,i)=>v*(1-t)+b[i]*t*(dot<0?-1:1)),n=Math.hypot(...q);return q.map(v=>v/n);}
-/** End at the last physical tip, not the trajectory buffer's padded duration. */
-export const rollSettleTime=(record:any)=>Math.min(record.duration,Math.max(...record.bodies.map((d:any)=>d.tipEnd??record.duration)));
+/** Completion is the last actual change in any body's position, height or orientation.
+ * A tip deadline alone can precede residual travel or a bounce. Cache per immutable trajectory. */
+const completionTimes=new WeakMap<object,number>();
+export function rollSettleTime(record:any):number {
+ const cached=completionTimes.get(record.bodies);if(cached!==undefined)return cached;
+ let last=0;
+ for(const body of record.bodies){
+  const final=body.frames[body.frames.length-1];
+  for(let i=body.frames.length-2;i>=0;i--){const f=body.frames[i];
+   const position=Math.hypot(f.x-final.x,f.y-final.y,f.z-final.z);
+   const orientation=Math.min(Math.hypot(...f.q.map((v:number,j:number)=>v-final.q[j])),Math.hypot(...f.q.map((v:number,j:number)=>v+final.q[j])));
+   if(position>1e-7||orientation>1e-7){last=Math.max(last,(i+1)*DT);break;}
+  }
+ }
+ completionTimes.set(record.bodies,last);return last;
+}
+export const FINAL_FACE_HOLD_SECONDS=1;
 export const MOOD_TURN_SECONDS=.65;
 export const presentationEnd=(record:any,event:CommittedRollEvent,reduced=false)=>reduced?0:rollSettleTime(record)+(event.dice.some(d=>d.rawFace!==d.face)?MOOD_TURN_SECONDS:0);
 /** Pure frame projection. No outcome RNG, DOM, state mutation or accumulated drift. */
