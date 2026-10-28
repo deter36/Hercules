@@ -1,5 +1,4 @@
-import { renderDice } from './renderer.js';
-import { targetQ } from './motion.js';
+import { renderFlatFace } from './renderer.js';
 
 // Seven shared images, rendered once per document. No animation loop or per-slot canvas.
 const faceImages = new Map<number, string>();
@@ -7,7 +6,7 @@ function imageFor(face: number | null): string {
  const key=face??0,existing=faceImages.get(key);if(existing)return existing;
  const canvas=document.createElement('canvas');canvas.width=canvas.height=128;
  const context=canvas.getContext('2d');if(!context)return '';
- renderDice(context,{side:99},[{x:64,y:77,z:0,q:targetQ(face??1,-.10),blank:face===null}]);
+ renderFlatFace(context,face,128);
  const image=canvas.toDataURL('image/png');faceImages.set(key,image);return image;
 }
 export function dieDescription(face:number|null,state='',rolledFace?:number):string {

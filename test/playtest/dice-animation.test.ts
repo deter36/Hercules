@@ -4,7 +4,7 @@ import {makeRoll,sample,topFace,rotate,DURATION,dieSide} from '../../src/playtes
 import {committedRoll} from '../../src/playtest/dice/committed-roll.js';
 import {committedRollEvent} from '../../src/playtest/dice/committed-roll.js';
 import {gameplayLayout} from '../../src/playtest/layout.js';
-import {arenaBounds,viewportDieSide,rerollCells,presentationFrame} from '../../src/playtest/dice/arena.js';
+import {arenaBounds,viewportDieSide,rerollCells,presentationFrame,rollSettleTime,presentationEnd,MOOD_TURN_SECONDS} from '../../src/playtest/dice/arena.js';
 import {HerculesEngine} from '../../src/engine/api.js';
 import {createInitialState} from '../../src/engine/state/create.js';
 import {startLabor,resolveMood} from '../../src/engine/labor/setup.js';
@@ -128,5 +128,20 @@ test('doubled handful launches together with deterministic contacts and prescrib
   for(let i=0;i<count;i++)assert.deepEqual(a.bodies[i].frames.map((f:any)=>[f.x,f.y,f.z]),b.bodies[i].frames.map((f:any)=>[f.x,f.y,f.z]));
   for(let t=0;t<a.duration;t+=1/120){const dice=sample(a,t);for(let i=0;i<dice.length;i++)for(let j=i+1;j<dice.length;j++)assert(Math.hypot(dice[i].x-dice[j].x,dice[i].y-dice[j].y)>=side*1.78-.02,`contact ${w} ${count} ${seed} ${t}`);}
   const final=sample(a,a.duration);assert.equal(final.length,count);assert(final.every((d:any)=>topFace(d.q)===1));
+ }
+});
+
+
+test('handoff follows the last tip without padded hold, including Mood and set-aside results',()=>{
+ for(const [w,h] of [[360,640],[390,844],[430,932]])for(let count=1;count<=11;count++)for(let seed=0;seed<4;seed++){
+  const faces=Array.from({length:count},(_,i)=>i%6+1),record=makeRoll(faces,w,h-208,seed,viewportDieSide(w,h));
+  const base={eventId:'handoff',kind:'ROLL' as const,moodId:null,dice:faces.map((f,i)=>({id:`H${i+1}`,rawFace:f,face:f,setAside:f===1}))};
+  const end=rollSettleTime(record);assert(end<=record.duration);assert.equal(presentationEnd(record,base),end);
+  assert.deepEqual(presentationFrame(record,base,end,[],false).dice.map((d:any)=>topFace(d.q)),faces);
+  const mood={...base,dice:base.dice.map(d=>({...d,face:Math.min(6,d.face+1)}))};
+  assert.equal(presentationEnd(record,mood),end+MOOD_TURN_SECONDS);
+  assert.deepEqual(presentationFrame(record,mood,presentationEnd(record,mood),[],false).dice.map((d:any)=>topFace(d.q)),mood.dice.map(d=>d.face));
+  assert.equal(presentationEnd(record,mood,true),0);
+  assert.deepEqual(presentationFrame(record,mood,0,[],true).dice.map((d:any)=>topFace(d.q)),mood.dice.map(d=>d.face));
  }
 });

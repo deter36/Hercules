@@ -1,9 +1,5 @@
 .dice-animation{position:fixed;inset:env(safe-area-inset-top,0) env(safe-area-inset-right,0) env(safe-area-inset-bottom,0) env(safe-area-inset-left,0);z-index:100;isolation:isolate;overflow:hidden;touch-action:none}
 .dice-animation canvas{position:absolute;inset:0 0 84px;width:100%;height:calc(100% - 84px);pointer-events:none}
-.dice-animation-controls{position:absolute;left:50%;bottom:8px;transform:translateX(-50%);display:flex;gap:8px}
-.dice-animation-controls button{padding:8px 12px;border:1px solid #d6bc79;background:#17283c;color:#f4dfb0;border-radius:7px;min-height:40px;white-space:nowrap}
-.roll-explanation{position:absolute;left:8px;right:8px;bottom:54px;display:grid;gap:3px;text-align:center;background:#142538ed;padding:6px;font-size:12px;pointer-events:none;color:#fff0cf;border-radius:6px}
 
 .roll-accessible-results{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
 .cows-selection-note{position:absolute;z-index:14;bottom:114px;left:50%;transform:translateX(-50%);font-size:12px;background:#142538;border:1px solid #d6bc79;border-radius:6px;padding:3px 6px;white-space:nowrap}.cows-selection-note button{min-height:34px;background:transparent;color:#ffe1a4;border:0}
-.roll-capacity-notice{position:absolute;top:20%;left:10%;right:10%;padding:18px;background:#172938;color:#fff;border:1px solid #d2ae56;border-radius:8px;line-height:1.5}

@@ -47,3 +47,22 @@ export function renderDice(ctx,roll,ds){ds=ds.filter(d=>d.visible!==false);const
  }
  ctx.globalAlpha=1;
 }
+
+/** Orthographic single-face sprite, sharing the rolling resin texture and pip palette. */
+export function renderFlatFace(ctx,face,size=128){
+ const inset=size*.06,side=size-inset*2,half=side/2,center=size/2;
+ ctx.clearRect(0,0,size,size);ctx.save();
+ ctx.beginPath();ctx.roundRect(inset,inset,side,side,side*.06);ctx.clip();
+ ctx.drawImage(getTextures()[(face??1)-1],inset,inset,side,side);
+ const gloss=ctx.createLinearGradient(inset,inset,size-inset,size-inset);
+ gloss.addColorStop(0,'rgba(134,193,212,.12)');gloss.addColorStop(.55,'rgba(66,111,141,0)');gloss.addColorStop(1,'rgba(0,9,25,.10)');
+ ctx.fillStyle=gloss;ctx.fillRect(inset,inset,side,side);
+ for(const [u,v] of face===null?[]:PIPS[face]){
+  const x=center+u*half,y=center+v*half;
+  ctx.beginPath();ctx.arc(x,y,.229218*half,0,Math.PI*2);ctx.fillStyle='#071525';ctx.fill();
+  const gold=ctx.createLinearGradient(x-half*.12144,y-half*.18216,x+half*.12144,y+half*.18216);
+  gold.addColorStop(0,'#97651e');gold.addColorStop(.38,'#c99538');gold.addColorStop(.8,'#e4ba61');gold.addColorStop(1,'#f3d28a');
+  ctx.beginPath();ctx.arc(x,y,.188232*half,0,Math.PI*2);ctx.fillStyle=gold;ctx.fill();
+ }
+ ctx.restore();ctx.beginPath();ctx.roundRect(inset,inset,side,side,side*.06);ctx.strokeStyle='#45667b';ctx.lineWidth=size/128;ctx.stroke();
+}

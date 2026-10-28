@@ -1,4 +1,4 @@
-import {DURATION, sample, targetQ} from './motion.js';
+import {sample, targetQ} from './motion.js';
 import type {CommittedRollEvent} from './committed-roll.js';
 export type Point={x:number;y:number};
 export type Arena={width:number;height:number;top:number;left:number};
@@ -21,10 +21,14 @@ export function rerollCells(count:number,arena:Arena,side:number,origins:Record<
  return ids.map((_,i)=>({x:left+(i%columns)*pitch,y:top+Math.floor(i/columns)*pitch}));
 }
 function blend(a:number[],b:number[],t:number){const dot=a.reduce((s,v,i)=>s+v*b[i],0),q=a.map((v,i)=>v*(1-t)+b[i]*t*(dot<0?-1:1)),n=Math.hypot(...q);return q.map(v=>v/n);}
+/** End at the last physical tip, not the trajectory buffer's padded duration. */
+export const rollSettleTime=(record:any)=>Math.min(record.duration,Math.max(...record.bodies.map((d:any)=>d.tipEnd??record.duration)));
+export const MOOD_TURN_SECONDS=.22;
+export const presentationEnd=(record:any,event:CommittedRollEvent,reduced=false)=>reduced?0:rollSettleTime(record)+(event.dice.some(d=>d.rawFace!==d.face)?MOOD_TURN_SECONDS:0);
 /** Pure frame projection. No outcome RNG, DOM, state mutation or accumulated drift. */
 export function presentationFrame(record:any,event:CommittedRollEvent,time:number,cells:Point[],reduced:boolean){
- const changed=event.dice.some(d=>d.rawFace!==d.face),end=record.duration;
- const effect=clamp((time-end)/.65,0,1),asideProgress=clamp((time-end-(changed?.65:0))/.55,0,1);
+ const end=rollSettleTime(record),effect=reduced?1:clamp((time-end)/MOOD_TURN_SECONDS,0,1);
+ const asideProgress=reduced||time>=presentationEnd(record,event)?1:0;
  const dice=sample(record,reduced?end:Math.min(time,end));
  dice.forEach((d:any,i:number)=>{
   const prescribed=event.dice[i];
@@ -33,13 +37,9 @@ export function presentationFrame(record:any,event:CommittedRollEvent,time:numbe
    d.x=cell.x+(d.x-f.x)/record.width*record.side*.25;
    d.y=cell.y+(d.y-f.y)/record.height*record.side*.25;
   }
-  if(time>=end&&prescribed.rawFace!==prescribed.face)d.q=blend(d.q,targetQ(prescribed.face,record.bodies[i].yaw),reduced?1:effect);
-  if(prescribed.setAside&&asideProgress>0){
-   const p=reduced?1:asideProgress;
-   if(event.kind==='ROLL'&&!record.packed)d.x=d.x*(1-p)+record.side*1.2*p;
-   else if(!record.grouped)d.y-=record.side*(record.packed?.3:.2)*p;
-   d.z=reduced||record.grouped?0:Math.sin(p*Math.PI)*12;
-  }
+  if((reduced||time>=end)&&prescribed.rawFace!==prescribed.face)d.q=blend(d.q,targetQ(prescribed.face,record.bodies[i].yaw),effect);
+  // Set-aside status is presented by the disabled, marked tray die at handoff.
+  // No extra travel or hold after the final value is ready.
  });
  return {dice,asideProgress,effect};
 }
