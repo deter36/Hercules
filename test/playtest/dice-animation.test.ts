@@ -4,7 +4,7 @@ import {makeRoll,sample,topFace,rotate,DURATION,dieSide} from '../../src/playtes
 import {committedRoll} from '../../src/playtest/dice/committed-roll.js';
 import {committedRollEvent} from '../../src/playtest/dice/committed-roll.js';
 import {gameplayLayout} from '../../src/playtest/layout.js';
-import {arenaBounds,viewportDieSide,rerollCells,presentationFrame,rollSettleTime,presentationEnd,MOOD_TURN_SECONDS} from '../../src/playtest/dice/arena.js';
+import {arenaBounds,viewportDieSide,rerollCells,presentationFrame,rollSettleTime,presentationEnd,MOOD_TURN_SECONDS,advancePresentationTime} from '../../src/playtest/dice/arena.js';
 import {HerculesEngine} from '../../src/engine/api.js';
 import {createInitialState} from '../../src/engine/state/create.js';
 import {startLabor,resolveMood} from '../../src/engine/labor/setup.js';
@@ -143,5 +143,15 @@ test('handoff follows the last tip without padded hold, including Mood and set-a
   assert.deepEqual(presentationFrame(record,mood,presentationEnd(record,mood),[],false).dice.map((d:any)=>topFace(d.q)),mood.dice.map(d=>d.face));
   assert.equal(presentationEnd(record,mood,true),0);
   assert.deepEqual(presentationFrame(record,mood,0,[],true).dice.map((d:any)=>topFace(d.q)),mood.dice.map(d=>d.face));
+ }
+});
+
+
+test('Fast mode preserves the full Mood turn while unchanged rolls gain no wait',()=>{
+ for(const fast of [false,true]){
+  let time=0,wall=0,turnStart=0;
+  while(time<2+MOOD_TURN_SECONDS){const previous=time;time=advancePresentationTime(time,.01,2,2+MOOD_TURN_SECONDS,fast);wall+=.01;if(previous<2&&time>=2)turnStart=wall;}
+  assert(Math.abs(wall-turnStart-MOOD_TURN_SECONDS)<.011);
+  assert.equal(advancePresentationTime(1.99,.05,2,2,fast),2);
  }
 });

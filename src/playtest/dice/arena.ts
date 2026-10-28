@@ -23,7 +23,7 @@ export function rerollCells(count:number,arena:Arena,side:number,origins:Record<
 function blend(a:number[],b:number[],t:number){const dot=a.reduce((s,v,i)=>s+v*b[i],0),q=a.map((v,i)=>v*(1-t)+b[i]*t*(dot<0?-1:1)),n=Math.hypot(...q);return q.map(v=>v/n);}
 /** End at the last physical tip, not the trajectory buffer's padded duration. */
 export const rollSettleTime=(record:any)=>Math.min(record.duration,Math.max(...record.bodies.map((d:any)=>d.tipEnd??record.duration)));
-export const MOOD_TURN_SECONDS=.22;
+export const MOOD_TURN_SECONDS=.65;
 export const presentationEnd=(record:any,event:CommittedRollEvent,reduced=false)=>reduced?0:rollSettleTime(record)+(event.dice.some(d=>d.rawFace!==d.face)?MOOD_TURN_SECONDS:0);
 /** Pure frame projection. No outcome RNG, DOM, state mutation or accumulated drift. */
 export function presentationFrame(record:any,event:CommittedRollEvent,time:number,cells:Point[],reduced:boolean){
@@ -37,9 +37,15 @@ export function presentationFrame(record:any,event:CommittedRollEvent,time:numbe
    d.x=cell.x+(d.x-f.x)/record.width*record.side*.25;
    d.y=cell.y+(d.y-f.y)/record.height*record.side*.25;
   }
-  if((reduced||time>=end)&&prescribed.rawFace!==prescribed.face)d.q=blend(d.q,targetQ(prescribed.face,record.bodies[i].yaw),effect);
+  if((reduced||time>=end)&&prescribed.rawFace!==prescribed.face)d.q=blend(d.q,targetQ(prescribed.face,record.bodies[i].yaw),1-Math.pow(1-effect,3));
   // Set-aside status is presented by the disabled, marked tray die at handoff.
   // No extra travel or hold after the final value is ready.
  });
  return {dice,asideProgress,effect};
+}
+
+/** Fast mode shortens the throw, never the readable post-roll face adjustment. */
+export function advancePresentationTime(time:number,dt:number,settle:number,end:number,fast:boolean){
+ const rate=fast?2:1,throwSeconds=Math.min(dt,Math.max(0,settle-time)/rate);
+ return Math.min(end,time+throwSeconds*rate+(dt-throwSeconds));
 }

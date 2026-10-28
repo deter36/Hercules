@@ -13,7 +13,7 @@ import "./playtest.css";
 import "./context.css";
 import "./approved-layout.css";
 import "./dice/pip-die.css";
-import {gameplayLayout} from "./layout.js";
+import {gameplayLayout,gameplayActionCards} from "./layout.js";
 
 const SAVE_KEY = "hercules-12-labors.playtest.save.v1";
 const TRAY_ORDER_KEY = "hercules-12-labors.playtest.tray-order.v1";
@@ -185,7 +185,7 @@ function App() {
     return ((source.face - 1 + command.target + 6) % 6) + 1;
   };
   const pendingCowsFaceCommands = pendingCows?.abilityId === "ability.reward.L05.A.blue" && pendingCows.targetDieId ? view.actions.flatMap(action => action.command.type === "USE_COWS_A" && action.command.sourceDieId === pendingCows.sourceDieId && action.command.targetDieId === pendingCows.targetDieId ? [action.command] : []) : [];
-  const actionCards = view.actionCards.map(card => ({ ...card, slots: card.slots.map(slot => {
+  const actionCards = gameplayActionCards(view.actionCards).map(card => ({ ...card, slots: card.slots.map(slot => {
     const target = card.disabled ? null : interactionTargets.find(candidate => candidate.commands.some(command => abilityIdFor(command) === slot.id)) ?? null;
     const goldPlacement = view.goldPlacements.find(candidate => candidate.abilityId === slot.id);
     const bluePlacement = view.bluePlacements.find(candidate => candidate.abilityId === slot.id);
@@ -199,7 +199,7 @@ function App() {
   const decisionActions = view.actions.filter(action => action.group === "decision");
   const rewardChoice = view.pendingDecision?.type === "CHOOSE_REWARD";
   const selectedDecision = decisionActions.find(action => action.id === selectedDecisionId) ?? null;
-  const moodDecision = activePresentation?.kind === "mood" && view.pendingDecision?.source.kind === "mood" ? view.pendingDecision : null;
+  const moodDecision = activePresentation?.kind === "mood" && (view.pendingDecision?.source.kind === "mood" || view.pendingDecision?.type === "CHOOSE_ZEUS_REDRAW") ? view.pendingDecision : null;
   const resolveAnywayDecision = view.pendingDecision?.type === "CONFIRM_RESOLVE_WITH_UNUSED_MEANINGFUL_PLACEMENT";
   const submitMoodDecision = (command: EngineCommand) => { dismissPresentation(); submit(command); };
   const activePreview = dragPreview ?? snapbackPreview;

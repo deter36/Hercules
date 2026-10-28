@@ -1,7 +1,5 @@
 .pip-die{position:relative;display:block;width:100%;height:100%;min-width:0;min-height:0;overflow:visible!important;line-height:1;pointer-events:none}
 .pip-die>img{display:block;width:100%;height:100%;object-fit:contain;user-select:none;-webkit-user-drag:none}
-.pip-die .pip-state-badge,.pip-die .pip-change-badge{position:absolute;display:grid;place-items:center;bottom:0;right:0;width:10px;height:10px;border-radius:50%;background:#112333;color:#ffe094;font:bold 9px/1 system-ui;border:1px solid #d1b26b;overflow:visible;max-width:none}
-.pip-die .pip-change-badge{right:auto;left:0;color:#d7f3ff;border-color:#79c8ee}
 .pip-die .pip-unknown{position:absolute;inset:24% 20% 27%;display:grid;place-items:center;font:bold 15px/1 system-ui;color:#e9ce8e;max-width:none;overflow:visible}
 .die-tile{position:relative;padding:0;background:transparent;border-color:#496378}
 .die-tile.is-selected{background:#49637566;border-color:#ffe68b;box-shadow:0 0 0 2px #ffe68b}
@@ -11,7 +9,6 @@
 .action-slot .placed-dice>span,.action-slot.gold .placed-dice>span,.labor-pane .attack-bundle-die{background:transparent;padding:0}
 .action-slot .placed-dice>span.derived-die{background:transparent;border:1px dashed #a6d8ef}
 .action-slot.is-occupied{opacity:1}
-.attack-bundle-die .pip-state-badge,.is-compact-occupied .pip-state-badge,.has-bundle .pip-state-badge,.attack-bundle-die .pip-change-badge,.is-compact-occupied .pip-change-badge,.has-bundle .pip-change-badge{width:6px;height:6px;font-size:5px;border-width:.5px}
 .drag-preview>span{background:transparent;padding:0}
 .face-picker button{padding:0;background:#182c3b}
 .labor-pane .attack-bundle-die{width:17px;height:17px;min-width:17px;min-height:17px;flex:0 0 17px}

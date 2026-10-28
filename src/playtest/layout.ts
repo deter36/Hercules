@@ -4,3 +4,6 @@ export function gameplayLayout(laborId: string, count: number) {
   const slots=rows.flatMap((n,row)=>Array.from({length:n},(_,col)=>({row:row+2,column:col*(12/n)+1,span:12/n})));
   return { id:`${laborId}-${rows.join('-')}`, rows, slots, trackRows:`minmax(124px,${count>=9?'1.2':'1.15'}fr) ${rows.map(()=> 'minmax(88px,1fr)').join(' ')}` };
 }
+
+/** Zeus B is owned state with a Mood-reveal decision, not a Hercules die target. */
+export const gameplayActionCards=<T extends {id:string}>(cards:readonly T[]):T[]=>cards.filter(card=>card.id!=='reward.L08.B');
