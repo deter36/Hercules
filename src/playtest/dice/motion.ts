@@ -16,7 +16,8 @@ export function makeRoll(input,width,height,seed=0,fixedSide:number|null=null){
  // Consistent left-side launch in both portrait and landscape.
  const faces=validateFaces(input), horizontal=true, cross=height;
  const side=fixedSide??dieSide(width,height), radius=side*.89;
- if(side>dieSide(width,height)+.001||side<=0)throw Error('Fixed dice size does not fit the available arena');
+ if(side<=0)throw Error('Invalid dice size');
+ const grouped=(height-side*2.77)/faces.length < radius*2;
  const margin=side*.92, bounds={l:margin,r:width-margin,t:side*1.85,b:height-margin};
  if(width<240||height<220)throw Error('Review surface must be at least 240 × 220.');
  if(height<minimumTableHeight(width,faces.length))throw Error('Table needs more vertical room for full-size dice.');
@@ -26,6 +27,17 @@ export function makeRoll(input,width,height,seed=0,fixedSide:number|null=null){
  const slots=Array.from({length:faces.length},(_,i)=>i);for(let i=slots.length-1;i>0;i--){const j=Math.floor(random()*(i+1));[slots[i],slots[j]]=[slots[j],slots[i]];}
  const bodies=faces.map((face,i)=>{const lane=(slots[i]+.5)/faces.length,along=.008+random()*.065;
   return {face,x:bounds.l+(bounds.r-bounds.l)*along,y:bounds.t+(bounds.b-bounds.t)*lane+(random()-.5)*gap*.28,vx:width*(1.13+random()*.15),vy:(random()-.5)*Math.min(gap*.16,width*.15),z:9+random()*12,vz:90+random()*55,q:[0,0,0,1],frames:[],wallHits:0,restitution:.18+random()*.25,delay:random()*.18,spin:1.04+random()*.52,spinX:(random()-.5)*2.4,spinZ:(random()-.5)*2.6,yaw:random()*Math.PI*2};});
+ // A two-column handful uses the actual table area. All bodies begin together;
+ // rear dice can transfer momentum into front dice instead of waiting for an aisle.
+ if(grouped){
+  const rows=Math.ceil(faces.length/2),pitch=side*1.9;
+  const vertical=(bounds.b-bounds.t)/(rows-1);
+  if(vertical<radius*2||bounds.l+pitch>bounds.r)throw Error('Fixed-size handful cannot fit this viewport');
+  bodies.forEach((d,i)=>{const slot=slots[i],row=Math.floor(slot/2),col=slot%2;
+   d.x=bounds.l+side*.04+col*pitch;d.y=bounds.t+row*vertical;
+   d.vx=width*(1.20+random()*.08);d.vy=(random()-.5)*side*.18;
+  });
+ }
  // Fold initial positions into small screens and separate conservatively below.
  let walls=0, pairs=0;
  const clampBody=d=>{for(const [p,v,lo,hi] of [['x','vx',bounds.l,bounds.r],['y','vy',bounds.t,bounds.b]]){if(d[p]<lo||d[p]>hi){d[p]=Math.max(lo,Math.min(hi,d[p]));if((d[p]===lo&&d[v]<0)||(d[p]===hi&&d[v]>0)){d[v]*=-d.restitution;walls++;d.wallHits++;}}}};
@@ -68,6 +80,6 @@ export function makeRoll(input,width,height,seed=0,fixedSide:number|null=null){
   }
   d.tipStart=startIndex*DT;d.tipEnd=d.tipStart+tipDuration;
  }
- return {seed:seed>>>0,faces,width,height,side,radius,bounds,bodies,events:{walls,pairs},duration:DURATION};
+ return {seed:seed>>>0,faces,width,height,side,radius,bounds,bodies,events:{walls,pairs},duration:DURATION,packed:grouped,grouped};
 }
 export function sample(roll,t){const s=Math.max(0,Math.min(DURATION,t))/DT,k=Math.min(roll.bodies[0].frames.length-2,Math.floor(s)),f=Math.min(1,s-k);return roll.bodies.map(d=>{const a=d.frames[k],b=d.frames[k+1];let q=a.q.map((v,i)=>v+(b.q[i]-v)*f);const n=Math.hypot(...q);q=q.map(v=>v/n);return {face:d.face,x:a.x+(b.x-a.x)*f,y:a.y+(b.y-a.y)*f,z:a.z+(b.z-a.z)*f,q};});}

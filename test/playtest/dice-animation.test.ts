@@ -60,22 +60,27 @@ test('authored row families place every action once without overlapping cells',(
 
 test('bounded arena and local rerolls keep prescribed results and separated projected geometry through every effect',()=>{
  for(const [w,h] of [[390,844],[375,667],[430,932],[360,640]])for(let count=1;count<=11;count++)for(let seed=0;seed<6;seed++){
-  const arena=arenaBounds(w,h,104),faces=Array.from({length:count},(_,i)=>(i+seed)%6+1),record=makeRoll(faces,arena.width,arena.height,seed,viewportDieSide(w,h));
+  const arena=arenaBounds(w,h,104),faces=Array.from({length:count},(_,i)=>(i+seed)%6+1),record=makeRoll(faces,arena.width,arena.height,seed);
+  record.side=viewportDieSide(w,h);record.radius=record.side*.89;
   assert.equal(record.side,viewportDieSide(w,h));assert(arena.top>104);assert(arena.top+arena.height<=h-84);
   const dice=faces.map((rawFace,i)=>({id:`H${i+1}`,rawFace,face:seed%2?Math.min(6,rawFace+1):rawFace,setAside:seed%2===0&&rawFace===1}));
   const origins=Object.fromEntries(dice.map((d,i)=>[d.id,{x:50+(i%6)*38,y:h-80+Math.floor(i/6)*38}]));
   const cells=rerollCells(count,arena,record.side,origins,dice.map(d=>d.id));
   for(const kind of ['ROLL','REROLL'] as const)for(const reduced of [false,true]){
+   if(kind==='ROLL')Object.assign(record,makeRoll(faces,w,arena.height,seed,record.side));
+   else {const side=record.side;Object.assign(record,makeRoll(faces,w,arena.height,seed));record.packed=false;record.side=side;record.radius=side*.89;}
    const event={eventId:'fixture',kind,dice,moodId:null};
-   for(let t=0;t<=5;t+=.07){
+   for(let t=0;t<=record.duration+1.7;t+=.07){
     const result=presentationFrame(record,event,t,cells,reduced).dice;
     for(let i=0;i<count;i++){
-     const d=result[i],half=record.side/2,corners=[];for(const x of [-half,half])for(const y of [-half,half])for(const z of [-half,half])corners.push(rotate(d.q,[x,y,z]));const center=d.z+Math.max(...corners.map(v=>-v[2]));
+     const d=result[i];if(d.visible===false)continue;const half=record.side/2,corners=[];for(const x of [-half,half])for(const y of [-half,half])for(const z of [-half,half])corners.push(rotate(d.q,[x,y,z]));const center=d.z+Math.max(...corners.map(v=>-v[2]));
      for(const v of corners){assert(d.x+v[0]>=0&&d.x+v[0]<=arena.width);const py=d.y+v[1]*.94-(v[2]+center)*.32;assert(py>=0&&py<=arena.height,`arena bounds ${w} ${h} ${count} ${kind} ${t}`);}
-     for(let j=i+1;j<count;j++)assert(Math.hypot(d.x-result[j].x,d.y-result[j].y)>=record.radius*2-.01,`pair separation ${kind}`);
+     for(let j=i+1;j<count;j++)if(result[j].visible!==false)assert(Math.hypot(d.x-result[j].x,d.y-result[j].y)>=record.radius*2-.01,`pair separation ${kind} ${w}x${h} n${count} seed${seed} t${t} reduced${reduced} pair${i}/${j}`);
     }
    }
-   assert.deepEqual(presentationFrame(record,event,5,cells,reduced).dice.map((d:any)=>topFace(d.q)),dice.map(d=>d.face));
+   const settled=presentationFrame(record,event,record.duration+1.7,cells,reduced).dice;
+   assert(settled.every((d:any)=>d.visible!==false));
+   assert.deepEqual(settled.map((d:any)=>topFace(d.q)),dice.map(d=>d.face));
    assert.deepEqual(presentationFrame(record,event,1,cells,reduced),presentationFrame(record,event,1,cells,reduced));
   }
  }
@@ -105,9 +110,23 @@ test('multi-target Hippolyta rerolls retain committed set-aside flags and stable
 
 test('animated die size is independent of count and Forecast content; reduced motion has no tumble',()=>{
  for(const [w,h] of [[360,640],[375,667],[390,844],[430,932]])for(const bottom of [104,118])for(let count=1;count<=11;count++){
-  const arena=arenaBounds(w,h,bottom),side=viewportDieSide(w,h),faces=Array.from({length:count},(_,i)=>i%6+1),record=makeRoll(faces,w,arena.height,51,side);
-  assert.equal(record.side,side);
+  const arena=arenaBounds(w,h,bottom),side=viewportDieSide(w,h),faces=Array.from({length:count},(_,i)=>i%6+1),record=makeRoll(faces,w,arena.height,51);
+  assert.equal(side,2*Math.min(32,w/10,(h-224)/23.5));
+  record.side=side;
   const event={eventId:'test',kind:'ROLL' as const,moodId:null,dice:faces.map((face,i)=>({id:`H${i+1}`,rawFace:face,face,setAside:false}))};
   assert.deepEqual(presentationFrame(record,event,0,[],true).dice,presentationFrame(record,event,3.5,[],true).dice);
+ }
+});
+
+
+
+test('doubled handful launches together with deterministic contacts and prescribed outcomes',()=>{
+ for(const [w,h] of [[360,640],[390,844],[430,932]])for(let count=1;count<=11;count++)for(let seed=0;seed<12;seed++){
+  const side=viewportDieSide(w,h),a=makeRoll(Array(count).fill(1),w,h-208,seed,side),b=makeRoll(Array(count).fill(6),w,h-208,seed,side);
+  assert.equal(a.side,side);assert.equal(a.duration,3.6);assert(a.bodies.every((d:any)=>d.delay<=.18));
+  assert(a.events.walls>0);assert.deepEqual(a,makeRoll(Array(count).fill(1),w,h-208,seed,side));
+  for(let i=0;i<count;i++)assert.deepEqual(a.bodies[i].frames.map((f:any)=>[f.x,f.y,f.z]),b.bodies[i].frames.map((f:any)=>[f.x,f.y,f.z]));
+  for(let t=0;t<a.duration;t+=1/120){const dice=sample(a,t);for(let i=0;i<dice.length;i++)for(let j=i+1;j<dice.length;j++)assert(Math.hypot(dice[i].x-dice[j].x,dice[i].y-dice[j].y)>=side*1.78-.02,`contact ${w} ${count} ${seed} ${t}`);}
+  const final=sample(a,a.duration);assert.equal(final.length,count);assert(final.every((d:any)=>topFace(d.q)===1));
  }
 });

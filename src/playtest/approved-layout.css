@@ -23,3 +23,8 @@
 @media(max-width:360px){.dice-tray{grid-template-columns:repeat(5,34px);grid-template-rows:repeat(3,34px);height:110px;gap:3px}.bottom-rail{height:116px;padding:0}.game-message{bottom:114px}.resources span{min-width:31px}.status-strip{gap:2px}.labor-status b{font-size:11px}}
 
 .action-slot.is-selected{outline:2px solid #ffe08a;outline-offset:2px}
+
+/* Effects remain visible, including while their placement is occupied. */
+.card-name{min-height:14px;padding:0;font-size:11px;line-height:14px}
+.reward-effect{font-size:11px;line-height:12px;text-align:center;color:#fff0c7;overflow-wrap:normal;flex-shrink:0}
+.action-grid .action-card{gap:2px}

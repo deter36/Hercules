@@ -27,21 +27,23 @@ export function marble(p){const [x,y,z]=p,warp=Math.sin(x*3.1+y*2.4-z*2.8)*.7;re
 let textures;
 function getTextures(){if(textures)return textures;textures=FACE_FRAMES.map(f=>{const canvas=document.createElement('canvas');canvas.width=canvas.height=96;const context=canvas.getContext('2d'),im=context.createImageData(96,96);for(let y=0;y<96;y++)for(let x=0;x<96;x++){const v=marble(local(f,(x/95*2-1)*c,(y/95*2-1)*c)),i=(y*96+x)*4;im.data[i]=7+v*13;im.data[i+1]=28+v*37;im.data[i+2]=53+v*40;im.data[i+3]=255;}context.putImageData(im,0,0);return canvas;});return textures;}
 function polygon(ctx,points,fill,seam=false){ctx.beginPath();points.forEach((p,i)=>i?ctx.lineTo(...p):ctx.moveTo(...p));ctx.closePath();ctx.fillStyle=fill;ctx.fill();if(seam){ctx.strokeStyle=fill;ctx.lineWidth=.55;ctx.lineJoin='round';ctx.stroke();}}
-export function renderDice(ctx,roll,ds){const h=roll.side/2,textures=getTextures();
+export function renderDice(ctx,roll,ds){ds=ds.filter(d=>d.visible!==false);const h=roll.side/2,textures=getTextures();
  const project=(d,v)=>[d.x+v[0]*h,d.y+v[1]*h*.94-(v[2]*h+d.center)*.32];
  for(const d of ds){const r0=rotate(d.q,[1,0,0]),r1=rotate(d.q,[0,1,0]),r2=rotate(d.q,[0,0,1]);d.rot=p=>r0.map((v,k)=>v*p[0]+r1[k]*p[1]+r2[k]*p[2]);
   const support=h*(c*(Math.abs(r0[2])+Math.abs(r1[2])+Math.abs(r2[2]))+BEVEL);d.center=support+d.z;
-  ctx.save();ctx.filter=`blur(${4+d.z*.18}px)`;ctx.fillStyle=`rgba(0,0,0,${.48/(1+d.z/80)})`;ctx.beginPath();ctx.ellipse(d.x+5,d.y+6,h*(1.08+d.z/180),h*.72,0,0,Math.PI*2);ctx.fill();ctx.restore();
+  ctx.save();ctx.globalAlpha=d.alpha??1;ctx.filter=`blur(${4+d.z*.18}px)`;ctx.fillStyle=`rgba(0,0,0,${.48/(1+d.z/80)})`;ctx.beginPath();ctx.ellipse(d.x+5,d.y+6,h*(1.08+d.z/180),h*.72,0,0,Math.PI*2);ctx.fill();ctx.restore();
  }
  const patches=[];for(const d of ds)for(const m of MESH){const n=d.rot(m.normal);if(n[2]+.34*n[1]<=0)continue;const center=d.rot(m.center);patches.push({d,m,n,points:m.points.map(p=>project(d,d.rot(p))),depth:d.y*.34+d.center+h*(center[2]+center[1]*.34)});}
  patches.sort((a,b)=>a.depth-b.depth);
- for(const {d,m,n,points} of patches){const light=Math.max(0,-n[0]*.35-n[1]*.45+n[2]*.82),sheen=Math.pow(Math.max(0,-n[0]*.24-n[1]*.10+n[2]*.96),22),v=marble(m.center),bright=.48+.65*light;
+ for(const {d,m,n,points} of patches){ctx.globalAlpha=d.alpha??1;const light=Math.max(0,-n[0]*.35-n[1]*.45+n[2]*.82),sheen=Math.pow(Math.max(0,-n[0]*.24-n[1]*.10+n[2]*.96),22),v=marble(m.center),bright=.48+.65*light;
   const color=`rgb(${(7+v*13)*bright+sheen*32} ${(28+v*37)*bright+sheen*40} ${(53+v*40)*bright+sheen*42})`;
   polygon(ctx,points,color,true);
   if(!m.flat)continue;
   ctx.save();ctx.beginPath();points.forEach((p,i)=>i?ctx.lineTo(...p):ctx.moveTo(...p));ctx.closePath();ctx.clip();const a=points[0],b=points[1],e=points[3];ctx.transform((b[0]-a[0])/96,(b[1]-a[1])/96,(e[0]-a[0])/96,(e[1]-a[1])/96,a[0],a[1]);ctx.drawImage(textures[m.face.value-1],0,0);ctx.fillStyle=`rgba(0,8,22,${Math.max(0,1-bright)})`;ctx.fillRect(0,0,96,96);const gloss=ctx.createLinearGradient(0,0,96,96);gloss.addColorStop(0,`rgba(134,193,212,${.04+sheen*.19})`);gloss.addColorStop(.55,'rgba(66,111,141,0)');gloss.addColorStop(1,'rgba(0,9,25,.10)');ctx.fillStyle=gloss;ctx.fillRect(0,0,96,96);ctx.restore();
+  if(d.blank)continue;
   for(const [u,v] of PIPS[m.face.value]){const ring=(radius,offset=0)=>Array.from({length:24},(_,i)=>{const a=i/24*Math.PI*2;return project(d,d.rot(local(m.face,u+Math.cos(a)*radius,v+Math.sin(a)*radius+offset,1.001)));});
    polygon(ctx,ring(.229218),'#071525');const inner=ring(.188232),center=project(d,d.rot(local(m.face,u,v,1.002))),g=ctx.createLinearGradient(center[0]-h*.12144,center[1]-h*.18216,center[0]+h*.12144,center[1]+h*.18216);g.addColorStop(0,'#97651e');g.addColorStop(.38,'#c99538');g.addColorStop(.8,'#e4ba61');g.addColorStop(1,'#f3d28a');polygon(ctx,inner,g);
   }
  }
+ ctx.globalAlpha=1;
 }
