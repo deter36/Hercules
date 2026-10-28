@@ -1,3 +1,6 @@
+import { RollAnimation, type RollPresentation } from './dice/RollAnimation.js';
+import { committedRollEvent } from './dice/committed-roll.js';
+import './dice/integrated.css';
 import { useEffect, useMemo, useRef, useState, type CSSProperties, type DragEvent, type PointerEvent } from "react";
 import { HerculesEngine, type LegalTarget } from "../engine/api.js";
 import type { EngineCommand } from "../engine/commands/types.js";
@@ -5,6 +8,8 @@ import type { Difficulty, GameState } from "../engine/state/types.js";
 import { moodPresentation, presentationEventsFromTransitions, type GameplayPresentation } from "./presentation.js";
 import "./playtest.css";
 import "./context.css";
+import "./approved-layout.css";
+import {gameplayLayout} from "./layout.js";
 
 const SAVE_KEY = "hercules-12-labors.playtest.save.v1";
 const TRAY_ORDER_KEY = "hercules-12-labors.playtest.tray-order.v1";
@@ -47,167 +52,10 @@ const moodCompact = (id: string | null): string => ({
 }[id ?? ""] ?? "—");
 type DragPreview = { pieceIds: string[]; x: number; y: number };
 type SnapbackPreview = DragPreview & { originX: number; originY: number; returning: boolean; startScale: number };
-type PendingCows = { abilityId: "ability.reward.L05.A.blue" | "ability.reward.L05.B.blue"; sourceDieId: string; targetDieId?: string };
+type PendingCows = { abilityId: "ability.reward.L05.A.blue" | "ability.reward.L05.B.blue"; sourceDieId: string; targetDieId?: string; rerollDieIds?:string[] };
 
-function Die({ id, face, selected, targetable, disabled, draggable, state, dragging, onSelect, onDragStart, onDragOver, onDrop, onPointerDown, onPointerMove, onPointerUp, onPointerCancel }: { id: string; face: number | null; selected: boolean; targetable: boolean; disabled: boolean; draggable: boolean; state: string; dragging: boolean; onSelect: () => void; onDragStart: (event: DragEvent<HTMLButtonElement>) => void; onDragOver: (event: DragEvent<HTMLButtonElement>) => void; onDrop: (event: DragEvent<HTMLButtonElement>) => void; onPointerDown: (event: PointerEvent<HTMLButtonElement>) => void; onPointerMove: (event: PointerEvent<HTMLButtonElement>) => void; onPointerUp: (event: PointerEvent<HTMLButtonElement>) => void; onPointerCancel: () => void }) {
-  return <button data-tray-die={id} className={`die-tile ${selected ? "is-selected" : ""} ${targetable ? "is-targetable" : ""} ${dragging ? "is-dragging" : ""} ${disabled ? "is-disabled" : ""}`} style={{ touchAction: draggable ? "none" : "manipulation", userSelect: "none", opacity: dragging ? 0.68 : undefined, transform: dragging ? "scale(1.07)" : undefined }} disabled={disabled} draggable={draggable && !disabled} onClick={onSelect} onDragStart={onDragStart} onDragOver={onDragOver} onDrop={onDrop} onPointerDown={onPointerDown} onPointerMove={onPointerMove} onPointerUp={onPointerUp} onPointerCancel={onPointerCancel} aria-label={`${dieLabel(id)}, ${face ?? "unrolled"}, ${state}`}><strong>{face ?? "—"}</strong></button>;
-}
-
-function RollPreview({ run, onComplete }: { run: number; onComplete: () => void }) {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const completeRef = useRef(onComplete);
-  useEffect(() => { completeRef.current = onComplete; }, [onComplete]);
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const context = canvas.getContext("2d");
-    if (!context) return;
-    let frame = 0;
-    const startedAt = performance.now();
-    const duration = 3000;
-    const pipLayout: Record<number, [number, number][]> = {
-      1: [[.5, .5]], 2: [[.25, .25], [.75, .75]], 3: [[.25, .25], [.5, .5], [.75, .75]],
-      4: [[.25, .25], [.75, .25], [.25, .75], [.75, .75]], 5: [[.25, .25], [.75, .25], [.5, .5], [.25, .75], [.75, .75]],
-      6: [[.25, .22], [.75, .22], [.25, .5], [.75, .5], [.25, .78], [.75, .78]]
-    };
-    const finalRotation: Record<number, [number, number]> = { 1: [-.11, .14], 2: [-Math.PI / 2 + .11, .14], 3: [-.11, -Math.PI / 2 + .14], 4: [-.11, Math.PI / 2 + .14], 5: [Math.PI / 2 - .11, .14], 6: [-.11, Math.PI + .14] };
-    const ease = (value: number) => 1 - Math.pow(1 - Math.min(1, Math.max(0, value)), 3);
-    const mix = (from: number, to: number, amount: number) => from + (to - from) * amount;
-    const rotate = (point: [number, number, number], xAngle: number, yAngle: number, zAngle: number): [number, number, number] => {
-      const [x, y, z] = point;
-      const cy = Math.cos(yAngle), sy = Math.sin(yAngle), cx = Math.cos(xAngle), sx = Math.sin(xAngle), cz = Math.cos(zAngle), sz = Math.sin(zAngle);
-      const yRotated = x * sy + z * cy;
-      const xRotated = x * cy - z * sy;
-      const zRotated = y * sx + yRotated * cx;
-      const yRotatedAgain = y * cx - yRotated * sx;
-      return [xRotated * cz - yRotatedAgain * sz, xRotated * sz + yRotatedAgain * cz, zRotated];
-    };
-    const resize = () => {
-      const scale = window.devicePixelRatio || 1;
-      canvas.width = Math.round(window.innerWidth * scale);
-      canvas.height = Math.round(window.innerHeight * scale);
-      canvas.style.width = `${window.innerWidth}px`;
-      canvas.style.height = `${window.innerHeight}px`;
-      context.setTransform(scale, 0, 0, scale, 0, 0);
-    };
-    const drawCube = (centerX: number, centerY: number, side: number, angles: [number, number, number], face: number, opacity: number) => {
-      const half = side / 2;
-      const base: [number, number, number][] = [[-half, -half, -half], [half, -half, -half], [half, half, -half], [-half, half, -half], [-half, -half, half], [half, -half, half], [half, half, half], [-half, half, half]];
-      const transformed = base.map(point => rotate(point, ...angles));
-      const project = (point: [number, number, number]): [number, number] => {
-        const scale = 285 / (285 - point[2]);
-        return [centerX + point[0] * scale, centerY + point[1] * scale];
-      };
-      const faces = [
-        { value: 1, indices: [4, 5, 6, 7] }, { value: 6, indices: [1, 0, 3, 2] }, { value: 3, indices: [5, 1, 2, 6] },
-        { value: 4, indices: [0, 4, 7, 3] }, { value: 2, indices: [7, 6, 2, 3] }, { value: 5, indices: [0, 1, 5, 4] }
-      ].map(candidate => ({ ...candidate, corners: candidate.indices.map(index => project(transformed[index])), depth: candidate.indices.reduce((total, index) => total + transformed[index][2], 0) / 4 })).sort((left, right) => left.depth - right.depth);
-      context.save();
-      context.globalAlpha = opacity;
-      context.fillStyle = "#02070a88";
-      context.beginPath();
-      context.ellipse(centerX + side * .13, centerY + side * .57, side * .54, side * .16, -.16, 0, Math.PI * 2);
-      context.fill();
-      faces.forEach(candidate => {
-        if (candidate.depth < -side * .28) return;
-        const light = Math.round(37 + Math.max(-1, Math.min(1, candidate.depth / half)) * 18);
-        const gradient = context.createLinearGradient(candidate.corners[0][0], candidate.corners[0][1], candidate.corners[2][0], candidate.corners[2][1]);
-        gradient.addColorStop(0, `hsl(198 75% ${light + 12}%)`);
-        gradient.addColorStop(1, `hsl(202 76% ${light - 9}%)`);
-        context.beginPath();
-        candidate.corners.forEach(([x, y], index) => index ? context.lineTo(x, y) : context.moveTo(x, y));
-        context.closePath();
-        context.fillStyle = gradient;
-        context.fill();
-        context.lineWidth = 1.4;
-        context.strokeStyle = "#b5f0ffcc";
-        context.stroke();
-        if (candidate.value === face || candidate.depth > side * .04) pipLayout[candidate.value].forEach(([u, v]) => {
-          const top = [mix(candidate.corners[0][0], candidate.corners[1][0], u), mix(candidate.corners[0][1], candidate.corners[1][1], u)] as [number, number];
-          const bottom = [mix(candidate.corners[3][0], candidate.corners[2][0], u), mix(candidate.corners[3][1], candidate.corners[2][1], u)] as [number, number];
-          const [x, y] = [mix(top[0], bottom[0], v), mix(top[1], bottom[1], v)];
-          // Pips are recesses, not white beads applied over the surface.
-          // A subtle lit rim on the upper edge and a dark interior give the
-          // temporary canvas die a visibly cut-in pip without needing WebGL.
-          const radius = Math.max(3.3, side * .065);
-          const inset = context.createRadialGradient(x - radius * .34, y - radius * .34, radius * .08, x, y, radius);
-          inset.addColorStop(0, "#04131c");
-          inset.addColorStop(.62, "#082b3a");
-          inset.addColorStop(.82, "#174a5d");
-          inset.addColorStop(1, "#8ed7e8");
-          context.beginPath();
-          context.arc(x, y, radius, 0, Math.PI * 2);
-          context.fillStyle = inset;
-          context.fill();
-          context.lineWidth = .65;
-          context.strokeStyle = "#021018aa";
-          context.stroke();
-        });
-      });
-      context.restore();
-    };
-    const render = (now: number) => {
-      const progress = Math.min(1, (now - startedAt) / duration);
-      context.clearRect(0, 0, window.innerWidth, window.innerHeight);
-      const dieDefinitions = [
-        { face: 2, start: [.14, .70], velocity: [1.72, -1.16], tray: [.29, .91] },
-        { face: 5, start: [.78, .17], velocity: [-1.44, 1.28], tray: [.51, .91] },
-        { face: 6, start: [.48, .20], velocity: [.96, 1.52], tray: [.71, .91] }
-      ];
-      const settleSeconds = 2.16;
-      const fixedStep = 1 / 120;
-      type PhysicsState = { x: number; y: number; vx: number; vy: number; rx: number; ry: number; rz: number };
-      const runPhysics = (die: typeof dieDefinitions[number], seconds: number, startRotation: [number, number, number] = [0, 0, 0]): PhysicsState => {
-        const radius = 47;
-        const state: PhysicsState = {
-          x: die.start[0] * window.innerWidth,
-          y: die.start[1] * window.innerHeight,
-          vx: die.velocity[0] * window.innerWidth,
-          vy: die.velocity[1] * window.innerHeight,
-          rx: startRotation[0], ry: startRotation[1], rz: startRotation[2]
-        };
-        let remaining = Math.min(seconds, settleSeconds);
-        while (remaining > 0) {
-          const step = Math.min(fixedStep, remaining);
-          state.x += state.vx * step;
-          state.y += state.vy * step;
-          // Screen edges are the table rails: rebound changes the direction
-          // of both travel and the corresponding roll, never a scripted turn.
-          if (state.x < radius || state.x > window.innerWidth - radius) { state.x = Math.max(radius, Math.min(window.innerWidth - radius, state.x)); state.vx *= -.69; state.vy *= .92; }
-          if (state.y < radius || state.y > window.innerHeight - radius) { state.y = Math.max(radius, Math.min(window.innerHeight - radius, state.y)); state.vy *= -.69; state.vx *= .92; }
-          // A cube rolling across a table rotates around the axis perpendicular
-          // to its travel.  There is no separate spin track to correct later.
-          state.rx -= state.vy * step / 58;
-          state.ry += state.vx * step / 58;
-          state.rz += (state.vx - state.vy) * step / 920;
-          const drag = Math.pow(.18, step / settleSeconds);
-          state.vx *= drag;
-          state.vy *= drag;
-          remaining -= step;
-        }
-        return state;
-      };
-      dieDefinitions.forEach(die => {
-        const [finalX, finalY] = finalRotation[die.face];
-        // Work backward from the certified final face.  The physics itself
-        // supplies all rotation; this initial orientation simply guarantees
-        // it ends on the engine's result rather than visibly correcting later.
-        const accumulated = runPhysics(die, settleSeconds);
-        const state = runPhysics(die, progress * duration, [finalX - accumulated.rx, finalY - accumulated.ry, -accumulated.rz]);
-        const trayProgress = ease((progress - .80) / .20);
-        const settled = progress >= settleSeconds / duration;
-        const x = settled ? mix(state.x, die.tray[0] * window.innerWidth, trayProgress) : state.x;
-        const y = settled ? mix(state.y, die.tray[1] * window.innerHeight, trayProgress) : state.y;
-        drawCube(x, y, mix(72, 38, trayProgress), [state.rx, state.ry, state.rz], die.face, 1 - trayProgress);
-      });
-      if (progress < 1) frame = window.requestAnimationFrame(render); else completeRef.current();
-    };
-    resize();
-    window.addEventListener("resize", resize);
-    frame = window.requestAnimationFrame(render);
-    return () => { window.cancelAnimationFrame(frame); window.removeEventListener("resize", resize); };
-  }, [run]);
-  return <canvas ref={canvasRef} className="roll-preview-canvas" aria-hidden="true" />;
+function Die({ rolling, id, face, selected, targetable, disabled, draggable, state, dragging, onSelect, onDragStart, onDragOver, onDrop, onPointerDown, onPointerMove, onPointerUp, onPointerCancel }: { rolling?:boolean; id: string; face: number | null; selected: boolean; targetable: boolean; disabled: boolean; draggable: boolean; state: string; dragging: boolean; onSelect: () => void; onDragStart: (event: DragEvent<HTMLButtonElement>) => void; onDragOver: (event: DragEvent<HTMLButtonElement>) => void; onDrop: (event: DragEvent<HTMLButtonElement>) => void; onPointerDown: (event: PointerEvent<HTMLButtonElement>) => void; onPointerMove: (event: PointerEvent<HTMLButtonElement>) => void; onPointerUp: (event: PointerEvent<HTMLButtonElement>) => void; onPointerCancel: () => void }) {
+  return <button data-tray-die={id} title={state} className={`die-tile ${selected ? "is-selected" : ""} ${targetable ? "is-targetable" : ""} ${dragging ? "is-dragging" : ""} ${disabled ? "is-disabled" : ""}`} style={{ visibility: rolling ? "hidden" : undefined, touchAction: draggable ? "none" : "manipulation", userSelect: "none", opacity: dragging ? 0.68 : undefined, transform: dragging ? "scale(1.07)" : undefined }} disabled={disabled} draggable={draggable && !disabled} onClick={onSelect} onDragStart={onDragStart} onDragOver={onDragOver} onDrop={onDrop} onPointerDown={onPointerDown} onPointerMove={onPointerMove} onPointerUp={onPointerUp} onPointerCancel={onPointerCancel} aria-label={`${dieLabel(id)}, ${face ?? "unrolled"}, ${state}`}><strong>{face ?? "—"}</strong></button>;
 }
 
 function App() {
@@ -241,7 +89,10 @@ function App() {
   const suppressGoldClick = useRef(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [moodDetailsOpen, setMoodDetailsOpen] = useState(false);
-  const [rollPreviewRun, setRollPreviewRun] = useState(0);
+  const [rollAnimation, setRollAnimation] = useState<RollPresentation | null>(null); const rollBusy = useRef(false); const finishRoll = () => { rollBusy.current = false; setRollAnimation(null); };
+  const [reduceRollMotion,setReduceRollMotion] = useState(false);
+  const [rollMode,setRollMode] = useState<"NORMAL"|"FAST"|"INSTANT">("NORMAL");
+  const [cardDetail,setCardDetail] = useState<{name:string;summary:string}|null>(null);
   const [debug, setDebug] = useState(false);
   const model = useMemo(() => HerculesEngine.getGameplayScreenModel(state, selectedIds), [state, selectedIds]);
   const { view } = model;
@@ -266,7 +117,7 @@ function App() {
   const activePresentation = presentationQueue[0] ?? null;
   const targetById = (id: string) => interactionTargets.find(target => target.id === id);
   const dismissPresentation = () => setPresentationQueue(current => current.slice(1));
-  const submit = (command: EngineCommand) => { try { const result = HerculesEngine.submit(state, command); if (command.type === "UNDO_DETERMINISTIC") setPresentationQueue([]); setState(result.state); persistGame(result.state); setPendingCows(null); setSelectedIds([]); setTargetId(null); setEditingAttackIndex(null); setEditingGoldAbilityId(null); } catch { /* The engine owns legality; invalid gestures simply return visually. */ } };
+  const submit = (command: EngineCommand) => { if (rollBusy.current) return; try { const result = HerculesEngine.submit(state, command); let rollEvent=null; try {rollEvent=committedRollEvent(state, command, result.state);} catch(error) {console.error("Presentation handoff failed; committed result retained",error);} if (rollEvent) { const values = new Uint32Array(1); crypto.getRandomValues(values); rollBusy.current = true; const origins=Object.fromEntries(rollEvent.dice.map(d=>{const element=document.querySelector(`[data-tray-die="${d.id}"], [data-piece="${d.id}"]`);const rect=element?.getBoundingClientRect();return [d.id,rect?{x:rect.x+rect.width/2,y:rect.y+rect.height/2}:null];})); setRollAnimation({...rollEvent, seed:values[0],mode:rollMode,reducedMotion:reduceRollMotion,origins}); } if (command.type === "UNDO_DETERMINISTIC") setPresentationQueue([]); setState(result.state); persistGame(result.state); setPendingCows(null); setSelectedIds([]); setTargetId(null); setEditingAttackIndex(null); setEditingGoldAbilityId(null); } catch { /* The engine owns legality; invalid gestures simply return visually. */ } };
   const start = (nextSeed = randomSeed()) => { const next = HerculesEngine.createGame({ difficulty, seed: nextSeed }).state; const nextMood = HerculesEngine.getPlayView(next).mood; setSeed(nextSeed); seenTransitionCount.current = next.transitions.length; setState(next); setTrayOrder(Object.keys(next.herculesDice)); persistGame(next); setPresentationQueue(nextMood.id && nextMood.name ? [moodPresentation(`setup:${nextMood.id}`, nextMood.name, nextMood.effect)] : []); setPendingCows(null); setSelectedDecisionId(null); setSelectedIds([]); setTargetId(null); };
   useEffect(() => { persistGame(state); }, [state]);
   useEffect(() => { setTrayOrder(current => reconcileTrayOrder(current, knownTrayIds)); }, [knownTrayIds.join("|")]);
@@ -293,7 +144,7 @@ function App() {
     if (pendingCows.abilityId === "ability.reward.L05.B.blue" && action.command.type === "USE_COWS_B" && action.command.sourceDieId === pendingCows.sourceDieId) return action.command.rerollDieIds;
     return [];
   }) : []);
-  const chooseCowsTarget = (targetDieId: string) => { if (!pendingCows || !cowsTargetIds.has(targetDieId)) return; if (pendingCows.abilityId === "ability.reward.L05.A.blue") { setPendingCows(current => current ? { ...current, targetDieId } : null); return; } const command = view.actions.find(action => action.command.type === "USE_COWS_B" && action.command.sourceDieId === pendingCows.sourceDieId && action.command.rerollDieIds.length === 1 && action.command.rerollDieIds[0] === targetDieId)?.command; if (command) submit(command); };
+  const chooseCowsTarget = (targetDieId: string) => { if (!pendingCows || !cowsTargetIds.has(targetDieId)) return; if (pendingCows.abilityId === "ability.reward.L05.A.blue") { setPendingCows(current => current ? { ...current, targetDieId } : null); return; } setPendingCows(current=>current?{...current,rerollDieIds:current.rerollDieIds?.includes(targetDieId)?current.rerollDieIds.filter(id=>id!==targetDieId):[...(current.rerollDieIds??[]),targetDieId]}:null); };
   const beginTouchDrag = (event: PointerEvent<HTMLButtonElement>, id: string) => { if (controlMode !== "drag" || event.pointerType !== "touch" || !phaseAllowsSelection) return; const origin = originOf(event.currentTarget); touchGesture.current = { pointerId: event.pointerId, startX: event.clientX, startY: event.clientY, originX: origin.x, originY: origin.y, dieIds: selectedIds.includes(id) && selectedIds.length > 1 ? selectedIds : [id], moved: false }; event.currentTarget.setPointerCapture(event.pointerId); };
   const autoScrollGameplay = (clientY: number) => { const grid = actionGridRef.current; if (!grid) return; const bounds = grid.getBoundingClientRect(); const edge = 70; if (clientY < bounds.top + edge) grid.scrollTop -= Math.ceil((bounds.top + edge - clientY) / 5); else if (clientY > bounds.bottom - edge) grid.scrollTop += Math.ceil((clientY - (bounds.bottom - edge)) / 5); };
   const moveTouchDrag = (event: PointerEvent<HTMLButtonElement>) => { const gesture = touchGesture.current; if (!gesture || gesture.pointerId !== event.pointerId || event.pointerType !== "touch") return; if (!gesture.moved && Math.hypot(event.clientX - gesture.startX, event.clientY - gesture.startY) > 8) { gesture.moved = true; setSelectedIds(gesture.dieIds); setTargetId(null); setTouchDragging(true); } if (gesture.moved) { setDragPreview({ pieceIds: gesture.dieIds, x: event.clientX, y: event.clientY }); autoScrollGameplay(event.clientY); } };
@@ -337,6 +188,8 @@ function App() {
     const placement = goldPlacement ? { kind: "gold" as const, ...goldPlacement } : bluePlacement ? { kind: "blue" as const, ...bluePlacement } : provisionalCowsSource ? { kind: "blue" as const, abilityId: slot.id, dieIds: [provisionalCowsSource], contributionIds: [] } : null;
     return { ...slot, target, placement, provisionalCowsSource };
   }) }));
+  const sharedRequirement = view.labor && view.labor.dice.length>1 && view.labor.dice.every(d=>d.attack===view.labor!.dice[0].attack) ? view.labor.dice[0].attack : null;
+  const layout = gameplayLayout(view.labor?.id ?? "setup", actionCards.length);
   const decisionTitle = view.pendingDecision?.type === "CHOOSE_REWARD" ? "Choose a Reward" : view.pendingDecision?.prompt;
   const decisionActions = view.actions.filter(action => action.group === "decision");
   const rewardChoice = view.pendingDecision?.type === "CHOOSE_REWARD";
@@ -350,14 +203,14 @@ function App() {
     return { id, face: die?.face ?? null };
   }) ?? [];
 
-  return <main className="gameplay-shell">
+  return <><main className="gameplay-shell" inert={!!rollAnimation}>
     <header className="status-strip"><div className="brand"><span>HERCULES</span><b>12 Labors</b></div><div className="resources" aria-label="Resources"><span title="Spirit">♥ <b>{view.player.spirit}</b></span><span title="Divinity">✦ <b>{view.player.divinity}</b></span></div><div className="labor-status"><small>Labor {laborNumeral(view.labor?.id)}</small><b>{view.labor?.name ?? "Preparing"}</b></div><div className="status-actions">{moodStatusVisible && <button className="mood-status" title={moodStatus} aria-label={`Current Mood: ${moodStatus}`} aria-haspopup="dialog" onClick={() => setMoodDetailsOpen(true)}>☾ <span>{moodCompact(view.mood.id)}</span></button>}<button className="menu-button" aria-label="Open game menu" aria-expanded={menuOpen} onClick={() => setMenuOpen(open => !open)}>☰</button></div></header>
     <section className="forecast-strip" aria-live="polite">{model.forecast.entries.map(entry => <span key={entry.id} className={`forecast-${entry.id}`}>{entry.id === "damage" ? "⚔" : entry.id === "heal" ? "✚" : entry.id === "spirit" ? "♥" : entry.id === "divinity" ? "✦" : entry.id === "break" ? "⬢" : entry.id === "defeat" ? "☠" : "↪"}{entry.value !== undefined && <> {entry.value > 0 && (entry.id === "heal" || entry.id === "spirit" || entry.id === "divinity") ? "+" : ""}{entry.value}</>} {entry.label}</span>)}{state.currentLabor?.cannotBlockThisRound && <span className="cannot-block">🛡̸ Cannot Block</span>}</section>
-    {menuOpen && <aside className="game-menu" aria-label="Game menu"><label>Controls<select value={controlMode} onChange={event => { setControlMode(event.target.value as "drag" | "tap"); setSelectedIds([]); setTargetId(null); setEditingAttackIndex(null); setEditingGoldAbilityId(null); }}><option value="drag">Drag dice</option><option value="tap">Tap-select</option></select></label><label>Difficulty<select value={difficulty} onChange={event => setDifficulty(event.target.value as Difficulty)}>{(["human", "hero", "god"] as Difficulty[]).map(value => <option key={value}>{value}</option>)}</select></label><label>Seed<input value={seed} onChange={event => setSeed(event.target.value)} /></label><button onClick={() => start(seed)}>Start this seed</button><button onClick={() => start()}>New random game</button><button onClick={() => { setMenuOpen(false); setRollPreviewRun(run => run + 1); }}>Preview 3D dice roll</button><button onClick={() => download("hercules-diagnostics.json", HerculesEngine.exportDiagnostics(state))}>Export diagnostics</button><button onClick={() => setDebug(value => !value)}>{debug ? "Hide" : "Show"} debug</button></aside>}
-    <section ref={actionGridRef} className="action-grid" aria-label="Action grid">
-      <article className={`labor-tile panes-${view.labor?.dice.length ?? 1}`}><div className="labor-tile-heading"><span>Labor</span></div><div className="labor-panes">{view.labor?.dice.map(die => { const id = `attack:${die.id}`; const legal = active(id); const assigned = state.round.attackAllocations.map((allocation, index) => ({ allocation, index })).filter(({ allocation }) => allocation.targetId === die.id || allocation.targetId === "__all_active_targets__"); return <div key={die.id} data-drop-target={legal ? id : undefined} className={`labor-pane ${legal ? "is-legal" : ""} ${die.status !== "active" ? "is-defeated" : ""}`} onClick={() => { if (controlMode === "tap") chooseLegalTarget(targetById(id)); }} {...tileDropProps(id)}><span>{die.label}</span><b>{die.health}/{die.startingHealth}</b><small>{die.attack}</small><em>Next: {die.upcomingEffects.join(" / ") || "No further effect."}</em>{assigned.length > 0 && <div className="attack-bundles">{assigned.map(({ allocation, index }) => <button key={index} draggable={controlMode === "drag"} className={`attack-bundle ${editingAttackIndex === index ? "is-editing" : ""} ${bundleDragging && editingAttackIndex === index ? "is-dragging" : ""}`} onDragStart={event => { if (controlMode !== "drag") return; event.dataTransfer.setData("application/x-hercules-attack-allocation", String(index)); event.dataTransfer.effectAllowed = "move"; setSelectedIds([]); setTargetId(null); setEditingGoldAbilityId(null); setEditingAttackIndex(index); }} onClick={event => { event.stopPropagation(); if (suppressBundleClick.current || selectedIds.length > 0) return; if (controlMode === "tap") { setSelectedIds([]); setTargetId(null); setEditingGoldAbilityId(null); setEditingAttackIndex(index); } else submit({ type: "REMOVE_ATTACK_ALLOCATION", allocationIndex: index }); }} onPointerDown={event => beginBundleTouchDrag(event, index)} onPointerMove={moveBundleTouchDrag} onPointerUp={endBundleTouchDrag} onPointerCancel={cancelBundleTouchDrag}>{[...allocation.dieIds, ...allocation.contributionIds].map(pieceId => <span key={pieceId} className="attack-bundle-die">{view.dice[pieceId]?.face ?? view.derivedContributions.find(candidate => candidate.id === pieceId)?.face ?? "—"}</span>)}</button>)}</div>}</div>; }) ?? <p>Labor is preparing…</p>}</div></article>
-      {actionCards.map(card => { const cardTarget = card.slots.find(slot => slot.target)?.target ?? null; const cowsSlot = card.slots.find(slot => cowsAbility(slot.id)); const selectedSourceId = selectedIds.length === 1 ? selectedIds[0] : null; const armableCows = !pendingCows && !!cowsSlot && !!selectedSourceId && canArmCows(cowsSlot.id, selectedSourceId); const cowsDropId = !pendingCows && cowsSlot ? `blue:${cowsSlot.id}` : undefined; const dropTargetId = cardTarget?.id ?? cowsDropId; const cardDropProps = dropTargetId ? { onDragOver: (event: DragEvent) => event.preventDefault(), onDrop: (event: DragEvent) => { event.preventDefault(); const sourceId = event.dataTransfer.getData("application/x-hercules-tray-die"); if (cowsSlot && sourceId && canArmCows(cowsSlot.id, sourceId)) { armCows(cowsSlot.id, sourceId); return; } drop(event, cardTarget ?? undefined); }, onClick: () => { if (controlMode === "tap" && cowsSlot && selectedSourceId && armableCows) { armCows(cowsSlot.id, selectedSourceId); return; } if (controlMode === "tap") chooseLegalTarget(cardTarget); } } : {}; return <article key={card.id} data-drop-target={dropTargetId} className={`action-tile action-card ${card.slots.every(slot => slot.color === "blue") ? "blue" : "reward"} ${cardTarget || armableCows ? "is-legal" : ""} ${card.disabled ? "is-card-disabled" : ""}`} aria-label={card.name} {...cardDropProps}>
-        <b>{card.name}</b><small>{card.summary}</small>
+    {menuOpen && <aside className="game-menu" aria-label="Game menu"><label>Controls<select value={controlMode} onChange={event => { setControlMode(event.target.value as "drag" | "tap"); setSelectedIds([]); setTargetId(null); setEditingAttackIndex(null); setEditingGoldAbilityId(null); }}><option value="drag">Drag dice</option><option value="tap">Tap-select</option></select></label><label><input type="checkbox" checked={reduceRollMotion} onChange={e=>setReduceRollMotion(e.target.checked)}/>Reduce roll motion</label><label>Roll presentation<select value={rollMode} onChange={e=>setRollMode(e.target.value as typeof rollMode)}><option value="NORMAL">Normal</option><option value="FAST">Fast</option><option value="INSTANT">Instant</option></select></label><label>Difficulty<select value={difficulty} onChange={event => setDifficulty(event.target.value as Difficulty)}>{(["human", "hero", "god"] as Difficulty[]).map(value => <option key={value}>{value}</option>)}</select></label><label>Seed<input value={seed} onChange={event => setSeed(event.target.value)} /></label><button onClick={() => start(seed)}>Start this seed</button><button onClick={() => start()}>New random game</button><button onClick={() => download("hercules-diagnostics.json", HerculesEngine.exportDiagnostics(state))}>Export diagnostics</button><button onClick={() => setDebug(value => !value)}>{debug ? "Hide" : "Show"} debug</button></aside>}
+    <section ref={actionGridRef} className="action-grid" data-layout={layout.id} style={{"--layout-rows":layout.trackRows} as CSSProperties} aria-label="Action grid">
+      <article className={`labor-tile panes-${view.labor?.dice.length ?? 1} ${sharedRequirement?"has-shared-requirement":""}`}><div className="labor-tile-heading"><span>Labor</span></div>{sharedRequirement&&<div className="shared-requirement">{sharedRequirement}</div>}<div className="labor-panes">{view.labor?.dice.map(die => { const id = `attack:${die.id}`; const legal = active(id); const assigned = state.round.attackAllocations.map((allocation, index) => ({ allocation, index })).filter(({ allocation }) => allocation.targetId === die.id || allocation.targetId === "__all_active_targets__"); return <div key={die.id} data-drop-target={legal ? id : undefined} className={`labor-pane ${legal ? "is-legal" : ""} ${die.status !== "active" ? "is-defeated" : ""}`} onClick={() => { if (controlMode === "tap") chooseLegalTarget(targetById(id)); }} {...tileDropProps(id)}><span>{die.label}</span><b>{die.health}/{die.startingHealth}</b>{!sharedRequirement&&<small>{die.attack}</small>}<em>Next: {die.upcomingEffects.join(" / ") || "No further effect."}</em>{assigned.length > 0 && <div className="attack-bundles">{assigned.map(({ allocation, index }) => <button key={index} draggable={controlMode === "drag"} className={`attack-bundle ${editingAttackIndex === index ? "is-editing" : ""} ${bundleDragging && editingAttackIndex === index ? "is-dragging" : ""}`} onDragStart={event => { if (controlMode !== "drag") return; event.dataTransfer.setData("application/x-hercules-attack-allocation", String(index)); event.dataTransfer.effectAllowed = "move"; setSelectedIds([]); setTargetId(null); setEditingGoldAbilityId(null); setEditingAttackIndex(index); }} onClick={event => { event.stopPropagation(); if (suppressBundleClick.current || selectedIds.length > 0) return; if (controlMode === "tap") { setSelectedIds([]); setTargetId(null); setEditingGoldAbilityId(null); setEditingAttackIndex(index); } else submit({ type: "REMOVE_ATTACK_ALLOCATION", allocationIndex: index }); }} onPointerDown={event => beginBundleTouchDrag(event, index)} onPointerMove={moveBundleTouchDrag} onPointerUp={endBundleTouchDrag} onPointerCancel={cancelBundleTouchDrag}>{[...allocation.dieIds, ...allocation.contributionIds].map(pieceId => <span key={pieceId} data-piece={pieceId} className="attack-bundle-die">{view.dice[pieceId]?.face ?? view.derivedContributions.find(candidate => candidate.id === pieceId)?.face ?? "—"}</span>)}</button>)}</div>}</div>; }) ?? <p>Labor is preparing…</p>}</div></article>
+      {actionCards.map((card,cardIndex) => { const cardTarget = card.slots.find(slot => slot.target)?.target ?? null; const cowsSlot = card.slots.find(slot => cowsAbility(slot.id)); const selectedSourceId = selectedIds.length === 1 ? selectedIds[0] : null; const armableCows = !pendingCows && !!cowsSlot && !!selectedSourceId && canArmCows(cowsSlot.id, selectedSourceId); const cowsDropId = !pendingCows && cowsSlot ? `blue:${cowsSlot.id}` : undefined; const dropTargetId = cardTarget?.id ?? cowsDropId; const cardDropProps = dropTargetId ? { onDragOver: (event: DragEvent) => event.preventDefault(), onDrop: (event: DragEvent) => { event.preventDefault(); const sourceId = event.dataTransfer.getData("application/x-hercules-tray-die"); if (cowsSlot && sourceId && canArmCows(cowsSlot.id, sourceId)) { armCows(cowsSlot.id, sourceId); return; } drop(event, cardTarget ?? undefined); }, onClick: () => { if (controlMode === "tap" && cowsSlot && selectedSourceId && armableCows) { armCows(cowsSlot.id, selectedSourceId); return; } if (controlMode === "tap") chooseLegalTarget(cardTarget); } } : {}; return <article key={card.id} data-temporary={card.temporary || undefined} style={{gridRow:layout.slots[cardIndex].row,gridColumn:`${layout.slots[cardIndex].column} / span ${layout.slots[cardIndex].span}`}} data-drop-target={dropTargetId} className={`action-tile action-card ${card.slots.every(slot => slot.color === "blue") ? "blue" : "reward"} ${cardTarget || armableCows ? "is-legal" : ""} ${card.disabled ? "is-card-disabled" : ""}`} aria-label={card.name} {...cardDropProps}>
+        <button className="card-name" aria-label={`Inspect ${card.name}`} onClick={event=>{event.stopPropagation();setCardDetail({name:card.name,summary:card.summary});}}>{card.name}</button>
         <div className="action-slots" aria-label={`${card.name} ability slots`}>{card.slots.map(slot => {
           const placement = slot.placement;
           const goldPlacement = placement?.kind === "gold";
@@ -365,17 +218,19 @@ function App() {
           const placedIds = placement ? [...placement.dieIds, ...(goldPlacement ? placement.contributionIds : []), ...(placement.kind === "blue" ? parkedCopyIdsByAbility.get(placement.abilityId) ?? [] : [])] : [];
           const compactOccupied = !!placement && card.slots.some(other => other.id !== slot.id && other.color === slot.color && !other.placement);
           const targetableCowsDie = placement?.kind === "blue" && placedIds.length === 1 && cowsTargetIds.has(placedIds[0]);
-          return <button key={slot.id} style={placedIds.length > 1 ? { "--placed-die-count": placedIds.length } as CSSProperties : undefined} className={`action-slot ${slot.color} ${placement ? "is-occupied" : ""} ${targetableCowsDie ? "is-targetable" : ""} ${placedIds.length > 1 ? "has-bundle" : ""} ${compactOccupied ? "is-compact-occupied" : ""} ${goldDragging && goldPlacement && placement.abilityId === editingGoldAbilityId ? "is-dragging" : ""}`} disabled={!legal && !placement} draggable={!!goldPlacement && controlMode === "drag"} title={goldPlacement ? controlMode === "tap" ? "Select this committed Gold placement" : "Tap to return this committed Gold placement, or drag it to a highlighted target" : targetableCowsDie ? "Choose this die" : placement ? "Used this Blue phase" : legal ? "Drag selected dice anywhere on this card" : `${slot.color === "blue" ? "Blue" : "Gold"} space`} onDragStart={goldPlacement ? event => { if (controlMode !== "drag") return; event.dataTransfer.setData("application/x-hercules-gold-placement", placement.abilityId); event.dataTransfer.effectAllowed = "move"; setSelectedIds([]); setTargetId(null); setEditingAttackIndex(null); setEditingGoldAbilityId(placement.abilityId); } : undefined} onClick={event => { event.stopPropagation(); if (targetableCowsDie) { chooseCowsTarget(placedIds[0]); return; } if (slot.provisionalCowsSource) { setPendingCows(null); return; } if (goldPlacement && !suppressGoldClick.current) { if (controlMode === "tap") { setSelectedIds([]); setTargetId(null); setEditingAttackIndex(null); setEditingGoldAbilityId(placement.abilityId); } else submit({ type: "REMOVE_GOLD_PLACEMENT", abilityId: placement.abilityId }); return; } if (controlMode === "tap") { if (cowsAbility(slot.id) && selectedSourceId && canArmCows(slot.id, selectedSourceId)) armCows(slot.id, selectedSourceId); else chooseLegalTarget(slot.target); } }} onPointerDown={goldPlacement ? event => beginGoldTouchDrag(event, placement.abilityId) : undefined} onPointerMove={goldPlacement ? moveGoldTouchDrag : undefined} onPointerUp={goldPlacement ? endGoldTouchDrag : undefined} onPointerCancel={goldPlacement ? cancelGoldTouchDrag : undefined}>
+          return <button key={slot.id} style={placedIds.length > 1 ? { "--placed-die-count": placedIds.length } as CSSProperties : undefined} className={`action-slot ${slot.color} ${placement ? "is-occupied" : ""} ${targetableCowsDie ? "is-targetable" : ""} ${placedIds.some(id=>pendingCows?.rerollDieIds?.includes(id)) ? "is-selected" : ""} ${placedIds.length > 1 ? "has-bundle" : ""} ${compactOccupied ? "is-compact-occupied" : ""} ${goldDragging && goldPlacement && placement.abilityId === editingGoldAbilityId ? "is-dragging" : ""}`} disabled={!legal && !placement} draggable={!!goldPlacement && controlMode === "drag"} title={goldPlacement ? controlMode === "tap" ? "Select this committed Gold placement" : "Tap to return this committed Gold placement, or drag it to a highlighted target" : targetableCowsDie ? "Choose this die" : placement ? "Used this Blue phase" : legal ? "Drag selected dice anywhere on this card" : `${slot.color === "blue" ? "Blue" : "Gold"} space`} onDragStart={goldPlacement ? event => { if (controlMode !== "drag") return; event.dataTransfer.setData("application/x-hercules-gold-placement", placement.abilityId); event.dataTransfer.effectAllowed = "move"; setSelectedIds([]); setTargetId(null); setEditingAttackIndex(null); setEditingGoldAbilityId(placement.abilityId); } : undefined} onClick={event => { event.stopPropagation(); if (targetableCowsDie) { chooseCowsTarget(placedIds[0]); return; } if (slot.provisionalCowsSource) { setPendingCows(null); return; } if (goldPlacement && !suppressGoldClick.current) { if (controlMode === "tap") { setSelectedIds([]); setTargetId(null); setEditingAttackIndex(null); setEditingGoldAbilityId(placement.abilityId); } else submit({ type: "REMOVE_GOLD_PLACEMENT", abilityId: placement.abilityId }); return; } if (controlMode === "tap") { if (cowsAbility(slot.id) && selectedSourceId && canArmCows(slot.id, selectedSourceId)) armCows(slot.id, selectedSourceId); else chooseLegalTarget(slot.target); } }} onPointerDown={goldPlacement ? event => beginGoldTouchDrag(event, placement.abilityId) : undefined} onPointerMove={goldPlacement ? moveGoldTouchDrag : undefined} onPointerUp={goldPlacement ? endGoldTouchDrag : undefined} onPointerCancel={goldPlacement ? cancelGoldTouchDrag : undefined}>
             <span className="action-slot-icon" aria-hidden="true">{slot.color === "blue" ? "◆" : "✦"}</span>
-            {placedIds.length > 0 && <span className="placed-dice" aria-label={`${card.name} placement`}>{placedIds.map(id => <span key={id} className={id.includes("-D") ? "derived-die" : ""}>{view.dice[id]?.face ?? view.derivedContributions.find(candidate => candidate.id === id)?.face ?? "—"}</span>)}</span>}
+            {placedIds.length > 0 && <span className="placed-dice" aria-label={`${card.name} placement`}>{placedIds.map(id => <span key={id} data-piece={id} style={{visibility:rollAnimation?.dice.some(d=>d.id===id)?"hidden":undefined}} className={id.includes("-D") ? "derived-die" : ""}>{view.dice[id]?.face ?? view.derivedContributions.find(candidate => candidate.id === id)?.face ?? "—"}</span>)}</span>}
           </button>;
         })}</div>
       </article>; })}
     </section>
-    {rollPreviewRun > 0 && <RollPreview run={rollPreviewRun} onComplete={() => setRollPreviewRun(0)} />}
-    <section className="bottom-rail"><button className="undo-button" disabled={!model.undoAvailable} onClick={() => submit({ type: "UNDO_DETERMINISTIC" })}>↶<span>Undo</span></button><div className="dice-tray" aria-label="Hercules dice">{orderedTrayDice.map(die => { const derived = "sourceDieId" in die; const targetable = cowsTargetIds.has(die.id); return <Die key={die.id} id={die.id} face={die.face} selected={selectedIds.includes(die.id)} targetable={targetable} draggable={controlMode === "drag"} dragging={touchDragging && selectedIds.includes(die.id)} disabled={!phaseAllowsSelection || (!derived && (die.face === null || die.broken || die.spent))} state={derived ? `copy of ${die.sourceDieId}` : die.spent ? "spent" : die.blueUsed ? "blue used" : die.rollable ? "ready" : "unavailable"} onSelect={() => targetable ? chooseCowsTarget(die.id) : toggle(die.id)} onDragStart={event => beginDrag(event, die.id)} onDragOver={event => event.preventDefault()} onDrop={event => trayDrop(event, die.id)} onPointerDown={event => beginTouchDrag(event, die.id)} onPointerMove={moveTouchDrag} onPointerUp={endTouchDrag} onPointerCancel={cancelTouchDrag} />; })}</div><button className="phase-cta" disabled={!model.phaseCta && !(controlMode === "tap" && (editingAttackIndex !== null || editingGoldAbilityId !== null))} onClick={ctaAction}>{controlMode === "tap" && (editingAttackIndex !== null || editingGoldAbilityId !== null) ? "Return to tray" : model.phaseCta === "UNSELECT" ? "Unselect" : model.phaseCta === "FINISH_BLUE" ? "Finish Blue" : model.phaseCta === "RESOLVE_ASSIGNMENTS" ? "Resolve" : "Roll"}</button></section>
+
+    <section className="bottom-rail"><button className="undo-button" disabled={!model.undoAvailable} onClick={() => submit({ type: "UNDO_DETERMINISTIC" })}>↶<span>Undo</span></button><div className="dice-tray" aria-label="Hercules dice">{orderedTrayDice.map(die => { const derived = "sourceDieId" in die; const targetable = cowsTargetIds.has(die.id); return <Die key={die.id} rolling={rollAnimation?.dice.some(d=>d.id===die.id)} id={die.id} face={die.face} selected={pendingCows?.rerollDieIds?.includes(die.id)||selectedIds.includes(die.id)} targetable={targetable} draggable={controlMode === "drag"} dragging={touchDragging && selectedIds.includes(die.id)} disabled={!phaseAllowsSelection || (!derived && (die.face === null || die.broken || die.spent))} state={derived ? `copy of ${die.sourceDieId}` : (die.placement as {kind?:string}|null)?.kind === "mood_set_aside" ? "set aside by Mood" : die.spent ? "spent" : die.blueUsed ? "blue used" : die.rollable ? "ready" : "unavailable"} onSelect={() => targetable ? chooseCowsTarget(die.id) : toggle(die.id)} onDragStart={event => beginDrag(event, die.id)} onDragOver={event => event.preventDefault()} onDrop={event => trayDrop(event, die.id)} onPointerDown={event => beginTouchDrag(event, die.id)} onPointerMove={moveTouchDrag} onPointerUp={endTouchDrag} onPointerCancel={cancelTouchDrag} />; })}</div><button className="phase-cta" disabled={pendingCows?.abilityId === "ability.reward.L05.B.blue" ? !pendingCows.rerollDieIds?.length : !model.phaseCta && !(controlMode === "tap" && (editingAttackIndex !== null || editingGoldAbilityId !== null))} onClick={()=>pendingCows?.abilityId === "ability.reward.L05.B.blue" ? submit({type:"USE_COWS_B",sourceDieId:pendingCows.sourceDieId,rerollDieIds:pendingCows.rerollDieIds??[]}) : ctaAction()}>{pendingCows?.abilityId === "ability.reward.L05.B.blue" ? `Reroll ${pendingCows.rerollDieIds?.length??0}` : controlMode === "tap" && (editingAttackIndex !== null || editingGoldAbilityId !== null) ? "Return to tray" : model.phaseCta === "UNSELECT" ? "Unselect" : model.phaseCta === "FINISH_BLUE" ? "Finish Blue" : model.phaseCta === "RESOLVE_ASSIGNMENTS" ? "Resolve" : "Roll"}</button></section>
+    {pendingCows?.abilityId === "ability.reward.L05.B.blue" && <div className="cows-selection-note">Select dice to reroll. <button onClick={()=>setPendingCows(null)}>Cancel</button></div>}
     {pendingCows?.targetDieId && <section className="choice-sheet cows-sheet" role="dialog" aria-label="100 Immortal Cows"><button className="choice-close" onClick={() => setPendingCows(null)}>×</button><h2>Set a die</h2><p>Choose its new face.</p><div className="face-picker">{pendingCowsFaceCommands.map(command => <button key={command.face} onClick={() => submit(command)} aria-label={`Set to ${command.face}`}><b>{command.face}</b></button>)}</div></section>}
     {selectedTarget && <section className="choice-sheet" role="dialog" aria-label={selectedTarget.label}><button className="choice-close" onClick={() => setTargetId(null)}>×</button><h2>{selectedTarget.label}</h2>{selectedTarget.commands.length > 0 && selectedTarget.commands.every(command => faceForCommand(command) !== null) ? <><p>Choose the resulting face.</p><div className="face-picker">{selectedTarget.commands.map((command, index) => <button key={index} onClick={() => submit(command)} aria-label={`Set to ${faceForCommand(command)}`}><b>{faceForCommand(command)}</b></button>)}</div></> : <><p>Choose the certified action for this selection.</p>{selectedTarget.commands.map((command, index) => <button key={index} onClick={() => submit(command)}>{command.type === "USE_COWS_B" ? `Reroll ${command.rerollDieIds.map(dieLabel).join(", ")}` : "Confirm placement"}</button>)}</>}</section>}
+    {cardDetail && <div className="card-detail" role="dialog" aria-modal="true" aria-label={cardDetail.name} onClick={()=>setCardDetail(null)}><section onClick={e=>e.stopPropagation()}><h2>{cardDetail.name}</h2><p>{cardDetail.summary}</p><button onClick={()=>setCardDetail(null)}>Close details</button></section></div>}
     {moodDetailsOpen && view.mood.name && <div className="mood-detail-backdrop" role="presentation" onClick={() => setMoodDetailsOpen(false)}><section className="presentation-card mood current-mood-card" role="dialog" aria-modal="true" aria-label="Current Mood" onClick={event => event.stopPropagation()}><button className="current-mood-close" aria-label="Close Current Mood" onClick={() => setMoodDetailsOpen(false)}>×</button><p>CURRENT MOOD</p><h1>{view.mood.name}</h1><strong>{view.mood.effect}</strong></section></div>}
     {activePresentation && !view.game.result && <section className={`presentation-card ${activePresentation.kind}`} role="dialog" aria-live="assertive" aria-label={activePresentation.title}><p>{activePresentation.eyebrow}</p><h1>{activePresentation.title}</h1><strong>{activePresentation.detail}</strong>{moodDecision ? <div className="presentation-actions">{decisionActions.map(action => <button key={action.id} className={action.command.type === "CHOOSE_OPTION" && action.command.optionId === "redraw" ? "presentation-redraw" : ""} onClick={() => submitMoodDecision(action.command)}>{action.command.type === "CHOOSE_OPTION" && action.command.optionId === "redraw" ? "Redraw Mood with Zeus' Disregard" : action.command.type === "CHOOSE_OPTION" && action.command.optionId === "keep" ? "Continue with this Mood" : action.label}</button>)}</div> : <button onClick={dismissPresentation}>Continue</button>}</section>}
     {view.pendingDecision && !moodDecision && <section className="choice-sheet decision-sheet" role="dialog" aria-label={decisionTitle}><h2>{resolveAnywayDecision ? "Unused meaningful placement" : decisionTitle}</h2><p>{resolveAnywayDecision ? "The engine found another placement that could still change this round. You may return to assignments or resolve anyway." : view.pendingDecision.prompt}</p>{decisionActions.map(action => <button key={action.id} className={rewardChoice && selectedDecisionId === action.id ? "is-selected-decision" : ""} onClick={() => rewardChoice ? setSelectedDecisionId(action.id) : submit(action.command)}>{resolveAnywayDecision && action.command.type === "CHOOSE_OPTION" && action.command.optionId === "return" ? "Return to assignments" : resolveAnywayDecision && action.command.type === "CHOOSE_OPTION" && action.command.optionId === "resolve_anyway" ? "Resolve anyway" : action.label}</button>)}{rewardChoice && <button disabled={!selectedDecision} onClick={() => selectedDecision && submit(selectedDecision.command)}>Confirm Reward</button>}</section>}
@@ -383,7 +238,7 @@ function App() {
     {debug && <section className="debug-panel"><h2>Canonical diagnostics</h2><pre>{JSON.stringify(HerculesEngine.exportDiagnostics(state), null, 2)}</pre></section>}
     {dragPreview && <div className="drag-preview" style={{ left: dragPreview.x, top: dragPreview.y }} aria-hidden="true">{previewPieces.map(piece => <span key={piece.id}><b>{piece.face ?? "—"}</b></span>)}</div>}
     {snapbackPreview && <div className={`drag-preview snapback-preview ${snapbackPreview.returning ? "is-returning" : ""}`} style={{ left: snapbackPreview.returning ? snapbackPreview.originX : snapbackPreview.x, top: snapbackPreview.returning ? snapbackPreview.originY : snapbackPreview.y, "--snapback-scale": snapbackPreview.returning ? 1 : snapbackPreview.startScale } as CSSProperties} aria-hidden="true">{previewPieces.map(piece => <span key={piece.id}><b>{piece.face ?? "—"}</b></span>)}</div>}
-  </main>;
+  </main>{rollAnimation && <RollAnimation roll={rollAnimation} onComplete={finishRoll}/>}</>;
 }
 
 export { App };

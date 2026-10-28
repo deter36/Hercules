@@ -1,0 +1,25 @@
+/* Approved 390x844 composition: fixed chrome, full-width Labor, authored action rows. */
+.gameplay-shell { width:100%; max-width:900px; height:100dvh; min-height:0; padding:env(safe-area-inset-top,0px) max(6px,env(safe-area-inset-right,0px)) env(safe-area-inset-bottom,0px) max(6px,env(safe-area-inset-left,0px)); grid-template-rows:64px auto minmax(0,1fr) 116px; gap:6px; }
+.brand {display:none}
+.status-strip {min-height:64px; height:64px; padding:4px; gap:4px; border-radius:0; grid-template-columns:auto minmax(0,1fr) 92px; box-shadow:none}
+.resources {grid-column:1;gap:3px;font-size:14px}.resources span{min-width:37px;padding:2px}
+.labor-status{grid-column:2;text-align:center}.labor-status b{font-size:12px;line-height:1.15}.labor-status small{font-size:10px}
+.status-actions{grid-column:3;gap:4px;width:92px}.mood-status{width:44px;padding:2px;font-size:11px}.menu-button{margin-left:auto;width:44px}
+.forecast-strip{min-height:34px;padding:4px 6px;gap:4px 9px;border-radius:0;overflow:visible;white-space:normal;font-size:11px;flex-wrap:wrap;line-height:1.2}.cannot-block{padding-left:5px}
+.action-grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));grid-template-rows:var(--layout-rows);grid-auto-rows:0;gap:6px;min-height:0;height:100%;padding:0;overflow:visible;align-content:stretch}
+.action-grid .labor-tile{grid-column:1/-1;grid-row:1;min-height:0;min-width:0;padding:5px;border-radius:9px;display:block;box-shadow:none}
+.labor-tile-heading{display:none}.labor-panes{height:100%;padding:0;gap:5px}.labor-pane{min-height:0;min-width:0;padding:5px;gap:4px;align-content:start;overflow-wrap:anywhere;border-radius:6px}.labor-pane>span{font-size:10px}.labor-pane>b{font-size:15px}.labor-pane>small,.labor-pane>em{font-size:11px;line-height:1.2;font-style:normal}
+.action-grid .action-card{min-width:0;min-height:0;height:100%;padding:4px;display:flex;flex-direction:column;gap:3px;border-radius:8px;box-shadow:none;overflow:visible;background:#202925}
+.card-name{font-size:11px;line-height:1.15;text-align:center;border:0;background:transparent;color:inherit;padding:2px;min-height:28px;width:100%;overflow-wrap:anywhere}
+.action-slots{margin-top:auto;min-height:34px;padding-top:0;gap:4px;justify-content:center;align-items:flex-end;flex-wrap:wrap}.action-slot{border-radius:5px;flex-shrink:0}.action-slot.is-compact-occupied{width:17px;height:17px;flex-basis:17px}
+.action-slot.has-bundle{width:calc(4px + var(--placed-die-count)*17px);flex-basis:calc(4px + var(--placed-die-count)*17px)}.action-slot.has-bundle .placed-dice>span{width:17px;min-width:17px;height:17px;min-height:17px;flex-basis:17px}
+.attack-bundles{display:flex;flex-wrap:wrap;gap:3px}.attack-bundle{max-width:100%;padding:2px;display:flex;flex-wrap:wrap;gap:2px}.attack-bundle-die{width:17px;height:17px;min-width:17px;font-size:11px}
+.bottom-rail{position:relative;grid-row:4;left:auto;right:auto;bottom:auto;min-height:0;height:116px;grid-template-columns:44px minmax(0,1fr) 52px;grid-template-rows:1fr;gap:4px;padding:5px 0;border-radius:0;z-index:12}
+.dice-tray{grid-template-columns:repeat(6,34px);grid-template-rows:repeat(2,34px);gap:4px;height:72px;min-height:72px;align-self:center;justify-content:center;overflow:visible}.die-tile{width:34px;height:34px;min-height:34px;padding:1px}.die-tile strong{font-size:19px}.undo-button,.phase-cta{min-width:44px;min-height:44px;height:52px;align-self:center;padding:3px;font-size:10px}.undo-button span{font-size:10px}
+.game-message{position:absolute;bottom:91px;left:52px;right:58px;z-index:13;pointer-events:none;font-size:10px;line-height:1.1;min-height:0}
+.game-menu{top:66px;max-height:calc(100dvh - 76px);overflow:auto}.debug-panel{position:fixed;inset:80px 10px 130px;z-index:30;overflow:auto;background:#101925}
+.card-detail{position:fixed;inset:0;z-index:45;background:#000a;display:grid;place-items:center}.card-detail section{max-width:340px;padding:20px;background:#202c35;border:1px solid #c7aa65;border-radius:12px}.card-detail button{min-height:44px}
+.action-grid .labor-tile.has-shared-requirement{display:grid;grid-template-rows:auto minmax(0,1fr);gap:5px}.shared-requirement{text-align:center;font-size:11px;padding:5px;border:1px solid #79633c;border-radius:5px;color:#f0d57f}.action-grid .action-card[data-temporary]{background:#193b50;border-color:#57899c}
+@media(max-width:360px){.dice-tray{grid-template-columns:repeat(5,34px);grid-template-rows:repeat(3,34px);height:110px;gap:3px}.bottom-rail{height:116px;padding:0}.game-message{bottom:114px}.resources span{min-width:31px}.status-strip{gap:2px}.labor-status b{font-size:11px}}
+
+.action-slot.is-selected{outline:2px solid #ffe08a;outline-offset:2px}
