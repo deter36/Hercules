@@ -1,0 +1,102 @@
+/* Labor art: leave original artwork unfiltered. Only the game text has a backing. */
+.labor-tile[data-labor-art]:not(:is([data-labor-art="l08"],[data-labor-art="l09"],[data-labor-art="l11"],[data-labor-art="l12"])) {
+ background: #29251e var(--labor-art) var(--art-position,center) / cover no-repeat;
+}
+.labor-tile[data-labor-art]:not(:is([data-labor-art="l08"],[data-labor-art="l09"],[data-labor-art="l11"],[data-labor-art="l12"])) .labor-pane {background:transparent}
+.labor-tile:is([data-labor-art="l08"],[data-labor-art="l09"],[data-labor-art="l11"],[data-labor-art="l12"]) .labor-pane {
+ background: #29251e var(--tile-art) var(--art-position,center) / cover no-repeat;
+}
+.labor-tile[data-labor-art="l11"] [data-labor-target="A"] {
+ --tile-art:url("./apples-dragon-revised-fill.webp");
+}
+.labor-tile[data-labor-art="l11"] [data-labor-target="B"] {
+ --tile-art:url("./apples-women-revised-fill.webp");
+}
+.labor-tile[data-labor-art] .labor-pane {
+ border-color:color-mix(in srgb,var(--target-accent) 76%,#4a4028);
+}
+.labor-tile[data-labor-art] .labor-pane.is-legal {
+ border-color:#f5d767;
+}
+.labor-tile[data-labor-art] .labor-target-health {
+ display:inline-flex;align-items:baseline; padding:2px 4px;
+ background:#171711eb; border-radius:4px;
+}
+.labor-tile[data-labor-art] .labor-target-requirement {
+ justify-self:center; padding:2px 3px; max-width:100%; width:100%;
+ border:0;border-radius:4px;background:#171711eb;
+}
+.labor-tile[data-labor-art="l11"] .labor-target-requirement { max-width:92px; }
+.labor-tile[data-labor-art] .labor-target-upcoming {
+ justify-self:center; padding:1px 4px; border-radius:4px;background:#171711eb;
+}
+.labor-tile[data-labor-art] .attack-bundle {
+ background:#162330e6;box-shadow:0 1px 3px #0009;
+}
+.labor-tile[data-labor-art] .labor-pane.is-defeated {
+ background:#151511ab;
+}
+
+[data-labor-art="l01"]{--labor-art:url("./l01-fill.webp");--art-position:55% 42%;}
+[data-labor-art="l02"]{--labor-art:url("./l02-fill.webp");}
+[data-labor-art="l03"]{--labor-art:url("./l03-portrait-fill.webp");--art-position:50% 100%;}
+[data-labor-art="l04"]{--labor-art:url("./l04-fill.webp");--art-position:62% 52%;}
+[data-labor-art="l05"]{--labor-art:url("./l05-revised-fill.webp");--art-position:50% 50%;}
+[data-labor-art="l06"]{--labor-art:url("./l06-fill.webp");}
+[data-labor-art="l07"]{--labor-art:url("./l07-revised-fill.webp");}
+[data-labor-art="l10"]{--labor-art:url("./cattle-fill.webp");}
+.labor-tile[data-labor-art] .labor-pane-stats > b,
+.labor-tile[data-labor-art] .labor-pane-stats > small,
+.labor-tile[data-labor-art] .labor-pane > em {
+  justify-self:start; padding:2px 5px;
+  background:#171711eb; border-radius:4px; border:none;
+}
+.labor-tile[data-labor-art] .labor-pane:not([data-labor-target]) .labor-pane-stats {
+  display:flex; flex-wrap:wrap;
+}
+
+/* The repeated/split artworks belong to actual target letters, not tile widths. */
+.labor-tile[data-labor-art="l08"] [data-labor-target="A"] {--tile-art:url("./l08-a-fill.webp")}
+.labor-tile[data-labor-art="l08"] [data-labor-target="B"] {--tile-art:url("./l08-b-fill.webp")}
+.labor-tile[data-labor-art="l09"] .labor-pane {--tile-art:url("./l09-revised-fill.webp")}
+.labor-tile[data-labor-art="l12"] [data-labor-target="A"] {--tile-art:url("./l12-a-balanced-fill.webp")}
+.labor-tile[data-labor-art="l12"] [data-labor-target="B"] {--tile-art:url("./l12-b-fill.webp")}
+.labor-tile[data-labor-art="l12"] [data-labor-target="C"] {--tile-art:url("./l12-c-fill.webp")}
+
+/* Keep subjects in frame even when a practice game has few reward tiles. */
+[data-labor-art="l07"] { --art-position:100% 30%; }
+.labor-tile[data-labor-art="l08"] [data-labor-target="A"] { --art-position:100% 36%; }
+.labor-tile[data-labor-art="l11"] [data-labor-target="A"] { --art-position:64% center; }
+.labor-tile[data-labor-art="l11"] [data-labor-target="B"] { --art-position:90% center; }
+.labor-tile[data-labor-art="l12"] [data-labor-target="A"] { --art-position:14% center; }
+
+/* Frame both Apples crops at their full width; do not cover and lose the outer art.
+   Extra tile height uses a solid color taken from each illustration, not a fade. */
+.labor-tile[data-labor-art="l11"] .labor-pane:not(.is-defeated) {
+  background-size:100% auto;
+  background-position:center 60%;
+}
+.labor-tile[data-labor-art="l11"] [data-labor-target="A"]:not(.is-defeated) { background-color:#442822; }
+.labor-tile[data-labor-art="l11"] [data-labor-target="B"]:not(.is-defeated) { background-color:#3b3325; }
+/* The left Cerberus portrait faces out of frame; bias toward the back of its head. */
+.labor-tile[data-labor-art="l12"] [data-labor-target="A"] { --art-position:52% 0%; }
+.labor-tile[data-labor-art="l12"] [data-labor-target="A"] .labor-target-requirement {
+  justify-self:start; width:42px;
+}
+
+/* One target needs no letter. Group the same symbols into a short strip so
+   artwork and assigned dice can use the rest of the tile. */
+.labor-pane .labor-single-summary {
+ display:flex;align-items:center;flex-wrap:wrap;gap:4px;
+ justify-self:start;max-width:100%;
+}
+.labor-pane .labor-single-summary .labor-target-heading {flex:none}
+.labor-pane .labor-single-summary .labor-target-requirement {
+ width:auto;max-width:100%;min-height:24px;padding:2px 5px;
+}
+.labor-pane .labor-single-summary .labor-target-upcoming {
+ min-height:24px;padding:2px 5px;gap:3px;
+}
+.labor-pane .labor-single-summary .labor-target-health {
+ min-height:24px;align-items:center;
+}
